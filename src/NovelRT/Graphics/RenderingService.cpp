@@ -3,7 +3,7 @@
 #include <NovelRT.h>
 
 namespace NovelRT::Graphics {
-  RenderingService::RenderingService(std::shared_ptr<Windowing::WindowingService> windowingService) noexcept :
+  RenderingService::RenderingService(std::shared_ptr<Windowing::WindowingService> windowingService, std::filesystem::path resourcesPath) noexcept :
     _logger(LoggingService(Utilities::Misc::CONSOLE_LOG_GFX)),
     _windowingService(windowingService),
     _cameraObjectRenderUbo(std::function<GLuint()>([] {
@@ -15,6 +15,7 @@ namespace NovelRT::Graphics {
       glBindBufferRange(GL_UNIFORM_BUFFER, 0, tempHandle, 0, sizeof(Maths::GeoMatrix4x4<float>));
       return tempHandle;
     })),
+    _shadersDirectory(resourcesPath / "Shaders"),
     _camera(nullptr),
     _framebufferColour(RGBAConfig(0,0,102,255)) {
     _windowingService->WindowResized += ([this](auto input) {
@@ -76,8 +77,8 @@ namespace NovelRT::Graphics {
     GLuint vertexShaderId = glCreateShader(GL_VERTEX_SHADER);
     GLuint fragmentShaderId = glCreateShader(GL_FRAGMENT_SHADER);
 
-    std::filesystem::path executableDirPath = Utilities::Misc::getExecutableDirPath();
-    std::filesystem::path shadersDirPath = executableDirPath / "Resources" / "Shaders";
+    std::filesystem::path& shadersDirPath = _shadersDirectory;
+    _logger.logInfo("Shaders dir path: {}", shadersDirPath.string());
 
     // Read the Vertex Shader code from the file
     std::string vertexShaderCode;

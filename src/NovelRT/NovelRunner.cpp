@@ -3,7 +3,8 @@
 #include <NovelRT.h>
 
 namespace NovelRT {
-  NovelRunner::NovelRunner(int displayNumber, const std::string& windowTitle, uint32_t targetFrameRate, bool transparency) :
+  NovelRunner::NovelRunner(int displayNumber, const std::string& windowTitle, uint32_t targetFrameRate, bool transparency, 
+  const std::filesystem::path& resourcesPath) :
     SceneConstructionRequested(Utilities::Event<>()),
     Update(Utilities::Event<Timing::Timestamp>()),
     _exitCode(1),
@@ -12,7 +13,7 @@ namespace NovelRT {
     _novelInteractionService(std::make_shared<Input::InteractionService>(getWindowingService())),
     _novelAudioService(std::make_shared<Audio::AudioService>()),
     _novelDotNetRuntimeService(std::make_shared<DotNet::RuntimeService>()),
-    _novelRenderer(std::make_shared<Graphics::RenderingService>(getWindowingService())),
+    _novelRenderer(std::make_shared<Graphics::RenderingService>(getWindowingService(), resourcesPath)),
     _novelDebugService(std::make_shared<DebugService>(SceneConstructionRequested, getRenderer())) {
     if (!glfwInit()) {
       const char* err = "";

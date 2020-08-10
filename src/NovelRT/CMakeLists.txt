@@ -11,12 +11,20 @@ find_package(OpenAL 1.19.1 REQUIRED)
 find_package(PNG 1.6.34 REQUIRED)
 find_package(Sndfile 1.0.28 REQUIRED)
 find_package(spdlog 1.4.2 REQUIRED)
+find_package(JNI REQUIRED)
 
 add_library(OpenAL::OpenAL UNKNOWN IMPORTED)
 set_target_properties(OpenAL::OpenAL
   PROPERTIES
     INTERFACE_INCLUDE_DIRECTORIES "${OPENAL_INCLUDE_DIR}"
     IMPORTED_LOCATION "${OPENAL_LIBRARY}"
+)
+
+add_library(JNI::JVM UNKNOWN IMPORTED)
+set_target_properties(JNI::JVM
+  PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES "${JAVA_INCLUDE_PATH};${JAVA_INCLUDE_PATH2}"
+    IMPORTED_LOCATION "${JAVA_JVM_LIBRARY}"
 )
 
 set(ENGINE_SOURCES
@@ -42,7 +50,10 @@ set(ENGINE_SOURCES
   Input/InteractionObject.cpp
   Input/InteractionService.cpp
 
-  LoggingService.cpp
+  Java/NovelRunnerBindings.cpp
+        Java/JNInit.cpp
+
+        LoggingService.cpp
 
   Maths/GeoBounds.cpp
   Maths/QuadTree.cpp
@@ -57,17 +68,17 @@ set(ENGINE_SOURCES
 
   Windowing/WindowingService.cpp
 
-  WorldObject.cpp
-)
+  WorldObject.cpp Java/WorldObjectBindings.cpp Java/TransformSerialization.cpp Java/StringConversions.cpp Java/Events.cpp ../../include/NovelRT/Java/Bindings.h Java/Classes.cpp Java/Fields.cpp Java/Constructors.cpp Java/Methods.cpp)
 
 add_library(Engine SHARED ${ENGINE_SOURCES})
-add_dependencies(Engine Dotnet)
+add_dependencies(Engine Dotnet Java)
 target_compile_features(Engine PUBLIC cxx_std_17)
 target_include_directories(Engine
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
 )
+
 
 if(MSVC)
   target_compile_options(Engine
@@ -114,4 +125,5 @@ target_link_libraries(Engine
     PNG::PNG
     Sndfile::sndfile
     spdlog::spdlog
+    JNI::JVM
 )

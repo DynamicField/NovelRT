@@ -42,7 +42,8 @@ namespace NovelRT {
      * @param windowTitle The title of the window created for NovelRunner.
      * @param targetFrameRate The framerate that should be targeted and capped.
      */
-    explicit NovelRunner(int displayNumber, const std::string& windowTitle = "NovelRTTest", uint32_t targetFrameRate = 0, bool transparency = false);
+    explicit NovelRunner(int displayNumber, const std::string& windowTitle = "NovelRTTest", uint32_t targetFrameRate = 0, bool transparency = false,
+    const std::filesystem::path& resourcesPath = Utilities::Misc::getExecutableDirPath() / "Resources");
     /**
      * Launches the NovelRT game loop. This method will block until the game terminates.
      * @returns Exit code.

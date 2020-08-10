@@ -31,13 +31,15 @@ namespace NovelRT::Graphics {
 
     RGBAConfig _framebufferColour;
 
+    std::filesystem::path _shadersDirectory;
+
     void bindCameraUboForProgram(GLuint shaderProgramId);
 
     void handleTexturePreDestruction(Texture* target);
     void handleFontSetPreDestruction(FontSet* target);
 
   public:
-    RenderingService(std::shared_ptr<Windowing::WindowingService> windowingService) noexcept;
+    RenderingService(std::shared_ptr<Windowing::WindowingService> windowingService, std::filesystem::path resourcesPath) noexcept;
     int initialiseRendering();
     void tearDown() const;
 
@@ -55,7 +57,7 @@ namespace NovelRT::Graphics {
     void endFrame() const;
 
     void setBackgroundColour(const RGBAConfig& colour);
-
+    
     std::shared_ptr<Texture> getTexture(const std::string& fileTarget = "");
     std::shared_ptr<FontSet> getFontSet(const std::string& fileTarget, float fontSize);
   };

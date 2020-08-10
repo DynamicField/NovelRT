@@ -55,6 +55,7 @@ namespace NovelRT::Graphics {
     }
     else {
       _b = value;
+
     }
   }
 

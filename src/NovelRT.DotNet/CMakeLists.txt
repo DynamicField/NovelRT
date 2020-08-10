@@ -9,7 +9,6 @@ set(OPTIONS
   /p:OutDir=${CMAKE_CURRENT_BINARY_DIR}/
   /p:PublishDir=${CMAKE_CURRENT_BINARY_DIR}/publish/
 )
-
 execute_process(
   COMMAND ${Dotnet_PROGRAM} msbuild ${CSPROJ} ${OPTIONS}
     /t:Restore
