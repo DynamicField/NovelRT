@@ -2,13 +2,15 @@
 #define NOVELRT_CLASSES_H
 
 #include <jni/jni.hpp>
+#include <iostream>
 #include "Types.h"
 
 namespace NovelRT::Java {
   class ClassesData {
   private:
     template<typename Type>
-    const jni::Class<Type>& createClass(JNIEnv& env) {
+    const jni::Class<Type>& find(JNIEnv& env) {
+      std::cout << "Trying to create class " << Type::Name() << std::endl;
       return jni::Class<Type>::Singleton(env);
     }
   public:
@@ -16,6 +18,9 @@ namespace NovelRT::Java {
     const jni::Class<Types::Transform>& Transform;
     const jni::Class<Types::NovelRunner>& NovelRunner;
     const jni::Class<Types::WorldObject>& WorldObject;
+    const jni::Class<Types::Event>& Event;
+    const jni::Class<Types::SceneConstructionRequestedEvent>& SceneConstructionRequestedEvent;
+    const jni::Class<Types::SceneConstructionRequestedListener>& SceneConstructionRequestedListener;
     ClassesData(jni::JNIEnv& env);
   };
 

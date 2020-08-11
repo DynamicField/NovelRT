@@ -6,7 +6,6 @@
 namespace NovelRT::Java {
   class FieldsData {
   public:
-    jni::Field<Types::HandleObject, jni::jlong> HandleObject_handle;
     FieldsData(jni::JNIEnv& env);
   };
 

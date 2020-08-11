@@ -113,7 +113,7 @@ namespace jni
 
 
     // Special case for JNI-provided input parameters to native methods, which apparently
-    // should not be explicitly deleted (https://bugs.chromium.org/p/chromium/issues/detail?id=506850).
+    // should not be explicitly <deleted (https://bugs.chromium.org/p/chromium/issues/detail?id=506850).
     struct NullDeleter
        {
         NullDeleter() = default;

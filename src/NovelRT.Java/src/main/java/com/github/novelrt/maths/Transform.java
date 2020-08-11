@@ -48,4 +48,13 @@ public final class Transform {
   float[] nativeValues() {
     return new float[] {position.getX(), position.getY(), scale.getY(), scale.getY(), rotation};
   }
+
+  @Override
+  public String toString() {
+    return "Transform{" +
+           "position=" + position +
+           ", scale=" + scale +
+           ", rotation=" + rotation +
+           '}';
+  }
 }

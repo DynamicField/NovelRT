@@ -60,4 +60,12 @@ public final class Vector2 {
   float[] nativeValues() {
     return new float[] {x ,y};
   }
+
+  @Override
+  public String toString() {
+    return "Vector2{" +
+           "x=" + x +
+           ", y=" + y +
+           '}';
+  }
 }

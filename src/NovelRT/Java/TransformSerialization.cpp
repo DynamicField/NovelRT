@@ -4,13 +4,7 @@
 namespace NovelRT::Java {
   Transform TransformSerialization::fromJava(jni::JNIEnv& env, jni::jfloatArray& value) {
     auto array = std::get<0>(jni::GetArrayElements(env, value));
-    auto representation = reinterpret_cast<Transform_Representation*>(array.get());
-
-    const Transform& transform = Transform({representation->posX, representation->posY},
-                                           representation->rotation,
-                                           {representation->scaleX, representation->scaleY});
-
-    return transform;
+    return *reinterpret_cast<Transform*>(array.get());
   }
 
   Transform TransformSerialization::fromJava(jni::JNIEnv& env, jni::jobject& transformObject) {

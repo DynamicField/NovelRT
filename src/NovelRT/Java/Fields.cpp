@@ -4,7 +4,6 @@
 namespace NovelRT::Java {
   const FieldsData* Fields = nullptr;
 
-  FieldsData::FieldsData(JNIEnv& env) :
-          HandleObject_handle(Classes->HandleObject.GetField<jni::jlong>(env, "handle")) {
+  FieldsData::FieldsData(JNIEnv&) {
   }
 }

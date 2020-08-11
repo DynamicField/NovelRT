@@ -5,16 +5,6 @@
 #include "Types.h"
 
 namespace NovelRT::Java::TransformSerialization {
-  namespace {
-    struct Transform_Representation {
-      float posX;
-      float posY;
-      float scaleX;
-      float scaleY;
-      float rotation;
-    };
-  }
-
   Transform fromJava(jni::JNIEnv& env, jni::jfloatArray& value);
   Transform fromJava(jni::JNIEnv& env, jni::jobject& transformObject);
   Transform fromJava(jni::JNIEnv& env, jni::Object<Types::Transform>& transformObject);

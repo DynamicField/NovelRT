@@ -6,7 +6,7 @@
 namespace NovelRT::Java::Types {
   struct HandleObject {
     static constexpr auto Name() {
-      return "com/github/novelrt/bind/HandleObject";
+      return "com/github/novelrt/internal/HandleObject";
     }
   };
 
@@ -14,12 +14,28 @@ namespace NovelRT::Java::Types {
     static constexpr auto Name() { return "com/github/novelrt/maths/Transform"; }
   };
 
-  struct NovelRunner {
+  struct NovelRunner : public HandleObject {
     static constexpr auto Name() { return "com/github/novelrt/NovelRunner"; }
   };
 
-  struct WorldObject {
+  struct WorldObject : public HandleObject {
     static constexpr auto Name() { return "com/github/novelrt/WorldObject"; }
+  };
+
+  struct Event : public HandleObject {
+    static constexpr auto Name() { return "com/github/novelrt/event/Event"; }
+  };
+
+  struct SceneConstructionRequestedEvent : public Event {
+    static constexpr auto Name() { return "com/github/novelrt/event/SceneConstructionRequestedEvent"; }
+  };
+
+  struct SceneConstructionRequestedListener {
+    static constexpr auto Name() { return "com/github/novelrt/event/SceneConstructionRequestedListener"; }
+  };
+
+  struct EventListener {
+    static constexpr auto Name() { return "java/util/EventListener"; }
   };
 }
 

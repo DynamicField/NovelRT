@@ -9,12 +9,12 @@
 #include "Registries.h"
 
 // Binding stuff
-#include "Events.h"
 #include "Bindings.h"
 
 // Utilities
-#include "HandleHelper.h"
+#include "Handles.h"
 #include "TransformSerialization.h"
+#include "JavaEventHandler.h"
 
 #define MAKE_NATIVE_METHOD(name) jni::MakeNativeMethod(#name, std::function(name))
 

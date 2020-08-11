@@ -7,31 +7,31 @@ using Self = jni::Object<Types::WorldObject>;
 using SelfClass = jni::Class<Types::WorldObject>;
 
 jni::Local<jni::Object<Types::Transform>> getTransform(jni::JNIEnv& env, Self& self) {
-  auto worldObject = getHandleAs<WorldObject>(env, *self);
+  auto* worldObject = Handles::get<WorldObject>(env, *self);
   return TransformSerialization::fromNative(env, worldObject->transform());
 }
 
 void setTransform(jni::JNIEnv& env, Self& self, jni::Object<Types::Transform>& transform) {
-  auto worldObject = getHandleAs<WorldObject>(env, *self);
+  auto* worldObject = Handles::get<WorldObject>(env, *self);
   worldObject->transform() = TransformSerialization::fromJava(env, transform);
 }
 
 jni::jint getLayer(jni::JNIEnv& env, Self& self) {
-  auto worldObject = getHandleAs<WorldObject>(env, *self);
+  auto* worldObject = Handles::get<WorldObject>(env, *self);
   return worldObject->layer();
 }
 
 void setLayer(jni::JNIEnv& env, Self& self, jni::jint layer) {
-  auto worldObject = getHandleAs<WorldObject>(env, *self);
+  auto* worldObject = Handles::get<WorldObject>(env, *self);
   worldObject->layer() = layer;
 }
 
 jni::jboolean isActive(jni::JNIEnv& env, Self& self) {
-  return getHandleAs<WorldObject>(env, *self)->getActive();
+  return Handles::get<WorldObject>(env, *self)->getActive();
 }
 
 void setActive(jni::JNIEnv& env, Self& self, jni::jboolean active) {
-  auto worldObject = getHandleAs<WorldObject>(env, *self);
+  auto worldObject = Handles::get<WorldObject>(env, *self);
   worldObject->setActive(active);
 }
 

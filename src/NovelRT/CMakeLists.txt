@@ -68,7 +68,7 @@ set(ENGINE_SOURCES
 
   Windowing/WindowingService.cpp
 
-  WorldObject.cpp Java/WorldObjectBindings.cpp Java/TransformSerialization.cpp Java/StringConversions.cpp Java/Events.cpp ../../include/NovelRT/Java/Bindings.h Java/Classes.cpp Java/Fields.cpp Java/Constructors.cpp Java/Methods.cpp)
+  WorldObject.cpp Java/WorldObjectBindings.cpp Java/TransformSerialization.cpp Java/StringConversions.cpp ../../include/NovelRT/Java/Bindings.h Java/Classes.cpp Java/Fields.cpp Java/Constructors.cpp Java/Methods.cpp Java/Handles.cpp Java/SceneConstructionRequestedEventBindings.cpp)
 
 add_library(Engine SHARED ${ENGINE_SOURCES})
 add_dependencies(Engine Dotnet Java)

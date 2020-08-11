@@ -1,7 +1,6 @@
 package com.github.novelrt;
 
-import com.github.novelrt.bind.HandleObject;
-import com.github.novelrt.bind.NovelCleaner;
+import com.github.novelrt.internal.HandleObject;
 import com.github.novelrt.maths.Transform;
 
 public class WorldObject extends HandleObject {

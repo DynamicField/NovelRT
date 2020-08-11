@@ -1,8 +1,7 @@
 package com.github.novelrt;
 
-import com.github.novelrt.bind.HandleObject;
-import com.github.novelrt.bind.NativeRead;
-import com.github.novelrt.bind.NovelCleaner;
+import com.github.novelrt.event.SceneConstructionRequestedEvent;
+import com.github.novelrt.internal.HandleObject;
 
 import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -13,6 +12,8 @@ public final class NovelRunner extends HandleObject {
   static {
     NovelRTLoader.load();
   }
+
+  private final SceneConstructionRequestedEvent sceneConstructionRequestedEvent;
 
   public NovelRunner() {
     super(
@@ -25,16 +26,25 @@ public final class NovelRunner extends HandleObject {
       ),
       true, NovelRunner::deleteRunner
     );
+    this.sceneConstructionRequestedEvent = createSceneConstructionRequestedEvent();
   }
+
+  public void run() {
+    runNovel();
+  }
+
+  public SceneConstructionRequestedEvent onSceneConstructionRequested() {
+    return sceneConstructionRequestedEvent;
+  }
+
+  public native WorldObject createSomeRect();
+
+  private native int runNovel();
 
   private static native long createRunner(int displayNumber, String windowTitle, int targetFrameRate, boolean transparency,
                                           String resourcesDirectory);
 
   private static native void deleteRunner(long handle);
 
-  public void run() {
-    runNovel();
-  }
-
-  private native int runNovel();
+  private native SceneConstructionRequestedEvent createSceneConstructionRequestedEvent();
 }
