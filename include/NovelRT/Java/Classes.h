@@ -10,14 +10,17 @@ namespace NovelRT::Java {
   private:
     template<typename Type>
     const jni::Class<Type>& find(JNIEnv& env) {
-      std::cout << "Trying to create class " << Type::Name() << std::endl;
+      std::cout << "Retrieving class " << Type::Name() << "..." << std::endl;
       return jni::Class<Type>::Singleton(env);
     }
   public:
     const jni::Class<Types::HandleObject>& HandleObject;
+    const jni::Class<Types::UnownedHandleObject>& UnownedHandleObject;
+    const jni::Class<Types::OwnedHandleObject>& OwnedHandleObject;
     const jni::Class<Types::Transform>& Transform;
     const jni::Class<Types::NovelRunner>& NovelRunner;
     const jni::Class<Types::WorldObject>& WorldObject;
+    const jni::Class<Types::RenderObject>& RenderObject;
     const jni::Class<Types::Event>& Event;
     const jni::Class<Types::SceneConstructionRequestedEvent>& SceneConstructionRequestedEvent;
     const jni::Class<Types::SceneConstructionRequestedListener>& SceneConstructionRequestedListener;

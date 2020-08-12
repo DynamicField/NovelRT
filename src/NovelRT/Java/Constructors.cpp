@@ -6,6 +6,7 @@ namespace NovelRT::Java {
   ConstructorsData::ConstructorsData(JNIEnv& env) :
     Transform_main(Classes->Transform.GetConstructor<jni::jlong>(env)),
     WorldObject_main(Classes->WorldObject.GetConstructor<jni::jlong, jni::jboolean>(env)),
+    RenderObject_main(Classes->RenderObject.GetConstructor<jni::jlong, jni::jboolean>(env)),
     SceneConstructionRequestedEvent_main(
                   Classes->SceneConstructionRequestedEvent.GetConstructor<jni::jlong>(env)
           ),

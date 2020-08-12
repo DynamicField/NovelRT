@@ -1,16 +1,17 @@
 package com.github.novelrt.event;
 
 import com.github.novelrt.internal.HandleDeleter;
-import com.github.novelrt.internal.HandleObject;
+import com.github.novelrt.internal.OwnedHandleObject;
+import com.github.novelrt.internal.UnownedHandleObject;
 import com.github.novelrt.internal.UsedNatively;
 
 import java.util.*;
 
-public abstract class Event<T extends EventListener> extends HandleObject {
+public abstract class Event<T extends EventListener> extends UnownedHandleObject {
   private final Set<T> listeners = new LinkedHashSet<>();
 
   protected Event(long handle) {
-    super(handle, false, HandleDeleter.NONE);
+    super(handle);
   }
 
   // TODO: Use Guava's ImmutableSet<T> because UGH unmodifiableSet...

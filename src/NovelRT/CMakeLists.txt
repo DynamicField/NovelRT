@@ -77,7 +77,7 @@ set(ENGINE_SOURCES
 
   Windowing/WindowingService.cpp
 
-  WorldObject.cpp)
+  WorldObject.cpp Java/RenderObjectBindings.cpp)
 
 add_library(Engine SHARED ${ENGINE_SOURCES})
 add_dependencies(Engine Dotnet Java)

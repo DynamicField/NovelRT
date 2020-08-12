@@ -1,12 +1,13 @@
 package com.github.novelrt;
 
 import com.github.novelrt.event.SceneConstructionRequestedEvent;
-import com.github.novelrt.internal.HandleObject;
+import com.github.novelrt.graphics.RenderObject;
+import com.github.novelrt.internal.OwnedHandleObject;
 
 import java.nio.file.Paths;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public final class NovelRunner extends HandleObject {
+public final class NovelRunner extends OwnedHandleObject {
   private static final AtomicInteger nextDisplayNumber = new AtomicInteger();
 
   static {
@@ -37,7 +38,7 @@ public final class NovelRunner extends HandleObject {
     return sceneConstructionRequestedEvent;
   }
 
-  public native WorldObject createSomeRect();
+  public native RenderObject createSomeRect();
 
   private native int runNovel();
 

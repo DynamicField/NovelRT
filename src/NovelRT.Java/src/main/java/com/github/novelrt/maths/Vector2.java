@@ -1,7 +1,5 @@
 package com.github.novelrt.maths;
 
-import com.github.novelrt.internal.UsedNatively;
-
 import java.util.Objects;
 
 public final class Vector2 {

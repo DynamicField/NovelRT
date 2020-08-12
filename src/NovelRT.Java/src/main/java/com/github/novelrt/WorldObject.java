@@ -1,9 +1,9 @@
 package com.github.novelrt;
 
-import com.github.novelrt.internal.HandleObject;
+import com.github.novelrt.internal.OwnedHandleObject;
 import com.github.novelrt.maths.Transform;
 
-public class WorldObject extends HandleObject {
+public class WorldObject extends OwnedHandleObject {
   protected WorldObject(long handle, boolean isOwned) {
     super(handle, isOwned, WorldObject::deleteWorldObject);
   }

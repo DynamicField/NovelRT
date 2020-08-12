@@ -49,7 +49,7 @@ public final class RGBAColour {
     return Math.max(0, Math.min(component, 255));
   }
 
-  int[] nativeValues() {
-    return new int[]{ r, g, b, a };
+  int asInt() {
+    return (r << 6) + (g << 4) + (b << 2) + a;
   }
 }

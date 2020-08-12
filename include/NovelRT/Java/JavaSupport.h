@@ -11,11 +11,11 @@
 // Binding stuff
 #include "Bindings.h"
 #include "EventBindings.h"
+#include "Aliases.h"
 
 // Utilities
 #include "Handles.h"
 #include "Vector2Serialization.h"
-#include "JavaEventHandler.h"
 
 #define MAKE_NATIVE_METHOD(name) jni::MakeNativeMethod(#name, std::function(name))
 

@@ -23,7 +23,7 @@ jni::Local<jni::Object<Types::Vector2>> getScale(jni::JNIEnv& env, Self& self) {
 
 void setScale(jni::JNIEnv& env, Self& self, jni::Object<Types::Vector2>& scale) {
   auto transform = Handles::get<Transform>(env, *self);
-  transform->position() = Vector2Serialization::fromJava(env, scale);
+  transform->scale() = Vector2Serialization::fromJava(env, scale);
 }
 
 jni::jfloat getRotation(jni::JNIEnv& env, Self& self) {

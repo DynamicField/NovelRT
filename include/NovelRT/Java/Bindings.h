@@ -9,6 +9,8 @@ namespace NovelRT::Java::Bindings {
 
   void registerWorldObjectBindings(jni::JNIEnv& env);
 
+  void registerRenderObjectBindings(jni::JNIEnv& env);
+
   void registerSceneConstructionRequestedEventBindings(jni::JNIEnv& env);
 
   void registerTransformBindings(jni::JNIEnv& env);
@@ -16,8 +18,9 @@ namespace NovelRT::Java::Bindings {
   static std::vector<std::function<void(jni::JNIEnv&)>> AllBindingRegisterers{
     &registerNovelRunnerBindings,
     &registerWorldObjectBindings,
+    &registerRenderObjectBindings,
     &registerSceneConstructionRequestedEventBindings,
-    &registerTransformBindings
+    &registerTransformBindings,
   };
 }
 

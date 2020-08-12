@@ -1,11 +1,12 @@
 package com.github.novelrt.maths;
 
 import com.github.novelrt.internal.HandleDeleter;
-import com.github.novelrt.internal.HandleObject;
+import com.github.novelrt.internal.OwnedHandleObject;
+import com.github.novelrt.internal.UnownedHandleObject;
 
-public final class Transform extends HandleObject {
+public final class Transform extends UnownedHandleObject {
   public Transform(long handle) {
-    super(handle, false, HandleDeleter.NONE);
+    super(handle);
   }
 
   public native Vector2 getPosition();

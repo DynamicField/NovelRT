@@ -8,6 +8,7 @@ namespace NovelRT::Java {
   public:
     jni::Constructor<Types::Transform, jni::jlong> Transform_main;
     jni::Constructor<Types::WorldObject, jni::jlong, jni::jboolean> WorldObject_main;
+    jni::Constructor<Types::RenderObject, jni::jlong, jni::jboolean> RenderObject_main;
     jni::Constructor<Types::SceneConstructionRequestedEvent, jni::jlong> SceneConstructionRequestedEvent_main;
     jni::Constructor<Types::Vector2, jni::jfloat, jni::jfloat> Vector2_main;
 

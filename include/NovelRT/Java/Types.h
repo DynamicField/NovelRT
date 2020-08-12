@@ -15,7 +15,15 @@ namespace NovelRT::Java::Types {
     static constexpr auto Name() { return "com/github/novelrt/internal/HandleObject"; }
   };
 
-  struct Transform {
+  struct OwnedHandleObject {
+    static constexpr auto Name() { return "com/github/novelrt/internal/OwnedHandleObject"; }
+  };
+
+  struct UnownedHandleObject {
+    static constexpr auto Name() { return "com/github/novelrt/internal/UnownedHandleObject"; }
+  };
+
+  struct Transform : public Super<UnownedHandleObject> {
     static constexpr auto Name() { return "com/github/novelrt/maths/Transform"; }
   };
 
@@ -23,15 +31,19 @@ namespace NovelRT::Java::Types {
     static constexpr auto Name() { return "com/github/novelrt/maths/Vector2"; }
   };
 
-  struct NovelRunner : public Super<HandleObject> {
+  struct NovelRunner : public Super<OwnedHandleObject> {
     static constexpr auto Name() { return "com/github/novelrt/NovelRunner"; }
   };
 
-  struct WorldObject : public Super<HandleObject> {
+  struct WorldObject : public Super<OwnedHandleObject> {
     static constexpr auto Name() { return "com/github/novelrt/WorldObject"; }
   };
 
-  struct Event : public Super<HandleObject> {
+  struct RenderObject : public Super<WorldObject> {
+    static constexpr auto Name() { return "com/github/novelrt/graphics/RenderObject"; }
+  };
+
+  struct Event : public Super<UnownedHandleObject> {
     static constexpr auto Name() { return "com/github/novelrt/event/Event"; }
   };
 

@@ -4,24 +4,26 @@ using namespace NovelRT;
 using namespace NovelRT::Java;
 
 jint JNI_OnLoad(JavaVM *vm, void *) {
-  std::cout << "hi?" << std::endl;
+  std::cout << "Woah, I'm alive??" << std::endl;
   jni::JNIEnv& env = jni::GetEnv(*vm, jni::jni_version_1_6);
 
   // Deleting those objects isn't really important there,
   // as the library will be unloaded after the JVM dies. oof
-  std::cout << "got the env i guess" << std::endl;
+  std::cout << "Got the env, that's a good start..." << std::endl;
   Classes = new ClassesData(env);
-  std::cout << "classes ok" << std::endl;
+  std::cout << "Classes ok" << std::endl;
   Fields = new FieldsData(env);
-  std::cout << "fields ok" << std::endl;
+  std::cout << "Fields ok" << std::endl;
   Constructors = new ConstructorsData(env);
-  std::cout << "constructors ok" << std::endl;
+  std::cout << "Constructors ok" << std::endl;
   Methods = new MethodsData(env);
-  std::cout << "methods ok" << std::endl;
+  std::cout << "Methods ok" << std::endl;
 
+  int i = 0;
   for (auto& bindingRegisterer : Bindings::AllBindingRegisterers) {
-    std::cout << "using binding registerer " << typeid(bindingRegisterer).name() << std::endl;
+    std::cout << "Using binding registerer at index " << i << std::endl;
     bindingRegisterer(env);
+    i++;
   }
 
   return jni::Unwrap(jni::jni_version_1_6);
