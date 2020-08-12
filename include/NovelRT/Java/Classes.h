@@ -21,6 +21,7 @@ namespace NovelRT::Java {
     const jni::Class<Types::Event>& Event;
     const jni::Class<Types::SceneConstructionRequestedEvent>& SceneConstructionRequestedEvent;
     const jni::Class<Types::SceneConstructionRequestedListener>& SceneConstructionRequestedListener;
+    const jni::Class<Types::Vector2>& Vector2;
     ClassesData(jni::JNIEnv& env);
   };
 

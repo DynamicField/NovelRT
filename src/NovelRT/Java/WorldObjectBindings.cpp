@@ -8,12 +8,9 @@ using SelfClass = jni::Class<Types::WorldObject>;
 
 jni::Local<jni::Object<Types::Transform>> getTransform(jni::JNIEnv& env, Self& self) {
   auto* worldObject = Handles::get<WorldObject>(env, *self);
-  return TransformSerialization::fromNative(env, worldObject->transform());
-}
-
-void setTransform(jni::JNIEnv& env, Self& self, jni::Object<Types::Transform>& transform) {
-  auto* worldObject = Handles::get<WorldObject>(env, *self);
-  worldObject->transform() = TransformSerialization::fromJava(env, transform);
+  auto& transform = worldObject->transform();
+  return Classes->Transform.New(env, Constructors->Transform_main,
+                                Handles::toJava(&transform));
 }
 
 jni::jint getLayer(jni::JNIEnv& env, Self& self) {
@@ -42,7 +39,6 @@ void deleteWorldObject(jni::JNIEnv&, SelfClass&, jni::jlong handle) {
 void Bindings::registerWorldObjectBindings(jni::JNIEnv& env) {
   jni::RegisterNatives(env, *Classes->WorldObject,
                        jni::MakeNativeMethod<decltype(getTransform), &getTransform>("getTransform"),
-                       jni::MakeNativeMethod<decltype(setTransform), &setTransform>("setTransform"),
                        jni::MakeNativeMethod<decltype(getLayer), &getLayer>("getLayer"),
                        jni::MakeNativeMethod<decltype(setLayer), &setLayer>("setLayer"),
                        jni::MakeNativeMethod<decltype(isActive), &isActive>("isActive"),

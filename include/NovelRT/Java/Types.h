@@ -4,38 +4,47 @@
 #include <jni/jni.hpp>
 
 namespace NovelRT::Java::Types {
+  namespace {
+    template<typename Tag>
+    struct Super {
+      using SuperTag = Tag;
+    };
+  }
+
   struct HandleObject {
-    static constexpr auto Name() {
-      return "com/github/novelrt/internal/HandleObject";
-    }
+    static constexpr auto Name() { return "com/github/novelrt/internal/HandleObject"; }
   };
 
   struct Transform {
     static constexpr auto Name() { return "com/github/novelrt/maths/Transform"; }
   };
 
-  struct NovelRunner : public HandleObject {
+  struct Vector2 {
+    static constexpr auto Name() { return "com/github/novelrt/maths/Vector2"; }
+  };
+
+  struct NovelRunner : public Super<HandleObject> {
     static constexpr auto Name() { return "com/github/novelrt/NovelRunner"; }
   };
 
-  struct WorldObject : public HandleObject {
+  struct WorldObject : public Super<HandleObject> {
     static constexpr auto Name() { return "com/github/novelrt/WorldObject"; }
   };
 
-  struct Event : public HandleObject {
+  struct Event : public Super<HandleObject> {
     static constexpr auto Name() { return "com/github/novelrt/event/Event"; }
-  };
-
-  struct SceneConstructionRequestedEvent : public Event {
-    static constexpr auto Name() { return "com/github/novelrt/event/SceneConstructionRequestedEvent"; }
-  };
-
-  struct SceneConstructionRequestedListener {
-    static constexpr auto Name() { return "com/github/novelrt/event/SceneConstructionRequestedListener"; }
   };
 
   struct EventListener {
     static constexpr auto Name() { return "java/util/EventListener"; }
+  };
+
+  struct SceneConstructionRequestedEvent : public Super<Event> {
+    static constexpr auto Name() { return "com/github/novelrt/event/SceneConstructionRequestedEvent"; }
+  };
+
+  struct SceneConstructionRequestedListener : public Super<EventListener> {
+    static constexpr auto Name() { return "com/github/novelrt/event/SceneConstructionRequestedListener"; }
   };
 }
 

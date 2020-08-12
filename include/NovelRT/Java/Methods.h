@@ -12,8 +12,6 @@ namespace NovelRT::Java {
       return clazz.template GetMethod<Method>(env, name);
     }
   public:
-    jni::Method<Types::Transform, jni::Array<jni::jfloat>()> Transform_nativeValues;
-
     jni::Method<Types::HandleObject, jni::jlong()> HandleObject_getHandle;
     jni::Method<Types::HandleObject, void()> HandleObject_invalidate;
 

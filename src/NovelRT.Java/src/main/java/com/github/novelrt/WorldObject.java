@@ -11,7 +11,6 @@ public class WorldObject extends HandleObject {
   public static native void deleteWorldObject(long handle);
 
   public native Transform getTransform();
-  public native void setTransform(Transform transform);
 
   public native int getLayer();
   public native void setLayer(int layer);

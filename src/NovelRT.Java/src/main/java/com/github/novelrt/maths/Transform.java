@@ -1,60 +1,31 @@
 package com.github.novelrt.maths;
 
-public final class Transform {
-  private Vector2 position;
-  private Vector2 scale;
-  private float rotation;
+import com.github.novelrt.internal.HandleDeleter;
+import com.github.novelrt.internal.HandleObject;
 
-  public Transform(Vector2 position, Vector2 scale, float rotation) {
-    this.position = position;
-    this.scale = scale;
-    this.rotation = rotation;
+public final class Transform extends HandleObject {
+  public Transform(long handle) {
+    super(handle, false, HandleDeleter.NONE);
   }
 
-  public Transform() {
-    this(new Vector2(), new Vector2(), 0f);
-  }
+  public native Vector2 getPosition();
 
-  Transform(float[] nativeValues, int offset) {
-    position = new Vector2(nativeValues, offset);
-    scale = new Vector2(nativeValues, offset + 2);
-    rotation = nativeValues[offset + 4];
-  }
+  public native void setPosition(Vector2 position);
 
-  public Vector2 getPosition() {
-    return position;
-  }
+  public native Vector2 getScale();
 
-  public void setPosition(Vector2 position) {
-    this.position = position;
-  }
+  public native void setScale(Vector2 scale);
 
-  public Vector2 getScale() {
-    return scale;
-  }
+  public native float getRotation();
 
-  public void setScale(Vector2 scale) {
-    this.scale = scale;
-  }
-
-  public float getRotation() {
-    return rotation;
-  }
-
-  public void setRotation(float rotation) {
-    this.rotation = rotation;
-  }
-
-  float[] nativeValues() {
-    return new float[] {position.getX(), position.getY(), scale.getY(), scale.getY(), rotation};
-  }
+  public native void setRotation(float rotation);
 
   @Override
   public String toString() {
     return "Transform{" +
-           "position=" + position +
-           ", scale=" + scale +
-           ", rotation=" + rotation +
+           "position=" + getPosition() +
+           ", scale=" + getScale() +
+           ", rotation=" + getPosition() +
            '}';
   }
 }

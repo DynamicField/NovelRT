@@ -1,10 +1,12 @@
 package com.github.novelrt.maths;
 
+import com.github.novelrt.internal.UsedNatively;
+
 import java.util.Objects;
 
 public final class Vector2 {
-  private float x;
-  private float y;
+  private final float x;
+  private final float y;
 
   public Vector2(float x, float y) {
     this.x = x;
@@ -15,32 +17,48 @@ public final class Vector2 {
     this(0, 0);
   }
 
-  public Vector2(float[] nativeValues, int offset) {
-    this(nativeValues[offset], nativeValues[offset + 1]);
-  }
-
   public float getX() {
     return x;
-  }
-
-  public void setX(float x) {
-    this.x = x;
   }
 
   public float getY() {
     return y;
   }
 
-  public void setY(float y) {
-    this.y = y;
+  public Vector2 add(float x, float y) {
+    return new Vector2(this.x + x, this.y + y);
   }
 
   public Vector2 add(Vector2 other) {
-    return new Vector2(this.x + other.x, this.y + other.y);
+    return add(other.x, other.y);
   }
 
-  public Vector2 add(int x, int y) {
-    return new Vector2(this.x + x, this.y + y);
+  public Vector2 subtract(float x, float y) {
+    return new Vector2(this.x - x, this.y - y);
+  }
+
+  public Vector2 subtract(Vector2 other) {
+    return subtract(other.x, other.y);
+  }
+
+  public Vector2 multiply(float x, float y) {
+    return new Vector2(this.x * x, this.y * y);
+  }
+
+  public Vector2 multiply(Vector2 other) {
+    return multiply(other.x, other.y);
+  }
+
+  public Vector2 divide(float x, float y) {
+    return new Vector2(this.x / x, this.y / y);
+  }
+
+  public Vector2 divide(Vector2 other) {
+    return divide(other.x, other.y);
+  }
+
+  public Vector2 copy() {
+    return new Vector2(x, y);
   }
 
   @Override
@@ -55,10 +73,6 @@ public final class Vector2 {
   @Override
   public int hashCode() {
     return Objects.hash(x, y);
-  }
-
-  float[] nativeValues() {
-    return new float[] {x ,y};
   }
 
   @Override

@@ -14,6 +14,11 @@ namespace NovelRT::Java::Handles {
   }
 
   void invalidate(JNIEnv& env, jni::jobject& object);
+
+  template <typename T>
+  jlong toJava(T* pointer) {
+    return reinterpret_cast<jlong>(pointer);
+  }
 }
 
 #endif //NOVELRT_HANDLES_H

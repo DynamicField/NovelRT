@@ -6,6 +6,9 @@
 namespace NovelRT::Java {
   class FieldsData {
   public:
+    jni::Field<Types::Vector2, jni::jfloat> Vector2_x;
+    jni::Field<Types::Vector2, jni::jfloat> Vector2_y;
+
     FieldsData(jni::JNIEnv& env);
   };
 
