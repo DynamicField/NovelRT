@@ -37,7 +37,7 @@ void setRotation(jni::JNIEnv& env, Self& self, float rotation) {
 }
 
 void Bindings::registerTransformBindings(jni::JNIEnv& env) {
-  jni::RegisterNatives(env, *Classes->Transform,
+  jni::RegisterNatives(env, *Types::Transform::javaClass(),
                        jni::MakeNativeMethod<decltype(getPosition), &getPosition>("getPosition"),
                        jni::MakeNativeMethod<decltype(setPosition), &setPosition>("setPosition"),
                        jni::MakeNativeMethod<decltype(getScale), &getScale>("getScale"),

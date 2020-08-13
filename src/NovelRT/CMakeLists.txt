@@ -53,11 +53,7 @@ set(ENGINE_SOURCES
   Java/JNInit.cpp
   Java/WorldObjectBindings.cpp
   Java/StringConversions.cpp
-  Java/Classes.cpp
-  Java/Fields.cpp
-  Java/Constructors.cpp
-  Java/Methods.cpp
-  Java/Handles.cpp
+        Java/Handles.cpp
   Java/SceneConstructionRequestedEventBindings.cpp
   Java/Vector2Serialization.cpp
   Java/TransformBindings.cpp
@@ -77,7 +73,7 @@ set(ENGINE_SOURCES
 
   Windowing/WindowingService.cpp
 
-  WorldObject.cpp Java/RenderObjectBindings.cpp)
+  WorldObject.cpp Java/RenderObjectBindings.cpp Java/Context.cpp)
 
 add_library(Engine SHARED ${ENGINE_SOURCES})
 add_dependencies(Engine Dotnet Java)

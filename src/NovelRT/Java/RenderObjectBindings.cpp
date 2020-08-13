@@ -1,15 +1,14 @@
 #include "NovelRT/Java/JavaSupport.h"
 
 namespace NovelRT::Java {
-  using Self = TagTypes<Types::RenderObject>;
-
-  void executeObjectBehaviour(jni::JNIEnv& env, Self::Object& self) {
-    auto renderObject = Handles::get<Graphics::RenderObject>(env, *self);
+  void executeObjectBehaviourNative(jni::JNIEnv*, jni::jobject*, jni::jlong handle) {
+    auto renderObject = reinterpret_cast<Graphics::RenderObject*>(handle);
     renderObject->executeObjectBehaviour();
   }
 
   void Bindings::registerRenderObjectBindings(jni::JNIEnv& env) {
-    jni::RegisterNatives(env, *Classes->RenderObject,
-                         jni::MakeNativeMethod<decltype(executeObjectBehaviour), &executeObjectBehaviour>("executeObjectBehaviour"));
+    jni::RegisterNatives(env, *Types::RenderObject::javaClass(),
+                         jni::MakeNativeMethod<decltype(executeObjectBehaviourNative), &executeObjectBehaviourNative>(
+                           "executeObjectBehaviourNative", "(J)V"));
   }
 }

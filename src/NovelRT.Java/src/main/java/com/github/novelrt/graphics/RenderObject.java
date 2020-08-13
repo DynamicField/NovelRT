@@ -7,5 +7,9 @@ public class RenderObject extends WorldObject {
     super(handle, isOwned);
   }
 
-  public native void executeObjectBehaviour();
+  public void executeObjectBehaviour() {
+    executeObjectBehaviourNative(getHandle());
+  }
+
+  private native void executeObjectBehaviourNative(long handle);
 }

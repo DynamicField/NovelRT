@@ -2,8 +2,10 @@
 #define NOVELRT_JAVASUPPORT_H
 
 // Base stuff
-#include <NovelRT.h>
-#include <jni/jni.hpp>
+#include "EssentialIncludes.h"
+
+#include "Context.h"
+#include "Types/AllTypes.h"
 
 // Registries
 #include "Registries.h"
