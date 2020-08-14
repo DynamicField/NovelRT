@@ -1,47 +1,86 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.github.novelrt</groupId>
-  <artifactId>NovelRT.Java</artifactId>
+  <artifactId>novelrt-java-project</artifactId>
   <version>0.1-SNAPSHOT</version>
+  <packaging>pom</packaging>
 
-  <name>NovelRT Java API</name>
+  <name>NovelRT for Java</name>
   <url>https://github.com/novelrt/NovelRT</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <java.version>14</java.version>
+
+    <java.version>11</java.version>
+    <kotlin.version>1.3.72</kotlin.version>
+
+    <module.rootDirectory>.</module.rootDirectory>
+    <module.outputName>
+      if_you_see_this_first_good_job_second_please_set_the_module.outputName_property_thanks
+    </module.outputName>
+
     <!--
       Those properties are passed in by CMake using
       -D arguments.
+      We have default values for convenience, to prevent frustration
+      raising from "why the hell does "maven package" not work???"
     -->
-    <novelrtRoot>${novelrtRoot}</novelrtRoot>
-    <novelrtOutput>${novelrtOutput}</novelrtOutput>
-    <novelrtClassOutput>${novelrtClassOutput}</novelrtClassOutput>
+    <novelrtRoot>${module.rootDirectory}/../../</novelrtRoot>
+    <novelrtOutputRoot>${novelrtRoot}/build/src/NovelRT.Java</novelrtOutputRoot>
   </properties>
 
   <build>
-    <directory>${novelrtOutput}</directory>
-    <outputDirectory>${novelrtClassOutput}</outputDirectory>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.8.1</version>
-        <configuration>
-          <release>${java.version}</release>
-          <compilerVersion>${java.version}</compilerVersion>
-          <compilerArgs>
-            <arg>--enable-preview</arg>
-            <!-- disabled: we don't need them, thanks to jni.hpp.
-            <arg>-h</arg>
-            <arg>${novelrtRoot}/include/NovelRT/Java</arg>
-            -->
-          </compilerArgs>
-        </configuration>
-      </plugin>
-    </plugins>
+    <directory>${novelrtOutputRoot}/${module.outputName}/target</directory>
+    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.8.1</version>
+          <configuration>
+            <release>${java.version}</release>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.jetbrains.kotlin</groupId>
+          <artifactId>kotlin-maven-plugin</artifactId>
+          <version>${kotlin.version}</version>
+          <executions>
+            <execution>
+              <id>compile</id>
+              <phase>process-sources</phase>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>test-compile</id>
+              <phase>test-compile</phase>
+              <goals>
+                <goal>test-compile</goal>
+              </goals>
+            </execution>
+          </executions>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib-jdk8</artifactId>
+        <version>${kotlin.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <modules>
+    <module>core</module>
+  </modules>
 </project>
