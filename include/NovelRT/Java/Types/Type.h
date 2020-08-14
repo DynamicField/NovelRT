@@ -21,7 +21,7 @@ namespace NovelRT::Java::Types {
 
     template<typename Signature> using MethodDef = MethodDefinition<Self, Signature>;
     template<typename... Args> using ConstructorDef = ConstructorDefinition<Self, Args...>;
-    template <typename Value> using FieldDef = FieldDefinition<Self, Value>;
+    template<typename Value> using FieldDef = FieldDefinition<Self, Value>;
 
     static const Class& javaClass() {
       static const Class& instance = findClass();

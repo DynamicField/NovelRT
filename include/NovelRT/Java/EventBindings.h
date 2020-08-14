@@ -46,12 +46,12 @@ namespace NovelRT::Java::Bindings {
 
     jni::RegisterNatives(env, **eventClass,
                          jni::MakeNativeMethod("addSubscription", std::function(addSubscription))
-                         //, TODO: jni::MakeNativeMethod("removeSubscription", std::function(removeSubscription))
-                         );
+      //, TODO: jni::MakeNativeMethod("removeSubscription", std::function(removeSubscription))
+    );
   }
 
   // The Event argument is used to deduct the Args parameter pack.
-  template<typename Listener, typename NovelEvent,  typename... Args>
+  template<typename Listener, typename NovelEvent, typename... Args>
   auto createEventHandler(jni::JNIEnv& env,
                           jni::Object<Listener>& listener,
                           const EventHandlerProxy<Listener, NovelEvent>& proxy,

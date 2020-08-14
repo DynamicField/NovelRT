@@ -15,7 +15,7 @@ namespace NovelRT::Java::Bindings {
 
   void registerTransformBindings(jni::JNIEnv& env);
 
-  static std::vector<void(*)(jni::JNIEnv&)> AllBindingRegisterers{
+  static std::vector<void (*)(jni::JNIEnv&)> AllBindingRegisterers{
     &registerNovelRunnerBindings,
     &registerWorldObjectBindings,
     &registerRenderObjectBindings,

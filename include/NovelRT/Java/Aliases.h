@@ -4,7 +4,7 @@
 #include <jni/jni.hpp>
 
 namespace NovelRT::Java {
-  template <typename Tag>
+  template<typename Tag>
   struct TagTypes {
     using Object = jni::Object<Tag>;
     using Class = jni::Class<Tag>;
