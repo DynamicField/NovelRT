@@ -1,47 +1,30 @@
 #include "NovelRT/Java/JavaSupport.h"
 
-using namespace NovelRT;
-using namespace NovelRT::Java;
+namespace NovelRT::Java {
+  using Self = Types::Transform;
 
-using Self = jni::Object<Types::Transform>;
-using SelfClass = jni::Class<Types::Transform>;
+  jni::jlong createTransform(jni::JNIEnv& env, Self::Class&,
+                             jni::Object<Types::Vector2>& position, jni::Object<Types::Vector2>& scale,
+                             jni::jfloat rotation) {
+    TypeConversion::Vector2Converter vector2Converter;
 
-jni::Local<jni::Object<Types::Vector2>> getPosition(jni::JNIEnv& env, Self& self) {
-  auto transform = Handles::get<Transform>(env, *self);
-  return Vector2Serialization::fromNative(env, transform->position());
-}
+    return Handles::toJava(
+      new Transform(vector2Converter.fromJava(env, position), rotation,
+                    vector2Converter.fromJava(env, scale))
+    );
+  }
 
-void setPosition(jni::JNIEnv& env, Self& self, jni::Object<Types::Vector2>& position) {
-  auto transform = Handles::get<Transform>(env, *self);
-  transform->position() = Vector2Serialization::fromJava(env, position);
-}
+  void deleteTransform(jni::JNIEnv&, Self::Class&, jni::jlong handle) {
+    delete Handles::get<Transform>(handle);
+  }
 
-jni::Local<jni::Object<Types::Vector2>> getScale(jni::JNIEnv& env, Self& self) {
-  auto transform = Handles::get<Transform>(env, *self);
-  return Vector2Serialization::fromNative(env, transform->scale());
-}
+  void Bindings::registerTransformBindings(jni::JNIEnv& env) {
+    Bindings::bindProperty<Self, Types::Vector2, modifiable(&Transform::position)>(env, "position");
+    Bindings::bindProperty<Self, Types::Vector2, modifiable(&Transform::scale)>(env, "scale");
+    Bindings::bindProperty<Self, jni::jfloat, modifiable(&Transform::rotation)>(env, "rotation");
 
-void setScale(jni::JNIEnv& env, Self& self, jni::Object<Types::Vector2>& scale) {
-  auto transform = Handles::get<Transform>(env, *self);
-  transform->scale() = Vector2Serialization::fromJava(env, scale);
-}
-
-jni::jfloat getRotation(jni::JNIEnv& env, Self& self) {
-  auto transform = Handles::get<Transform>(env, *self);
-  return transform->rotation();
-}
-
-void setRotation(jni::JNIEnv& env, Self& self, float rotation) {
-  auto transform = Handles::get<Transform>(env, *self);
-  transform->rotation() = rotation;
-}
-
-void Bindings::registerTransformBindings(jni::JNIEnv& env) {
-  jni::RegisterNatives(env, *Types::Transform::javaClass(),
-                       jni::MakeNativeMethod<decltype(getPosition), &getPosition>("getPosition"),
-                       jni::MakeNativeMethod<decltype(setPosition), &setPosition>("setPosition"),
-                       jni::MakeNativeMethod<decltype(getScale), &getScale>("getScale"),
-                       jni::MakeNativeMethod<decltype(setScale), &setScale>("setScale"),
-                       jni::MakeNativeMethod<decltype(getRotation), &getRotation>("getRotation"),
-                       jni::MakeNativeMethod<decltype(setRotation), &setRotation>("setRotation"));
+    jni::RegisterNatives(env, *Self::javaClass(),
+                         jni::MakeNativeMethod<decltype(createTransform), &createTransform>("createTransform"),
+                         jni::MakeNativeMethod<decltype(deleteTransform), &deleteTransform>("deleteTransform"));
+  }
 }

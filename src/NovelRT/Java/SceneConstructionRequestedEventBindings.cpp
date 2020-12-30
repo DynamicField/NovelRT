@@ -3,10 +3,10 @@
 using namespace NovelRT;
 using namespace NovelRT::Java;
 
-using Event = Types::SceneConstructionRequestedEvent;
+using Event = Types::SceneConstructionRequestedBridgeEvent;
 using Listener = Types::SceneConstructionRequestedListener;
 
-void Bindings::registerSceneConstructionRequestedEventBindings(jni::JNIEnv& env) {
+void Bindings::registerBridgeSceneConstructionRequestedEventBindings(jni::JNIEnv& env) {
   Bindings::bindEvent<Listener, Utilities::Event<>, Event>(
     env, &Event::javaClass(), [](jni::JNIEnv& env, Listener::Object& listener) {
       listener.Call(env, Listener::listen());

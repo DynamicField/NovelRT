@@ -2,6 +2,7 @@
 
 namespace NovelRT::Java {
   using Self = Types::NovelRunner;
+  using JBridgeRenderObject = Types::BridgeRenderObject;
 
   jni::jlong createRunner(jni::JNIEnv& env, Self::Class&, jni::jint displayNumber, jni::String& windowTitle,
                           jni::jint targetFrameRate, jni::jboolean transparency, jni::String& resourcesDirectory) {
@@ -39,19 +40,25 @@ namespace NovelRT::Java {
     // using the GC.
     auto* rectPtr = rect.release();
 
-    auto worldObject = Types::RenderObject::javaClass().New(env, Types::RenderObject::mainConstructor(),
+    auto worldObject = JBridgeRenderObject::javaClass().New(env, JBridgeRenderObject::mainConstructor(),
                                                             jni::jlong(rectPtr), jni::jboolean(true));
 
-    return worldObject;
+    return jni::Cast(env, Types::RenderObject::javaClass(), worldObject);
   }
 
-  jni::Local<jni::Object<Types::SceneConstructionRequestedEvent>>
-  createSceneConstructionRequestedEvent(jni::JNIEnv& env, Self::Object& self) {
-    using Event = Types::SceneConstructionRequestedEvent;
+  auto createSceneConstructionRequestedEvent(jni::JNIEnv& env, Self::Object& self) {
+    using Event = Types::SceneConstructionRequestedBridgeEvent;
 
     auto* runner = Handles::get<NovelRunner>(env, *self);
     auto* event = &runner->SceneConstructionRequested;
     return Event::javaClass().New(env, Event::mainConstructor(), jni::jlong(event));
+  }
+
+  auto createRenderingService(jni::JNIEnv& env, Self::Object& self) {
+    auto* runner = Handles::get<NovelRunner>(env, *self);
+    auto* service = runner->getRenderer().get();
+    return Types::BridgeRenderingService::javaClass().New(env, Types::BridgeRenderingService::mainConstructor(),
+                                                          jni::jlong(service));
   }
 
   void Bindings::registerNovelRunnerBindings(jni::JNIEnv& env) {
@@ -61,7 +68,9 @@ namespace NovelRT::Java {
                          jni::MakeNativeMethod<decltype(runNovel), &runNovel>("runNovel"),
                          jni::MakeNativeMethod<decltype(createSomeRect), &createSomeRect>("createSomeRect"),
                          jni::MakeNativeMethod<decltype(createSceneConstructionRequestedEvent), &createSceneConstructionRequestedEvent>(
-                           "createSceneConstructionRequestedEvent")
+                           "createSceneConstructionRequestedEvent"),
+                         jni::MakeNativeMethod<decltype(createRenderingService), &createRenderingService>(
+                           "createRenderingService")
     );
   }
 }

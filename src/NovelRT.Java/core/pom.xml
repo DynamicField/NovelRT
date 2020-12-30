@@ -9,11 +9,6 @@
     <version>0.1-SNAPSHOT</version>
   </parent>
 
-  <properties>
-    <module.rootDirectory>..</module.rootDirectory>
-    <module.outputName>core</module.outputName>
-  </properties>
-
   <artifactId>novelrt-java</artifactId>
   <version>0.1-SNAPSHOT</version>
 
@@ -21,6 +16,10 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-maven-plugin</artifactId>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>

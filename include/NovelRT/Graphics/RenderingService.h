@@ -22,7 +22,7 @@ namespace NovelRT::Graphics {
     ShaderProgram _basicFillRectProgram;
     ShaderProgram _texturedRectProgram;
     ShaderProgram _fontProgram;
-    
+
     Utilities::Lazy<GLuint> _cameraObjectRenderUbo;
     std::shared_ptr<Camera> _camera;
 
@@ -57,8 +57,8 @@ namespace NovelRT::Graphics {
     void endFrame() const;
 
     void setBackgroundColour(const RGBAConfig& colour);
-    
-    std::shared_ptr<Texture> getTexture(const std::string& fileTarget = "");
+
+    std::shared_ptr<Texture>  getTexture(const std::string& fileTarget = "");
     std::shared_ptr<FontSet> getFontSet(const std::string& fileTarget, float fontSize);
   };
 }

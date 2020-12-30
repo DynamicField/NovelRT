@@ -5,14 +5,13 @@ namespace jni {
   std::u16string convertUTF8ToUTF16(const std::string& string) {
 #if defined(WIN32)
     UINT page = CP_UTF8;
-    DWORD options = MB_PRECOMPOSED;
+    DWORD options = 0;
     const char* source = string.c_str();
-    auto sourceSize = int(string.size());
 
-    int requiredSize = MultiByteToWideChar(page, options, source, sourceSize, nullptr, 0);
+    int requiredSize = MultiByteToWideChar(page, options, source, -1, nullptr, 0);
 
     std::vector<wchar_t> resultBuffer(requiredSize);
-    if (!MultiByteToWideChar(page, options, source, sourceSize, resultBuffer.data(), requiredSize)) {
+    if (!MultiByteToWideChar(page, options, source, -1, resultBuffer.data(), requiredSize)) {
       throw new std::runtime_error("Failed to convert an UTF8 string to UTF16. "
                                    "Windows error code: " + std::to_string(GetLastError()));
     }
@@ -26,15 +25,14 @@ namespace jni {
   std::string convertUTF16ToUTF8(const std::u16string& string) {
 #if defined(WIN32)
     UINT page = CP_UTF8;
-    DWORD options = MB_PRECOMPOSED;
+    DWORD options = 0;
     const wchar_t* source = reinterpret_cast<const wchar_t*>(string.c_str());
-    auto sourceSize = int(string.size());
 
-    int requiredSize = WideCharToMultiByte(page, options, source, sourceSize, nullptr, 0, NULL, NULL);
+    int requiredSize = WideCharToMultiByte(page, options, source, -1, nullptr, 0, NULL, NULL);
 
     std::vector<char> resultBuffer(requiredSize);
-    if (!WideCharToMultiByte(page, options, source, sourceSize, resultBuffer.data(), requiredSize, NULL, NULL)) {
-      throw new std::runtime_error("Failed to convert an UTF16 string to UTF18. "
+    if (!WideCharToMultiByte(page, options, source, -1, resultBuffer.data(), requiredSize, NULL, NULL)) {
+      throw new std::runtime_error("Failed to convert an UTF16 string to UTF8. "
                                    "Windows error code: " + std::to_string(GetLastError()));
     }
 

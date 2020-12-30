@@ -1,27 +1,8 @@
 #ifndef NOVELRT_BINDINGS_H
 #define NOVELRT_BINDINGS_H
 
-#include <jni/jni.hpp>
-#include <functional>
-
-namespace NovelRT::Java::Bindings {
-  void registerNovelRunnerBindings(jni::JNIEnv& env);
-
-  void registerWorldObjectBindings(jni::JNIEnv& env);
-
-  void registerRenderObjectBindings(jni::JNIEnv& env);
-
-  void registerSceneConstructionRequestedEventBindings(jni::JNIEnv& env);
-
-  void registerTransformBindings(jni::JNIEnv& env);
-
-  static std::vector<void (*)(jni::JNIEnv&)> AllBindingRegisterers{
-    &registerNovelRunnerBindings,
-    &registerWorldObjectBindings,
-    &registerRenderObjectBindings,
-    &registerSceneConstructionRequestedEventBindings,
-    &registerTransformBindings,
-  };
-}
+#include "Bindings/Registrations.h"
+#include "Bindings/EventBindings.h"
+#include "Bindings/PropertyBindings.h"
 
 #endif //NOVELRT_BINDINGS_H
