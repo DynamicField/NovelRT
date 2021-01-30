@@ -43,8 +43,6 @@ class NovelRunner : OwnedHandleObject(
     runNovel()
   }
 
-  @Deprecated("lmao just use the RenderingService")
-  external fun createSomeRect(): RenderObject
   private external fun runNovel(): Int
   private external fun createSceneConstructionRequestedEvent(): SceneConstructionRequestedBridgeEvent
   private external fun createRenderingService(): BridgeRenderingService

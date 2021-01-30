@@ -16,7 +16,7 @@ namespace NovelRT::Java {
       windowTitleString,
       targetFrameRate,
       transparency,
-      resourcesDirectoryPath
+      resourcesDirectoryPath // Temporary solution
     );
     return reinterpret_cast<jlong>(runner);
   }
@@ -28,22 +28,6 @@ namespace NovelRT::Java {
   jni::jint runNovel(jni::JNIEnv& env, Self::Object& self) {
     auto* runner = Handles::get<NovelRunner>(env, *self);
     return jni::jint(runner->runNovel());
-  }
-
-  jni::Local<jni::Object<Types::RenderObject>> createSomeRect(jni::JNIEnv& env, Self::Object& self) {
-    auto* runner = Handles::get<NovelRunner>(env, *self);
-    auto rect = runner->getRenderer()->createBasicFillRect(
-      Transform({240, 480}, 15, {420, 850}), 1,
-      {142, 255, 74, 255});
-
-    // Release it so Java can instead take care of deleting the object
-    // using the GC.
-    auto* rectPtr = rect.release();
-
-    auto worldObject = JBridgeRenderObject::javaClass().New(env, JBridgeRenderObject::mainConstructor(),
-                                                            jni::jlong(rectPtr), jni::jboolean(true));
-
-    return jni::Cast(env, Types::RenderObject::javaClass(), worldObject);
   }
 
   auto createSceneConstructionRequestedEvent(jni::JNIEnv& env, Self::Object& self) {
@@ -66,7 +50,6 @@ namespace NovelRT::Java {
                          jni::MakeNativeMethod<decltype(createRunner), &createRunner>("createRunner"),
                          jni::MakeNativeMethod<decltype(deleteRunner), &deleteRunner>("deleteRunner"),
                          jni::MakeNativeMethod<decltype(runNovel), &runNovel>("runNovel"),
-                         jni::MakeNativeMethod<decltype(createSomeRect), &createSomeRect>("createSomeRect"),
                          jni::MakeNativeMethod<decltype(createSceneConstructionRequestedEvent), &createSceneConstructionRequestedEvent>(
                            "createSceneConstructionRequestedEvent"),
                          jni::MakeNativeMethod<decltype(createRenderingService), &createRenderingService>(
