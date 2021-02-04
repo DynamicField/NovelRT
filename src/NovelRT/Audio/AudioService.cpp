@@ -148,7 +148,7 @@ namespace NovelRT::Audio
         }
     }
 
-    // Switched to using two floats - for some reason VS complained when trying to use Maths::GeoVector2<float> here...
+    // Switched to using two floats - for some reason VS complained when trying to use Maths::GeoVector2F here...
     // This also has no effect if the buffer is more than one channel (not Mono)
     void AudioService::setSoundPosition(ALuint source, float posX, float posY)
     {

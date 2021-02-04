@@ -66,9 +66,9 @@ set(ENGINE_SOURCES
   Java/StringConversions.cpp
   Java/Handles.cpp
   Java/SceneConstructionRequestedEventBindings.cpp
-        Java/TransformBindings.cpp
-        Java/BridgeTextBindings.cpp
-        Java/BridgeRenderingServiceBindings.cpp
+  Java/TransformBindings.cpp
+  Java/BridgeTextBindings.cpp
+  Java/BridgeRenderingServiceBindings.cpp
 
   LoggingService.cpp
 

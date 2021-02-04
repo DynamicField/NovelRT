@@ -7,112 +7,36 @@
 namespace NovelRT::Java::Bindings {
   using namespace TypeConversion;
 
-  template <typename T> struct RemoveNoexcept
-  {
+  // Type utilities
+
+#pragma region RemoveNoexcept
+  // Removes noexcept from methods.
+  // This is exists because, for some awkward reason, methods with a
+  // signature containing noexcept do not work when passing them inside template
+  // arguments.
+  template<typename T>
+  struct RemoveNoexcept {
     using type = T;
   };
 
-  template <typename R, typename O, typename ...P> struct RemoveNoexcept<R(O::*)(P...) noexcept>
-  {
+  template<typename R, typename O, typename ...P>
+  struct RemoveNoexcept<R(O::*)(P...) noexcept> {
     using type = R(O::*)(P...);
   };
 
-  template <typename R, typename O, typename ...P> struct RemoveNoexcept<R(O::*)(P...) const noexcept>
-  {
+  template<typename R, typename O, typename ...P>
+  struct RemoveNoexcept<R(O::*)(P...) const noexcept> {
     using type = R(O::*)(P...) const;
   };
 
-  template <typename T> using RemoveNoexceptType = typename RemoveNoexcept<T>::type;
+  template<typename T> using RemoveNoexceptType = typename RemoveNoexcept<T>::type;
+#pragma endregion
 
-  template <typename T, typename Enable = void>
-  struct SetterInput;
-
-  template <typename T>
-  struct SetterInput<T, std::enable_if_t<std::is_class_v<T>>> {
-    using Type = const T&;
-  };
-
-  template <typename T>
-  struct SetterInput<T, std::enable_if_t<!std::is_class_v<T>>> {
-    using Type = T;
-  };
-
-  template<typename T> using SetterInputType = typename SetterInput<T>::Type;
-
-  enum PropertyBody {
-    None = 0,
-    Getter = 1 << 0,
-    Setter = 1 << 1,
-    Full = Getter + Setter
-  };
-
-  template<typename H, typename T> using MemberProperty = T& (H::*)();
-  template<typename H, typename T> using ReadonlyMemberProperty = const T& (H::*)() const;
-
-  template<typename H, typename T> using MemberGetter = T(H::*)() const;
-  template<typename H, typename T> using MemberSetter = void(H::*)(SetterInputType<T>);
-
-  template <typename H, typename T, bool Mutable>
-  struct PropertyBase {
-    using HolderType = H;
-    using ReturnType = T;
-
-    static constexpr bool IsMutable = Mutable;
-    static constexpr PropertyBody DefaultBody = IsMutable ? Full : Getter;
-  };
-
-  template <typename F, auto P>
-  struct PropertyImpl;
-
-  template <typename H, typename T, auto P>
-  struct PropertyImpl<MemberProperty<H, T>, P> : public PropertyBase<H, T, true> {
-    static constexpr auto Getter = [](H* holder) -> T& {
-      return (holder->*P)();
-    };
-    static constexpr auto Setter = [](H* holder, const T& value) {
-      (holder->*P)() = value;
-    };
-  };
-
-  template <typename H, typename T, auto P>
-  struct PropertyImpl<ReadonlyMemberProperty<H, T>, P> : public PropertyBase<H, T, false> {
-    static constexpr auto Getter = [](const H* holder) -> const T& {
-      return (holder->*P)();
-    };
-  };
-
-  template <auto F> using Property = PropertyImpl<RemoveNoexceptType<decltype(F)>, F>;
-
-  template<typename GT, auto GV, typename ST, auto SV>
-  struct TraditionalPropertyImpl;
-
-  template <typename H, typename T, auto GV, auto SV>
-  struct TraditionalPropertyImpl<MemberGetter<H, T>, GV, MemberSetter<H, T>, SV> : public PropertyBase<H, T, true> {
-    static constexpr auto Getter = [](H* holder) -> T {
-      return (holder->*GV)();
-    };
-    static constexpr auto Setter = [](H* holder, const T& value) {
-      (holder->*SV)(value);
-    };
-  };
-
-  template <auto G, auto S> using TraditionalProperty = TraditionalPropertyImpl<
-    RemoveNoexceptType<decltype(G)>, G, RemoveNoexceptType<decltype(S)>, S>;
-
-  template<typename H, typename T>
-  constexpr inline auto modifiable(MemberProperty<H, T> thing) {
-    return static_cast<MemberProperty<H, T>>(thing);
-  }
-
-  template<typename H, typename T>
-  constexpr inline auto unmodifiable(ReadonlyMemberProperty<H, T> thing) {
-    return static_cast<ReadonlyMemberProperty<H, T>>(thing);
-  }
-
+#pragma region ObjectWrapped
   template<typename T, class Enabled = void>
   struct ObjectWrapped;
 
-  template <typename T> inline constexpr bool WrappingNotNeeded =
+  template<typename T> inline constexpr bool WrappingNotNeeded =
     jni::IsPrimitive<T>::value || std::is_base_of_v<jni::jobject, T> ||
     std::is_base_of_v<jni::ObjectBase, T>;
 
@@ -127,6 +51,130 @@ namespace NovelRT::Java::Bindings {
   };
 
   template<typename T> using ObjectWrappedType = typename ObjectWrapped<T>::Type;
+#pragma endregion
+
+  // Properties
+
+  enum PropertyBody {
+    None = 0,
+    Getter = 1 << 0,
+    Setter = 1 << 1,
+    Full = Getter + Setter
+  };
+
+  template<typename H, typename T, bool Mutable>
+  struct PropertyBase {
+    using HolderType = H;
+    using ReturnType = T;
+
+    static constexpr bool IsMutable = Mutable;
+    static constexpr PropertyBody DefaultBody = IsMutable ? Full : Getter;
+  };
+
+
+#pragma region Member type aliases
+  // A member method is a method returning a mutable reference to the property value.
+  //
+  // Note: T may be a reference (Tval& for instance), in that case,
+  // reference rules are applied and T& becomes TVal& (& + & = &).
+
+  template<typename H, typename T> using MemberProperty = T& (H::*)();
+  // Same thing but readonly, with const on both sides.
+  template<typename H, typename T> using ReadonlyMemberProperty = const T& (H::*)() const;
+
+  template<typename H, typename T> using MemberGetter = T(H::*)() const;
+  template<typename H, typename T> using MemberSetterRef = void (H::*)(const T&);
+  template<typename H, typename T> using MemberSetterVal = void (H::*)(T);
+
+  template<typename H, typename T> using MemberField = T H::*;
+  template<typename H, typename T> using ReadonlyMemberField = T H::* const;
+#pragma endregion
+
+#pragma region Property
+  template<typename F, auto P>
+  struct PropertyImpl;
+
+  template<typename H, typename T, auto P>
+  struct PropertyImpl<MemberProperty<H, T>, P> : public PropertyBase<H, T, true> {
+    static constexpr auto Getter = [](H* holder) -> T& {
+      return (holder->*P)();
+    };
+    static constexpr auto Setter = [](H* holder, const T& value) {
+      (holder->*P)() = value;
+    };
+  };
+
+  template<typename H, typename T, auto P>
+  struct PropertyImpl<ReadonlyMemberProperty<H, T>, P> : public PropertyBase<H, T, false> {
+    static constexpr auto Getter = [](const H* holder) -> const T& {
+      return (holder->*P)();
+    };
+  };
+
+  template<auto F> using Property = PropertyImpl<RemoveNoexceptType<decltype(F)>, F>;
+#pragma endregion
+
+#pragma region TraditionalProperty
+  template<typename GT, auto GV, typename ST, auto SV>
+  struct TraditionalPropertyImpl;
+
+  template<typename H, typename T, auto GV, auto SV>
+  struct TraditionalPropertyImplStandard : public PropertyBase<H, T, true> {
+    static constexpr auto Getter = [](H* holder) -> T {
+      return (holder->*GV)();
+    };
+    static constexpr auto Setter = [](H* holder, const T& value) {
+      (holder->*SV)(value);
+    };
+  };
+
+  template<typename H, typename T, auto GV, auto SV>
+  struct TraditionalPropertyImpl<MemberGetter<H, T>, GV, MemberSetterRef<H, T>, SV>
+    : public TraditionalPropertyImplStandard<H, T, GV, SV> {
+  };
+
+  template<typename H, typename T, auto GV, auto SV>
+  struct TraditionalPropertyImpl<MemberGetter<H, T>, GV, MemberSetterVal<H, T>, SV>
+    : public TraditionalPropertyImplStandard<H, T, GV, SV> {
+  };
+
+  template<auto G, auto S> using TraditionalProperty = TraditionalPropertyImpl<
+    RemoveNoexceptType<decltype(G)>, G, RemoveNoexceptType<decltype(S)>, S>;
+#pragma endregion
+
+#pragma region FieldProperty
+  template<typename FT, auto FV>
+  struct FieldPropertyImpl;
+
+  template<typename H, typename T, auto P>
+  struct FieldPropertyImpl<MemberField<H, T>, P> : public PropertyBase<H, T, true> {
+    static constexpr auto Getter = [](H* holder) -> T& {
+      return holder->*P;
+    };
+    static constexpr auto Setter = [](H* holder, const T& value) {
+      (holder->*P) = value;
+    };
+  };
+
+  template<typename H, typename T, auto P>
+  struct FieldPropertyImpl<ReadonlyMemberField<H, T>, P> : public PropertyBase<H, T, false> {
+    static constexpr auto Getter = [](const H* holder) -> const T& {
+      return (holder->*P)();
+    };
+  };
+
+  template<auto F> using FieldProperty = FieldPropertyImpl<decltype(F), F>;
+#pragma endregion
+
+  template<typename H, typename T>
+  constexpr inline auto modifiable(MemberProperty<H, T> thing) {
+    return static_cast<MemberProperty<H, T>>(thing);
+  }
+
+  template<typename H, typename T>
+  constexpr inline auto unmodifiable(ReadonlyMemberProperty<H, T> thing) {
+    return static_cast<ReadonlyMemberProperty<H, T>>(thing);
+  }
 
   template<
     typename JavaHolder, typename JavaType,

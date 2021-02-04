@@ -2,7 +2,6 @@ package com.github.novelrt.bridge.handle
 
 import com.github.novelrt.bridge.UsedNatively
 
-@Suppress("LeakingThis")
 abstract class OwnedHandleObject(handle: Handle, deleter: (Handle) -> Unit, isOwned: Boolean = true) : HandleObject() {
   private val handleContainer = HandleContainer(handle, deleter, isOwned)
 

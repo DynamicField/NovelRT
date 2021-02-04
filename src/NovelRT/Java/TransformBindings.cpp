@@ -19,9 +19,9 @@ namespace NovelRT::Java {
   }
 
   void Bindings::registerTransformBindings(jni::JNIEnv& env) {
-    Bindings::bindProperty<Self, Types::Vector2, modifiable(&Transform::position)>(env, "position");
-    Bindings::bindProperty<Self, Types::Vector2, modifiable(&Transform::scale)>(env, "scale");
-    Bindings::bindProperty<Self, jni::jfloat, modifiable(&Transform::rotation)>(env, "rotation");
+    Bindings::bindProperty<Self, Types::Vector2, FieldProperty<&Transform::position>>(env, "position");
+    Bindings::bindProperty<Self, Types::Vector2, FieldProperty<&Transform::scale>>(env, "scale");
+    Bindings::bindProperty<Self, jni::jfloat, FieldProperty<&Transform::rotation>>(env, "rotation");
 
     jni::RegisterNatives(env, *Self::javaClass(),
                          jni::MakeNativeMethod<decltype(createTransform), &createTransform>("createTransform"),
