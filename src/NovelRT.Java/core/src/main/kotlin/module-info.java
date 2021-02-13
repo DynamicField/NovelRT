@@ -1,5 +1,4 @@
 module novelrt {
-  requires java.base;
   requires transitive kotlin.stdlib;
 
   exports com.github.novelrt;

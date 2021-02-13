@@ -2,7 +2,7 @@
 #define NOVELRT_DEFINITIONS_H
 
 #include "NovelRT/Java/EssentialIncludes.h"
-#include "NovelRT/Java/Context.h"
+#include "NovelRT/Java/Init.h"
 
 namespace NovelRT::Java::Types {
   template<typename Container, typename T>
@@ -74,6 +74,21 @@ namespace NovelRT::Java::Types {
 
   public:
     FieldDefinition(const std::string& name) : _name(name) {}
+  };
+
+  template<typename Container, typename Value>
+  class StaticFieldDefinition final : public DefinitionBase<Container, jni::StaticField<Container, Value>> {
+  private:
+    std::string _name;
+  protected:
+    jni::StaticField<Container, Value> find(JNIEnv& env) override {
+      std::cout << "Finding static field " << jni::TypeSignature<Value>()() << " " << _name
+                << " in class " << Container::Name() << std::endl;
+      return this->containerClass().template GetStaticField<Value>(env, _name.c_str());
+    }
+
+  public:
+    StaticFieldDefinition(const std::string& name) : _name(name) {}
   };
 }
 

@@ -118,6 +118,13 @@ namespace NovelRT::Java::Types {
     static inline FieldDef <jfloat> x{"x"};
     static inline FieldDef <jfloat> y{"y"};
   };
+
+  // Other stuff
+  struct NovelRTLoader : public Type<NovelRTLoader> {
+    static constexpr auto Name() { return "com/github/novelrt/NovelRTLoader"; }
+
+    static inline StaticFieldDef<jni::jboolean> hasBeenLoaded{"hasBeenLoaded"};
+  };
 }
 
 #endif //NOVELRT_ALLTYPES_H

@@ -7,8 +7,6 @@ import com.github.novelrt.bridge.graphics.BridgeRenderingService
 import com.github.novelrt.event.Event
 import com.github.novelrt.event.SceneConstructionRequestedListener
 import com.github.novelrt.graphics.RenderingService
-import com.github.novelrt.graphics.RenderObject
-import java.nio.file.Paths
 import java.util.concurrent.atomic.AtomicInteger
 
 class NovelRunner : OwnedHandleObject(
@@ -16,8 +14,7 @@ class NovelRunner : OwnedHandleObject(
     displayNumber = nextDisplayNumber.getAndIncrement(),
     windowTitle = "NovelRT",
     targetFrameRate = 0,
-    transparency = false,
-    resourcesDirectory = Paths.get("").resolve("Resources").toString()
+    transparency = false
   ), ::deleteRunner) {
 
   companion object {
@@ -25,8 +22,7 @@ class NovelRunner : OwnedHandleObject(
 
     @JvmStatic
     private external fun createRunner(displayNumber: Int, windowTitle: String,
-                                      targetFrameRate: Int, transparency: Boolean,
-                                      resourcesDirectory: String): Handle
+                                      targetFrameRate: Int, transparency: Boolean): Handle
 
     @JvmStatic
     private external fun deleteRunner(handle: Handle)

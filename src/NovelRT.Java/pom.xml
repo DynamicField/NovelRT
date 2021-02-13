@@ -90,6 +90,73 @@
             </execution>
           </executions>
         </plugin>
+        <plugin>
+          <groupId>org.moditect</groupId>
+          <artifactId>moditect-maven-plugin</artifactId>
+          <version>1.0.0.Beta2</version>
+          <executions>
+            <execution>
+              <id>add-self-module-infos</id>
+              <phase>package</phase>
+              <goals>
+                <goal>add-module-info</goal>
+              </goals>
+              <configuration>
+                <module>
+                  <moduleInfoFile>${project.build.sourceDirectory}/module-info.java</moduleInfoFile>
+                </module>
+                <overwriteExistingFiles>true</overwriteExistingFiles>
+              </configuration>
+            </execution>
+            <execution>
+              <id>add-external-module-infos</id>
+              <phase>package</phase>
+              <goals>
+                <goal>add-module-info</goal>
+              </goals>
+              <configuration>
+                <outputDirectory>${project.build.directory}/modules</outputDirectory>
+                <modules>
+                  <module>
+                    <artifact>
+                      <groupId>org.jetbrains</groupId>
+                      <artifactId>annotations</artifactId>
+                      <version>20.1.0</version>
+                    </artifact>
+                    <moduleInfo>
+                      <name>jetbrains.annotations</name>
+                      <exports>
+                        *;
+                      </exports>
+                    </moduleInfo>
+                  </module>
+                </modules>
+                <overwriteExistingFiles>true</overwriteExistingFiles>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-dependency-plugin</artifactId>
+          <version>2.8</version>
+          <executions>
+            <execution>
+              <id>copy-dependencies</id>
+              <phase>prepare-package</phase>
+              <goals>
+                <goal>copy-dependencies</goal>
+              </goals>
+              <configuration>
+                <outputDirectory>${project.build.directory}/deps</outputDirectory>
+                <overWriteReleases>true</overWriteReleases>
+                <overWriteSnapshots>true</overWriteSnapshots>
+                <overWriteIfNewer>true</overWriteIfNewer>
+                <includeScope>compile</includeScope>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>
@@ -105,6 +172,11 @@
       <artifactId>kotlin-test</artifactId>
       <version>${kotlin.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.jetbrains</groupId>
+      <artifactId>annotations</artifactId>
+      <version>20.1.0</version>
     </dependency>
   </dependencies>
 

@@ -20,13 +20,6 @@ set_target_properties(OpenAL::OpenAL
     IMPORTED_LOCATION "${OPENAL_LIBRARY}"
 )
 
-add_library(JNI::JVM UNKNOWN IMPORTED)
-set_target_properties(JNI::JVM
-  PROPERTIES
-    INTERFACE_INCLUDE_DIRECTORIES "${JAVA_INCLUDE_PATH};${JAVA_INCLUDE_PATH2}"
-    IMPORTED_LOCATION "${JAVA_JVM_LIBRARY}"
-)
-
 set(ENGINE_SOURCES
   Animation/SpriteAnimator.cpp
 
@@ -61,7 +54,6 @@ set(ENGINE_SOURCES
   Input/InteractionObject.cpp
   Input/InteractionService.cpp
   Java/NovelRunnerBindings.cpp
-  Java/JNInit.cpp
   Java/WorldObjectBindings.cpp
   Java/StringConversions.cpp
   Java/Handles.cpp
@@ -85,7 +77,7 @@ set(ENGINE_SOURCES
 
   Windowing/WindowingService.cpp
 
-  WorldObject.cpp Java/BridgeRenderObjectBindings.cpp Java/Context.cpp Java/TypeConversion/Vector2TypeConverter.cpp Java/TypeConversion/TransformTypeConverter.cpp Java/TypeConversion/RGBAConfigTypeConverter.cpp)
+  WorldObject.cpp Java/BridgeRenderObjectBindings.cpp Java/Init.cpp Java/TypeConversion/Vector2TypeConverter.cpp Java/TypeConversion/TransformTypeConverter.cpp Java/TypeConversion/RGBAConfigTypeConverter.cpp)
 
 add_library(Engine SHARED ${ENGINE_SOURCES})
 add_dependencies(Engine Dotnet Java)
@@ -94,6 +86,7 @@ target_include_directories(Engine
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
+    ${JNI_INCLUDE_DIRS}
 )
 
 
@@ -133,6 +126,8 @@ else()
   )
 endif()
 
+message(STATUS "Libraries: ${JNI_LIBRARIES} ; include dirs ${JNI_INCLUDE_DIRS}")
+
 target_link_libraries(Engine
   PUBLIC
     CoreCLR::nethost
@@ -143,5 +138,6 @@ target_link_libraries(Engine
     PNG::PNG
     Sndfile::sndfile
     spdlog::spdlog
-    JNI::JVM
+    #[[JNI::JVM]]
+    ${JNI_LIBRARIES}
 )

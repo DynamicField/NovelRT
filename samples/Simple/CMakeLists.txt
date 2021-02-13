@@ -39,7 +39,7 @@ endif()
 
 add_custom_command(
   TARGET Simple POST_BUILD
-  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  COMMAND ${CMAKE_COMMAND} -E copy_dihttps://www.microsoft.com/fr-fr/software-download/windows10ectory
     $<TARGET_FILE_DIR:Resources>
     $<TARGET_FILE_DIR:Simple>/Resources
 )

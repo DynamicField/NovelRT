@@ -2,6 +2,7 @@ package com.github.novelrt
 
 object NovelRTLoader {
   private const val DEFAULT_LIBRARY_NAME = "Engine"
+  @JvmStatic
   private var hasBeenLoaded = false
 
   @Synchronized

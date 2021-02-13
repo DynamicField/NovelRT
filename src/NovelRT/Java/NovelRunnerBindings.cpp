@@ -5,10 +5,7 @@ namespace NovelRT::Java {
 
   // TODO : Make something to find the resources correctly
   jni::jlong createRunner(jni::JNIEnv& env, Self::Class&, jni::jint displayNumber, jni::String& windowTitle,
-                          jni::jint targetFrameRate, jni::jboolean transparency, jni::String& /*resourcesDirectory*/) {
-//    auto resourcesDirectoryPath = std::filesystem::path(
-//      std::string(std::get<0>(jni::GetStringUTFChars(env, *resourcesDirectory)).get())
-//    );
+                          jni::jint targetFrameRate, jni::jboolean transparency) {
     auto windowTitleString = std::string(std::get<0>(jni::GetStringUTFChars(env, *windowTitle)).get());
 
     auto* runner = new NovelRunner(

@@ -1,4 +1,4 @@
-package com.github.novelrt.sample
+package com.github.novelrt.sample.kotlin
 
 import com.github.novelrt.NovelRunner
 import com.github.novelrt.graphics.RGBAColour
