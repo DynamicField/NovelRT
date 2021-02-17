@@ -115,7 +115,8 @@ namespace NovelRT::Ecs
             using difference_type = std::ptrdiff_t;
             using value_type = std::tuple<size_t, ByteIteratorView>;
             using pointer = std::tuple<std::vector<size_t>::iterator, ByteIteratorView>;
-            using reference = std::tuple<size_t&, ByteIteratorView>;
+            using reference =
+                std::tuple<size_t&, ByteIteratorView>; // TODO: size_t should proooobably still be a value here?
 
         private:
             pointer _ptr;
@@ -257,6 +258,6 @@ namespace NovelRT::Ecs
 
         [[nodiscard]] ConstIterator cend() const noexcept;
     };
-}
+} // namespace NovelRT::Ecs
 
-#endif //NOVELRT_SPARSESETMEMORYCONTAINER_H
+#endif // NOVELRT_SPARSESETMEMORYCONTAINER_H

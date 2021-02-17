@@ -8,11 +8,12 @@
 #include "EcsUtils.h"
 #include "SparseSetMemoryContainer.h"
 #include <functional>
+#include <memory>
 #include <vector>
 
 namespace NovelRT::Ecs
 {
-    class ComponentBufferMemoryContainer
+    class ComponentBufferMemoryContainer : public std::enable_shared_from_this<ComponentBufferMemoryContainer>
     {
     private:
         SparseSetMemoryContainer _rootSet;
@@ -41,7 +42,7 @@ namespace NovelRT::Ecs
                 memcpy(outputLocation, _data, _sizeOfObject);
             }
 
-            inline const void* GetDataHandle() const noexcept
+            [[nodiscard]] inline const void* GetDataHandle() const noexcept
             {
                 return _data;
             }

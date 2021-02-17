@@ -5,8 +5,8 @@
 #define NOVELRT_NRTCOMPONENTVIEW_H
 
 #include "../NrtInteropUtils.h"
-#include "NrtEcsUtils.h"
 #include "NrtComponentBufferMemoryContainer.h"
+#include "NrtEcsUtils.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -18,9 +18,10 @@ extern "C"
     NrtUnsafeComponentView Nrt_UnsafeComponentView_Create(size_t poolId, NrtComponentBufferMemoryContainer container);
 
     NrtResult Nrt_UnsafeComponentView_PushComponentUpdateInstruction(NrtUnsafeComponentView componentView,
+                                                                     NrtEntityId entity,
                                                                      void* instructionData);
 
-    NrtResult Nrt_UnsafeComponentView_RemoveComponent(NrtEntityId entity);
+    NrtResult Nrt_UnsafeComponentView_RemoveComponent(NrtUnsafeComponentView componentView, NrtEntityId entity);
 
     NrtResult Nrt_UnsafeComponentView_GetComponent(NrtUnsafeComponentView componentView,
                                                    NrtEntityId entity,
@@ -30,11 +31,13 @@ extern "C"
         NrtUnsafeComponentView componentView,
         NrtEntityId entity);
 
-    size_t Nrt_UnsafeComponentview_GetImmutableDataLength(NrtUnsafeComponentView componentView);
+    size_t Nrt_UnsafeComponentView_GetImmutableDataLength(NrtUnsafeComponentView componentView);
 
     NrtSparseSetMemoryContainer_ConstIterator Nrt_UnsafeComponentView_begin(NrtUnsafeComponentView componentView);
 
     NrtSparseSetMemoryContainer_ConstIterator Nrt_UnsafeComponentView_end(NrtUnsafeComponentView componentView);
+
+    NrtResult Nrt_UnsafeComponentView_Destroy(NrtUnsafeComponentView componentView);
 
 #ifdef __cplusplus
 };

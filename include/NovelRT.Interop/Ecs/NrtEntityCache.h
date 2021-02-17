@@ -4,9 +4,10 @@
 #ifndef NOVELRT_NRTENTITYCACHE_H
 #define NOVELRT_NRTENTITYCACHE_H
 
-#include "../Timing/NrtTimestamp.h"
 #include "../NrtInteropUtils.h"
+#include "../Timing/NrtTimestamp.h"
 #include "NrtEcsUtils.h"
+#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -15,15 +16,15 @@ extern "C"
 
     typedef struct EntityCacheHandle* NrtEntityCache;
 
-    typedef (*NrtSystemUpdatePtr)()
-
     NrtEntityCache Nrt_EntityCache_Create(size_t poolSize);
 
     NrtEntityIdVector Nrt_EntityCache_GetEntitiesToRemoveThisFrame(NrtEntityCache entityCache);
 
-    void Nrt_EntityCache_RemoveEntity(NrtEntityCache entityCache, NrtEntityId entityToRemove);
+    void Nrt_EntityCache_RemoveEntity(NrtEntityCache entityCache, size_t poolId, NrtEntityId entityToRemove);
 
     void Nrt_EntityCache_ProcessEntityDeletionRequestsFromThreads(NrtEntityCache entityCache);
+
+    NrtResult Nrt_EntityCache_Destroy(NrtEntityCache entityCache);
 
 #ifdef __cplusplus
 };

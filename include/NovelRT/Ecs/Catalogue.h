@@ -49,7 +49,7 @@ namespace NovelRT::Ecs
          * @tparam TComponent The component type the view should be exposing.
          * @return ComponentView<TComponent>
          */
-        template<typename TComponent> [[nodiscard]] ComponentView<TComponent> GetComponentView() noexcept
+        template<typename TComponent>[[nodiscard]] ComponentView<TComponent> GetComponentView() noexcept
         {
             return ComponentView<TComponent>(_poolId, _componentCache.GetComponentBuffer<TComponent>());
         }
@@ -72,6 +72,16 @@ namespace NovelRT::Ecs
                 ComponentView<TComponents>(_poolId, _componentCache.GetComponentBuffer<TComponents>())...);
         }
 
+        /**
+         * @brief Gets a typeless view into a memory container.
+         *
+         * The returned type, UnsafeComponentView, is considered an unsafe type by nature. Only call this in contexts
+         * where interop is required.
+         *
+         * @param componentTypeId The component ID to search for
+         * @return UnsafeComponentView a typeless component view into the ComponentBuffer's inner memory container.
+         * @exceptions std::out_of_range if the supplied ID is not present within the container.
+         */
         [[nodiscard]] UnsafeComponentView GetComponentViewById(ComponentTypeId componentTypeId);
 
         /**

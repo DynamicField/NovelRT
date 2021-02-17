@@ -5,9 +5,9 @@
 #define NOVELRT_NRTSYSTEMSCHEDULER_H
 
 #include "../NrtInteropUtils.h"
-#include "NrtEcsUtils.h"
 #include "../Timing/NrtTimestamp.h"
 #include "NrtCatalogue.h"
+#include "NrtEcsUtils.h"
 
 #ifdef __cplusplus
 extern "C"
@@ -16,7 +16,7 @@ extern "C"
 
     typedef struct SystemSchedulerHandle* NrtSystemScheduler;
 
-    typedef (*NrtSystemUpdatePtr)(NrtTimestamp, NrtCatalogue);
+    typedef void (*NrtSystemUpdatePtr)(NrtTimestamp, NrtCatalogue);
 
     NrtSystemScheduler Nrt_SystemScheduler_CreateWithDefaultThreadCount();
 

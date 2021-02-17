@@ -5,7 +5,9 @@
 #define NOVELRT_NRTCOMPONENTCACHE_H
 
 #include "../NrtInteropUtils.h"
+#include "NrtComponentBufferMemoryContainer.h"
 #include "NrtEcsUtils.h"
+#include <stddef.h>
 
 #ifdef __cplusplus
 extern "C"
@@ -17,7 +19,10 @@ extern "C"
     NrtComponentCache Nrt_ComponentCache_Create(size_t poolSize);
 
     NrtResult Nrt_ComponentCache_RegisterComponentTypeUnsafe(NrtComponentCache componentCache,
-                                                             ComponentTypeId* outputResult);
+                                                             size_t sizeOfDataType,
+                                                             const void* deleteInstructionState,
+                                                             NrtComponentUpdateFnPtr updateFnPtr,
+                                                             NrtComponentTypeId* outputResult);
 
     NrtResult Nrt_ComponentCache_GetComponentBufferById(NrtComponentCache componentCache,
                                                         NrtComponentTypeId id,
@@ -25,6 +30,8 @@ extern "C"
 
     void Nrt_ComponentCache_PrepAllBuffersForNextFrame(NrtComponentCache componentCache,
                                                        NrtEntityIdVector entitiesToDelete);
+
+    NrtResult Nrt_ComponentCache_Destroy(NrtComponentCache componentCache);
 
 #ifdef __cplusplus
 };
