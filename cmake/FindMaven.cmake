@@ -7,10 +7,10 @@ find_program(
   ENV ${Maven_INSTALL_DIR}
 )
 
-# The "mvn" file cannot be ran in Windows, unless with mvn.bat
+# The "mvn" file cannot be ran in Windows, unless with mvn.cmd
 if (WIN32 AND Maven_PROGRAM)
   string(APPEND Maven_PROGRAM ".cmd")
-  
+
   if (NOT EXISTS "${Maven_PROGRAM}")
     message("Couldn't find maven.cmd.")
     unset(Maven_PROGRAM)
@@ -22,7 +22,7 @@ if(Maven_PROGRAM)
     COMMAND ${Maven_PROGRAM} --version
     OUTPUT_VARIABLE Maven_VERSION_OUTPUT
   )
-  # Maven_VERSION_OUTPUT should be something something like 
+  # Maven_VERSION_OUTPUT should be something something like
   #   Apache Maven 3.6.3 (blahblahblah)
   #   Java version: 14.0.1, [some more stuff]
   #

@@ -11,6 +11,6 @@ set(OPTIONS
 add_executable(Java IMPORTED GLOBAL)
 add_dependencies(Java Java_Build)
 add_custom_target(Java_Build
-  COMMAND ${Maven_PROGRAM} clean package -f ${PROJECT} ${OPTIONS}
+  COMMAND ${Maven_PROGRAM} package -f ${PROJECT} ${OPTIONS}
   DEPENDS ${CMAKE_CURRENT_BINARY_DIR}
 )

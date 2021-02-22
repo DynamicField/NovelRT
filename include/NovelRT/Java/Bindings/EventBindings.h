@@ -2,7 +2,7 @@
 #define NOVELRT_EVENTBINDINGS_H
 
 #include <NovelRT.h>
-#include "NovelRT/Java/Registries.h"
+#include "NovelRT/Java/Types.h"
 #include "NovelRT/Java/Handles.h"
 
 namespace NovelRT::Java::Bindings {
@@ -35,7 +35,7 @@ namespace NovelRT::Java::Bindings {
   >;
 
   template<typename Listener, typename NovelEvent, typename JavaEvent>
-  void bindEvent(jni::JNIEnv& env, const jni::Class<JavaEvent>* eventClass,
+  void bindEvent(jni::JNIEnv& env, const jni::Class<JavaEvent>& eventClass,
                  const EventHandlerProxy<Listener, NovelEvent>& proxy) {
     auto&& addSubscription = [proxy]
       (jni::JNIEnv& env, jni::Object<JavaEvent>& self, jni::Object<Listener>& listener) {
@@ -44,7 +44,7 @@ namespace NovelRT::Java::Bindings {
       *event += createEventHandler<Listener, NovelEvent>(env, listener, proxy, *event);
     };
 
-    jni::RegisterNatives(env, **eventClass,
+    jni::RegisterNatives(env, *eventClass,
                          jni::MakeNativeMethod("addSubscription", std::function(addSubscription))
       //, TODO: jni::MakeNativeMethod("removeSubscription", std::function(removeSubscription))
     );

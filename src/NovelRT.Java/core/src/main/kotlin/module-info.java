@@ -1,5 +1,6 @@
 module novelrt {
   requires transitive kotlin.stdlib;
+  requires static novelrt.codegeneration.annotations;
 
   exports com.github.novelrt;
   exports com.github.novelrt.maths;

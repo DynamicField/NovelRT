@@ -1,17 +1,18 @@
-package com.github.novelrt.bridge.handle
+package com.github.novelrt.internal.handle
 
-import com.github.novelrt.bridge.UsedNatively
+import com.github.novelrt.codegeneration.annotations.GenerateNative
 
+@GenerateNative
 abstract class OwnedHandleObject(handle: Handle, deleter: (Handle) -> Unit, isOwned: Boolean = true) : HandleObject() {
   private val handleContainer = HandleContainer(handle, deleter, isOwned)
 
+  @GenerateNative
   private fun invalidate() {
     check(handleContainer.isOwned) { "Cannot invalidate a OwnedHandleObject that owns its handle." }
     handleContainer.invalidate()
     onInvalidation()
   }
 
-  @UsedNatively
   override val handle: Long
     get() {
       check(handleContainer.isValid) { "This HandleObject has been invalidated." }

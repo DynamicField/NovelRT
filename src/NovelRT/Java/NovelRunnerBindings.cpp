@@ -3,7 +3,6 @@
 namespace NovelRT::Java {
   using Self = Types::NovelRunner;
 
-  // TODO : Make something to find the resources correctly
   jni::jlong createRunner(jni::JNIEnv& env, Self::Class&, jni::jint displayNumber, jni::String& windowTitle,
                           jni::jint targetFrameRate, jni::jboolean transparency) {
     auto windowTitleString = std::string(std::get<0>(jni::GetStringUTFChars(env, *windowTitle)).get());
@@ -14,11 +13,11 @@ namespace NovelRT::Java {
       targetFrameRate,
       transparency
     );
-    return reinterpret_cast<jlong>(runner);
+    return Handles::toJava(runner);
   }
 
   void deleteRunner(jni::JNIEnv&, Self::Class&, jni::jlong handle) {
-    delete reinterpret_cast<NovelRunner*>(handle);
+    delete Handles::get<NovelRunner>(handle);
   }
 
   jni::jint runNovel(jni::JNIEnv& env, Self::Object& self) {
@@ -27,18 +26,17 @@ namespace NovelRT::Java {
   }
 
   auto createSceneConstructionRequestedEvent(jni::JNIEnv& env, Self::Object& self) {
-    using Event = Types::SceneConstructionRequestedBridgeEvent;
+    using Event = Types::SceneConstructionRequestedEvent;
 
     auto* runner = Handles::get<NovelRunner>(env, *self);
     auto* event = &runner->SceneConstructionRequested;
-    return Event::javaClass().New(env, Event::mainConstructor(), jni::jlong(event));
+    return Event::mainConstructor.invoke(env, jni::jlong(event));
   }
 
   auto createRenderingService(jni::JNIEnv& env, Self::Object& self) {
     auto* runner = Handles::get<NovelRunner>(env, *self);
     auto* service = runner->getRenderer().get();
-    return Types::BridgeRenderingService::javaClass().New(env, Types::BridgeRenderingService::mainConstructor(),
-                                                          jni::jlong(service));
+    return Types::RenderingService::mainConstructor.invoke(env, jni::jlong(service));
   }
 
   void Bindings::registerNovelRunnerBindings(jni::JNIEnv& env) {

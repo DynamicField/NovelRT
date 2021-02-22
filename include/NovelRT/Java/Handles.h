@@ -2,7 +2,7 @@
 #define NOVELRT_HANDLES_H
 
 #include <jni/jni.hpp>
-#include "Registries.h"
+#include "Types.h"
 
 
 namespace NovelRT::Java::Handles {

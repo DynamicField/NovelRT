@@ -7,7 +7,7 @@ namespace NovelRT::Java {
   }
 
   void Bindings::registerBridgeRenderObjectBindings(jni::JNIEnv& env) {
-    jni::RegisterNatives(env, *Types::BridgeRenderObject::javaClass(),
+    jni::RegisterNatives(env, *Types::RenderObject::javaClass(),
                          jni::MakeNativeMethod<decltype(executeObjectBehaviourNative), &executeObjectBehaviourNative>(
                            "executeObjectBehaviourNative", "(J)V"));
   }

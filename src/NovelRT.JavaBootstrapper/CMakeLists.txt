@@ -9,13 +9,18 @@ add_dependencies(JavaBootstrapper Engine Dotnet)
 target_include_directories(JavaBootstrapper
   PRIVATE
   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
-  $<INSTALL_INTERFACE:include>
-  ${JNI_SOURCE_DIRS})
+  $<INSTALL_INTERFACE:include>)
+
+add_library(JNI::JVM UNKNOWN IMPORTED)
+set_target_properties(JNI::JVM
+  PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES "${JAVA_INCLUDE_PATH};${JAVA_INCLUDE_PATH2}"
+    IMPORTED_LOCATION "${JAVA_JVM_LIBRARY}")
 
 target_link_libraries(JavaBootstrapper
   PRIVATE
     Engine
-    ${JNI_LIBRARIES}
+    JNI::JVM
 )
 
 add_custom_command(

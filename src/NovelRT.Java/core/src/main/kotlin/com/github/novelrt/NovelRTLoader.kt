@@ -1,8 +1,12 @@
 package com.github.novelrt
 
+import com.github.novelrt.codegeneration.annotations.GenerateNative
+
+@GenerateNative
 object NovelRTLoader {
   private const val DEFAULT_LIBRARY_NAME = "Engine"
   @JvmStatic
+  @GenerateNative
   private var hasBeenLoaded = false
 
   @Synchronized

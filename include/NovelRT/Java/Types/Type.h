@@ -20,6 +20,7 @@ namespace NovelRT::Java::Types {
     template<typename Value> using StaticField = jni::StaticField<Self, Value>;
 
     template<typename Signature> using MethodDef = MethodDefinition<Self, Signature>;
+    template<typename Signature> using StaticMethodDef = StaticMethodDefinition<Self, Signature>;
     template<typename... Args> using ConstructorDef = ConstructorDefinition<Self, Args...>;
     template<typename Value> using FieldDef = FieldDefinition<Self, Value>;
     template<typename Value> using StaticFieldDef = StaticFieldDefinition<Self, Value>;

@@ -15,13 +15,9 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <java.version>14</java.version>
-    <kotlin.version>1.4.20</kotlin.version>
+    <kotlin.version>1.4.30</kotlin.version>
+    <kotlin.compiler.incremental>true</kotlin.compiler.incremental>
   </properties>
-
-  <!--
-
-  -->
-
 
   <build>
     <sourceDirectory>${project.basedir}/src/main/kotlin</sourceDirectory>
@@ -140,45 +136,66 @@
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
           <version>2.8</version>
-          <executions>
-            <execution>
-              <id>copy-dependencies</id>
-              <phase>prepare-package</phase>
-              <goals>
-                <goal>copy-dependencies</goal>
-              </goals>
-              <configuration>
-                <outputDirectory>${project.build.directory}/deps</outputDirectory>
-                <overWriteReleases>true</overWriteReleases>
-                <overWriteSnapshots>true</overWriteSnapshots>
-                <overWriteIfNewer>true</overWriteIfNewer>
-                <includeScope>compile</includeScope>
-              </configuration>
-            </execution>
-          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-clean-plugin</artifactId>
+          <version>3.1.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-ant-plugin</artifactId>
+          <version>2.4</version>
         </plugin>
       </plugins>
     </pluginManagement>
   </build>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-stdlib-jdk8</artifactId>
-      <version>${kotlin.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains.kotlin</groupId>
-      <artifactId>kotlin-test</artifactId>
-      <version>${kotlin.version}</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.jetbrains</groupId>
-      <artifactId>annotations</artifactId>
-      <version>20.1.0</version>
-    </dependency>
-  </dependencies>
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-stdlib-jdk8</artifactId>
+        <version>${kotlin.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-test</artifactId>
+        <version>${kotlin.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains</groupId>
+        <artifactId>annotations</artifactId>
+        <version>20.1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.novelrt</groupId>
+        <artifactId>novelrt-java</artifactId>
+        <version>0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.novelrt</groupId>
+        <artifactId>novelrt-code-generation-annotations</artifactId>
+        <version>0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.github.novelrt</groupId>
+        <artifactId>novelrt-code-generation</artifactId>
+        <version>0.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.guava</groupId>
+        <artifactId>guava</artifactId>
+        <version>29.0-jre</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <artifactId>kotlin-annotation-processing-maven</artifactId>
+        <version>${kotlin.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <repositories>
     <repository>
@@ -212,5 +229,7 @@
     <module>core</module>
     <module>sample-kotlin</module>
     <module>sample-java</module>
+    <module>code-generation-annotations</module>
+    <module>code-generation</module>
   </modules>
 </project>

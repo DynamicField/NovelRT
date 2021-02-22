@@ -14,7 +14,7 @@ namespace NovelRT::Java::Types {
   protected:
     virtual T find(jni::JNIEnv& env) = 0;
 
-    const jni::Class<Container>& containerClass() {
+    const jni::Class<Container>& containerClass() const {
       return _containerClassFunction();
     }
 
@@ -51,13 +51,41 @@ namespace NovelRT::Java::Types {
     MethodDefinition(const std::string& name) : _name(name) {}
   };
 
+  template<typename Container, typename Signature>
+  class StaticMethodDefinition final : public DefinitionBase<Container, jni::StaticMethod<Container, Signature>> {
+  private:
+    std::string _name;
+
+  protected:
+    jni::StaticMethod<Container, Signature> find(JNIEnv& env) override {
+      std::cout << "Finding static method " << _name << jni::TypeSignature<Signature>()() << " in class " << Container::Name()
+                << "..." << std::endl;
+      return this->containerClass().template GetStaticMethod<Signature>(env, _name.c_str());
+    }
+
+  public:
+    StaticMethodDefinition(const std::string& name) : _name(name) {}
+
+    template <typename... ActualArgs>
+    auto invoke(jni::JNIEnv& env, const ActualArgs&... args) {
+      return this->containerClass().Call(env, this->get(), args...);
+    }
+  };
+
   template<typename Container, typename... Args>
   class ConstructorDefinition final : public DefinitionBase<Container, jni::Constructor<Container, Args...>> {
   protected:
     jni::Constructor<Container, Args...> find(JNIEnv& env) override {
+
       std::cout << "Finding constructor " << jni::TypeSignature<void(Args...)>()() << " in class " << Container::Name()
                 << "..." << std::endl;
       return this->containerClass().template GetConstructor<Args...>(env);
+    }
+  public:
+    template <class... ActualArgs >
+    auto invoke(JNIEnv& env, const ActualArgs&... args)
+    {
+      return this->containerClass().New(env, this->get(), args...);
     }
   };
 
@@ -89,6 +117,15 @@ namespace NovelRT::Java::Types {
 
   public:
     StaticFieldDefinition(const std::string& name) : _name(name) {}
+
+    auto getValue(jni::JNIEnv& env) {
+      return this->containerClass().Get(env, this->get());
+    }
+
+    template<typename T>
+    void setValue(jni::JNIEnv& env, T value) {
+      this->containerClass().Get(env, this->get(), value);
+    }
   };
 }
 

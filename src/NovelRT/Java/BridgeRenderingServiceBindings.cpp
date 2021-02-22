@@ -1,39 +1,40 @@
 #include "NovelRT/Java/JavaSupport.h"
 
 namespace NovelRT::Java {
-  using Self = Types::BridgeRenderingService;
+  using Self = Types::RenderingService;
   using namespace TypeConversion;
 
-  jni::jlong createBasicRectNative(jni::JNIEnv& env, Self::Object& self, jni::Object<Types::Transform>& transform,
-                                   jni::jint rgba, jni::jint layer) {
+  auto createBasicRect(jni::JNIEnv& env, Self::Object& self, Types::Transform::Object& transform,
+                       Types::RGBAColour::Object& rgba, jni::jint layer) {
     auto* service = Handles::get<Graphics::RenderingService>(env, *self);
 
     auto rect = service->createBasicFillRect(TransformConverter().fromJava(env, transform),
                                              static_cast<int>(layer),
-                                             RGBAConfigConverter().fromRGBA(static_cast<int>(rgba)));
+                                             RGBAConfigConverter().fromJava(env, rgba));
 
-    return Handles::toJava(rect.release());
+    return Types::BasicRect::mainConstructor.invoke(env, Handles::toJava(rect.release()), jni::jni_true);
   }
 
 
-  jni::jlong createTextRectNative(jni::JNIEnv& env, Self::Object& self, jni::Object<Types::Transform>& transform,
-                              jni::jint rgba, jni::jfloat fontSize, jni::String& fontPath, jni::jint layer) {
+  auto createTextRect(jni::JNIEnv& env, Self::Object& self, Types::Transform::Object& transform,
+                      Types::RGBAColour::Object& rgba, jni::jfloat fontSize, Types::Path::Object& fontPath, jni::jint layer) {
     auto* service = Handles::get<Graphics::RenderingService>(env, *self);
 
+    auto fontPathString = jni::Make<std::string>(env, Types::NativeHelpers::toNativeString.invoke(env, fontPath));
     auto rect = service->createTextRect(TransformConverter().fromJava(env, transform),
                                         static_cast<int>(layer),
-                                        RGBAConfigConverter().fromRGBA(static_cast<int>(rgba)),
+                                        RGBAConfigConverter().fromJava(env, rgba),
                                         fontSize,
-                                        jni::Make<std::string>(env, fontPath));
+                                        fontPathString);
 
-    return Handles::toJava(rect.release());
+    return Types::TextRect::mainConstructor.invoke(env, Handles::toJava(rect.release()), jni::jni_true);
   }
 
 
   void Bindings::registerBridgeGraphicsServiceBindings(jni::JNIEnv& env) {
     jni::RegisterNatives(env, *Self::javaClass(),
-                         jni::MakeNativeMethod<decltype(createBasicRectNative), &createBasicRectNative>(
-                           "createBasicRectNative"),
-                           jni::MakeNativeMethod<decltype(createTextRectNative), &createTextRectNative>("createTextRectNative"));
+                         jni::MakeNativeMethod<decltype(createBasicRect), &createBasicRect>(
+                           "createBasicRect"),
+                         jni::MakeNativeMethod<decltype(createTextRect), &createTextRect>("createTextRect"));
   }
 }

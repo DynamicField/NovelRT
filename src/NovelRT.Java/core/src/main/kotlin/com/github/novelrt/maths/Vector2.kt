@@ -1,6 +1,11 @@
 package com.github.novelrt.maths
 
-data class Vector2(val x: Float = 0f, val y: Float = 0f) {
+import com.github.novelrt.codegeneration.annotations.GenerateNative
+
+data class Vector2 @GenerateNative constructor(
+  @field:GenerateNative val x: Float = 0f,
+  @field:GenerateNative val y: Float = 0f
+) {
   fun plus(x: Float, y: Float): Vector2 {
     return Vector2(this.x + x, this.y + y)
   }

@@ -2,7 +2,7 @@
 
 
 namespace NovelRT::Java {
-  using Self = Types::BridgeWorldObject;
+  using Self = Types::WorldObject;
 
   void deleteWorldObject(jni::JNIEnv&, Self::Class&, jni::jlong handle) {
     delete reinterpret_cast<WorldObject*>(handle);

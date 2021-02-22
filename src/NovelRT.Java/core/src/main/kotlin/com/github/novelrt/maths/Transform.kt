@@ -1,11 +1,11 @@
 package com.github.novelrt.maths
 
-import com.github.novelrt.bridge.handle.Handle
-import com.github.novelrt.bridge.handle.OwnedHandleObject
-import com.github.novelrt.bridge.handle.UnownedHandleObject
+import com.github.novelrt.internal.handle.Handle
+import com.github.novelrt.internal.handle.OwnedHandleObject
+import com.github.novelrt.codegeneration.annotations.GenerateNative
 
 
-class Transform private constructor(handle: Handle, isOwned: Boolean = false) :
+class Transform @GenerateNative private constructor(handle: Handle, isOwned: Boolean = false) :
   OwnedHandleObject(handle, ::deleteTransform, isOwned) {
 
   constructor(position: Vector2, scale: Vector2, rotation: Float) :

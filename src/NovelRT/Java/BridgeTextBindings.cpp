@@ -3,7 +3,7 @@
 namespace NovelRT::Java {
   using namespace Graphics;
 
-  using Self = Types::BridgeTextRect;
+  using Self = Types::TextRect;
 
   void Bindings::registerBridgeTextBindings(jni::JNIEnv& env) {
     Bindings::bindProperty<Self, Types::RGBAColour,

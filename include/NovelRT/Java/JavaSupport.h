@@ -6,7 +6,6 @@
 #include "Init.h"
 
 #include "Types.h"
-#include "Registries.h"
 #include "Bindings.h"
 #include "TypeConversion.h"
 

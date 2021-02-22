@@ -1,14 +1,15 @@
 package com.github.novelrt
 
-import com.github.novelrt.bridge.event.SceneConstructionRequestedBridgeEvent
-import com.github.novelrt.bridge.handle.Handle
-import com.github.novelrt.bridge.handle.OwnedHandleObject
-import com.github.novelrt.bridge.graphics.BridgeRenderingService
+import com.github.novelrt.event.SceneConstructionRequestedEvent
+import com.github.novelrt.internal.handle.Handle
+import com.github.novelrt.internal.handle.OwnedHandleObject
+import com.github.novelrt.codegeneration.annotations.GenerateNative
 import com.github.novelrt.event.Event
 import com.github.novelrt.event.SceneConstructionRequestedListener
 import com.github.novelrt.graphics.RenderingService
 import java.util.concurrent.atomic.AtomicInteger
 
+@GenerateNative
 class NovelRunner : OwnedHandleObject(
   createRunner(
     displayNumber = nextDisplayNumber.getAndIncrement(),
@@ -40,6 +41,6 @@ class NovelRunner : OwnedHandleObject(
   }
 
   private external fun runNovel(): Int
-  private external fun createSceneConstructionRequestedEvent(): SceneConstructionRequestedBridgeEvent
-  private external fun createRenderingService(): BridgeRenderingService
+  private external fun createSceneConstructionRequestedEvent(): SceneConstructionRequestedEvent
+  private external fun createRenderingService(): RenderingService
 }

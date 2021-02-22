@@ -3,12 +3,12 @@
 using namespace NovelRT;
 using namespace NovelRT::Java;
 
-using Event = Types::SceneConstructionRequestedBridgeEvent;
+using Event = Types::SceneConstructionRequestedEvent;
 using Listener = Types::SceneConstructionRequestedListener;
 
 void Bindings::registerBridgeSceneConstructionRequestedEventBindings(jni::JNIEnv& env) {
   Bindings::bindEvent<Listener, Utilities::Event<>, Event>(
-    env, &Event::javaClass(), [](jni::JNIEnv& env, Listener::Object& listener) {
+    env, Event::javaClass(), [](jni::JNIEnv& env, Listener::Object& listener) {
       listener.Call(env, Listener::listen());
     }
   );

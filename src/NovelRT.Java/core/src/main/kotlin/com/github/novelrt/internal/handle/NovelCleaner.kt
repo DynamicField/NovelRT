@@ -1,4 +1,4 @@
-package com.github.novelrt.bridge.handle
+package com.github.novelrt.internal.handle
 
 import java.lang.ref.Cleaner
 
