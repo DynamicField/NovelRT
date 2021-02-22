@@ -62,6 +62,15 @@ namespace NovelRT::Java::Bindings {
     Full = Getter + Setter
   };
 
+  /**
+   * @brief The base structure for representing a property.
+   * A property is a set of two methods: a getter accessing the value, and a setter editing the value.
+   * The setter is optional, making the property **immutable**.
+   *
+   * @tparam H The type containing the property
+   * @tparam T The type of the property
+   * @tparam Mutable `true` if this property is mutable, `false` if it is immutable.
+   */
   template<typename H, typename T, bool Mutable>
   struct PropertyBase {
     using HolderType = H;

@@ -53,14 +53,20 @@ set(ENGINE_SOURCES
   Input/BasicInteractionRect.cpp
   Input/InteractionObject.cpp
   Input/InteractionService.cpp
-  Java/NovelRunnerBindings.cpp
-  Java/WorldObjectBindings.cpp
+
+  Java/Bindings/NovelRunnerBindings.cpp
+  Java/Bindings/WorldObjectBindings.cpp
   Java/StringConversions.cpp
   Java/Handles.cpp
-  Java/SceneConstructionRequestedEventBindings.cpp
-  Java/TransformBindings.cpp
-  Java/BridgeTextBindings.cpp
-  Java/BridgeRenderingServiceBindings.cpp
+  Java/Bindings/SceneConstructionRequestedEventBindings.cpp
+  Java/Bindings/TransformBindings.cpp
+  Java/Bindings/TextBindings.cpp
+  Java/Bindings/GraphicsServiceBindings.cpp
+  Java/Bindings/RenderObjectBindings.cpp
+  Java/Init.cpp
+  Java/TypeConversion/Vector2TypeConverter.cpp
+  Java/TypeConversion/TransformTypeConverter.cpp
+  Java/TypeConversion/RGBAConfigTypeConverter.cpp
 
   LoggingService.cpp
 
@@ -77,7 +83,7 @@ set(ENGINE_SOURCES
 
   Windowing/WindowingService.cpp
 
-  WorldObject.cpp Java/BridgeRenderObjectBindings.cpp Java/Init.cpp Java/TypeConversion/Vector2TypeConverter.cpp Java/TypeConversion/TransformTypeConverter.cpp Java/TypeConversion/RGBAConfigTypeConverter.cpp)
+  WorldObject.cpp Java/Bindings/AllBindings.cpp)
 
 add_library(Engine SHARED ${ENGINE_SOURCES})
 add_dependencies(Engine Dotnet Java)

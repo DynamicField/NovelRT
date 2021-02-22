@@ -30,7 +30,7 @@ namespace NovelRT::Java::Types {
       return *_value;
     }
 
-    inline T operator()() {
+    inline T& operator()() {
       return get();
     }
   };
@@ -124,7 +124,7 @@ namespace NovelRT::Java::Types {
 
     template<typename T>
     void setValue(jni::JNIEnv& env, T value) {
-      this->containerClass().Get(env, this->get(), value);
+      this->containerClass().Set(env, this->get(), value);
     }
   };
 }

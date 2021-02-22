@@ -13,7 +13,7 @@ namespace NovelRT::Java {
     std::cout << "Got the env, that's a good start..." << std::endl;
 
     if (!fromOnLoad) {
-      Types::NovelRTLoader::javaClass().Set(env, Types::NovelRTLoader::hasBeenLoaded(), jni::jni_true);
+      Types::NovelRTLoader::hasBeenLoaded.setValue(env, jni::jni_true);
     }
 
     int i = 0;

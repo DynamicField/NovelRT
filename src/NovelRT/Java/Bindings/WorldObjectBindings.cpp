@@ -1,5 +1,5 @@
 #include "NovelRT/Java/JavaSupport.h"
-
+#include "NovelRT/Java/Bindings/WorldObjectBindings.h"
 
 namespace NovelRT::Java {
   using Self = Types::WorldObject;
@@ -8,7 +8,7 @@ namespace NovelRT::Java {
     delete reinterpret_cast<WorldObject*>(handle);
   }
 
-  void Bindings::registerBridgeWorldObjectBindings(jni::JNIEnv& env) {
+  void Bindings::registerWorldObjectBindings(jni::JNIEnv& env) {
     // We use mutableProperty here because we need to use the non-const version of WorldObject::transform.
     Bindings::bindProperty<Self, Types::Transform, modifiable(&WorldObject::transform), Getter>(env, "transform");
 

@@ -1,4 +1,5 @@
 #include "NovelRT/Java/JavaSupport.h"
+#include "NovelRT/Java/Bindings/GraphicsServiceBindings.h"
 
 namespace NovelRT::Java {
   using Self = Types::RenderingService;
@@ -31,7 +32,7 @@ namespace NovelRT::Java {
   }
 
 
-  void Bindings::registerBridgeGraphicsServiceBindings(jni::JNIEnv& env) {
+  void Bindings::registerGraphicsServiceBindings(jni::JNIEnv& env) {
     jni::RegisterNatives(env, *Self::javaClass(),
                          jni::MakeNativeMethod<decltype(createBasicRect), &createBasicRect>(
                            "createBasicRect"),

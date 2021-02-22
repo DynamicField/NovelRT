@@ -1,4 +1,5 @@
 #include "NovelRT/Java/JavaSupport.h"
+#include "NovelRT/Java/Bindings/RenderObjectBindings.h"
 
 namespace NovelRT::Java {
   void executeObjectBehaviourNative(jni::JNIEnv*, jni::jobject*, jni::jlong handle) {
@@ -6,7 +7,7 @@ namespace NovelRT::Java {
     renderObject->executeObjectBehaviour();
   }
 
-  void Bindings::registerBridgeRenderObjectBindings(jni::JNIEnv& env) {
+  void Bindings::registerRenderObjectBindings(jni::JNIEnv& env) {
     jni::RegisterNatives(env, *Types::RenderObject::javaClass(),
                          jni::MakeNativeMethod<decltype(executeObjectBehaviourNative), &executeObjectBehaviourNative>(
                            "executeObjectBehaviourNative", "(J)V"));

@@ -1,4 +1,5 @@
 #include "NovelRT/Java/JavaSupport.h"
+#include "NovelRT/Java/Bindings/TransformBindings.h"
 
 namespace NovelRT::Java {
   using Self = Types::Transform;
