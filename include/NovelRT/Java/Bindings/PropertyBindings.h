@@ -16,20 +16,20 @@ namespace NovelRT::Java::Bindings {
   // arguments.
   template<typename T>
   struct RemoveNoexcept {
-    using type = T;
+    using Type = T;
   };
 
   template<typename R, typename O, typename ...P>
   struct RemoveNoexcept<R(O::*)(P...) noexcept> {
-    using type = R(O::*)(P...);
+    using Type = R(O::*)(P...);
   };
 
   template<typename R, typename O, typename ...P>
   struct RemoveNoexcept<R(O::*)(P...) const noexcept> {
-    using type = R(O::*)(P...) const;
+    using Type = R(O::*)(P...) const;
   };
 
-  template<typename T> using RemoveNoexceptType = typename RemoveNoexcept<T>::type;
+  template<typename T> using RemoveNoexceptType = typename RemoveNoexcept<T>::Type;
 #pragma endregion
 
 #pragma region ObjectWrapped

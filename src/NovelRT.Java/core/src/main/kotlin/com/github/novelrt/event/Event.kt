@@ -13,7 +13,7 @@ abstract class Event<T : EventListener> protected constructor(handle: Long) : Un
     if (listener in eventListeners) {
       return
     }
-    addSubscription(listener)
+    addSubscription(listener, listener.hashCode())
     eventListeners.add(listener)
   }
 
@@ -21,10 +21,10 @@ abstract class Event<T : EventListener> protected constructor(handle: Long) : Un
     if (listener !in eventListeners) {
       return
     }
-    removeSubscription(listener)
+    removeSubscription(listener, listener.hashCode())
     eventListeners.remove(listener)
   }
 
-  protected abstract fun addSubscription(listener: T)
-  protected abstract fun removeSubscription(listener: T)
+  protected abstract fun addSubscription(listener: T, hash: Int)
+  protected abstract fun removeSubscription(listener: T, hash: Int)
 }

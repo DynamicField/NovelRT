@@ -6,12 +6,22 @@
 #include "NovelRT/Java/Handles.h"
 
 namespace NovelRT::Java::Bindings {
+  template<typename T>
+  struct EventToEventHandler;
+
+  template<typename... Args>
+  struct EventToEventHandler<Utilities::Event<Args...>> {
+    using Type = Utilities::EventHandler<Args...>;
+  };
+
+  template<typename T> using EventToEventHandlerType = typename EventToEventHandler<T>::Type;
+
   template<typename Event>
   struct ExtractEventHandlerFunction;
 
   template<typename... Args>
-  struct ExtractEventHandlerFunction<NovelRT::Utilities::Event<Args...>> {
-    using Value = void(Args...);
+  struct ExtractEventHandlerFunction<Utilities::Event<Args...>> {
+    using Type = void(Args...);
   };
 
   template<typename Function, typename... Params>
@@ -19,7 +29,7 @@ namespace NovelRT::Java::Bindings {
 
   template<typename R, typename... CurrentParams, typename... PrependedParams>
   struct PrependFunctionParameters<R(CurrentParams...), PrependedParams...> {
-    using Value = R(PrependedParams..., CurrentParams...);
+    using Type = R(PrependedParams..., CurrentParams...);
   };
 
   // Example:
@@ -28,26 +38,40 @@ namespace NovelRT::Java::Bindings {
   template<typename Listener, typename NovelEvent>
   using EventHandlerProxy = std::function<
     typename PrependFunctionParameters<
-      typename ExtractEventHandlerFunction<NovelEvent>::Value,
+      typename ExtractEventHandlerFunction<NovelEvent>::Type,
       jni::JNIEnv&,
       jni::Object<Listener>&
-    >::Value
+    >::Type
   >;
 
   template<typename Listener, typename NovelEvent, typename JavaEvent>
   void bindEvent(jni::JNIEnv& env, const jni::Class<JavaEvent>& eventClass,
                  const EventHandlerProxy<Listener, NovelEvent>& proxy) {
+    using AssociatedEventHandler = EventToEventHandlerType<NovelEvent>;
+
+    static std::unordered_map<jni::jint, AssociatedEventHandler> hashToEventHandler;
+
     auto&& addSubscription = [proxy]
-      (jni::JNIEnv& env, jni::Object<JavaEvent>& self, jni::Object<Listener>& listener) {
+      (jni::JNIEnv& env, jni::Object<JavaEvent>& self, jni::Object<Listener>& listener, jni::jint listenerHash) {
       auto* event = Handles::get<NovelEvent>(env, *self);
 
-      *event += createEventHandler<Listener, NovelEvent>(env, listener, proxy, *event);
+      auto eventHandler = createEventHandler<Listener, NovelEvent>(env, listener, proxy, *event);
+      *event += eventHandler;
+      hashToEventHandler[listenerHash] = eventHandler;
+    };
+
+    auto&& removeSubscription = [proxy]
+      (jni::JNIEnv& env, jni::Object<JavaEvent>& self, jni::Object<Listener>&, jni::jint listenerHash) {
+      auto* event = Handles::get<NovelEvent>(env, *self);
+
+      auto eventHandler = hashToEventHandler[listenerHash];
+      *event -= eventHandler;
+      hashToEventHandler.erase(listenerHash);
     };
 
     jni::RegisterNatives(env, *eventClass,
-                         jni::MakeNativeMethod("addSubscription", std::function(addSubscription))
-      //, TODO: jni::MakeNativeMethod("removeSubscription", std::function(removeSubscription))
-    );
+                         jni::MakeNativeMethod("addSubscription", addSubscription),
+                         jni::MakeNativeMethod("removeSubscription", removeSubscription));
   }
 
   // The Event argument is used to deduct the Args parameter pack.
