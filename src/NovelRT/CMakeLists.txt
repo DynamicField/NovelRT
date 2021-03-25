@@ -56,14 +56,15 @@ set(ENGINE_SOURCES
 
   Java/Bindings/NovelRunnerBindings.cpp
   Java/Bindings/WorldObjectBindings.cpp
-  Java/StringConversions.cpp
-  Java/Handles.cpp
+  Java/Bindings/AllBindings.cpp
   Java/Bindings/SceneConstructionRequestedEventBindings.cpp
   Java/Bindings/TransformBindings.cpp
   Java/Bindings/TextBindings.cpp
   Java/Bindings/GraphicsServiceBindings.cpp
   Java/Bindings/RenderObjectBindings.cpp
+  Java/Handles.cpp
   Java/Init.cpp
+  Java/StringConversions.cpp
   Java/TypeConversion/Vector2TypeConverter.cpp
   Java/TypeConversion/TransformTypeConverter.cpp
   Java/TypeConversion/RGBAConfigTypeConverter.cpp
@@ -83,10 +84,10 @@ set(ENGINE_SOURCES
 
   Windowing/WindowingService.cpp
 
-  WorldObject.cpp Java/Bindings/AllBindings.cpp)
+  WorldObject.cpp)
 
 add_library(Engine SHARED ${ENGINE_SOURCES})
-add_dependencies(Engine Dotnet Java)
+add_dependencies(Engine Dotnet Java_CodeGen)
 target_compile_features(Engine PUBLIC cxx_std_17)
 target_include_directories(Engine
   PUBLIC
@@ -131,8 +132,6 @@ else()
       -Wno-reserved-id-macro
   )
 endif()
-
-message(STATUS "Libraries: ${JNI_LIBRARIES} ; include dirs ${JNI_INCLUDE_DIRS}")
 
 target_link_libraries(Engine
   PUBLIC

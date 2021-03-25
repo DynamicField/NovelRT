@@ -1,12 +1,12 @@
 package com.github.novelrt.internal.handle
 
-import com.github.novelrt.codegeneration.annotations.GenerateNative
+import com.github.novelrt.codegeneration.annotations.GenerateNativeType
 
-@GenerateNative
+@GenerateNativeType
 abstract class OwnedHandleObject(handle: Handle, deleter: (Handle) -> Unit, isOwned: Boolean = true) : HandleObject() {
   private val handleContainer = HandleContainer(handle, deleter, isOwned)
 
-  @GenerateNative
+  @GenerateNativeType
   private fun invalidate() {
     check(handleContainer.isOwned) { "Cannot invalidate a OwnedHandleObject that owns its handle." }
     handleContainer.invalidate()

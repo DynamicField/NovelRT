@@ -4,6 +4,7 @@
 #include <array>
 #include <string>
 #include <vector>
+#include <regex>
 
 namespace NovelRT::JavaBootstrapper {
   enum OptionType {
@@ -18,16 +19,16 @@ namespace NovelRT::JavaBootstrapper {
 
   struct Option {
     std::string id;
-    std::vector<std::string> names;
+    std::regex pattern;
     OptionType type;
     OptionFlags flags;
 
-    Option(std::string id, const std::initializer_list<std::string>& names,
+    Option(std::string id, const std::regex& pattern,
            OptionType type, OptionFlags flags = None)
-    : id(id), names(names), type(type), flags(flags) {}
+    : id(id), pattern(pattern), type(type), flags(flags) {}
   };
 
-  inline const Option LaunchOption("Launch", {"--launch"}, AcceptsValue, DelimitsRest);
+  inline const Option LaunchOption("Launch", std::regex("^--launch$"), AcceptsValue, DelimitsRest);
 
   inline const std::vector<const Option*> AllOptions{
     &LaunchOption

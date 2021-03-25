@@ -60,6 +60,12 @@ namespace NovelRT::Java::Types {
     static inline StaticFieldDef<jni::jboolean> hasBeenLoaded{"hasBeenLoaded"};
   };
   
+  struct UnownedHandleObject : public Type<UnownedHandleObject>, Super<HandleObject> {
+    static constexpr auto Name() {
+      return "com/github/novelrt/internal/handle/UnownedHandleObject";
+    }
+  };
+  
   struct OwnedHandleObject : public Type<OwnedHandleObject>, Super<HandleObject> {
     static constexpr auto Name() {
       return "com/github/novelrt/internal/handle/OwnedHandleObject";
@@ -68,18 +74,32 @@ namespace NovelRT::Java::Types {
     static inline MethodDef<void()> invalidate{"invalidate"};
   };
   
-  struct UnownedHandleObject : public Type<UnownedHandleObject>, Super<HandleObject> {
-    static constexpr auto Name() {
-      return "com/github/novelrt/internal/handle/UnownedHandleObject";
-    }
-  };
-  
   struct NativeHelpers : public Type<NativeHelpers> {
     static constexpr auto Name() {
       return "com/github/novelrt/internal/NativeHelpers";
     }
     
     static inline StaticMethodDef<jni::Object<jni::StringTag>(jni::Object<Path>)> toNativeString{"toNativeString"};
+  };
+  
+  struct RenderingService : public Type<RenderingService>, Super<UnownedHandleObject> {
+    static constexpr auto Name() {
+      return "com/github/novelrt/graphics/RenderingService";
+    }
+    
+    static inline ConstructorDef<jni::jlong> mainConstructor;
+  };
+  
+  struct Event : public Type<Event>, Super<UnownedHandleObject> {
+    static constexpr auto Name() {
+      return "com/github/novelrt/event/Event";
+    }
+  };
+  
+  struct NovelRunner : public Type<NovelRunner>, Super<OwnedHandleObject> {
+    static constexpr auto Name() {
+      return "com/github/novelrt/NovelRunner";
+    }
   };
   
   struct Transform : public Type<Transform>, Super<OwnedHandleObject> {
@@ -96,21 +116,9 @@ namespace NovelRT::Java::Types {
     }
   };
   
-  struct NovelRunner : public Type<NovelRunner>, Super<OwnedHandleObject> {
+  struct SceneConstructionRequestedEvent : public Type<SceneConstructionRequestedEvent>, Super<Event> {
     static constexpr auto Name() {
-      return "com/github/novelrt/NovelRunner";
-    }
-  };
-  
-  struct Event : public Type<Event>, Super<UnownedHandleObject> {
-    static constexpr auto Name() {
-      return "com/github/novelrt/event/Event";
-    }
-  };
-  
-  struct RenderingService : public Type<RenderingService>, Super<UnownedHandleObject> {
-    static constexpr auto Name() {
-      return "com/github/novelrt/graphics/RenderingService";
+      return "com/github/novelrt/event/SceneConstructionRequestedEvent";
     }
     
     static inline ConstructorDef<jni::jlong> mainConstructor;
@@ -124,25 +132,17 @@ namespace NovelRT::Java::Types {
     static inline ConstructorDef<jni::jlong, jni::jboolean> mainConstructor;
   };
   
-  struct SceneConstructionRequestedEvent : public Type<SceneConstructionRequestedEvent>, Super<Event> {
+  struct BasicRect : public Type<BasicRect>, Super<RenderObject> {
     static constexpr auto Name() {
-      return "com/github/novelrt/event/SceneConstructionRequestedEvent";
-    }
-    
-    static inline ConstructorDef<jni::jlong> mainConstructor;
-  };
-  
-  struct TextRect : public Type<TextRect>, Super<RenderObject> {
-    static constexpr auto Name() {
-      return "com/github/novelrt/graphics/TextRect";
+      return "com/github/novelrt/graphics/BasicRect";
     }
     
     static inline ConstructorDef<jni::jlong, jni::jboolean> mainConstructor;
   };
   
-  struct BasicRect : public Type<BasicRect>, Super<RenderObject> {
+  struct TextRect : public Type<TextRect>, Super<RenderObject> {
     static constexpr auto Name() {
-      return "com/github/novelrt/graphics/BasicRect";
+      return "com/github/novelrt/graphics/TextRect";
     }
     
     static inline ConstructorDef<jni::jlong, jni::jboolean> mainConstructor;

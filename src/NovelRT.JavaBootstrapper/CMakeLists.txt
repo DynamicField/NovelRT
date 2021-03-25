@@ -30,7 +30,7 @@ add_custom_command(
   $<TARGET_FILE_DIR:JavaBootstrapper>
 )
 
-if (WIN32)
+if(WIN32)
   add_custom_command(
     TARGET JavaBootstrapper POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory

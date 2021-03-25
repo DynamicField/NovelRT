@@ -36,12 +36,10 @@ namespace NovelRT::JavaBootstrapper {
     auto optionName = next();
 
     for (auto* optionCandidate : AllOptions) {
-      for (auto& optionCandidateName : optionCandidate->names) {
-        if (optionCandidateName == optionName) {
-          parseOption(optionCandidate, optionCandidateName);
+        if (std::regex_match(optionName, optionCandidate->pattern)) {
+          parseOption(optionCandidate, optionName);
           return;
         }
-      }
     }
 
     throw OptionParsingException("Unknown option: " + optionName);

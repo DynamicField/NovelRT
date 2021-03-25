@@ -1,11 +1,11 @@
 package com.github.novelrt.internal.handle
 
-import com.github.novelrt.codegeneration.annotations.GenerateNative
+import com.github.novelrt.codegeneration.annotations.GenerateNativeType
 
 typealias Handle = Long
 
-@GenerateNative
+@GenerateNativeType
 abstract class HandleObject {
-  @get:GenerateNative
+  @get:GenerateNativeType
   protected abstract val handle: Handle
 }

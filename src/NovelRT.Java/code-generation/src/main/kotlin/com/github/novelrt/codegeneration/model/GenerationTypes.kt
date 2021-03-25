@@ -1,6 +1,6 @@
 package com.github.novelrt.codegeneration.model
 
-import com.github.novelrt.codegeneration.annotations.GenerateNative
+import com.github.novelrt.codegeneration.annotations.GenerateNativeType
 import javax.lang.model.element.Element
 import javax.lang.model.element.ExecutableElement
 import javax.lang.model.element.VariableElement
@@ -82,9 +82,9 @@ private fun annotationNameOrDefault(
   element: Element,
   default: () -> String = { element.simpleName.toString() }
 ): String {
-  val annotation = element.getAnnotation(GenerateNative::class.java)
+  val annotation = element.getAnnotation(GenerateNativeType::class.java)
   return when (val annotationName = annotation?.name) {
-    GenerateNative.DEFAULT_NAME -> default()
+    GenerateNativeType.DEFAULT_NAME -> default()
     null -> default()
     else -> annotationName
   }

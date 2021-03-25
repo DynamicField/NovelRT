@@ -1,5 +1,5 @@
 module novelrt {
-  requires transitive kotlin.stdlib;
+  requires kotlin.stdlib;
   requires static novelrt.codegeneration.annotations;
 
   exports com.github.novelrt;

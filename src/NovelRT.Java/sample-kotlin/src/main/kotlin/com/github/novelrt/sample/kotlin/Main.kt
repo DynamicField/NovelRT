@@ -7,10 +7,6 @@ import com.github.novelrt.maths.Vector2
 import java.nio.file.Path
 
 fun main() {
-  println("pls enter")
-  println("btw my pid is ${ProcessHandle.current().pid()}")
-  readLine()
-
   val novelrt = NovelRunner()
 
   val rectangle = novelrt.rendering.createBasicRect(

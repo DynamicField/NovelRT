@@ -16,9 +16,9 @@ public class Main {
     var novelRt = new NovelRunner();
 
     TextRect text = novelRt.getRendering().createTextRect(
-      new Transform(new Vector2(400f, 210f), new Vector2(500f, 500f), 0f),
+      new Transform(new Vector2(300f, 210f), new Vector2(500f, 500f), 0f),
       new RGBAColour(0, 255, 45, 255),
-      50f,
+      45f,
       Path.of("C:/Windows/Fonts/segoeui.ttf"),
       0
     );
@@ -26,7 +26,7 @@ public class Main {
     DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM);
 
     novelRt.getOnConstructionRequested().subscribe(() -> {
-      text.setText("Hello, here's a clock: " +
+      text.setText("Hi, here is s a clock: " +
                    LocalTime.now().format(formatter));
 
       text.executeObjectBehaviour();

@@ -1,12 +1,10 @@
 package com.github.novelrt.codegeneration
 
-import com.github.novelrt.codegeneration.annotations.GenerateNative
-import com.github.novelrt.codegeneration.cpp.CppTypeResolver
+import com.github.novelrt.codegeneration.annotations.GenerateNativeType
 import com.github.novelrt.codegeneration.cpp.CppWriter
 import com.github.novelrt.codegeneration.cpp.FinalFileWriter
 import com.github.novelrt.codegeneration.model.*
 import java.nio.file.Files
-import java.nio.file.OpenOption
 import java.nio.file.Path
 import java.nio.file.StandardOpenOption
 import javax.annotation.processing.*
@@ -15,7 +13,7 @@ import javax.lang.model.element.*
 import javax.lang.model.util.AbstractElementVisitor14
 import javax.tools.Diagnostic
 
-@SupportedAnnotationTypes("com.github.novelrt.codegeneration.annotations.GenerateNative")
+@SupportedAnnotationTypes("com.github.novelrt.codegeneration.annotations.GenerateNativeType")
 @SupportedOptions(CodeGenOptions.OUTPUT_FILE_ARG, CodeGenOptions.INCLUDE_DIRECTIVES_ARG)
 @SupportedSourceVersion(SourceVersion.RELEASE_15)
 class CodeGenAnnotationProcessor : AbstractProcessor() {
@@ -49,7 +47,7 @@ class CodeGenAnnotationProcessor : AbstractProcessor() {
   }
 
   private fun processRound(roundEnv: RoundEnvironment) {
-    val elements = roundEnv.getElementsAnnotatedWith(GenerateNative::class.java)
+    val elements = roundEnv.getElementsAnnotatedWith(GenerateNativeType::class.java)
     if (elements.isNotEmpty()) {
       processingEnv.messager.printMessage(Diagnostic.Kind.OTHER, "Found annotated types: ${elements.joinToString()}")
     }
@@ -59,7 +57,7 @@ class CodeGenAnnotationProcessor : AbstractProcessor() {
         override fun visitPackage(e: PackageElement?, p: Unit) {
           processingEnv.messager.printMessage(
             Diagnostic.Kind.WARNING,
-            "Unexpected @GenerateNative annotation on a package.", e
+            "Unexpected @GenerateNativeType annotation on a package.", e
           )
         }
 
@@ -88,21 +86,21 @@ class CodeGenAnnotationProcessor : AbstractProcessor() {
         override fun visitTypeParameter(e: TypeParameterElement, p: Unit) {
           processingEnv.messager.printMessage(
             Diagnostic.Kind.WARNING,
-            "Unexpected @GenerateNative annotation on a type parameter.", e
+            "Unexpected @GenerateNativeType annotation on a type parameter.", e
           )
         }
 
         override fun visitModule(t: ModuleElement, p: Unit) {
           processingEnv.messager.printMessage(
             Diagnostic.Kind.WARNING,
-            "Unexpected @GenerateNative annotation on a module.", t
+            "Unexpected @GenerateNativeType annotation on a module.", t
           )
         }
 
         override fun visitRecordComponent(t: RecordComponentElement, p: Unit) {
           processingEnv.messager.printMessage(
             Diagnostic.Kind.WARNING,
-            "The @GenerateNative annotation is not yet supported on records.", t
+            "The @GenerateNativeType annotation is not yet supported on records.", t
           )
         }
       }, Unit)

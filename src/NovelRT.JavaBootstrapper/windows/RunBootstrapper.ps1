@@ -2,18 +2,38 @@ param(
   [string]$JavaLocation,
   [string]$BootstrapperPath = (Join-Path $PSScriptRoot "\JavaBootstrapper.exe"),
 
-  [Parameter(Mandatory=$true, Position=0, ValueFromRemainingArguments=$true)]
+  [Parameter(Mandatory = $true, Position = 0, ValueFromRemainingArguments = $true)]
   [string[]]$BootstrapperArguments
 )
 function Get-JavaLocation([string[]] $Folders)
 {
+  function Get-ValidFolder([string[]] $FolderCandidates)
+  {
+    foreach ($folderCandidate in $FolderCandidates)
+    {
+      if ($folderCandidate -and
+        (Test-Path (Join-Path $folderCandidate "java.dll")) -and
+        (Test-Path (Join-Path $folderCandidate "server" | Join-Path -ChildPath "jvm.dll")))
+      {
+        return $folderCandidate
+      }
+    }
+
+    return $null
+  }
+
   foreach ($folder in $Folders)
   {
-    if ($folder -and
-      (Test-Path (Join-Path $folder "java.dll")) -and
-      (Test-Path (Join-Path $folder "server" | Join-Path -ChildPath "jvm.dll")))
-    {
-      return $folder
+    if (!$folder) {
+      continue
+    }
+
+    $valid = Get-ValidFolder -FolderCandidates ($folder,
+    (Join-Path $folder "bin"),
+    (Join-Path $folder "java-image" | Join-Path -ChildPath "bin"))
+
+    if ($null -ne $valid) {
+      return $valid
     }
   }
   return $null
@@ -21,7 +41,7 @@ function Get-JavaLocation([string[]] $Folders)
 
 if (!$JavaLocation)
 {
-  $foldersToSearch = @($PWD) + ($env:Path -split ';')
+  $foldersToSearch = @($PSScriptRoot) + ($env:Path -split ';')
   $JavaLocation = Get-JavaLocation($foldersToSearch)
 }
 

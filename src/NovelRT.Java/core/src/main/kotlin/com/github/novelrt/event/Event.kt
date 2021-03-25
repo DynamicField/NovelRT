@@ -1,10 +1,10 @@
 package com.github.novelrt.event
 
 import com.github.novelrt.internal.handle.UnownedHandleObject
-import com.github.novelrt.codegeneration.annotations.GenerateNative
+import com.github.novelrt.codegeneration.annotations.GenerateNativeType
 import java.util.*
 
-@GenerateNative
+@GenerateNativeType
 abstract class Event<T : EventListener> protected constructor(handle: Long) : UnownedHandleObject(handle) {
   private val eventListeners: MutableSet<T> = LinkedHashSet()
   val listeners: List<T> get() = eventListeners.toList()

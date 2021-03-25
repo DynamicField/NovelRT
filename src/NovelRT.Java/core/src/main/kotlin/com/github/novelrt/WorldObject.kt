@@ -1,10 +1,10 @@
 package com.github.novelrt
 
 import com.github.novelrt.internal.handle.OwnedHandleObject
-import com.github.novelrt.codegeneration.annotations.GenerateNative
+import com.github.novelrt.codegeneration.annotations.GenerateNativeType
 import com.github.novelrt.maths.Transform
 
-@GenerateNative
+@GenerateNativeType
 open class WorldObject protected constructor(handle: Long, isOwned: Boolean = true) :
   OwnedHandleObject(handle, Companion::deleteWorldObject, isOwned) {
   val transform: Transform

@@ -1,10 +1,10 @@
 package com.github.novelrt.event
 
-import com.github.novelrt.codegeneration.annotations.GenerateNative
+import com.github.novelrt.codegeneration.annotations.GenerateNativeType
 import java.util.*
 
-@GenerateNative
+@GenerateNativeType
 fun interface SceneConstructionRequestedListener : EventListener {
-  @GenerateNative
+  @GenerateNativeType
   fun listen()
 }

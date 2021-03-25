@@ -1,10 +1,10 @@
 package com.github.novelrt.graphics
 
 import com.github.novelrt.WorldObject
-import com.github.novelrt.codegeneration.annotations.GenerateNative
+import com.github.novelrt.codegeneration.annotations.GenerateNativeType
 
 open class RenderObject
-@GenerateNative protected constructor(handle: Long, isOwned: Boolean = true) :
+@GenerateNativeType protected constructor(handle: Long, isOwned: Boolean = true) :
   WorldObject(handle, isOwned) {
   fun executeObjectBehaviour() {
     executeObjectBehaviourNative(handle)

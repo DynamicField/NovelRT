@@ -1,6 +1,6 @@
 package com.github.novelrt.internal.handle
 
-import com.github.novelrt.codegeneration.annotations.GenerateNative
+import com.github.novelrt.codegeneration.annotations.GenerateNativeType
 
-@GenerateNative
+@GenerateNativeType
 abstract class UnownedHandleObject(override val handle: Handle) : HandleObject()

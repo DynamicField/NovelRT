@@ -39,17 +39,35 @@ int main(int argc, char* argv[]) {
 
   std::string mainModuleOption = "-Djdk.module.main=" + launchModule;
 
-  auto options = std::array{
+  auto jvmOptions = std::vector{
     JavaVMOption{
       const_cast<char*>(mainModuleOption.c_str())
     }
   };
 
+  std::vector<std::string> mainMethodArgs;
+
+  for (auto& restArg : parsedArgs.rest) {
+    // Starts with -X or _ : JVM-specific option
+    // Starts with -D : system property
+    // Starts with -verbose : verbose option
+    // see https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/invocation.html
+    if (restArg.rfind("-X", 0) == 0 || restArg.rfind("_", 0) == 0 ||
+        restArg.rfind("-D") == 0 ||
+        restArg.rfind("-verbose", 0) == 0) {
+      jvmOptions.push_back(JavaVMOption{
+        const_cast<char*>(restArg.c_str())
+      });
+    } else {
+      mainMethodArgs.push_back(restArg);
+    }
+  }
+
   JavaVMInitArgs args;
   args.version = JNI_VERSION_10;
-  args.nOptions = options.size();
-  args.options = options.data();
-  args.ignoreUnrecognized = false;
+  args.nOptions = jvmOptions.size();
+  args.options = jvmOptions.data();
+  args.ignoreUnrecognized = true;
 
   JNIEnv* env;
   JavaVM* vm;
@@ -78,10 +96,10 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
-  auto& mainArgumentsJava = jni::NewObjectArray(*env, parsedArgs.rest.size(),
+  auto& mainArgumentsJava = jni::NewObjectArray(*env, mainMethodArgs.size(),
                                                 *jni::Class<jni::StringTag>::Singleton(*env));
 
-  for (int i = 0; i < parsedArgs.rest.size(); ++i) {
+  for (int i = 0; i < mainMethodArgs.size(); ++i) {
     std::string rawArg = parsedArgs.rest[i];
     // We release the local ref because the newly created string will be hold in an array.
     jni::SetObjectArrayElement(*env, mainArgumentsJava, i, jni::Make<jni::String>(*env, rawArg).release());

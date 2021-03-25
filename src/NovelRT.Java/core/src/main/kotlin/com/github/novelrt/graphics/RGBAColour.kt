@@ -1,10 +1,10 @@
 package com.github.novelrt.graphics
 
-import com.github.novelrt.codegeneration.annotations.GenerateNative
+import com.github.novelrt.codegeneration.annotations.GenerateNativeType
 import kotlin.reflect.KProperty
 
-class RGBAColour @GenerateNative("mainConstructor") constructor(r: Int, g: Int, b: Int, a: Int = 255) {
-  @GenerateNative("rgbaConstructor")
+class RGBAColour @GenerateNativeType("mainConstructor") constructor(r: Int, g: Int, b: Int, a: Int = 255) {
+  @GenerateNativeType("rgbaConstructor")
   constructor(rgba: Int) : this((rgba shr 24) and 0xFF, (rgba shr 16) and 0xFF, (rgba shr 8) and 0xFF, rgba and 0xFF)
 
   var r: Int by ClampingDelegate(r)
@@ -12,7 +12,7 @@ class RGBAColour @GenerateNative("mainConstructor") constructor(r: Int, g: Int, 
   var b: Int by ClampingDelegate(b)
   var a: Int by ClampingDelegate(a)
 
-  @GenerateNative
+  @GenerateNativeType
   fun asRGBA(): Int {
     return (r shl 24) or (g shl 16) or (b shl 8) or a
   }
