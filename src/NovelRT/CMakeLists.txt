@@ -9,7 +9,6 @@ find_package(glad ${NOVELRT_GLAD_VERSION} REQUIRED
     SPEC gl
     API gl=4.0,gles2=3.0
 )
-
 find_package(glfw3 ${NOVELRT_GLFW_VERSION} REQUIRED)
 find_package(glm ${NOVELRT_GLM_VERSION} REQUIRED)
 find_package(Ogg ${NOVELRT_OGG_VERSION} REQUIRED)
@@ -22,8 +21,10 @@ find_package(Vorbis ${NOVELRT_VORBIS_VERSION} REQUIRED)
 find_package(Microsoft.GSL ${NOVELRT_GSL_VERSION} REQUIRED)
 find_package(JNI REQUIRED)
 
-set(ENGINE_SOURCES
+set(SOURCES
   Animation/SpriteAnimator.cpp
+
+  Atom.cpp
 
   Audio/AudioService.cpp
 
@@ -34,6 +35,7 @@ set(ENGINE_SOURCES
   Ecs/Catalogue.cpp
   Ecs/ComponentBufferMemoryContainer.cpp
   Ecs/ComponentCache.cpp
+  Ecs/EcsUtils.cpp
   Ecs/EntityCache.cpp
   Ecs/SparseSetMemoryContainer.cpp
   Ecs/SystemScheduler.cpp
@@ -89,11 +91,15 @@ set(ENGINE_SOURCES
   WorldObject.cpp
 )
 
-add_library(Engine SHARED ${ENGINE_SOURCES})
+add_library(Engine SHARED ${SOURCES})
 add_dependencies(Engine Dotnet Java_CodeGen)
+
+set_property(TARGET Engine PROPERTY OUTPUT_NAME "NovelRT")
+
 if(WIN32)
   set_property(TARGET Engine PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
 endif()
+
 target_compile_features(Engine PUBLIC cxx_std_17)
 target_include_directories(Engine
   PUBLIC
@@ -155,7 +161,6 @@ target_link_libraries(Engine
     spdlog::spdlog
     Vorbis::Vorbis
     Microsoft.GSL::Microsoft.GSL
-    #[[JNI::JVM]]
     ${JNI_LIBRARIES}
 )
 
