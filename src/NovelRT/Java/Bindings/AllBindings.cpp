@@ -6,7 +6,8 @@
 #include "NovelRT/Java/Bindings/SceneConstructionRequestedEventBindings.h"
 #include "NovelRT/Java/Bindings/TransformBindings.h"
 #include "NovelRT/Java/Bindings/TextBindings.h"
-#include "NovelRT/Java/Bindings/GraphicsServiceBindings.h"
+#include "NovelRT/Java/Bindings/RenderingServiceBindings.h"
+#include "NovelRT/Java/Bindings/ImageRectBindings.h"
 
 namespace NovelRT::Java::Bindings {
   std::vector<void (*)(jni::JNIEnv&)> AllBindingRegisterers{
@@ -16,6 +17,7 @@ namespace NovelRT::Java::Bindings {
     &registerSceneConstructionRequestedEventBindings,
     &registerTransformBindings,
     &registerTextBindings,
-    &registerGraphicsServiceBindings
+    &registerGraphicsServiceBindings,
+    &registerImageRectBindings
   };
 }

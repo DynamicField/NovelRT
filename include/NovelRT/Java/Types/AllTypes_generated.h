@@ -9,12 +9,54 @@
 #include "Type.h"
 
 namespace NovelRT::Java::Types {
-  struct SceneConstructionRequestedListener : public Type<SceneConstructionRequestedListener> {
+  struct Enum : public Type<Enum> {
     static constexpr auto Name() {
-      return "com/github/novelrt/event/SceneConstructionRequestedListener";
+      return "java/lang/Enum";
+    }
+  };
+  
+  struct HandleObject : public Type<HandleObject> {
+    static constexpr auto Name() {
+      return "com/github/novelrt/internal/handle/HandleObject";
     }
     
-    static inline MethodDef<void()> listen{"listen"};
+    static inline MethodDef<jni::jlong()> getHandle{"getHandle"};
+  };
+  
+  struct NovelRTLoader : public Type<NovelRTLoader> {
+    static constexpr auto Name() {
+      return "com/github/novelrt/NovelRTLoader";
+    }
+    
+    static inline StaticFieldDef<jni::jboolean> hasBeenLoaded{"hasBeenLoaded"};
+  };
+  
+  struct OwnedHandleObject : public Type<OwnedHandleObject>, Super<HandleObject> {
+    static constexpr auto Name() {
+      return "com/github/novelrt/internal/handle/OwnedHandleObject";
+    }
+    
+    static inline MethodDef<void()> invalidate{"invalidate"};
+  };
+  
+  struct NovelRunner : public Type<NovelRunner>, Super<OwnedHandleObject> {
+    static constexpr auto Name() {
+      return "com/github/novelrt/NovelRunner";
+    }
+  };
+  
+  struct Path : public Type<Path> {
+    static constexpr auto Name() {
+      return "java/nio/file/Path";
+    }
+  };
+  
+  struct NativeHelpers : public Type<NativeHelpers> {
+    static constexpr auto Name() {
+      return "com/github/novelrt/internal/NativeHelpers";
+    }
+    
+    static inline StaticMethodDef<jni::Object<jni::StringTag>(jni::Object<Path>)> toNativeString{"toNativeString"};
   };
   
   struct RGBAColour : public Type<RGBAColour> {
@@ -27,18 +69,48 @@ namespace NovelRT::Java::Types {
     static inline ConstructorDef<jni::jint> rgbaConstructor;
   };
   
-  struct HandleObject : public Type<HandleObject> {
+  struct SceneConstructionRequestedListener : public Type<SceneConstructionRequestedListener> {
     static constexpr auto Name() {
-      return "com/github/novelrt/internal/handle/HandleObject";
+      return "com/github/novelrt/event/SceneConstructionRequestedListener";
     }
     
-    static inline MethodDef<jni::jlong()> getHandle{"getHandle"};
+    static inline MethodDef<void()> listen{"listen"};
   };
   
-  struct Path : public Type<Path> {
+  struct Transform : public Type<Transform>, Super<OwnedHandleObject> {
     static constexpr auto Name() {
-      return "java/nio/file/Path";
+      return "com/github/novelrt/maths/Transform";
     }
+    
+    static inline ConstructorDef<jni::jlong, jni::jboolean> mainConstructor;
+  };
+  
+  struct UnownedHandleObject : public Type<UnownedHandleObject>, Super<HandleObject> {
+    static constexpr auto Name() {
+      return "com/github/novelrt/internal/handle/UnownedHandleObject";
+    }
+  };
+  
+  struct Event : public Type<Event>, Super<UnownedHandleObject> {
+    static constexpr auto Name() {
+      return "com/github/novelrt/event/Event";
+    }
+  };
+  
+  struct RenderingService : public Type<RenderingService>, Super<UnownedHandleObject> {
+    static constexpr auto Name() {
+      return "com/github/novelrt/graphics/RenderingService";
+    }
+    
+    static inline ConstructorDef<jni::jlong> mainConstructor;
+  };
+  
+  struct SceneConstructionRequestedEvent : public Type<SceneConstructionRequestedEvent>, Super<Event> {
+    static constexpr auto Name() {
+      return "com/github/novelrt/event/SceneConstructionRequestedEvent";
+    }
+    
+    static inline ConstructorDef<jni::jlong> mainConstructor;
   };
   
   struct Vector2 : public Type<Vector2> {
@@ -52,76 +124,18 @@ namespace NovelRT::Java::Types {
     static inline ConstructorDef<> mainConstructor_1;
   };
   
-  struct NovelRTLoader : public Type<NovelRTLoader> {
+  struct WindowMode : public Type<WindowMode>, Super<Enum> {
     static constexpr auto Name() {
-      return "com/github/novelrt/NovelRTLoader";
+      return "com/github/novelrt/windowing/WindowMode";
     }
     
-    static inline StaticFieldDef<jni::jboolean> hasBeenLoaded{"hasBeenLoaded"};
-  };
-  
-  struct UnownedHandleObject : public Type<UnownedHandleObject>, Super<HandleObject> {
-    static constexpr auto Name() {
-      return "com/github/novelrt/internal/handle/UnownedHandleObject";
-    }
-  };
-  
-  struct OwnedHandleObject : public Type<OwnedHandleObject>, Super<HandleObject> {
-    static constexpr auto Name() {
-      return "com/github/novelrt/internal/handle/OwnedHandleObject";
-    }
-    
-    static inline MethodDef<void()> invalidate{"invalidate"};
-  };
-  
-  struct NativeHelpers : public Type<NativeHelpers> {
-    static constexpr auto Name() {
-      return "com/github/novelrt/internal/NativeHelpers";
-    }
-    
-    static inline StaticMethodDef<jni::Object<jni::StringTag>(jni::Object<Path>)> toNativeString{"toNativeString"};
-  };
-  
-  struct RenderingService : public Type<RenderingService>, Super<UnownedHandleObject> {
-    static constexpr auto Name() {
-      return "com/github/novelrt/graphics/RenderingService";
-    }
-    
-    static inline ConstructorDef<jni::jlong> mainConstructor;
-  };
-  
-  struct Event : public Type<Event>, Super<UnownedHandleObject> {
-    static constexpr auto Name() {
-      return "com/github/novelrt/event/Event";
-    }
-  };
-  
-  struct NovelRunner : public Type<NovelRunner>, Super<OwnedHandleObject> {
-    static constexpr auto Name() {
-      return "com/github/novelrt/NovelRunner";
-    }
-  };
-  
-  struct Transform : public Type<Transform>, Super<OwnedHandleObject> {
-    static constexpr auto Name() {
-      return "com/github/novelrt/maths/Transform";
-    }
-    
-    static inline ConstructorDef<jni::jlong, jni::jboolean> mainConstructor;
+    static inline FieldDef<jni::jint> nativeValue{"nativeValue"};
   };
   
   struct WorldObject : public Type<WorldObject>, Super<OwnedHandleObject> {
     static constexpr auto Name() {
       return "com/github/novelrt/WorldObject";
     }
-  };
-  
-  struct SceneConstructionRequestedEvent : public Type<SceneConstructionRequestedEvent>, Super<Event> {
-    static constexpr auto Name() {
-      return "com/github/novelrt/event/SceneConstructionRequestedEvent";
-    }
-    
-    static inline ConstructorDef<jni::jlong> mainConstructor;
   };
   
   struct RenderObject : public Type<RenderObject>, Super<WorldObject> {
@@ -135,6 +149,14 @@ namespace NovelRT::Java::Types {
   struct BasicRect : public Type<BasicRect>, Super<RenderObject> {
     static constexpr auto Name() {
       return "com/github/novelrt/graphics/BasicRect";
+    }
+    
+    static inline ConstructorDef<jni::jlong, jni::jboolean> mainConstructor;
+  };
+  
+  struct ImageRect : public Type<ImageRect>, Super<RenderObject> {
+    static constexpr auto Name() {
+      return "com/github/novelrt/graphics/ImageRect";
     }
     
     static inline ConstructorDef<jni::jlong, jni::jboolean> mainConstructor;

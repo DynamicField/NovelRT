@@ -1,8 +1,8 @@
 package com.github.novelrt.graphics
 
+import com.github.novelrt.codegeneration.annotations.GenerateNativeType
 import com.github.novelrt.internal.handle.Handle
 import com.github.novelrt.internal.handle.UnownedHandleObject
-import com.github.novelrt.codegeneration.annotations.GenerateNativeType
 import com.github.novelrt.maths.Transform
 import java.nio.file.Path
 
@@ -18,7 +18,5 @@ class RenderingService
     layer: Int
   ): TextRect
 
-  fun createImageRect(transform: Transform, imagePath: Path, colourTint: RGBAColour, layer: Int): Nothing {
-    TODO()
-  }
+  external fun createImageRect(transform: Transform, imagePath: Path, colourTint: RGBAColour, layer: Int): ImageRect
 }

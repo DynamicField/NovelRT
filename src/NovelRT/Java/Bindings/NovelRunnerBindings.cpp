@@ -1,16 +1,18 @@
 #include "NovelRT/Java/JavaSupport.h"
 #include "NovelRT/Java/Bindings/NovelRunnerBindings.h"
 
-namespace NovelRT::Java {
+namespace NovelRT::Java::Bindings {
   using Self = Types::NovelRunner;
 
   jni::jlong createRunner(jni::JNIEnv& env, Self::Class&, jni::jint displayNumber, jni::String& windowTitle,
-                          jni::jint targetFrameRate, jni::jboolean transparency) {
+                          Types::WindowMode::Object& windowMode, jni::jint targetFrameRate,
+                          jni::jboolean transparency) {
     auto windowTitleString = std::string(std::get<0>(jni::GetStringUTFChars(env, *windowTitle)).get());
-
+    std::cout << "Hi";
     auto* runner = new NovelRunner(
       int(displayNumber),
       windowTitleString,
+      static_cast<Windowing::WindowMode>(Types::WindowMode::nativeValue.getValue(env, windowMode)),
       targetFrameRate,
       transparency
     );
@@ -40,7 +42,7 @@ namespace NovelRT::Java {
     return Types::RenderingService::mainConstructor.invoke(env, jni::jlong(service));
   }
 
-  void Bindings::registerNovelRunnerBindings(jni::JNIEnv& env) {
+  void registerNovelRunnerBindings(jni::JNIEnv& env) {
     jni::RegisterNatives(env, *Types::NovelRunner::javaClass(),
                          jni::MakeNativeMethod<decltype(createRunner), &createRunner>("createRunner"),
                          jni::MakeNativeMethod<decltype(deleteRunner), &deleteRunner>("deleteRunner"),
@@ -48,7 +50,6 @@ namespace NovelRT::Java {
                          jni::MakeNativeMethod<decltype(createSceneConstructionRequestedEvent), &createSceneConstructionRequestedEvent>(
                            "createSceneConstructionRequestedEvent"),
                          jni::MakeNativeMethod<decltype(createRenderingService), &createRenderingService>(
-                           "createRenderingService")
-    );
+                           "createRenderingService"));
   }
 }

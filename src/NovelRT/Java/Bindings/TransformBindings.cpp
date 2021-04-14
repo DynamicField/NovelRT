@@ -1,7 +1,8 @@
 #include "NovelRT/Java/JavaSupport.h"
+#include "NovelRT/Java/Bindings/Utilities.h"
 #include "NovelRT/Java/Bindings/TransformBindings.h"
 
-namespace NovelRT::Java {
+namespace NovelRT::Java::Bindings {
   using Self = Types::Transform;
 
   jni::jlong createTransform(jni::JNIEnv& env, Self::Class&,
@@ -19,10 +20,10 @@ namespace NovelRT::Java {
     delete Handles::get<Transform>(handle);
   }
 
-  void Bindings::registerTransformBindings(jni::JNIEnv& env) {
-    Bindings::bindProperty<Self, Types::Vector2, FieldProperty<&Transform::position>>(env, "position");
-    Bindings::bindProperty<Self, Types::Vector2, FieldProperty<&Transform::scale>>(env, "scale");
-    Bindings::bindProperty<Self, jni::jfloat, FieldProperty<&Transform::rotation>>(env, "rotation");
+  void registerTransformBindings(jni::JNIEnv& env) {
+    bindProperty<Self, Types::Vector2, FieldProperty<&Transform::position>>(env, "position");
+    bindProperty<Self, Types::Vector2, FieldProperty<&Transform::scale>>(env, "scale");
+    bindProperty<Self, jni::jfloat, FieldProperty<&Transform::rotation>>(env, "rotation");
 
     jni::RegisterNatives(env, *Self::javaClass(),
                          jni::MakeNativeMethod<decltype(createTransform), &createTransform>("createTransform"),

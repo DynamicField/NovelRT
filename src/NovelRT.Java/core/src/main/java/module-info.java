@@ -6,4 +6,5 @@ module novelrt {
   exports com.github.novelrt.maths;
   exports com.github.novelrt.event;
   exports com.github.novelrt.graphics;
+  exports com.github.novelrt.windowing;
 }

@@ -47,7 +47,7 @@ namespace NovelRT::Java::Bindings {
   template<typename Listener, typename NovelEvent, typename JavaEvent>
   void bindEvent(jni::JNIEnv& env, const jni::Class<JavaEvent>& eventClass,
                  const EventHandlerProxy<Listener, NovelEvent>& proxy) {
-    using AssociatedEventHandler = EventToEventHandlerType<NovelEvent>;
+    using AssociatedEventHandler = EventToEventHandlerType<NovelEvent>; // The NovelRT Utilities::EventHandler<>
 
     static std::unordered_map<jni::jint, AssociatedEventHandler> hashToEventHandler;
 

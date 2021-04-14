@@ -7,10 +7,10 @@ class GraphCycleException(message: String? = null, cause: Throwable? = null) : R
 
 // Kahn's algorithm: https://en.wikipedia.org/wiki/Topological_sorting
 @Suppress("UnstableApiUsage")
-fun <T> Graph<T>.topologicalSorted(): List<T> {
+fun <T : Any> Graph<T>.topologicalSorted(sortComparator: Comparator<T> = Comparator { _, _ -> 0 }): List<T> {
   val graphClone = Graphs.copyOf(this)
   val result = mutableListOf<T>()
-  val origins = graphClone.nodes().filter { graphClone.inDegree(it) == 0 }.toMutableSet()
+  val origins = graphClone.nodes().filter { graphClone.inDegree(it!!) == 0 }.toSortedSet(sortComparator)
 
   while (origins.any()) {
     val node = origins.first()

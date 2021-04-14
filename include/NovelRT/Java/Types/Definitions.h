@@ -49,6 +49,11 @@ namespace NovelRT::Java::Types {
 
   public:
     MethodDefinition(const std::string& name) : _name(name) {}
+
+    template <typename... ActualArgs>
+    auto invoke(jni::JNIEnv& env, jni::Object<Container>& object, const ActualArgs&... args) {
+      return object.Call(env, this->get(), args...);
+    }
   };
 
   template<typename Container, typename Signature>
@@ -102,6 +107,15 @@ namespace NovelRT::Java::Types {
 
   public:
     FieldDefinition(const std::string& name) : _name(name) {}
+
+    auto getValue(jni::JNIEnv& env, const jni::Object<Container>& object) {
+      return object.Get(env, this->get());
+    }
+
+    template <typename T>
+    void setValue(jni::JNIEnv& env, const jni::Object<Container>& object, T value) {
+      object.Set(env, this->get(), value);
+    }
   };
 
   template<typename Container, typename Value>

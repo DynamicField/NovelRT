@@ -30,15 +30,6 @@ namespace NovelRT::Java::Types {
       return instance;
     }
 
-  protected:
-    template<typename... Args>
-    static const inline Constructor<Args...> findConstructor() {
-      std::cout << "Finding constructor in " << Self::Name() << " with signature "
-                << jni::TypeSignature<void(Args...)>()() << "..." << std::endl;
-      auto env = jni::GetAttachedEnv(*CurrentJavaVM);
-      return javaClass().template GetConstructor<Args...>(*env);
-    }
-
   private:
     Type() {}
 

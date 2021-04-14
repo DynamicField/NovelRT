@@ -44,6 +44,16 @@ namespace NovelRT::Java::TypeConversion {
       return _fromJava(env, source);
     }
   };
+
+  template<typename N, typename J>
+  WrapLocalType<J> convertToJava(jni::JNIEnv& env, const N& nativeObject) {
+    return TypeConverter<N, J>().fromNative(env, nativeObject);
+  }
+
+  template<typename N, typename J>
+  N convertToNative(jni::JNIEnv& env, const J& javaObject) {
+    return TypeConverter<N, J>().fromJava(env, javaObject);
+  }
 }
 
 #endif //NOVELRT_TYPECONVERTER_H

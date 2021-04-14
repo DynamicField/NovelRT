@@ -6,10 +6,9 @@
 #include "Init.h"
 
 #include "Types.h"
-#include "Bindings.h"
 #include "TypeConversion.h"
 
 #include "Handles.h"
 
-#define MAKE_NATIVE_METHOD(name) jni::MakeNativeMethod<decltype(name), &##name>(name)
+#define MAKE_NATIVE_METHOD(name) jni::MakeNativeMethod<decltype(name), &(name)>( #name )
 #endif //NOVELRT_JAVASUPPORT_H

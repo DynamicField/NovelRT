@@ -26,7 +26,7 @@ public class Main {
     DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.MEDIUM);
 
     novelRt.getOnConstructionRequested().subscribe(() -> {
-      text.setText("Hi, here is s a clock: " +
+      text.setText("Hi, here is a free clock for you: " +
                    LocalTime.now().format(formatter));
 
       text.executeObjectBehaviour();

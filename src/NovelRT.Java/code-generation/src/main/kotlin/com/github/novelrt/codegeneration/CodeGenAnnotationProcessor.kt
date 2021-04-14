@@ -22,7 +22,6 @@ class CodeGenAnnotationProcessor : AbstractProcessor() {
 
   override fun init(processingEnv: ProcessingEnvironment) {
     super.init(processingEnv)
-    processingEnv.messager.printMessage(Diagnostic.Kind.NOTE, "Hello!")
 
     codeGenerationModel = CodeGenerationModel(processingEnv)
 
@@ -48,9 +47,6 @@ class CodeGenAnnotationProcessor : AbstractProcessor() {
 
   private fun processRound(roundEnv: RoundEnvironment) {
     val elements = roundEnv.getElementsAnnotatedWith(GenerateNativeType::class.java)
-    if (elements.isNotEmpty()) {
-      processingEnv.messager.printMessage(Diagnostic.Kind.OTHER, "Found annotated types: ${elements.joinToString()}")
-    }
 
     for (element in elements) {
       element.accept(object : AbstractElementVisitor14<Unit, Unit>() {
@@ -125,9 +121,5 @@ class CodeGenAnnotationProcessor : AbstractProcessor() {
 
       fileWriter.write(types)
     }
-  }
-
-  companion object {
-    const val OUTPUT_FILE_ARG = "novelrt.codegeneration.outputFile"
   }
 }

@@ -1,5 +1,8 @@
-#include "NovelRT/Java/Init.h"
+#include "NovelRT/Java/EssentialIncludes.h"
+#include "NovelRT/Java/Types.h"
 #include "NovelRT/Java/Bindings.h"
+
+#include "NovelRT/Java/Init.h"
 
 namespace NovelRT::Java {
   void initialiseInternal(JavaVM* vm, bool fromOnLoad) {

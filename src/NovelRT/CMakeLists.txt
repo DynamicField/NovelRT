@@ -64,8 +64,9 @@ set(SOURCES
   Java/Bindings/SceneConstructionRequestedEventBindings.cpp
   Java/Bindings/TransformBindings.cpp
   Java/Bindings/TextBindings.cpp
-  Java/Bindings/GraphicsServiceBindings.cpp
+  Java/Bindings/RenderingServiceBindings.cpp
   Java/Bindings/RenderObjectBindings.cpp
+  Java/Bindings/ImageRectBindings.cpp
   Java/Handles.cpp
   Java/Init.cpp
   Java/StringConversions.cpp

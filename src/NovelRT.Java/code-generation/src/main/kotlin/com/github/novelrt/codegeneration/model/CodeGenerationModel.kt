@@ -240,7 +240,7 @@ class CodeGenerationModel(private val processingEnv: ProcessingEnvironment) : Se
     }
 
     try {
-      return referenceGraph.topologicalSorted()
+      return referenceGraph.topologicalSorted(Comparator.comparing(DefinedGenerationType::cppName))
     } catch (ex: GraphCycleException) {
       throw UnsupportedOperationException("Circular references are not yet supported.", ex)
     }

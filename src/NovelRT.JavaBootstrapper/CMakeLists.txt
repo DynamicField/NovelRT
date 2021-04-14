@@ -30,6 +30,13 @@ add_custom_command(
   $<TARGET_FILE_DIR:JavaBootstrapper>
 )
 
+add_custom_command(
+  TARGET JavaBootstrapper POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  $<TARGET_FILE_DIR:Resources>
+  $<TARGET_FILE_DIR:JavaBootstrapper>/Resources
+)
+
 if(WIN32)
   add_custom_command(
     TARGET JavaBootstrapper POST_BUILD
