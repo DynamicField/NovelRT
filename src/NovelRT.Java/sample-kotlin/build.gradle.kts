@@ -6,6 +6,7 @@ plugins {
 
 dependencies {
     implementation(project(":novelrt"))
+    implementation(project(":fumocement"))
 }
 
 application {

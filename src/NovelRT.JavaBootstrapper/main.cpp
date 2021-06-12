@@ -1,8 +1,11 @@
+#define NOVELRT_C_API 1
+#include <NovelRT.h>
 #include <iostream>
 #include "jni.h"
 #include "jni/jni.hpp"
 #include "NovelRT/Java/JavaSupport.h"
-#include "NovelRT.JavaBoostrapper/ArgumentParser.h"
+#include "NovelRT.JavaBootstrapper/JNIBindings.h"
+#include "NovelRT.JavaBootstrapper/ArgumentParser.h"
 
 using namespace NovelRT::JavaBootstrapper;
 
@@ -17,7 +20,7 @@ int main(int argc, char* argv[]) {
   } catch (OptionParsingException& ex) {
     std::cout << ex.what() << std::endl;
     return 1;
-  } catch (std::runtime_error ex) {
+  } catch (std::runtime_error& ex) {
     std::cout << "Unexpected error: " << ex.what() << std::endl;
     return 1;
   }

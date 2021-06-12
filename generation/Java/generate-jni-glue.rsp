@@ -1,0 +1,7 @@
+@common.rsp
+
+--output-mode
+JniGlue
+
+--output
+../../include/NovelRT.JavaBootstrapper/JNIBindings.h

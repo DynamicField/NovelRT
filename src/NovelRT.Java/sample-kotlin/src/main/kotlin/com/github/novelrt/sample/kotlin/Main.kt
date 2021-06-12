@@ -1,13 +1,18 @@
 package com.github.novelrt.sample.kotlin
 
 import com.github.novelrt.NovelRunner
+import com.github.novelrt.fumocement.Pointer
 import com.github.novelrt.graphics.RGBAColour
+import com.github.novelrt.interop.Native
 import com.github.novelrt.maths.Transform
 import com.github.novelrt.maths.Vector2
 import com.github.novelrt.windowing.WindowMode
 import java.nio.file.Path
 
 fun main() {
+  val novelRunner: @Pointer("NrtNovelRunner*") Long = Native.Nrt_NovelRunner_create(0)
+  Native.Nrt_NovelRunner_runNovel(novelRunner)
+  /*
   val novelrt = NovelRunner()
 
   val rectangle = novelrt.rendering.createBasicRect(
@@ -36,4 +41,5 @@ fun main() {
   }
 
   novelrt.run()
+  */
 }

@@ -2,16 +2,17 @@ import com.github.novelrt.buildtools.novelrtRootPath
 
 plugins {
   id("com.github.novelrt.java-conventions-library")
-  kotlin("kapt")
+  // kotlin("kapt")
 }
 
 dependencies {
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.30")
+  implementation(project(":fumocement"))
   compileOnly(project(":code-generation-annotations"))
-  kapt(project(":code-generation"))
+  // kapt(project(":code-generation"))
 }
 
-kapt {
+/* kapt {
   javacOptions {
     option("--module-path", sourceSets["main"].compileClasspath.asPath)
   }
@@ -24,5 +25,6 @@ kapt {
 
   annotationProcessor("com.github.novelrt.codegeneration.CodeGenAnnotationProcessor")
 }
+*/
 
 description = "NovelRT for Java - Core"

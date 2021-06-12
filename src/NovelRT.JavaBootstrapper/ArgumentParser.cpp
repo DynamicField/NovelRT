@@ -1,5 +1,5 @@
 #include <stdexcept>
-#include "NovelRT.JavaBoostrapper/ArgumentParser.h"
+#include "NovelRT.JavaBootstrapper/ArgumentParser.h"
 
 namespace NovelRT::JavaBootstrapper {
   ArgumentParsingResult ArgumentParser::parse(char** args, int argsCount) {

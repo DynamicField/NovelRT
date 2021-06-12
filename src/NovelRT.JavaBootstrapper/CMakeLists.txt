@@ -4,7 +4,7 @@ set(JAVA_BOOTSTRAPPER_SOURCES
   main.cpp ArgumentParser.cpp)
 
 add_executable(JavaBootstrapper ${JAVA_BOOTSTRAPPER_SOURCES})
-add_dependencies(JavaBootstrapper Engine Dotnet)
+add_dependencies(JavaBootstrapper Engine Dotnet Interop)
 
 target_include_directories(JavaBootstrapper
   PRIVATE
@@ -20,6 +20,7 @@ set_target_properties(JNI::JVM
 target_link_libraries(JavaBootstrapper
   PRIVATE
     Engine
+    Interop
     JNI::JVM
 )
 

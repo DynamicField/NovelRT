@@ -93,7 +93,7 @@ set(SOURCES
 )
 
 add_library(Engine SHARED ${SOURCES})
-add_dependencies(Engine Dotnet Java_CodeGen)
+add_dependencies(Engine Dotnet)
 
 set_property(TARGET Engine PROPERTY OUTPUT_NAME "NovelRT")
 

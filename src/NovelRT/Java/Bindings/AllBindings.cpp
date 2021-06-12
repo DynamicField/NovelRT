@@ -11,6 +11,7 @@
 
 namespace NovelRT::Java::Bindings {
   std::vector<void (*)(jni::JNIEnv&)> AllBindingRegisterers{
+        /*
     &registerNovelRunnerBindings,
     &registerWorldObjectBindings,
     &registerRenderObjectBindings,
@@ -19,5 +20,6 @@ namespace NovelRT::Java::Bindings {
     &registerTextBindings,
     &registerGraphicsServiceBindings,
     &registerImageRectBindings
+         */
   };
 }
