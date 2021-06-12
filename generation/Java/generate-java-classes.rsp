@@ -1,0 +1,7 @@
+@common.rsp
+
+--output-mode
+JavaClasses
+
+--output
+../../src/NovelRT/Java/Generated/JNIBindings.h

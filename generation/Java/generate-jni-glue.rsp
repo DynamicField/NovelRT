@@ -1,0 +1,7 @@
+@common.rsp
+
+--output-mode
+JniGlue
+
+--output
+../../src/NovelRT.Java/core/src/main/java/com/github/fumocement/interop/Native.java
