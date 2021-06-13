@@ -11,6 +11,7 @@
 
 --define-macro
 NOVELRT_C_API
+JNI_TEMPORARY_REMOVAL
 UNICODE
 
 --file

@@ -1004,18 +1004,6 @@ public final class Native {
         int returnValue = Nrt_NovelRunner_getSceneConstructionEventRaw(runner$$intermediate, outputEvent$$intermediate);
         return returnValue;
     }
-    private static native @Pointer("NrtGeoBounds*") long Nrt_Transform_getAABBRaw(@Pointer("NrtTransform*") long transform);
-    public static com.github.novelrt.interop.Native.NrtGeoBoundsStruct Nrt_Transform_getAABB(com.github.novelrt.interop.Native.NrtTransformStruct transform) {
-        @Pointer("NrtTransform*") long transform$$intermediate = transform.getHandle();
-        @Pointer("NrtGeoBounds*") long returnValue = Nrt_Transform_getAABBRaw(transform$$intermediate);
-        return NrtGeoBoundsStruct.getTrackedAndOwned(returnValue);
-    }
-    private static native @Pointer("NrtGeoBounds*") long Nrt_Transform_getBoundsRaw(@Pointer("NrtTransform*") long transform);
-    public static com.github.novelrt.interop.Native.NrtGeoBoundsStruct Nrt_Transform_getBounds(com.github.novelrt.interop.Native.NrtTransformStruct transform) {
-        @Pointer("NrtTransform*") long transform$$intermediate = transform.getHandle();
-        @Pointer("NrtGeoBounds*") long returnValue = Nrt_Transform_getBoundsRaw(transform$$intermediate);
-        return NrtGeoBoundsStruct.getTrackedAndOwned(returnValue);
-    }
     private static native int Nrt_SpriteAnimator_createRaw(@Pointer("NrtNovelRunner *") long runner, @Pointer("NrtImageRect *") long rect, @Pointer("NrtSpriteAnimator **") long outputAnimator);
     public static int Nrt_SpriteAnimator_create(@Pointer("NrtNovelRunner *") long runner, @Pointer("NrtImageRect *") long rect, @Pointer("NrtSpriteAnimator **") long outputAnimator) {
         @Pointer("NrtNovelRunner *") long runner$$intermediate = runner;
@@ -2607,13 +2595,6 @@ public final class Native {
         @Pointer("NrtBasicInteractionRect *") long object$$intermediate = object;
         int value$$intermediate = value;
         int returnValue = Nrt_Input_BasicInteractionRect_setActiveRaw(object$$intermediate, value$$intermediate);
-        return returnValue;
-    }
-    private static native int Nrt_Input_BasicInteractionRect_validateInteractionPrimeterRaw(@Pointer("NrtBasicInteractionRect *") long object, @Pointer("NrtGeoVector2F*") long mousePosition);
-    public static int Nrt_Input_BasicInteractionRect_validateInteractionPrimeter(@Pointer("NrtBasicInteractionRect *") long object, com.github.novelrt.interop.Native.NrtGeoVector2FStruct mousePosition) {
-        @Pointer("NrtBasicInteractionRect *") long object$$intermediate = object;
-        @Pointer("NrtGeoVector2F*") long mousePosition$$intermediate = mousePosition.getHandle();
-        int returnValue = Nrt_Input_BasicInteractionRect_validateInteractionPrimeterRaw(object$$intermediate, mousePosition$$intermediate);
         return returnValue;
     }
     private static native int Nrt_Input_BasicInteractionRect_getSubscribedKeyRaw(@Pointer("NrtBasicInteractionRect *") long object);

@@ -1,10 +1,11 @@
 #define NOVELRT_C_API 1
+#define JNI_TEMPORARY_REMOVAL 1
 #include <NovelRT.h>
 #include <iostream>
 #include "jni.h"
 #include "jni/jni.hpp"
+#include "NovelRT.JavaStubs/JNIBindings.h"
 #include "NovelRT/Java/JavaSupport.h"
-#include "NovelRT.JavaBootstrapper/JNIBindings.h"
 #include "NovelRT.JavaBootstrapper/ArgumentParser.h"
 
 using namespace NovelRT::JavaBootstrapper;

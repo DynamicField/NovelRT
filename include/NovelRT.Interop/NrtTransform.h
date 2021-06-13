@@ -10,9 +10,10 @@
 extern "C"
 {
 #endif
-
+#ifndef JNI_TEMPORARY_REMOVAL
     NrtGeoBounds Nrt_Transform_getAABB(const NrtTransform transform); // TODO: why are these const lol?
     NrtGeoBounds Nrt_Transform_getBounds(const NrtTransform transform);
+#endif // TODO!
 
 #ifdef __cplusplus
 }

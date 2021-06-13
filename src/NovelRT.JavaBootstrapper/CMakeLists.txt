@@ -4,7 +4,7 @@ set(JAVA_BOOTSTRAPPER_SOURCES
   main.cpp ArgumentParser.cpp)
 
 add_executable(JavaBootstrapper ${JAVA_BOOTSTRAPPER_SOURCES})
-add_dependencies(JavaBootstrapper Engine Dotnet Interop)
+add_dependencies(JavaBootstrapper Engine Dotnet Interop JavaStubs)
 
 target_include_directories(JavaBootstrapper
   PRIVATE
@@ -18,9 +18,10 @@ set_target_properties(JNI::JVM
     IMPORTED_LOCATION "${JAVA_JVM_LIBRARY}")
 
 target_link_libraries(JavaBootstrapper
-  PRIVATE
+  PUBLIC
     Engine
     Interop
+    JavaStubs
     JNI::JVM
 )
 
@@ -36,6 +37,20 @@ add_custom_command(
   COMMAND ${CMAKE_COMMAND} -E copy_directory
   $<TARGET_FILE_DIR:Resources>
   $<TARGET_FILE_DIR:JavaBootstrapper>/Resources
+)
+
+add_custom_command(
+  TARGET JavaBootstrapper POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  $<TARGET_FILE_DIR:Interop>
+  $<TARGET_FILE_DIR:JavaBootstrapper>
+)
+
+add_custom_command(
+  TARGET JavaBootstrapper POST_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  $<TARGET_FILE_DIR:JavaStubs>
+  $<TARGET_FILE_DIR:JavaBootstrapper>
 )
 
 if(WIN32)

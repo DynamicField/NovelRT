@@ -10,7 +10,9 @@ import com.github.novelrt.windowing.WindowMode
 import java.nio.file.Path
 
 fun main() {
+  System.loadLibrary("JavaStubs")
   val novelRunner: @Pointer("NrtNovelRunner*") Long = Native.Nrt_NovelRunner_create(0)
+  print("hi?")
   Native.Nrt_NovelRunner_runNovel(novelRunner)
   /*
   val novelrt = NovelRunner()
