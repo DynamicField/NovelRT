@@ -1,5 +1,3 @@
-
-
 plugins {
   // Support convention plugins written in Kotlin. Convention plugins are build scripts in 'src/main' that automatically become available as plugins in the main build.
   `kotlin-dsl`
@@ -11,6 +9,6 @@ repositories {
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.30")
-  implementation("org.beryx:badass-jlink-plugin:2.22.3")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10")
+  implementation("org.beryx:badass-jlink-plugin:2.24.0")
 }

@@ -1,20 +1,54 @@
 package com.github.novelrt.sample.kotlin
 
 import com.github.novelrt.NovelRunner
-import com.github.novelrt.fumocement.Pointer
-import com.github.novelrt.graphics.RGBAColour
-import com.github.novelrt.interop.Native
-import com.github.novelrt.maths.Transform
-import com.github.novelrt.maths.Vector2
+import com.github.novelrt.TransformData
+import com.github.novelrt.graphics.RGBAConfig
+import com.github.novelrt.maths.GeoVector2F
 import com.github.novelrt.windowing.WindowMode
-import java.nio.file.Path
+import kotlin.io.path.Path
 
 fun main() {
-  System.loadLibrary("JavaStubs")
-  val novelRunner: @Pointer("NrtNovelRunner*") Long = Native.Nrt_NovelRunner_create(0)
-  print("hi?")
-  Native.Nrt_NovelRunner_runNovel(novelRunner)
-  /*
+  val runner = NovelRunner(
+    windowTitle = "Nice NovelRT",
+    windowMode = WindowMode.WINDOWED
+  )
+  val rect = runner.renderingService.createBasicRect(
+    transform = TransformData.create(
+      position = GeoVector2F(750f, 500f),
+      scale = GeoVector2F(500f, 450f)
+    ),
+    colour = RGBAConfig(200, 145, 80),
+    layer = 1
+  )
+  val textRect = runner.renderingService.createTextRect(
+    transform = TransformData.create(
+      position = GeoVector2F(750f, 700f),
+      scale = GeoVector2F(500f, 200f)
+    ),
+    colour = RGBAConfig(255, 255, 255),
+    fontSize = 30f,
+    fontPath = Path("C:\\Windows\\Fonts\\segoeui.ttf"),
+    layer = 0
+  )
+  textRect.text = "Hello Kotlin! (ft. FumoCement)"
+  runner.onConstructionRequested.subscribe {
+    rect.executeObjectBehaviour()
+    textRect.executeObjectBehaviour()
+  }
+  runner.onUpdate.subscribe {
+    rect.transform.rotation += 2.5f
+  }
+  runner.run()
+}
+
+inline fun benchmark(name: String, action: () -> Unit) {
+  val time = System.nanoTime()
+  action()
+  val elapsed = System.nanoTime() - time;
+  println("[BENCHMARK: %s] Time elapsed: %.1fµs".format(name, elapsed / 1000f))
+}
+
+/*
   val novelrt = NovelRunner()
 
   val rectangle = novelrt.rendering.createBasicRect(
@@ -43,5 +77,4 @@ fun main() {
   }
 
   novelrt.run()
-  */
-}
+  */ // Old code

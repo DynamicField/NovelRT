@@ -10,7 +10,7 @@ namespace NovelRT::JavaBootstrapper {
       if (_context.restMode) {
         // Fill the rest
         for (int i = _context.currentIndex; i < _context.argsCount; ++i) {
-          _context.result.rest.push_back(std::string(_context.args[i]));
+          _context.result.rest.emplace_back(_context.args[i]);
         }
         break;
       }
@@ -19,7 +19,7 @@ namespace NovelRT::JavaBootstrapper {
     return _context.result;
   }
 
-  bool ArgumentParser::hasNext() {
+  bool ArgumentParser::hasNext() const {
     return (_context.currentIndex + 1) < _context.argsCount;
   }
 
@@ -62,7 +62,7 @@ namespace NovelRT::JavaBootstrapper {
     }
   }
 
-  ArgumentParser::Context::Context(char** args, int argsCount) : args(args), argsCount(argsCount) {}
+  ArgumentParser::Context::Context(char** args, int argsCount) : args(args), argsCount(argsCount), restMode(false) {}
 
   OptionParsingException::OptionParsingException(const std::string& message) : runtime_error(message) {}
 

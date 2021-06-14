@@ -24,7 +24,12 @@ $includeDirectories = @(
 "$HOME/.conan/data/zlib/1.2.11/_/_/package/3fb49604f9c2f729b85ba3115852006824e72cab/include"
 )
 
+Push-Location $PWD
+
 $traversedHeaders = (Get-ChildItem ../../include/NovelRT.Interop/ -Recurse -Filter *.h) | Resolve-Path -Relative
+$traversedHeaders += @("../../include/NovelRT.Interop/Windowing/../NrtTypedefs.h")
+
+Write-Host $traversedHeaders
 
 Write-Host "Generating Java classes..."
 &$ForkedClangsharpExe "@generate-java-classes.rsp" `
@@ -35,3 +40,5 @@ Write-Host "Generating JNI glue..."
 &$ForkedClangsharpExe "@generate-jni-glue.rsp" `
 --traverse $traversedHeaders `
 --include-directory $includeDirectories
+
+Pop-Location

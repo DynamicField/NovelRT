@@ -4,8 +4,8 @@
 #include <iostream>
 #include "jni.h"
 #include "jni/jni.hpp"
-#include "NovelRT.JavaStubs/JNIBindings.h"
-#include "NovelRT/Java/JavaSupport.h"
+#include "NovelRT.JavaSupport/JNIBindings.h"
+#include "NovelRT.JavaSupport/CustomBindings.h"
 #include "NovelRT.JavaBootstrapper/ArgumentParser.h"
 
 using namespace NovelRT::JavaBootstrapper;
@@ -56,7 +56,7 @@ int main(int argc, char* argv[]) {
     // Starts with -D : system property
     // Starts with -verbose : verbose option
     // see https://docs.oracle.com/javase/7/docs/technotes/guides/jni/spec/invocation.html
-    if (restArg.rfind("-X", 0) == 0 || restArg.rfind("_", 0) == 0 ||
+    if (restArg.rfind("-X", 0) == 0 || restArg.rfind('_', 0) == 0 ||
         restArg.rfind("-D") == 0 ||
         restArg.rfind("-verbose", 0) == 0) {
       jvmOptions.push_back(JavaVMOption{
@@ -82,7 +82,9 @@ int main(int argc, char* argv[]) {
     return 1;
   }
 
+  /*
   NovelRT::Java::initialise(vm);
+   */
 
   jni::jclass* launchClass;
   try {

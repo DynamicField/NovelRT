@@ -4,4 +4,4 @@
 JniGlue
 
 --output
-../../include/NovelRT.JavaBootstrapper/JNIBindings.h
+../../include/NovelRT.JavaSupport/JNIBindings.h

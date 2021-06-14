@@ -6,10 +6,20 @@ plugins {
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.30")
+  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.10")
   implementation(project(":fumocement"))
-  compileOnly(project(":code-generation-annotations"))
   // kapt(project(":code-generation"))
+}
+
+val moduleName by extra("novelrt")
+
+tasks {
+  compileJava {
+    inputs.property("moduleName", moduleName)
+    options.compilerArgs = listOf(
+      "--patch-module", "${moduleName}=${sourceSets.main.get().output.asPath}"
+    )
+  }
 }
 
 /* kapt {

@@ -5,8 +5,6 @@ rootProject.name = "novelrt-java-project"
 include("novelrt")
 include("sample-kotlin")
 include("sample-java")
-include("code-generation-annotations")
-include("code-generation")
 include("fumocement")
 
 project(":novelrt").projectDir = file("core")

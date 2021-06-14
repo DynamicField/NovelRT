@@ -3,8 +3,8 @@ package com.github.novelrt.sample.java;
 import com.github.novelrt.NovelRunner;
 import com.github.novelrt.graphics.RGBAColour;
 import com.github.novelrt.graphics.TextRect;
-import com.github.novelrt.maths.Transform;
-import com.github.novelrt.maths.Vector2;
+import com.github.novelrt.Transform;
+import com.github.novelrt.maths.GeoVector2F;
 
 import java.nio.file.Path;
 import java.time.LocalTime;
@@ -15,8 +15,8 @@ public class Main {
   public static void main(String[] args) {
     var novelRt = new NovelRunner();
 
-    TextRect text = novelRt.getRendering().createTextRect(
-      new Transform(new Vector2(300f, 210f), new Vector2(500f, 500f), 0f),
+    TextRect text = novelRt.getRenderingService().createTextRect(
+      new Transform(new GeoVector2F(300f, 210f), new GeoVector2F(500f, 500f), 0f),
       new RGBAColour(0, 255, 45, 255),
       45f,
       Path.of("C:/Windows/Fonts/segoeui.ttf"),

@@ -12,11 +12,16 @@ tasks.assemble {
 val copyNovelrtLauncher by tasks.registering(Copy::class) {
   from(novelrtRootPath.resolve("build/src/NovelRT.JavaBootstrapper"))
   exclude("CMakeFiles")
+  exclude("cmake_install.cmake")
   into(jlink.imageDir)
 }
 
 tasks.jlink {
   finalizedBy(copyNovelrtLauncher)
+}
+
+jlink {
+  addExtraDependencies("jdk.jfr")
 }
 
 tasks.register<Exec>("jlinkRun") {
@@ -26,5 +31,8 @@ tasks.register<Exec>("jlinkRun") {
   val imageDir by jlink.imageDir
 
   commandLine(imageDir.file("RunBootstrapper.cmd"), "--launch",
-    "${application.mainModule.get()}/${application.mainClass.get()}")
+    "${application.mainModule.get()}/${application.mainClass.get()}",
+    "\"\\\"-Djava.io.tmpdir=${buildDir.resolve("temp")}\\\"\"",
+    "\"\\\"-Dfile.encoding=UTF-8\\\"\"",
+    "\"\\\"-Djava.rmi.server.hostname=localhost\\\"\"")
 }

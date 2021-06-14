@@ -25,11 +25,8 @@ group = "com.github.novelrt"
 version = "0.1-SNAPSHOT"
 
 val compileKotlin: KotlinCompile by tasks
-val compileJava: JavaCompile by tasks
 
-compileKotlin.kotlinOptions.useIR = true
-compileKotlin.kotlinOptions.jvmTarget = "1.8"
-compileKotlin.destinationDir = compileJava.destinationDir
+compileKotlin.kotlinOptions.jvmTarget = "11"
 
 tasks.withType<JavaCompile> {
   options.encoding = "UTF-8"

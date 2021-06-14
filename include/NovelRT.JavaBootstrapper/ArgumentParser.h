@@ -28,7 +28,7 @@ namespace NovelRT::JavaBootstrapper {
 
     Context _context;
 
-    bool hasNext();
+    bool hasNext() const;
 
     std::string next();
 

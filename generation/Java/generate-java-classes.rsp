@@ -4,4 +4,4 @@
 JavaClasses
 
 --output
-../../src/NovelRT.Java/core/src/main/java/com/github/novelrt/interop/Native.java
+../../src/NovelRT.Java/core/src/main/java/com/github/novelrt/interop/NovelRT.java

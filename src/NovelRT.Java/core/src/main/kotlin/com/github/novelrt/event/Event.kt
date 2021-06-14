@@ -1,19 +1,12 @@
 package com.github.novelrt.event
 
-import com.github.novelrt.internal.handle.UnownedHandleObject
-import com.github.novelrt.codegeneration.annotations.GenerateNativeType
-import java.util.*
-
-@GenerateNativeType
-abstract class Event<T : EventListener> protected constructor(handle: Long) : UnownedHandleObject(handle) {
-  private val eventListeners: MutableSet<T> = LinkedHashSet()
-  val listeners: List<T> get() = eventListeners.toList()
+abstract class Event<T> internal constructor() {
+  protected val eventListeners: MutableSet<T> = LinkedHashSet()
 
   fun subscribe(listener: T) {
     if (listener in eventListeners) {
       return
     }
-    addSubscription(listener, listener.hashCode())
     eventListeners.add(listener)
   }
 
@@ -21,10 +14,12 @@ abstract class Event<T : EventListener> protected constructor(handle: Long) : Un
     if (listener !in eventListeners) {
       return
     }
-    removeSubscription(listener, listener.hashCode())
     eventListeners.remove(listener)
   }
 
-  protected abstract fun addSubscription(listener: T, hash: Int)
-  protected abstract fun removeSubscription(listener: T, hash: Int)
+  protected inline fun fireEvent(runner: (listener: T) -> Unit) {
+    for (listener in eventListeners) {
+      runner(listener)
+    }
+  }
 }

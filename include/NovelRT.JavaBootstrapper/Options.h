@@ -3,6 +3,7 @@
 
 #include <array>
 #include <string>
+#include <utility>
 #include <vector>
 #include <regex>
 
@@ -23,9 +24,9 @@ namespace NovelRT::JavaBootstrapper {
     OptionType type;
     OptionFlags flags;
 
-    Option(std::string id, const std::regex& pattern,
-           OptionType type, OptionFlags flags = None)
-    : id(id), pattern(pattern), type(type), flags(flags) {}
+    Option(std::string id, std::regex pattern,
+           OptionType type, OptionFlags flags = None) noexcept
+    : id(std::move(id)), pattern(std::move(pattern)), type(type), flags(flags) {}
   };
 
   inline const Option LaunchOption("Launch", std::regex("^--launch$"), AcceptsValue, DelimitsRest);
