@@ -74,7 +74,7 @@ public final class NovelRT {
         }
 
         public void overwrite(@Pointer("NrtGeoVector2F*") long dataHandle) {
-            overwrite(getHandle(), dataHandle);
+            return overwrite(getHandle(), dataHandle)
         }
 
         public static native float getXRaw(@Pointer long handle);
@@ -137,7 +137,7 @@ public final class NovelRT {
         }
 
         public void overwrite(@Pointer("NrtGeoVector3F*") long dataHandle) {
-            overwrite(getHandle(), dataHandle);
+            return overwrite(getHandle(), dataHandle)
         }
 
         public static native float getXRaw(@Pointer long handle);
@@ -214,7 +214,7 @@ public final class NovelRT {
         }
 
         public void overwrite(@Pointer("NrtGeoVector4F*") long dataHandle) {
-            overwrite(getHandle(), dataHandle);
+            return overwrite(getHandle(), dataHandle)
         }
 
         public static native float getXRaw(@Pointer long handle);
@@ -305,7 +305,7 @@ public final class NovelRT {
         }
 
         public void overwrite(@Pointer("NrtGeoMatrix4x4F*") long dataHandle) {
-            overwrite(getHandle(), dataHandle);
+            return overwrite(getHandle(), dataHandle)
         }
 
         public static native @Pointer("NrtGeoVector4F*") long getXRaw(@Pointer long handle);
@@ -396,7 +396,7 @@ public final class NovelRT {
         }
 
         public void overwrite(@Pointer("NrtGeoBounds*") long dataHandle) {
-            overwrite(getHandle(), dataHandle);
+            return overwrite(getHandle(), dataHandle)
         }
 
         public static native @Pointer("NrtGeoVector2F*") long getPositionRaw(@Pointer long handle);
@@ -473,7 +473,7 @@ public final class NovelRT {
         }
 
         public void overwrite(@Pointer("NrtTransform*") long dataHandle) {
-            overwrite(getHandle(), dataHandle);
+            return overwrite(getHandle(), dataHandle)
         }
 
         public static native @Pointer("NrtGeoVector2F*") long getPositionRaw(@Pointer long handle);
@@ -2016,6 +2016,12 @@ public final class NovelRT {
         int returnValue = Nrt_UnsafeComponentView_Destroy$Raw(componentView$$intermediate);
         return returnValue;
     }
+    public static native int Nrt_BasicFillRect_destroy$Raw(@Pointer("NrtBasicFillRectHandle") long rect);
+    public static int Nrt_BasicFillRect_destroy(@Pointer("NrtBasicFillRectHandle") long rect) {
+        @Pointer("NrtBasicFillRectHandle") long rect$$intermediate = rect;
+        int returnValue = Nrt_BasicFillRect_destroy$Raw(rect$$intermediate);
+        return returnValue;
+    }
     public static native @Pointer("NrtTransform*") long Nrt_BasicFillRect_getTransform$Raw(@Pointer("NrtBasicFillRectHandle") long rect);
     public static com.github.novelrt.interop.NovelRT.NrtTransform Nrt_BasicFillRect_getTransform(@Pointer("NrtBasicFillRectHandle") long rect) {
         @Pointer("NrtBasicFillRectHandle") long rect$$intermediate = rect;
@@ -2170,6 +2176,12 @@ public final class NovelRT {
         @Pointer("NrtFontSetHandle") long fontSet$$intermediate = fontSet;
         @Pointer("float *") long outputFontSize$$intermediate = outputFontSize;
         int returnValue = Nrt_FontSet_getFontSize$Raw(fontSet$$intermediate, outputFontSize$$intermediate);
+        return returnValue;
+    }
+    public static native int Nrt_ImageRect_destroy$Raw(@Pointer("NrtImageRectHandle") long rect);
+    public static int Nrt_ImageRect_destroy(@Pointer("NrtImageRectHandle") long rect) {
+        @Pointer("NrtImageRectHandle") long rect$$intermediate = rect;
+        int returnValue = Nrt_ImageRect_destroy$Raw(rect$$intermediate);
         return returnValue;
     }
     public static native @Pointer("NrtTransform*") long Nrt_ImageRect_getTransform$Raw(@Pointer("NrtImageRectHandle") long rect);
@@ -2459,6 +2471,12 @@ public final class NovelRT {
     public static int Nrt_RGBAConfig_destroy(@Pointer("NrtRGBAConfigHandle") long param0) {
         @Pointer("NrtRGBAConfigHandle") long param0$$intermediate = param0;
         int returnValue = Nrt_RGBAConfig_destroy$Raw(param0$$intermediate);
+        return returnValue;
+    }
+    public static native int Nrt_TextRect_destroy$Raw(@Pointer("NrtTextRectHandle") long rect);
+    public static int Nrt_TextRect_destroy(@Pointer("NrtTextRectHandle") long rect) {
+        @Pointer("NrtTextRectHandle") long rect$$intermediate = rect;
+        int returnValue = Nrt_TextRect_destroy$Raw(rect$$intermediate);
         return returnValue;
     }
     public static native @Pointer("NrtTransform*") long Nrt_TextRect_getTransform$Raw(@Pointer("NrtTextRectHandle") long rect);

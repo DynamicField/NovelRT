@@ -1604,6 +1604,12 @@ extern "C"
         auto&& returnValue = Nrt_UnsafeComponentView_Destroy(FumoCement::passAsC(componentView$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1BasicFillRect_1destroy_00024Raw(JNIEnv* env, jclass, jlong rect)
+    {
+        auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtBasicFillRect>(rect);
+        auto&& returnValue = Nrt_BasicFillRect_destroy(FumoCement::passAsC(rect$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
     JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1BasicFillRect_1getTransform_00024Raw(JNIEnv* env, jclass, jlong rect)
     {
         auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtBasicFillRect>(rect);
@@ -1772,6 +1778,12 @@ extern "C"
         auto&& fontSet$$intermediate = FumoCement::toNativePointer<struct NrtFontSet>(fontSet);
         auto&& outputFontSize$$intermediate = FumoCement::toNativePointer<float>(outputFontSize);
         auto&& returnValue = Nrt_FontSet_getFontSize(FumoCement::passAsC(fontSet$$intermediate), FumoCement::passAsC(outputFontSize$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1ImageRect_1destroy_00024Raw(JNIEnv* env, jclass, jlong rect)
+    {
+        auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtImageRect>(rect);
+        auto&& returnValue = Nrt_ImageRect_destroy(FumoCement::passAsC(rect$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
     JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1ImageRect_1getTransform_00024Raw(JNIEnv* env, jclass, jlong rect)
@@ -2061,6 +2073,12 @@ extern "C"
     {
         auto&& param0$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(param0);
         auto&& returnValue = Nrt_RGBAConfig_destroy(FumoCement::passAsC(param0$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1TextRect_1destroy_00024Raw(JNIEnv* env, jclass, jlong rect)
+    {
+        auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtTextRect>(rect);
+        auto&& returnValue = Nrt_TextRect_destroy(FumoCement::passAsC(rect$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
     JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1TextRect_1getTransform_00024Raw(JNIEnv* env, jclass, jlong rect)
