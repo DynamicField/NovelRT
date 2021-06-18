@@ -1,5 +1,3 @@
-import com.github.novelrt.buildtools.novelrtRootPath
-
 plugins {
   id("com.github.novelrt.java-conventions-library")
   // kotlin("kapt")

@@ -2,24 +2,18 @@ package com.github.novelrt
 
 import com.github.novelrt.fumocement.DisposalMethod
 import com.github.novelrt.fumocement.HandleDeleter
-import com.github.novelrt.fumocement.NativeObject
-import com.github.novelrt.interop.KotlinNativeObject
+import com.github.novelrt.fumocement.Pointer
+import com.github.novelrt.graphics.RGBAConfig
+import com.github.novelrt.interop.*
+import com.github.novelrt.interop.makeOutputPointer
 
-abstract class WorldObject protected constructor(
-  handle: Long,
-  isOwned: Boolean = true,
-  disposalMethod: DisposalMethod = DisposalMethod.GARBAGE_COLLECTED,
-  deleter: HandleDeleter = HandleDeleter(::todoDeleter)
+abstract class WorldObject internal constructor(
+    handle: Long,
+    isOwned: Boolean = true,
+    deleter: HandleDeleter,
+    disposalMethod: DisposalMethod = DisposalMethod.GARBAGE_COLLECTED
 ) : KotlinNativeObject(handle, isOwned, deleter, disposalMethod) {
-
-  abstract val transform: Transform
-  abstract var layer: Int
-  abstract var active: Boolean
-
-  companion object {
-    @JvmStatic
-    protected fun todoDeleter(handle: Long) {
-      println("Implement the WorldObject deleter pls!") // TODO soon
-    }
-  }
+    abstract val transform: Transform
+    abstract var layer: Int
+    abstract var active: Boolean
 }

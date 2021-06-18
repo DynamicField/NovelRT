@@ -8,44 +8,61 @@ import com.github.novelrt.windowing.WindowMode
 import kotlin.io.path.Path
 
 fun main() {
-  val runner = NovelRunner(
-    windowTitle = "Nice NovelRT",
-    windowMode = WindowMode.WINDOWED
-  )
-  val rect = runner.renderingService.createBasicRect(
-    transform = TransformData.create(
-      position = GeoVector2F(750f, 500f),
-      scale = GeoVector2F(500f, 450f)
-    ),
-    colour = RGBAConfig(200, 145, 80),
-    layer = 1
-  )
-  val textRect = runner.renderingService.createTextRect(
-    transform = TransformData.create(
-      position = GeoVector2F(750f, 700f),
-      scale = GeoVector2F(500f, 200f)
-    ),
-    colour = RGBAConfig(255, 255, 255),
-    fontSize = 30f,
-    fontPath = Path("C:\\Windows\\Fonts\\segoeui.ttf"),
-    layer = 0
-  )
-  textRect.text = "Hello Kotlin! (ft. FumoCement)"
-  runner.onConstructionRequested.subscribe {
-    rect.executeObjectBehaviour()
-    textRect.executeObjectBehaviour()
-  }
-  runner.onUpdate.subscribe {
-    rect.transform.rotation += 2.5f
-  }
-  runner.run()
+    val runner = NovelRunner(
+        windowTitle = "Nice NovelRT",
+        windowMode = WindowMode.WINDOWED
+    )
+    val basicRect = runner.renderingService.createBasicFillRect(
+        transform = TransformData.create(
+            position = GeoVector2F(750f, 500f),
+            scale = GeoVector2F(500f, 450f)
+        ),
+        colourConfig = RGBAConfig(200, 145, 80),
+        layer = 2
+    )
+    val imageRect = runner.renderingService.createImageRectWithFile(
+        transform = TransformData.create(
+            position = GeoVector2F(421f, 720f),
+            scale = GeoVector2F(900f, 700f)
+        ),
+        colourTint = RGBAConfig(255, 255, 255),
+        imagePath = Path("D:\\Users\\jeuxj\\Pictures\\FUMOCEMENTTTT\\FUMOOO.png"),
+        layer = 1
+    )
+    val textRect = runner.renderingService.createTextRect(
+        transform = TransformData.create(
+            position = GeoVector2F(750f, 700f),
+            scale = GeoVector2F(500f, 200f)
+        ),
+        colourConfig = RGBAConfig(255, 255, 255),
+        fontSize = 30f,
+        fontPath = Path("C:\\Windows\\Fonts\\segoeui.ttf"),
+        layer = 0
+    ).apply { text = "Hello Kotlin! (ft. FumoCement)" }
+    runner.onConstructionRequested.subscribe {
+        basicRect.executeObjectBehaviour()
+        imageRect.executeObjectBehaviour()
+        textRect.executeObjectBehaviour()
+    }
+    runner.onUpdate.subscribe {
+        for (i in 0..5000) {
+            imageRect.transform.edit {
+                position = position.plus(0.00001f, 0.00002f)
+            }
+        }
+        val colour = basicRect.colourConfig
+        val newR = (colour.r + 1) % 255
+        val newColour = RGBAConfig(newR, colour.g, colour.b, colour.a)
+        basicRect.colourConfig = newColour
+    }
+    runner.run()
 }
 
 inline fun benchmark(name: String, action: () -> Unit) {
-  val time = System.nanoTime()
-  action()
-  val elapsed = System.nanoTime() - time;
-  println("[BENCHMARK: %s] Time elapsed: %.1fµs".format(name, elapsed / 1000f))
+    val time = System.nanoTime()
+    action()
+    val elapsed = System.nanoTime() - time;
+    println("[BENCHMARK: %s] Time elapsed: %.1fµs".format(name, elapsed / 1000f))
 }
 
 /*

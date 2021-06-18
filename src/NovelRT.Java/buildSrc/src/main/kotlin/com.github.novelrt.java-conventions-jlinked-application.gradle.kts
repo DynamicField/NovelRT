@@ -30,9 +30,11 @@ tasks.register<Exec>("jlinkRun") {
 
   val imageDir by jlink.imageDir
 
-  commandLine(imageDir.file("RunBootstrapper.cmd"), "--launch",
+  commandLine(
+    imageDir.file("RunBootstrapper.cmd"), "--launch",
     "${application.mainModule.get()}/${application.mainClass.get()}",
     "\"\\\"-Djava.io.tmpdir=${buildDir.resolve("temp")}\\\"\"",
     "\"\\\"-Dfile.encoding=UTF-8\\\"\"",
-    "\"\\\"-Djava.rmi.server.hostname=localhost\\\"\"")
+    "\"\\\"-Djava.rmi.server.hostname=localhost\\\"\""
+  )
 }

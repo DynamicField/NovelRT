@@ -1,9 +1,9 @@
 package com.github.novelrt.sample.java;
 
 import com.github.novelrt.NovelRunner;
+import com.github.novelrt.Transform;
 import com.github.novelrt.graphics.RGBAColour;
 import com.github.novelrt.graphics.TextRect;
-import com.github.novelrt.Transform;
 import com.github.novelrt.maths.GeoVector2F;
 
 import java.nio.file.Path;
