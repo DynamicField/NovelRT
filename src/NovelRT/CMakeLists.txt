@@ -1,5 +1,4 @@
 find_package(BZip2 ${NOVELRT_BZIP2_VERSION} REQUIRED)
-find_package(Dotnet ${NOVELRT_DOTNET_VERSION} REQUIRED)
 find_package(flac ${NOVELRT_FLAC_VERSION} REQUIRED)
 find_package(Freetype ${NOVELRT_FREETYPE_VERSION} REQUIRED)
 find_package(glad ${NOVELRT_GLAD_VERSION} REQUIRED
@@ -19,6 +18,8 @@ find_package(SndFile ${NOVELRT_SNDFILE_VERISON} REQUIRED)
 find_package(spdlog ${NOVELRT_SPDLOG_VERSION} REQUIRED)
 find_package(Vorbis ${NOVELRT_VORBIS_VERSION} REQUIRED)
 find_package(Microsoft.GSL ${NOVELRT_GSL_VERSION} REQUIRED)
+find_package(Vulkan ${NOVELRT_VULKAN_VERSION} REQUIRED)
+find_package(vulkan-memory-allocator ${NOVELRT_VULKAN_MEMORY_ALLOCATOR_VERSION} REQUIRED)
 find_package(JNI REQUIRED)
 
 set(SOURCES
@@ -30,8 +31,6 @@ set(SOURCES
 
   DebugService.cpp
 
-  DotNet/RuntimeService.cpp
-
   Ecs/Catalogue.cpp
   Ecs/ComponentBufferMemoryContainer.cpp
   Ecs/ComponentCache.cpp
@@ -40,6 +39,33 @@ set(SOURCES
   Ecs/SparseSetMemoryContainer.cpp
   Ecs/SystemScheduler.cpp
   Ecs/UnsafeComponentView.cpp
+
+  Experimental/EngineConfig.cpp
+  Experimental/Graphics/GraphicsMemoryBlock.cpp
+  Experimental/Graphics/GraphicsMemoryBlockCollection.cpp
+  Experimental/Graphics/GraphicsPipeline.cpp
+  Experimental/Graphics/GraphicsPipelineInput.cpp
+  Experimental/Graphics/GraphicsPipelineInputElement.cpp
+  Experimental/Graphics/GraphicsPipelineResource.cpp
+  Experimental/Graphics/GraphicsPipelineSignature.cpp
+  Experimental/Graphics/ShaderProgram.cpp
+  Experimental/Graphics/Vulkan/VulkanGraphicsAdapter.cpp
+  Experimental/Graphics/Vulkan/VulkanGraphicsAdapterSelector.cpp
+  Experimental/Graphics/Vulkan/VulkanGraphicsBuffer.cpp
+  Experimental/Graphics/Vulkan/VulkanGraphicsContext.cpp
+  Experimental/Graphics/Vulkan/VulkanGraphicsDevice.cpp
+  Experimental/Graphics/Vulkan/VulkanGraphicsFence.cpp
+  Experimental/Graphics/Vulkan/VulkanGraphicsMemoryAllocator.cpp
+  Experimental/Graphics/Vulkan/VulkanGraphicsMemoryBlock.cpp
+  Experimental/Graphics/Vulkan/VulkanGraphicsMemoryBlockCollection.cpp
+  Experimental/Graphics/Vulkan/VulkanGraphicsPipeline.cpp
+  Experimental/Graphics/Vulkan/VulkanGraphicsPipelineSignature.cpp
+  Experimental/Graphics/Vulkan/VulkanGraphicsProvider.cpp
+  Experimental/Graphics/Vulkan/VulkanGraphicsSurfaceContext.cpp
+  Experimental/Graphics/Vulkan/VulkanGraphicsTexture.cpp
+  Experimental/Graphics/Vulkan/VulkanShaderProgram.cpp
+  Experimental/Threading/VolatileState.cpp
+  Experimental/Windowing/Glfw/GlfwWindowingDevice.cpp
 
   Graphics/BasicFillRect.cpp
   Graphics/Camera.cpp
@@ -50,9 +76,6 @@ set(SOURCES
   Graphics/RGBAConfig.cpp
   Graphics/TextRect.cpp
   Graphics/Texture.cpp
-
-  Ink/InkService.cpp
-  Ink/Story.cpp
 
   Input/BasicInteractionRect.cpp
   Input/InteractionObject.cpp
@@ -92,8 +115,26 @@ set(SOURCES
   WorldObject.cpp
 )
 
+if(NOVELRT_INCLUDE_INK)
+  message("NovelRT is compiling with Ink / C# Support.")
+  set(SOURCES
+    DotNet/RuntimeService.cpp
+    Ink/InkService.cpp
+    Ink/Story.cpp
+    ${SOURCES}
+  )
+endif()
+
 add_library(Engine SHARED ${SOURCES})
-add_dependencies(Engine Dotnet)
+
+if(NOVELRT_INCLUDE_INK)
+  add_dependencies(Engine Dotnet)
+  target_compile_definitions(Engine PRIVATE NOVELRT_INK)
+  target_link_libraries(Engine PUBLIC
+    CoreCLR::nethost
+  )
+  find_package(Dotnet ${NOVELRT_DOTNET_VERSION} REQUIRED)
+endif()
 
 set_property(TARGET Engine PROPERTY OUTPUT_NAME "NovelRT")
 
@@ -148,7 +189,6 @@ endif()
 target_link_libraries(Engine
   PUBLIC
     BZip2::BZip2
-    CoreCLR::nethost
     FLAC::FLAC
     Freetype::Freetype
     glad::glad
@@ -162,6 +202,8 @@ target_link_libraries(Engine
     spdlog::spdlog
     Vorbis::Vorbis
     Microsoft.GSL::Microsoft.GSL
+    Vulkan::Vulkan
+    vulkan-memory-allocator::vulkan-memory-allocator
     ${JNI_LIBRARIES}
 )
 
