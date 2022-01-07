@@ -83,22 +83,6 @@ set(SOURCES
   Input/InteractionObject.cpp
   Input/InteractionService.cpp
 
-  Java/Bindings/NovelRunnerBindings.cpp
-  Java/Bindings/WorldObjectBindings.cpp
-  Java/Bindings/AllBindings.cpp
-  Java/Bindings/SceneConstructionRequestedEventBindings.cpp
-  Java/Bindings/TransformBindings.cpp
-  Java/Bindings/TextBindings.cpp
-  Java/Bindings/RenderingServiceBindings.cpp
-  Java/Bindings/RenderObjectBindings.cpp
-  Java/Bindings/ImageRectBindings.cpp
-  Java/Handles.cpp
-  Java/Init.cpp
-  Java/StringConversions.cpp
-  Java/TypeConversion/Vector2TypeConverter.cpp
-  Java/TypeConversion/TransformTypeConverter.cpp
-  Java/TypeConversion/RGBAConfigTypeConverter.cpp
-
   LoggingService.cpp
 
   Maths/GeoBounds.cpp

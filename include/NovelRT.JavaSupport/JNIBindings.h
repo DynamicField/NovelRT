@@ -1487,9 +1487,16 @@ extern "C"
         auto&& returnValue = Nrt_SystemScheduler_Create(FumoCement::passAsC(maximumThreadCount$$intermediate));
         return FumoCement::toJavaPointer(returnValue);
     }
-    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1SystemScheduler_1RegisterSystem_00024Raw(JNIEnv* env, jclass, jlong scheduler, jlong systemUpdatePtr)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1SystemScheduler_1GetThreadsAreSpinning_00024Raw(JNIEnv* env, jclass, jlong systemScheduler)
     {
-        auto&& scheduler$$intermediate = FumoCement::toNativePointer<struct NrtSystemScheduler>(scheduler);
+        auto&& systemScheduler$$intermediate = FumoCement::toNativePointer<struct NrtSystemScheduler>(systemScheduler);
+        auto&& returnValue = Nrt_SystemScheduler_GetThreadsAreSpinning(FumoCement::passAsC(systemScheduler$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1SystemScheduler_1RegisterSystem_00024Raw(
+        JNIEnv* env, jclass, jlong systemScheduler, jlong systemUpdatePtr)
+    {
+        auto&& systemScheduler$$intermediate = FumoCement::toNativePointer<struct NrtSystemScheduler>(systemScheduler);
         auto&& systemUpdatePtr$$intermediate = [](NrtTimestamp param0, NrtCatalogueHandle param1, void * func$$rawContext) -> void
         {
             auto* func$$actualContext = static_cast<FumoCement::FunctionPointerContext*>(func$$rawContext);
@@ -1502,10 +1509,15 @@ extern "C"
             using MethodSignature = FumoCement::TemplateString<'(', 'L', 'c', 'o', 'm', '/', 'g', 'i', 't', 'h', 'u', 'b', '/', 'n', 'o', 'v', 'e', 'l', 'r', 't', '/', 'i', 'n', 't', 'e', 'r', 'o', 'p', '/', 'N', 'o', 'v', 'e', 'l', 'R', 'T', '$', 'C', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '_', 'N', 'r', 't', '_', 'S', 'y', 's', 't', 'e', 'm', 'S', 'c', 'h', 'e', 'd', 'u', 'l', 'e', 'r', '_', 'R', 'e', 'g', 'i', 's', 't', 'e', 'r', 'S', 'y', 's', 't', 'e', 'm', '_', 's', 'y', 's', 't', 'e', 'm', 'U', 'p', 'd', 'a', 't', 'e', 'P', 't', 'r', ';', 'J', 'J', ')', 'V'>;
             auto classId = FumoCement::getCachedClass<ClassName>(funcEnv);
             auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);
-            funcEnv->CallStaticVoidMethod(classId, methodId, FumoCement::passAsC(callback$$intermediate), FumoCement::passAsC(param0$$intermediate), FumoCement::passAsC(param1$$intermediate));
+            funcEnv->CallStaticVoidMethod(classId, methodId,
+                                          FumoCement::passAsC(callback$$intermediate),
+                                          FumoCement::passAsC(param0$$intermediate),
+                                          FumoCement::passAsC(param1$$intermediate));
         };
         auto&& systemUpdatePtr$$context$$intermediate = reinterpret_cast<void*>(systemUpdatePtr);
-        Nrt_SystemScheduler_RegisterSystem(FumoCement::passAsC(scheduler$$intermediate), FumoCement::passAsC(systemUpdatePtr$$intermediate), FumoCement::passAsC(systemUpdatePtr$$context$$intermediate));
+        Nrt_SystemScheduler_RegisterSystem(FumoCement::passAsC(systemScheduler$$intermediate),
+                                           FumoCement::passAsC(systemUpdatePtr$$intermediate),
+                                           FumoCement::passAsC(systemUpdatePtr$$context$$intermediate));
     }
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1SystemScheduler_1GetWorkerThreadCount_00024Raw(JNIEnv* env, jclass, jlong systemScheduler)
     {
@@ -1535,6 +1547,12 @@ extern "C"
         auto&& systemScheduler$$intermediate = FumoCement::toNativePointer<struct NrtSystemScheduler>(systemScheduler);
         auto&& delta$$intermediate = FumoCement::toNativePrimitive(delta);
         auto&& returnValue = Nrt_SystemScheduler_ExecuteIteration(FumoCement::passAsC(systemScheduler$$intermediate), FumoCement::passAsC(delta$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1SystemScheduler_1ShutDown_00024Raw(JNIEnv* env, jclass, jlong systemScheduler)
+    {
+        auto&& systemScheduler$$intermediate = FumoCement::toNativePointer<struct NrtSystemScheduler>(systemScheduler);
+        auto&& returnValue = Nrt_SystemScheduler_ShutDown(FumoCement::passAsC(systemScheduler$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1SystemScheduler_1Destroy_00024Raw(JNIEnv* env, jclass, jlong systemScheduler)
@@ -1604,12 +1622,6 @@ extern "C"
         auto&& returnValue = Nrt_UnsafeComponentView_Destroy(FumoCement::passAsC(componentView$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1BasicFillRect_1destroy_00024Raw(JNIEnv* env, jclass, jlong rect)
-    {
-        auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtBasicFillRect>(rect);
-        auto&& returnValue = Nrt_BasicFillRect_destroy(FumoCement::passAsC(rect$$intermediate));
-        return FumoCement::toJavaPrimitive(returnValue);
-    }
     JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1BasicFillRect_1getTransform_00024Raw(JNIEnv* env, jclass, jlong rect)
     {
         auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtBasicFillRect>(rect);
@@ -1658,14 +1670,14 @@ extern "C"
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1BasicFillRect_1getColourConfig_00024Raw(JNIEnv* env, jclass, jlong rect, jlong outputColourConfig)
     {
         auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtBasicFillRect>(rect);
-        auto&& outputColourConfig$$intermediate = FumoCement::toNativePointer<NrtRGBAConfigHandle>(outputColourConfig);
+        auto&& outputColourConfig$$intermediate = FumoCement::toNativePointer<NrtRGBAColourHandle>(outputColourConfig);
         auto&& returnValue = Nrt_BasicFillRect_getColourConfig(FumoCement::passAsC(rect$$intermediate), FumoCement::passAsC(outputColourConfig$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1BasicFillRect_1setColourConfig_00024Raw(JNIEnv* env, jclass, jlong rect, jlong inputColourConfig)
     {
         auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtBasicFillRect>(rect);
-        auto&& inputColourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(inputColourConfig);
+        auto&& inputColourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(inputColourConfig);
         auto&& returnValue = Nrt_BasicFillRect_setColourConfig(FumoCement::passAsC(rect$$intermediate), FumoCement::passAsC(inputColourConfig$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
@@ -1674,6 +1686,12 @@ extern "C"
         auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtBasicFillRect>(rect);
         auto&& outputRenderObject$$intermediate = FumoCement::toNativePointer<NrtRenderObjectHandle>(outputRenderObject);
         auto&& returnValue = Nrt_BasicFillRect_getAsRenderObjectPtr(FumoCement::passAsC(rect$$intermediate), FumoCement::passAsC(outputRenderObject$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1BasicFillRect_1destroy_00024Raw(JNIEnv* env, jclass, jlong rect)
+    {
+        auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtBasicFillRect>(rect);
+        auto&& returnValue = Nrt_BasicFillRect_destroy(FumoCement::passAsC(rect$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
     JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1Camera_1create_00024Raw(JNIEnv* env, jclass)
@@ -1780,12 +1798,6 @@ extern "C"
         auto&& returnValue = Nrt_FontSet_getFontSize(FumoCement::passAsC(fontSet$$intermediate), FumoCement::passAsC(outputFontSize$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1ImageRect_1destroy_00024Raw(JNIEnv* env, jclass, jlong rect)
-    {
-        auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtImageRect>(rect);
-        auto&& returnValue = Nrt_ImageRect_destroy(FumoCement::passAsC(rect$$intermediate));
-        return FumoCement::toJavaPrimitive(returnValue);
-    }
     JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1ImageRect_1getTransform_00024Raw(JNIEnv* env, jclass, jlong rect)
     {
         auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtImageRect>(rect);
@@ -1848,14 +1860,14 @@ extern "C"
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1ImageRect_1getColourTint_00024Raw(JNIEnv* env, jclass, jlong rect, jlong outputColourTint)
     {
         auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtImageRect>(rect);
-        auto&& outputColourTint$$intermediate = FumoCement::toNativePointer<NrtRGBAConfigHandle>(outputColourTint);
+        auto&& outputColourTint$$intermediate = FumoCement::toNativePointer<NrtRGBAColourHandle>(outputColourTint);
         auto&& returnValue = Nrt_ImageRect_getColourTint(FumoCement::passAsC(rect$$intermediate), FumoCement::passAsC(outputColourTint$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1ImageRect_1setColourTint_00024Raw(JNIEnv* env, jclass, jlong rect, jlong inputColourTint)
     {
         auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtImageRect>(rect);
-        auto&& inputColourTint$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(inputColourTint);
+        auto&& inputColourTint$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(inputColourTint);
         auto&& returnValue = Nrt_ImageRect_setColourTint(FumoCement::passAsC(rect$$intermediate), FumoCement::passAsC(inputColourTint$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
@@ -1864,6 +1876,12 @@ extern "C"
         auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtImageRect>(rect);
         auto&& outputRenderObject$$intermediate = FumoCement::toNativePointer<NrtRenderObjectHandle>(outputRenderObject);
         auto&& returnValue = Nrt_ImageRect_getAsRenderObjectPtr(FumoCement::passAsC(rect$$intermediate), FumoCement::passAsC(outputRenderObject$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1ImageRect_1destroy_00024Raw(JNIEnv* env, jclass, jlong rect)
+    {
+        auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtImageRect>(rect);
+        auto&& returnValue = Nrt_ImageRect_destroy(FumoCement::passAsC(rect$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RenderingService_1create_00024Raw(JNIEnv* env, jclass, jlong windowingService, jlong outputRenderingService)
@@ -1892,7 +1910,7 @@ extern "C"
         auto&& transform$$intermediate = *FumoCement::toNativePointer<NrtTransform>(transform);
         auto&& layer$$intermediate = FumoCement::toNativePrimitive(layer);
         auto&& filePath$$intermediate = FumoCement::toCppString(env, filePath);
-        auto&& colourTint$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourTint);
+        auto&& colourTint$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourTint);
         auto&& returnValue = Nrt_RenderingService_createImageRectWithFile(FumoCement::passAsC(renderingService$$intermediate), FumoCement::passAsC(outputImageRect$$intermediate), FumoCement::passAsC(transform$$intermediate), FumoCement::passAsC(layer$$intermediate), FumoCement::passAsC(filePath$$intermediate), FumoCement::passAsC(colourTint$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
@@ -1902,7 +1920,7 @@ extern "C"
         auto&& outputImageRect$$intermediate = FumoCement::toNativePointer<NrtImageRectHandle>(outputImageRect);
         auto&& transform$$intermediate = *FumoCement::toNativePointer<NrtTransform>(transform);
         auto&& layer$$intermediate = FumoCement::toNativePrimitive(layer);
-        auto&& colourTint$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourTint);
+        auto&& colourTint$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourTint);
         auto&& returnValue = Nrt_RenderingService_createImageRectWithNothing(FumoCement::passAsC(renderingService$$intermediate), FumoCement::passAsC(outputImageRect$$intermediate), FumoCement::passAsC(transform$$intermediate), FumoCement::passAsC(layer$$intermediate), FumoCement::passAsC(colourTint$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
@@ -1912,7 +1930,7 @@ extern "C"
         auto&& outputBasicFillRect$$intermediate = FumoCement::toNativePointer<NrtBasicFillRectHandle>(outputBasicFillRect);
         auto&& transform$$intermediate = *FumoCement::toNativePointer<NrtTransform>(transform);
         auto&& layer$$intermediate = FumoCement::toNativePrimitive(layer);
-        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourConfig);
+        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourConfig);
         auto&& returnValue = Nrt_RenderingService_createBasicFillRect(FumoCement::passAsC(renderingService$$intermediate), FumoCement::passAsC(outputBasicFillRect$$intermediate), FumoCement::passAsC(transform$$intermediate), FumoCement::passAsC(layer$$intermediate), FumoCement::passAsC(colourConfig$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
@@ -1922,7 +1940,7 @@ extern "C"
         auto&& outputTextRect$$intermediate = FumoCement::toNativePointer<NrtTextRectHandle>(outputTextRect);
         auto&& transform$$intermediate = *FumoCement::toNativePointer<NrtTransform>(transform);
         auto&& layer$$intermediate = FumoCement::toNativePrimitive(layer);
-        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourConfig);
+        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourConfig);
         auto&& fontSize$$intermediate = FumoCement::toNativePrimitive(fontSize);
         auto&& fontFilePath$$intermediate = FumoCement::toCppString(env, fontFilePath);
         auto&& returnValue = Nrt_RenderingService_createTextRect(FumoCement::passAsC(renderingService$$intermediate), FumoCement::passAsC(outputTextRect$$intermediate), FumoCement::passAsC(transform$$intermediate), FumoCement::passAsC(layer$$intermediate), FumoCement::passAsC(colourConfig$$intermediate), FumoCement::passAsC(fontSize$$intermediate), FumoCement::passAsC(fontFilePath$$intermediate));
@@ -1950,7 +1968,7 @@ extern "C"
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RenderingService_1setBackgroundColour_00024Raw(JNIEnv* env, jclass, jlong renderingService, jlong colour)
     {
         auto&& renderingService$$intermediate = FumoCement::toNativePointer<struct NrtRenderingService>(renderingService);
-        auto&& colour$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colour);
+        auto&& colour$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colour);
         auto&& returnValue = Nrt_RenderingService_setBackgroundColour(FumoCement::passAsC(renderingService$$intermediate), FumoCement::passAsC(colour$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
@@ -1984,101 +2002,95 @@ extern "C"
         auto&& returnValue = Nrt_RenderingService_destroy(FumoCement::passAsC(renderingService$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAConfig_1Create_00024Raw(JNIEnv* env, jclass, jint r, jint g, jint b, jint a)
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAColour_1Create_00024Raw(JNIEnv* env, jclass, jint r, jint g, jint b, jint a)
     {
         auto&& r$$intermediate = FumoCement::toNativePrimitive(r);
         auto&& g$$intermediate = FumoCement::toNativePrimitive(g);
         auto&& b$$intermediate = FumoCement::toNativePrimitive(b);
         auto&& a$$intermediate = FumoCement::toNativePrimitive(a);
-        auto&& returnValue = Nrt_RGBAConfig_Create(FumoCement::passAsC(r$$intermediate), FumoCement::passAsC(g$$intermediate), FumoCement::passAsC(b$$intermediate), FumoCement::passAsC(a$$intermediate));
+        auto&& returnValue = Nrt_RGBAColour_Create(FumoCement::passAsC(r$$intermediate), FumoCement::passAsC(g$$intermediate), FumoCement::passAsC(b$$intermediate), FumoCement::passAsC(a$$intermediate));
         return FumoCement::toJavaPointer(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAConfig_1getR_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAColour_1getR_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
     {
-        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourConfig);
-        auto&& returnValue = Nrt_RGBAConfig_getR(FumoCement::passAsC(colourConfig$$intermediate));
+        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourConfig);
+        auto&& returnValue = Nrt_RGBAColour_getR(FumoCement::passAsC(colourConfig$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAConfig_1setR_00024Raw(JNIEnv* env, jclass, jlong colourConfig, jint inputValue)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAColour_1setR_00024Raw(JNIEnv* env, jclass, jlong colourConfig, jint inputValue)
     {
-        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourConfig);
+        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourConfig);
         auto&& inputValue$$intermediate = FumoCement::toNativePrimitive(inputValue);
-        auto&& returnValue = Nrt_RGBAConfig_setR(FumoCement::passAsC(colourConfig$$intermediate), FumoCement::passAsC(inputValue$$intermediate));
+        auto&& returnValue = Nrt_RGBAColour_setR(FumoCement::passAsC(colourConfig$$intermediate), FumoCement::passAsC(inputValue$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAConfig_1getG_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAColour_1getG_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
     {
-        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourConfig);
-        auto&& returnValue = Nrt_RGBAConfig_getG(FumoCement::passAsC(colourConfig$$intermediate));
+        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourConfig);
+        auto&& returnValue = Nrt_RGBAColour_getG(FumoCement::passAsC(colourConfig$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAConfig_1setG_00024Raw(JNIEnv* env, jclass, jlong colourConfig, jint inputValue)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAColour_1setG_00024Raw(JNIEnv* env, jclass, jlong colourConfig, jint inputValue)
     {
-        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourConfig);
+        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourConfig);
         auto&& inputValue$$intermediate = FumoCement::toNativePrimitive(inputValue);
-        auto&& returnValue = Nrt_RGBAConfig_setG(FumoCement::passAsC(colourConfig$$intermediate), FumoCement::passAsC(inputValue$$intermediate));
+        auto&& returnValue = Nrt_RGBAColour_setG(FumoCement::passAsC(colourConfig$$intermediate), FumoCement::passAsC(inputValue$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAConfig_1getB_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAColour_1getB_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
     {
-        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourConfig);
-        auto&& returnValue = Nrt_RGBAConfig_getB(FumoCement::passAsC(colourConfig$$intermediate));
+        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourConfig);
+        auto&& returnValue = Nrt_RGBAColour_getB(FumoCement::passAsC(colourConfig$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAConfig_1setB_00024Raw(JNIEnv* env, jclass, jlong colourConfig, jint inputValue)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAColour_1setB_00024Raw(JNIEnv* env, jclass, jlong colourConfig, jint inputValue)
     {
-        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourConfig);
+        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourConfig);
         auto&& inputValue$$intermediate = FumoCement::toNativePrimitive(inputValue);
-        auto&& returnValue = Nrt_RGBAConfig_setB(FumoCement::passAsC(colourConfig$$intermediate), FumoCement::passAsC(inputValue$$intermediate));
+        auto&& returnValue = Nrt_RGBAColour_setB(FumoCement::passAsC(colourConfig$$intermediate), FumoCement::passAsC(inputValue$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAConfig_1getA_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAColour_1getA_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
     {
-        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourConfig);
-        auto&& returnValue = Nrt_RGBAConfig_getA(FumoCement::passAsC(colourConfig$$intermediate));
+        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourConfig);
+        auto&& returnValue = Nrt_RGBAColour_getA(FumoCement::passAsC(colourConfig$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAConfig_1setA_00024Raw(JNIEnv* env, jclass, jlong colourConfig, jint inputValue)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAColour_1setA_00024Raw(JNIEnv* env, jclass, jlong colourConfig, jint inputValue)
     {
-        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourConfig);
+        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourConfig);
         auto&& inputValue$$intermediate = FumoCement::toNativePrimitive(inputValue);
-        auto&& returnValue = Nrt_RGBAConfig_setA(FumoCement::passAsC(colourConfig$$intermediate), FumoCement::passAsC(inputValue$$intermediate));
+        auto&& returnValue = Nrt_RGBAColour_setA(FumoCement::passAsC(colourConfig$$intermediate), FumoCement::passAsC(inputValue$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jfloat JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAConfig_1getRScalar_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
+    JNIEXPORT jfloat JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAColour_1getRScalar_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
     {
-        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourConfig);
-        auto&& returnValue = Nrt_RGBAConfig_getRScalar(FumoCement::passAsC(colourConfig$$intermediate));
+        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourConfig);
+        auto&& returnValue = Nrt_RGBAColour_getRScalar(FumoCement::passAsC(colourConfig$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jfloat JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAConfig_1getGScalar_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
+    JNIEXPORT jfloat JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAColour_1getGScalar_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
     {
-        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourConfig);
-        auto&& returnValue = Nrt_RGBAConfig_getGScalar(FumoCement::passAsC(colourConfig$$intermediate));
+        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourConfig);
+        auto&& returnValue = Nrt_RGBAColour_getGScalar(FumoCement::passAsC(colourConfig$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jfloat JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAConfig_1getBScalar_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
+    JNIEXPORT jfloat JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAColour_1getBScalar_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
     {
-        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourConfig);
-        auto&& returnValue = Nrt_RGBAConfig_getBScalar(FumoCement::passAsC(colourConfig$$intermediate));
+        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourConfig);
+        auto&& returnValue = Nrt_RGBAColour_getBScalar(FumoCement::passAsC(colourConfig$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jfloat JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAConfig_1getAScalar_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
+    JNIEXPORT jfloat JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAColour_1getAScalar_00024Raw(JNIEnv* env, jclass, jlong colourConfig)
     {
-        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(colourConfig);
-        auto&& returnValue = Nrt_RGBAConfig_getAScalar(FumoCement::passAsC(colourConfig$$intermediate));
+        auto&& colourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(colourConfig);
+        auto&& returnValue = Nrt_RGBAColour_getAScalar(FumoCement::passAsC(colourConfig$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAConfig_1destroy_00024Raw(JNIEnv* env, jclass, jlong param0)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RGBAColour_1destroy_00024Raw(JNIEnv* env, jclass, jlong param0)
     {
-        auto&& param0$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(param0);
-        auto&& returnValue = Nrt_RGBAConfig_destroy(FumoCement::passAsC(param0$$intermediate));
-        return FumoCement::toJavaPrimitive(returnValue);
-    }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1TextRect_1destroy_00024Raw(JNIEnv* env, jclass, jlong rect)
-    {
-        auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtTextRect>(rect);
-        auto&& returnValue = Nrt_TextRect_destroy(FumoCement::passAsC(rect$$intermediate));
+        auto&& param0$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(param0);
+        auto&& returnValue = Nrt_RGBAColour_destroy(FumoCement::passAsC(param0$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
     JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1TextRect_1getTransform_00024Raw(JNIEnv* env, jclass, jlong rect)
@@ -2129,14 +2141,14 @@ extern "C"
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1TextRect_1getColourConfig_00024Raw(JNIEnv* env, jclass, jlong rect, jlong outputColourConfig)
     {
         auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtTextRect>(rect);
-        auto&& outputColourConfig$$intermediate = FumoCement::toNativePointer<NrtRGBAConfigHandle>(outputColourConfig);
+        auto&& outputColourConfig$$intermediate = FumoCement::toNativePointer<NrtRGBAColourHandle>(outputColourConfig);
         auto&& returnValue = Nrt_TextRect_getColourConfig(FumoCement::passAsC(rect$$intermediate), FumoCement::passAsC(outputColourConfig$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1TextRect_1setColourConfig_00024Raw(JNIEnv* env, jclass, jlong rect, jlong inputColourConfig)
     {
         auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtTextRect>(rect);
-        auto&& inputColourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAConfig>(inputColourConfig);
+        auto&& inputColourConfig$$intermediate = FumoCement::toNativePointer<struct NrtRGBAColour>(inputColourConfig);
         auto&& returnValue = Nrt_TextRect_setColourConfig(FumoCement::passAsC(rect$$intermediate), FumoCement::passAsC(inputColourConfig$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
@@ -2172,6 +2184,12 @@ extern "C"
         auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtTextRect>(rect);
         auto&& outputRenderObject$$intermediate = FumoCement::toNativePointer<NrtRenderObjectHandle>(outputRenderObject);
         auto&& returnValue = Nrt_TextRect_getAsRenderObjectPtr(FumoCement::passAsC(rect$$intermediate), FumoCement::passAsC(outputRenderObject$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1TextRect_1destroy_00024Raw(JNIEnv* env, jclass, jlong rect)
+    {
+        auto&& rect$$intermediate = FumoCement::toNativePointer<struct NrtTextRect>(rect);
+        auto&& returnValue = Nrt_TextRect_destroy(FumoCement::passAsC(rect$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1Texture_1loadPngAsTexture_00024Raw(JNIEnv* env, jclass, jlong targetTexture, jbyteArray file)
@@ -3512,7 +3530,7 @@ extern "C"
             using MethodName = FumoCement::TemplateString<'c', 'a', 'l', 'l', 'b', 'a', 'c', 'k', 'C', 'a', 'l', 'l'>;
             using MethodSignature = FumoCement::TemplateString<'(', 'L', 'c', 'o', 'm', '/', 'g', 'i', 't', 'h', 'u', 'b', '/', 'n', 'o', 'v', 'e', 'l', 'r', 't', '/', 'i', 'n', 't', 'e', 'r', 'o', 'p', '/', 'N', 'o', 'v', 'e', 'l', 'R', 'T', '$', 'C', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '_', 'N', 'r', 't', '_', 'S', 'c', 'e', 'n', 'e', 'N', 'o', 'd', 'e', '_', 't', 'r', 'a', 'v', 'e', 'r', 's', 'e', 'B', 'r', 'e', 'a', 'd', 't', 'h', 'F', 'i', 'r', 's', 't', 'W', 'i', 't', 'h', 'I', 't', 'e', 'r', 'a', 't', 'o', 'r', '_', 'a', 'c', 't', 'i', 'o', 'n', ';', 'J', ')', 'I'>;
             auto classId = FumoCement::getCachedClass<ClassName>(funcEnv);
-            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue = 
+            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue =
             funcEnv->CallStaticIntMethod(classId, methodId, FumoCement::passAsC(callback$$intermediate), FumoCement::passAsC(param0$$intermediate));
             return FumoCement::toNativePrimitive(returnValue);
         };
@@ -3554,7 +3572,7 @@ extern "C"
             using MethodName = FumoCement::TemplateString<'c', 'a', 'l', 'l', 'b', 'a', 'c', 'k', 'C', 'a', 'l', 'l'>;
             using MethodSignature = FumoCement::TemplateString<'(', 'L', 'c', 'o', 'm', '/', 'g', 'i', 't', 'h', 'u', 'b', '/', 'n', 'o', 'v', 'e', 'l', 'r', 't', '/', 'i', 'n', 't', 'e', 'r', 'o', 'p', '/', 'N', 'o', 'v', 'e', 'l', 'R', 'T', '$', 'C', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '_', 'N', 'r', 't', '_', 'S', 'c', 'e', 'n', 'e', 'N', 'o', 'd', 'e', '_', 't', 'r', 'a', 'v', 'e', 'r', 's', 'e', 'D', 'e', 'p', 't', 'h', 'F', 'i', 'r', 's', 't', 'W', 'i', 't', 'h', 'I', 't', 'e', 'r', 'a', 't', 'o', 'r', '_', 'a', 'c', 't', 'i', 'o', 'n', ';', 'J', ')', 'I'>;
             auto classId = FumoCement::getCachedClass<ClassName>(funcEnv);
-            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue = 
+            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue =
             funcEnv->CallStaticIntMethod(classId, methodId, FumoCement::passAsC(callback$$intermediate), FumoCement::passAsC(param0$$intermediate));
             return FumoCement::toNativePrimitive(returnValue);
         };
@@ -3609,7 +3627,7 @@ extern "C"
             using MethodName = FumoCement::TemplateString<'c', 'a', 'l', 'l', 'b', 'a', 'c', 'k', 'C', 'a', 'l', 'l'>;
             using MethodSignature = FumoCement::TemplateString<'(', 'L', 'c', 'o', 'm', '/', 'g', 'i', 't', 'h', 'u', 'b', '/', 'n', 'o', 'v', 'e', 'l', 'r', 't', '/', 'i', 'n', 't', 'e', 'r', 'o', 'p', '/', 'N', 'o', 'v', 'e', 'l', 'R', 'T', '$', 'C', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '_', 'N', 'r', 't', '_', 'S', 'c', 'e', 'n', 'e', 'N', 'o', 'd', 'e', 'B', 'r', 'e', 'a', 'd', 't', 'h', 'F', 'i', 'r', 's', 't', 'I', 't', 'e', 'r', 'a', 't', 'o', 'r', '_', 'c', 'r', 'e', 'a', 't', 'e', '_', 'f', 'u', 'n', 'c', ';', 'J', ')', 'I'>;
             auto classId = FumoCement::getCachedClass<ClassName>(funcEnv);
-            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue = 
+            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue =
             funcEnv->CallStaticIntMethod(classId, methodId, FumoCement::passAsC(callback$$intermediate), FumoCement::passAsC(param0$$intermediate));
             return FumoCement::toNativePrimitive(returnValue);
         };
@@ -3669,7 +3687,7 @@ extern "C"
             using MethodName = FumoCement::TemplateString<'c', 'a', 'l', 'l', 'b', 'a', 'c', 'k', 'C', 'a', 'l', 'l'>;
             using MethodSignature = FumoCement::TemplateString<'(', 'L', 'c', 'o', 'm', '/', 'g', 'i', 't', 'h', 'u', 'b', '/', 'n', 'o', 'v', 'e', 'l', 'r', 't', '/', 'i', 'n', 't', 'e', 'r', 'o', 'p', '/', 'N', 'o', 'v', 'e', 'l', 'R', 'T', '$', 'C', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '_', 'N', 'r', 't', '_', 'S', 'c', 'e', 'n', 'e', 'N', 'o', 'd', 'e', 'D', 'e', 'p', 't', 'h', 'F', 'i', 'r', 's', 't', 'I', 't', 'e', 'r', 'a', 't', 'o', 'r', '_', 'c', 'r', 'e', 'a', 't', 'e', '_', 'f', 'u', 'n', 'c', ';', 'J', ')', 'I'>;
             auto classId = FumoCement::getCachedClass<ClassName>(funcEnv);
-            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue = 
+            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue =
             funcEnv->CallStaticIntMethod(classId, methodId, FumoCement::passAsC(callback$$intermediate), FumoCement::passAsC(param0$$intermediate));
             return FumoCement::toNativePrimitive(returnValue);
         };

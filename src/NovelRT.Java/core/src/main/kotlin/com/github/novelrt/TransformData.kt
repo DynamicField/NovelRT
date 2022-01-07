@@ -9,6 +9,15 @@ sealed interface TransformData {
     var rotation: Float
 
     companion object {
+        @JvmOverloads
+        fun values(
+            position: GeoVector2F = GeoVector2F(),
+            scale: GeoVector2F = GeoVector2F(),
+            rotation: Float = 0.0f
+        ): TransformData {
+            return TransformValues(position, scale, rotation)
+        }
+
         internal fun TransformData.toNative(): NovelRT.NrtTransform {
             return if (this is Transform) {
                 this.toNative()
@@ -19,14 +28,6 @@ sealed interface TransformData {
                     it.rotation = rotation
                 }
             }
-        }
-
-        fun create(
-            position: GeoVector2F = GeoVector2F(),
-            scale: GeoVector2F = GeoVector2F(),
-            rotation: Float = 0.0f
-        ): TransformData {
-            return TransformValues(position, scale, rotation)
         }
     }
 }

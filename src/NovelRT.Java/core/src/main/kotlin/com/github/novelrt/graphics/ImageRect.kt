@@ -4,8 +4,6 @@ import com.github.novelrt.Transform
 import com.github.novelrt.interop.*
 import com.github.novelrt.interop.property.getNative
 import com.github.novelrt.interop.property.setNative
-import com.github.novelrt.interop.toBoolean
-import com.github.novelrt.interop.toNrtBool
 
 class ImageRect internal constructor(handle: Long, isOwned: Boolean) :
     RenderObject(handle, isOwned, NovelRT::Nrt_ImageRect_destroy) {

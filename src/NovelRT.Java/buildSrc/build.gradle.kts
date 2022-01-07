@@ -9,6 +9,6 @@ repositories {
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0-RC")
   implementation("org.beryx:badass-jlink-plugin:2.24.0")
 }

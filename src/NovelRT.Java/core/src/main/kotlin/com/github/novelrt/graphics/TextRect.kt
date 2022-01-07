@@ -4,20 +4,14 @@ import com.github.novelrt.Transform
 import com.github.novelrt.fumocement.StringDeletionBehaviour
 import com.github.novelrt.interop.*
 import com.github.novelrt.interop.property.*
-import com.github.novelrt.interop.property.getNative
-import com.github.novelrt.interop.property.getNativeRGBAConfig
-import com.github.novelrt.interop.property.setNative
-import com.github.novelrt.interop.property.setNativeRGBAConfig
-import com.github.novelrt.interop.toBoolean
-import com.github.novelrt.interop.toNrtBool
 
 class TextRect internal constructor(handle: Long, isOwned: Boolean) :
     RenderObject(handle, isOwned, NovelRT::Nrt_TextRect_destroy) {
     override fun executeObjectBehaviour() = NovelRT.Nrt_TextRect_executeObjectBehaviour(handle).handleNrtResult()
 
-    var colourConfig: RGBAConfig
-        get() = getNativeRGBAConfig(NovelRT::Nrt_TextRect_getColourConfig)
-        set(value) = setNativeRGBAConfig(value, NovelRT::Nrt_TextRect_setColourConfig)
+    var colourConfig: RGBAColour
+        get() = getNativeRGBAColour(NovelRT::Nrt_TextRect_getColourConfig)
+        set(value) = setNativeRGBAColour(value, NovelRT::Nrt_TextRect_setColourConfig)
 
     override val transform: Transform = object : Transform() {
         override var nativeTransform: ObjectHandle<NovelRT.NrtTransform>

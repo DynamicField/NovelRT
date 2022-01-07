@@ -4,7 +4,6 @@ import com.github.novelrt.fumocement.Pointers
 import com.github.novelrt.interop.NovelRT
 import com.github.novelrt.interop.ObjectHandle
 import com.github.novelrt.maths.GeoVector2F
-import java.util.*
 
 abstract class Transform internal constructor() : TransformData {
     override var position: GeoVector2F
@@ -67,8 +66,7 @@ abstract class Transform internal constructor() : TransformData {
         }
     }
 
-    fun interface EditScopeAction
-    {
+    fun interface EditScopeAction {
         operator fun TransformData.invoke()
     }
 
@@ -161,6 +159,17 @@ abstract class Transform internal constructor() : TransformData {
             currentScaleX = Float.NaN
             currentScaleY = Float.NaN
             currentRotation = Float.NaN
+        }
+    }
+
+    companion object {
+        @Suppress("NOTHING_TO_INLINE")
+        inline operator fun invoke(
+            position: GeoVector2F = GeoVector2F(),
+            scale: GeoVector2F = GeoVector2F(),
+            rotation: Float = 0.0f
+        ): TransformData {
+            return TransformData.values(position, scale, rotation)
         }
     }
 }

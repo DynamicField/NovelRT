@@ -9,7 +9,7 @@ import java.nio.file.Path
 class RenderingService internal constructor(handle: Long, isOwned: Boolean) :
     KotlinNativeObject(handle, isOwned, NovelRT::Nrt_RenderingService_destroy) {
 
-    fun createBasicFillRect(transform: TransformData, colourConfig: RGBAConfig, layer: Int): BasicFillRect {
+    fun createBasicFillRect(transform: TransformData, colourConfig: RGBAColour, layer: Int): BasicFillRect {
         return makeOutputPointer(::BasicFillRect, true).resultWith { output ->
             colourConfig.createNative(DisposalMethod.MANUAL).use { nativeColourConfig ->
                 NovelRT.Nrt_RenderingService_createBasicFillRect(
@@ -25,7 +25,7 @@ class RenderingService internal constructor(handle: Long, isOwned: Boolean) :
 
     fun createTextRect(
         transform: TransformData,
-        colourConfig: RGBAConfig,
+        colourConfig: RGBAColour,
         fontSize: Float,
         fontPath: Path,
         layer: Int
@@ -58,7 +58,7 @@ class RenderingService internal constructor(handle: Long, isOwned: Boolean) :
 
     fun createImageRectWithNothing(
         transform: TransformData,
-        colourTint: RGBAConfig,
+        colourTint: RGBAColour,
         layer: Int
     ): ImageRect {
         return makeOutputPointer(::ImageRect, true).resultWith { output ->
@@ -80,7 +80,7 @@ class RenderingService internal constructor(handle: Long, isOwned: Boolean) :
     fun createImageRectWithFile(
         transform: TransformData,
         imagePath: Path,
-        colourTint: RGBAConfig,
+        colourTint: RGBAColour,
         layer: Int
     ): ImageRect {
         return makeOutputPointer(::ImageRect, true).resultWith { output ->

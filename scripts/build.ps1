@@ -99,7 +99,7 @@ function Update-CSharp() {
   $generationDir = Join-Path -Path $RepoRoot -ChildPath "generation"
   $generateRspFiles = Get-ChildItem -Path "$generationDir" -Recurse -Filter "generate.rsp"
 
-  $generateRspFiles | ForEach-Object -Parallel {
+  $generateRspFiles | ForEach-Object {
     $includeDirectories = @(
       "$HOME/.conan/data/bzip2/1.0.8/_/_/package/4528437567062bbbdabe0f12323b342a14f38892/include"
       "$HOME/.conan/data/flac/1.3.3/_/_/package/840741e0c2fe086ebeae5ebab1d812f6f8a24eea/include"

@@ -21,4 +21,6 @@ abstract class SingleTrackingContainer<T : NativeObject> internal constructor(ta
     internal fun makeTrackingOutputPointer(): IndirectedPointer<T> {
         return IndirectedPointer(tracker::getOrCreate, DisposalMethod.MANUAL)
     }
+
+    internal fun ObjectHandle<T>.makeTracked(): T = getTracked(this)
 }

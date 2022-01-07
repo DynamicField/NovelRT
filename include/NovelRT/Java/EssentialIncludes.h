@@ -1,7 +1,0 @@
-#ifndef NOVELRT_ESSENTIALINCLUDES_H
-#define NOVELRT_ESSENTIALINCLUDES_H
-
-#include <NovelRT.h>
-#include <jni/jni.hpp>
-
-#endif //NOVELRT_ESSENTIALINCLUDES_H

@@ -1,18 +1,17 @@
 package com.github.novelrt.graphics
 
 import com.github.novelrt.Transform
-import com.github.novelrt.interop.*
-import com.github.novelrt.interop.property.getNative
-import com.github.novelrt.interop.property.getNativeRGBAConfig
-import com.github.novelrt.interop.property.setNative
-import com.github.novelrt.interop.property.setNativeRGBAConfig
+import com.github.novelrt.interop.NovelRT
+import com.github.novelrt.interop.ObjectHandle
+import com.github.novelrt.interop.handleNrtResult
+import com.github.novelrt.interop.property.*
 
 class BasicFillRect internal constructor(handle: Long, isOwned: Boolean) :
     RenderObject(handle, isOwned, NovelRT::Nrt_BasicFillRect_destroy) {
 
-    var colourConfig: RGBAConfig
-        get() = getNativeRGBAConfig(NovelRT::Nrt_BasicFillRect_getColourConfig)
-        set(value) = setNativeRGBAConfig(value, NovelRT::Nrt_BasicFillRect_setColourConfig)
+    var colourConfig: RGBAColour
+        get() = getNativeRGBAColour(NovelRT::Nrt_BasicFillRect_getColourConfig)
+        set(value) = setNativeRGBAColour(value, NovelRT::Nrt_BasicFillRect_setColourConfig)
 
     override fun executeObjectBehaviour() = NovelRT.Nrt_BasicFillRect_executeObjectBehaviour(handle).handleNrtResult()
 
@@ -28,6 +27,7 @@ class BasicFillRect internal constructor(handle: Long, isOwned: Boolean) :
         set(value) = setNative(value, NovelRT::Nrt_BasicFillRect_setLayer)
 
     override var active: Boolean
-        get() = getNative(NovelRT::Nrt_BasicFillRect_getActive, NrtBool::toBoolean)
-        set(value) = setNative(value, NovelRT::Nrt_BasicFillRect_setActive, Boolean::toNrtBool)
+        get() = getNativeNrtBool(NovelRT::Nrt_BasicFillRect_getActive)
+        set(value) = setNativeNrtBool(value, NovelRT::Nrt_BasicFillRect_setActive)
 }
+

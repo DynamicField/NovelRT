@@ -1,7 +1,7 @@
 find_package(JNI REQUIRED)
 
 set(JAVA_BOOTSTRAPPER_SOURCES
-  main.cpp ArgumentParser.cpp)
+  main.cpp ArgumentParser.cpp StringConversions.cpp)
 
 add_executable(JavaBootstrapper ${JAVA_BOOTSTRAPPER_SOURCES})
 add_dependencies(JavaBootstrapper Engine JavaSupport)

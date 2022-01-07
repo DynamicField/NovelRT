@@ -8,9 +8,11 @@ import com.github.novelrt.fumocement.FunctionPointer
 import com.github.novelrt.fumocement.Pointer
 import com.github.novelrt.fumocement.Pointers
 import com.github.novelrt.graphics.RenderingService
+import com.github.novelrt.input.InteractionService
 import com.github.novelrt.interop.KotlinNativeObject
 import com.github.novelrt.interop.NovelRT
 import com.github.novelrt.interop.makeOutputPointer
+import com.github.novelrt.timing.Timestamp
 import com.github.novelrt.windowing.WindowMode
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -49,7 +51,7 @@ class NovelRunner(
     val onUpdate = object : Event<UpdateListener>() {
         val callback: FunctionPointer<NovelRT.Callback_Nrt_NovelRunner_SubscribeToUpdate_func> = FunctionPointer(
             NovelRT.Callback_Nrt_NovelRunner_SubscribeToUpdate_func { timestamp ->
-                fireEvent { it.listen(timestamp) }
+                fireEvent { it.listen(Timestamp(timestamp.toULong())) }
             },
             DisposalMethod.GARBAGE_COLLECTED
         )
@@ -59,10 +61,11 @@ class NovelRunner(
         }
     }
 
-    val renderingService: RenderingService = findRenderer()
-
-    private fun findRenderer(): RenderingService =
+    val renderingService: RenderingService =
         makeOutputPointer(::RenderingService, false).resultWith(NovelRT::Nrt_NovelRunner_getRenderer)
+
+    val interactionService: InteractionService =
+        makeOutputPointer(::InteractionService).resultWith(NovelRT::Nrt_NovelRunner_getInteractionService)
 
     fun run() {
         NovelRT.Nrt_NovelRunner_runNovel(handle)

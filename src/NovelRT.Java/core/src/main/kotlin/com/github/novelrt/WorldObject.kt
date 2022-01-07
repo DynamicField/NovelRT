@@ -2,10 +2,7 @@ package com.github.novelrt
 
 import com.github.novelrt.fumocement.DisposalMethod
 import com.github.novelrt.fumocement.HandleDeleter
-import com.github.novelrt.fumocement.Pointer
-import com.github.novelrt.graphics.RGBAConfig
-import com.github.novelrt.interop.*
-import com.github.novelrt.interop.makeOutputPointer
+import com.github.novelrt.interop.KotlinNativeObject
 
 abstract class WorldObject internal constructor(
     handle: Long,

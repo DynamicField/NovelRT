@@ -1,4 +1,5 @@
 #define NOVELRT_C_API 1
+#define NOVELRT_INK 1
 #define JNI_TEMPORARY_REMOVAL 1
 #include <NovelRT.h>
 #include <iostream>
@@ -81,10 +82,6 @@ int main(int argc, char* argv[]) {
     std::cout << "VM launch failed! That's sad." << std::endl;
     return 1;
   }
-
-  /*
-  NovelRT::Java::initialise(vm);
-   */
 
   jni::jclass* launchClass;
   try {

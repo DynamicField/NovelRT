@@ -26,6 +26,51 @@ extern "C"
         vector->x = x;
         vector->y = y;
     }
+
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_ecs_SparseSetMemoryContainer_insertBytes(JNIEnv* env,
+                                                                                            jclass,
+                                                                                            jlong handle,
+                                                                                            jint key,
+                                                                                            jbyteArray bytes)
+    {
+        auto* memoryContainer = reinterpret_cast<NrtSparseSetMemoryContainerHandle>(handle);
+        auto* bytesNativeArray = env->GetPrimitiveArrayCritical(bytes, nullptr);
+
+        auto result = Nrt_SparseSetMemoryContainer_Insert(memoryContainer, key, bytesNativeArray);
+
+        env->ReleasePrimitiveArrayCritical(bytes, bytesNativeArray, JNI_ABORT);
+        return result;
+    }
+
+    JNIEXPORT jboolean JNICALL Java_com_github_novelrt_ecs_SparseSetMemoryContainer_tryInsertBytes(JNIEnv* env,
+                                                                                                   jclass,
+                                                                                                   jlong handle,
+                                                                                                   jint key,
+                                                                                                   jbyteArray bytes)
+    {
+        auto* memoryContainer = reinterpret_cast<NrtSparseSetMemoryContainerHandle>(handle);
+        auto* bytesNativeArray = env->GetPrimitiveArrayCritical(bytes, nullptr);
+
+        auto result = Nrt_SparseSetMemoryContainer_TryInsert(memoryContainer, key, bytesNativeArray);
+
+        env->ReleasePrimitiveArrayCritical(bytes, bytesNativeArray, JNI_ABORT);
+        return static_cast<jboolean>(result);
+    }
+
+    JNIEXPORT void JNICALL
+    Java_com_github_novelrt_ecs_SparseSetMemoryContainer_constByteIteratorViewRead(JNIEnv* env,
+                                                                                   jclass,
+                                                                                   jlong view,
+                                                                                   jbyteArray outBytes,
+                                                                                   jint length)
+    {
+        auto* handle = reinterpret_cast<NrtSparseSetMemoryContainer_ConstByteIteratorViewHandle>(view);
+        const auto* data = Nrt_SparseSetMemoryContainer_ConstByteIteratorView_GetDataHandle(handle);
+
+        auto* outBytesNativeArray = env->GetPrimitiveArrayCritical(outBytes, nullptr);
+        std::memcpy(outBytesNativeArray, data, length);
+        env->ReleasePrimitiveArrayCritical(outBytes, outBytesNativeArray, 0);
+    }
 #ifdef __cplusplus
 }
 #endif

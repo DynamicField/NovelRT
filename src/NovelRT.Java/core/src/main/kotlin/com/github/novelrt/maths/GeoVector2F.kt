@@ -22,6 +22,8 @@ data class GeoVector2F(val x: Float = 0f, val y: Float = 0f) {
     }
 
     companion object {
+        val ZERO = GeoVector2F(0f, 0f)
+
         @JvmStatic
         private external fun createNativeFromValues(x: Float, y: Float): Long
 

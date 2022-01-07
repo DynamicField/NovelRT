@@ -906,6 +906,18 @@ extern "C"
         static jint value = static_cast<jint>(sizeof(std::uintptr_t));
         return value;
     }
+
+    /*
+     * Class:     com_github_novelrt_fumocement_Pointers
+     * Method:    getByteBufferLocationRaw
+     * Signature: (Ljava/nio/ByteBuffer;)J
+     */
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_fumocement_Pointers_getByteBufferLocationRaw(JNIEnv* env,
+                                                                                                 jclass,
+                                                                                                 jobject buffer)
+    {
+        return FumoCement::toJavaPointer(env->GetDirectBufferAddress(buffer));
+    }
 #pragma endregion
 }
 

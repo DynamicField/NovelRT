@@ -9,7 +9,7 @@ import com.github.novelrt.interop.*
 
 class FontSet internal constructor(handle: Long) : KotlinNativeObject(handle, false, null) {
     val fontFile: String
-        get() = makeOutputPointer(::CharPointer, false, DisposalMethod.MANUAL)
+        get() = makeOutputPointer(::CharPointer, false)
             .resultWith(NovelRT::Nrt_FontSet_getFontFile)
             .use { it.readAsNullTerminatedString(StringDeletionBehaviour.NO_DELETE) }
 

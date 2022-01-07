@@ -10,7 +10,7 @@
   #define NOVELRT_C_API 1
 #endif // !__cplusplus
 
-#if defined(_WIN32) || defined(_WIN64)
+#if (defined(_WIN32) || defined(_WIN64)) && !defined(NOVELRT_C_API)
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
 #endif
