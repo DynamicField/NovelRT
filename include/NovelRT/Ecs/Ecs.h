@@ -15,6 +15,7 @@ namespace NovelRT::Ecs
     class ComponentBufferMemoryContainer;
     class ComponentCache;
     class EntityCache;
+    class IEcsSystem;
     class SparseSetMemoryContainer;
     class SystemScheduler;
     class UnsafeComponentView;
@@ -46,6 +47,8 @@ namespace NovelRT::Ecs
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#define __TBB_PREVIEW_MUTEXES 1
+#include <oneapi/tbb/mutex.h>
 
 // clang-format on
 
@@ -62,9 +65,11 @@ namespace NovelRT::Ecs
 #include "ComponentView.h"
 #include "EcsUtils.h"
 #include "EntityCache.h"
+#include "IEcsSystem.h"
 #include "Catalogue.h"
 #include "SystemScheduler.h"
 #include "UnsafeComponentView.h"
+#include "Audio/Ecs.Audio.h"
 #include "Configurator.h"
 
 // clang-format on

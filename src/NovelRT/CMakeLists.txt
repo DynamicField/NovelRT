@@ -10,14 +10,15 @@ find_package(glad ${NOVELRT_GLAD_VERSION} REQUIRED
 )
 find_package(glfw3 ${NOVELRT_GLFW_VERSION} REQUIRED)
 find_package(glm ${NOVELRT_GLM_VERSION} REQUIRED)
+find_package(Microsoft.GSL ${NOVELRT_GSL_VERSION} REQUIRED)
 find_package(Ogg ${NOVELRT_OGG_VERSION} REQUIRED)
 find_package(OpenAL ${NOVELRT_OPENAL_VERSION} REQUIRED)
 find_package(Opus ${NOVELRT_Opus_VERSION} REQUIRED)
 find_package(PNG ${NOVELRT_PNG_VERSION} REQUIRED)
 find_package(SndFile ${NOVELRT_SNDFILE_VERISON} REQUIRED)
 find_package(spdlog ${NOVELRT_SPDLOG_VERSION} REQUIRED)
+find_package(TBB ${NOVELRT_ONETBB_VERSION} REQUIRED)
 find_package(Vorbis ${NOVELRT_VORBIS_VERSION} REQUIRED)
-find_package(Microsoft.GSL ${NOVELRT_GSL_VERSION} REQUIRED)
 find_package(Vulkan ${NOVELRT_VULKAN_VERSION} REQUIRED)
 find_package(vulkan-memory-allocator ${NOVELRT_VULKAN_MEMORY_ALLOCATOR_VERSION} REQUIRED)
 find_package(JNI REQUIRED)
@@ -39,6 +40,7 @@ set(SOURCES
   Ecs/SparseSetMemoryContainer.cpp
   Ecs/SystemScheduler.cpp
   Ecs/UnsafeComponentView.cpp
+  Ecs/Audio/AudioSystem.cpp
 
   Experimental/EngineConfig.cpp
   Experimental/Graphics/GraphicsMemoryBlock.cpp
@@ -90,6 +92,9 @@ set(SOURCES
 
   PluginManagement/TemporaryFnPtrs.cpp
 
+  ResourceManagement/Desktop/DesktopResourceLoader.cpp
+  ResourceManagement/Desktop/DesktopResourceManagementPluginProvider.cpp
+
   NovelRunner.cpp
 
   Timing/StepTimer.cpp
@@ -116,12 +121,10 @@ endif()
 add_library(Engine SHARED ${SOURCES})
 
 if(NOVELRT_INCLUDE_INK)
-  add_dependencies(Engine Dotnet)
   target_compile_definitions(Engine PRIVATE NOVELRT_INK)
   target_link_libraries(Engine PUBLIC
-    CoreCLR::nethost
+    Dotnet
   )
-  find_package(Dotnet ${NOVELRT_DOTNET_VERSION} REQUIRED)
 endif()
 
 set_property(TARGET Engine PROPERTY OUTPUT_NAME "NovelRT")
@@ -135,7 +138,6 @@ target_include_directories(Engine
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>
-    ${JNI_INCLUDE_DIRS}
 )
 
 if(MSVC)
@@ -146,7 +148,6 @@ if(MSVC)
       /wd4611
       /MP
   )
-  get_target_property(opts Engine COMPILE_OPTIONS)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
   target_compile_options(Engine
     PRIVATE
@@ -182,14 +183,15 @@ target_link_libraries(Engine
     glad::glad
     glfw::glfw
     glm::glm
+    Microsoft.GSL::Microsoft.GSL
     Ogg::Ogg
     OpenAL::OpenAL
     Opus::Opus
     PNG::PNG
     SndFile::SndFile
     spdlog::spdlog
+    TBB::TBB
     Vorbis::Vorbis
-    Microsoft.GSL::Microsoft.GSL
     Vulkan::Vulkan
     vulkan-memory-allocator::vulkan-memory-allocator
     ${JNI_LIBRARIES}
@@ -201,9 +203,11 @@ if(WIN32)
       Winmm
   )
 
-  if(NOVELRT_INCLUDE_CONAN_PATHS)
-    add_custom_command(TARGET Engine POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory
+  # I hate CMake I hate it I hate it I hate it
+  # (work around for CMAKE REFUSING TO COPY NECESSARY FILES FOR DEBUGGING MAKING IT IMPOSSIBLE TO DEBUG)
+  add_custom_command(TARGET Engine POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory
       ${CMAKE_BINARY_DIR}/thirdparty
       $<TARGET_FILE_DIR:Engine>)
-  endif()
+  file(GLOB libs RELATIVE ${CMAKE_BINARY_DIR}/thirdparty ${CMAKE_BINARY_DIR}/thirdparty/*.dll)
+  set_target_properties(Engine PROPERTIES RESOURCE "${libs}")
 endif()
