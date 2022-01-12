@@ -5,6 +5,8 @@ import com.github.novelrt.fumocement.HandleDeleter
 import com.github.novelrt.fumocement.IndirectedPointer
 import com.github.novelrt.fumocement.NativeObject
 import com.github.novelrt.fumocement.builtin.FloatPointer
+import com.github.novelrt.fumocement.builtin.Int32Pointer
+import com.github.novelrt.fumocement.builtin.UInt32Pointer
 
 abstract class KotlinNativeObject internal constructor(
     handle: Long,
@@ -34,6 +36,17 @@ abstract class KotlinNativeObject internal constructor(
             return this.value
         }
     }
+
+    internal inline fun UInt32Pointer.resultWith(
+        filler: (myHandle: Long, pointerHandle: Long) -> NrtResult
+    ): UInt {
+        this.use { output ->
+            filler(this@KotlinNativeObject.handle, output.handle).handleNrtResult()
+            return this.unsignedValue.toUInt()
+        }
+    }
+
+    // TODO: do this for every pointer type?
 
     companion object {
         @Suppress("NOTHING_TO_INLINE")

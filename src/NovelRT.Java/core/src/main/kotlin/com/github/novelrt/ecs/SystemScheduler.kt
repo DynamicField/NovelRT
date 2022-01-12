@@ -4,18 +4,18 @@ import com.github.novelrt.ecs.ComponentCache.Companion.makeTracked
 import com.github.novelrt.ecs.EntityCache.Companion.makeTracked
 import com.github.novelrt.fumocement.DisposalMethod
 import com.github.novelrt.fumocement.FunctionPointer
-import com.github.novelrt.interop.KotlinNativeObject
-import com.github.novelrt.interop.NovelRT
+import com.github.novelrt.interop.*
 import com.github.novelrt.interop.handleNrtResult
 import com.github.novelrt.interop.toObjectHandle
 import com.github.novelrt.timing.Timestamp
 import com.github.novelrt.timing.Timestamp.Companion.toTimestamp
 
+
 class SystemScheduler(maximumThreadCount: UInt?) :
     KotlinNativeObject(createSystemScheduler(maximumThreadCount), true, NovelRT::Nrt_SystemScheduler_Destroy) {
 
     private val registeredSystemCallbacks =
-        mutableListOf<FunctionPointer<NovelRT.Callback_Nrt_SystemScheduler_RegisterSystem_systemUpdatePtr>>()
+        mutableListOf<FunctionPointer<SystemUpdatePtr>>()
 
     fun spinThreads() = NovelRT.Nrt_SystemScheduler_SpinThreads(handle)
 
@@ -35,7 +35,7 @@ class SystemScheduler(maximumThreadCount: UInt?) :
 
     fun registerSystem(system: System) {
         val callback =
-            FunctionPointer(NovelRT.Callback_Nrt_SystemScheduler_RegisterSystem_systemUpdatePtr { rawTimestamp, catalogueHandle ->
+            FunctionPointer(SystemUpdatePtr { rawTimestamp, catalogueHandle ->
                 system.run(rawTimestamp.toTimestamp(), Catalogue.getTracked(catalogueHandle))
             }, DisposalMethod.GARBAGE_COLLECTED)
 

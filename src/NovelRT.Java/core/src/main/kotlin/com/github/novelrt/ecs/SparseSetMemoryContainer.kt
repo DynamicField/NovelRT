@@ -3,35 +3,24 @@ package com.github.novelrt.ecs
 import com.github.novelrt.fumocement.DisposalMethod
 import com.github.novelrt.fumocement.Pointer
 import com.github.novelrt.interop.*
-import com.github.novelrt.nativedata.DataStructure
-import com.github.novelrt.nativedata.DataStructureInfo
 import com.github.novelrt.nativedata.MemoryAllocator
 import java.nio.ByteBuffer
 
-class SparseSetMemoryContainer<T : DataStructure> private constructor(
-    private val structureSize: Int,
-    private val structureFactory: () -> T
-) :
-    KotlinNativeObject(
-        NovelRT.Nrt_SparseSetMemoryContainer_Create(structureSize),
-        true,
-        NovelRT::Nrt_SparseSetMemoryContainer_Destroy
-    ) {
-    constructor(
-        structureClass: Class<T>,
-        factory: () -> T
-    ) : this(structureClass.getAnnotation(DataStructureInfo::class.java).size, factory)
-
+class SparseSetMemoryContainer<T>(private val definition: ComponentDefinition<T>) : KotlinNativeObject(
+    NovelRT.Nrt_SparseSetMemoryContainer_Create(definition.size),
+    true,
+    NovelRT::Nrt_SparseSetMemoryContainer_Destroy
+) {
     fun insert(key: SparseSetKey, value: T) {
-        val output = ByteBuffer.allocate(value.size)
-        value.writeTo(output)
+        val output = ByteBuffer.allocate(definition.size)
+        definition.serialize(value, output)
 
         insertBytes(handle, key.toInt(), output.array()).handleNrtResult()
     }
 
     fun tryInsert(key: SparseSetKey, value: T): Boolean {
-        val output = ByteBuffer.allocate(value.size)
-        value.writeTo(output)
+        val output = ByteBuffer.allocate(definition.size)
+        definition.serialize(value, output)
 
         return tryInsertBytes(handle, key.toInt(), output.array())
     }
@@ -46,13 +35,13 @@ class SparseSetMemoryContainer<T : DataStructure> private constructor(
         NovelRT.Nrt_SparseSetMemoryContainer_ContainsKey(handle, key.toInt()).toBoolean()
 
     operator fun get(key: SparseSetKey): T {
-        val output = structureFactory()
+        val output = definition.createEmpty()
 
         val viewHandle = NovelRT.Nrt_SparseSetMemoryContainer_Indexer(handle, key.toInt())
         ByteIteratorView(viewHandle, false, DisposalMethod.MANUAL).use { view ->
-            MemoryAllocator.allocate(structureSize).scope { span ->
+            MemoryAllocator.allocate(definition.size).scope { span ->
                 view.copyFromLocation(span.address)
-                output.fillWith(span.buffer)
+                definition.deserialize(output, span.buffer)
             }
         }
 
@@ -65,8 +54,8 @@ class SparseSetMemoryContainer<T : DataStructure> private constructor(
         }
         val viewHandle = NovelRT.Nrt_SparseSetMemoryContainer_Indexer(handle, key.toInt())
         ByteIteratorView(viewHandle, false, DisposalMethod.MANUAL).use { view ->
-            MemoryAllocator.allocate(structureSize).scope { span ->
-                value.writeTo(span.buffer)
+            MemoryAllocator.allocate(definition.size).scope { span ->
+                definition.deserialize(value, span.buffer)
                 view.writeToLocation(span.address)
             }
         }
@@ -114,7 +103,6 @@ class SparseSetMemoryContainer<T : DataStructure> private constructor(
             return handle.toInt()
         }
     }
-
 
     internal class ConstByteIteratorView(handle: Long, owned: Boolean) :
         KotlinNativeObject(handle, owned, NovelRT::Nrt_SparseSetMemoryContainer_ConstByteIteratorView_Destroy) {

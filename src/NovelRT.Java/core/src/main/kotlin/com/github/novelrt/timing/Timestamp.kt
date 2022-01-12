@@ -14,7 +14,7 @@ value class Timestamp(val ticks: ULong) {
     fun getSecondsDouble() = NovelRT.Nrt_Timestamp_getSecondsDouble(ticks.toLong())
     fun getSecondsFloat() = NovelRT.Nrt_Timestamp_getSecondsFloat(ticks.toLong())
 
-    fun toNative(): Long = ticks.toLong()
+    internal fun toNative(): Long = ticks.toLong()
 
     companion object {
         val ZERO = Timestamp(0u)

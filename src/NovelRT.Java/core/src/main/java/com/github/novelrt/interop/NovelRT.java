@@ -523,6 +523,188 @@ public final class NovelRT {
         public static final int NRT_PLAY_STATE_PLAYING = 1;
         public static final int NRT_PLAY_STATE_PAUSED = 2;
     }
+    public static final class NrtAudioEmitterComponent extends NativeStruct {
+        public static native long allocateStruct();
+        public static native void destroyStruct(long handle);
+
+        public static native void overwrite(@Pointer("NrtAudioEmitterComponent*") long targetHandle, @Pointer("NrtAudioEmitterComponent*") long dataHandle);
+        private static final NativeObjectTracker<NrtAudioEmitterComponent> ownedTracker = new NativeObjectTracker<>(NrtAudioEmitterComponent::new, NativeObjectTracker.Target.OWNED_OBJECTS);
+        private static final NativeObjectTracker<NrtAudioEmitterComponent> unownedTracker = new NativeObjectTracker<>(NrtAudioEmitterComponent::new, NativeObjectTracker.Target.UNOWNED_OBJECTS);
+
+        public static NrtAudioEmitterComponent createTracked() {
+            return ownedTracker.getOrCreate(allocateStruct());
+        }
+
+        public static NrtAudioEmitterComponent getTrackedAndOwned(long handle) {
+            return ownedTracker.getOrCreate(handle);
+        }
+
+        public static NrtAudioEmitterComponent getTrackedAndUnowned(long handle) {
+            return unownedTracker.getOrCreate(handle);
+        }
+
+        public NrtAudioEmitterComponent() {
+            super(allocateStruct(), true, NrtAudioEmitterComponent::destroyStruct);
+        }
+
+        public NrtAudioEmitterComponent(long handle, boolean isOwned) {
+            super(handle, isOwned, NrtAudioEmitterComponent::destroyStruct);
+        }
+        public NrtAudioEmitterComponent(long handle, boolean isOwned, DisposalMethod disposalMethod) {
+            super(handle, isOwned, disposalMethod, NrtAudioEmitterComponent::destroyStruct);
+        }
+
+        public void overwrite(@Pointer("NrtAudioEmitterComponent*") long dataHandle) {
+            overwrite(getHandle(), dataHandle);
+        }
+
+        public static native @Unsigned int getHandleFieldRaw(@Pointer long handle);
+        public @Unsigned int getHandleField() {
+            @Pointer long handle$$intermediate = getHandle();
+            @Unsigned int returnValue = getHandleFieldRaw(handle$$intermediate);
+            return returnValue;
+        }
+
+        public static native void setHandleFieldRaw(@Pointer long handle, @Unsigned int value);
+        public void setHandleField(@Unsigned int value) {
+            @Pointer long handle$$intermediate = getHandle();
+            @Unsigned int value$$intermediate = value;
+            setHandleFieldRaw(handle$$intermediate, value$$intermediate);
+        }
+
+        public static native int getIsMusicRaw(@Pointer long handle);
+        public int getIsMusic() {
+            @Pointer long handle$$intermediate = getHandle();
+            int returnValue = getIsMusicRaw(handle$$intermediate);
+            return returnValue;
+        }
+
+        public static native void setIsMusicRaw(@Pointer long handle, int value);
+        public void setIsMusic(int value) {
+            @Pointer long handle$$intermediate = getHandle();
+            int value$$intermediate = value;
+            setIsMusicRaw(handle$$intermediate, value$$intermediate);
+        }
+
+        public static native int getNumberOfLoopsRaw(@Pointer long handle);
+        public int getNumberOfLoops() {
+            @Pointer long handle$$intermediate = getHandle();
+            int returnValue = getNumberOfLoopsRaw(handle$$intermediate);
+            return returnValue;
+        }
+
+        public static native void setNumberOfLoopsRaw(@Pointer long handle, int value);
+        public void setNumberOfLoops(int value) {
+            @Pointer long handle$$intermediate = getHandle();
+            int value$$intermediate = value;
+            setNumberOfLoopsRaw(handle$$intermediate, value$$intermediate);
+        }
+
+        public static native float getVolumeRaw(@Pointer long handle);
+        public float getVolume() {
+            @Pointer long handle$$intermediate = getHandle();
+            float returnValue = getVolumeRaw(handle$$intermediate);
+            return returnValue;
+        }
+
+        public static native void setVolumeRaw(@Pointer long handle, float value);
+        public void setVolume(float value) {
+            @Pointer long handle$$intermediate = getHandle();
+            float value$$intermediate = value;
+            setVolumeRaw(handle$$intermediate, value$$intermediate);
+        }
+    }
+    public final class NrtAudioEmitterStateKind {
+        public static final int NRT_EMITTER_STATE_DONE = 0;
+        public static final int NRT_EMITTER_STATE_TO_PLAY = 1;
+        public static final int NRT_EMITTER_STATE_PLAYING = 2;
+        public static final int NRT_EMITTER_STATE_TO_STOP = 3;
+        public static final int NRT_EMITTER_STATE_STOPPED = 4;
+        public static final int NRT_EMITTER_STATE_TO_PAUSE = 5;
+        public static final int NRT_EMITTER_STATE_PAUSED = 6;
+        public static final int NRT_EMITTER_STATE_TO_RESUME = 7;
+        public static final int NRT_EMITTER_STATE_TO_FADE_IN = 8;
+        public static final int NRT_EMITTER_STATE_FADING_IN = 9;
+        public static final int NRT_EMITTER_STATE_TO_FADE_OUT = 10;
+        public static final int NRT_EMITTER_STATE_FADING_OUT = 11;
+    }
+    public static final class NrtAudioEmitterStateComponent extends NativeStruct {
+        public static native long allocateStruct();
+        public static native void destroyStruct(long handle);
+
+        public static native void overwrite(@Pointer("NrtAudioEmitterStateComponent*") long targetHandle, @Pointer("NrtAudioEmitterStateComponent*") long dataHandle);
+        private static final NativeObjectTracker<NrtAudioEmitterStateComponent> ownedTracker = new NativeObjectTracker<>(NrtAudioEmitterStateComponent::new, NativeObjectTracker.Target.OWNED_OBJECTS);
+        private static final NativeObjectTracker<NrtAudioEmitterStateComponent> unownedTracker = new NativeObjectTracker<>(NrtAudioEmitterStateComponent::new, NativeObjectTracker.Target.UNOWNED_OBJECTS);
+
+        public static NrtAudioEmitterStateComponent createTracked() {
+            return ownedTracker.getOrCreate(allocateStruct());
+        }
+
+        public static NrtAudioEmitterStateComponent getTrackedAndOwned(long handle) {
+            return ownedTracker.getOrCreate(handle);
+        }
+
+        public static NrtAudioEmitterStateComponent getTrackedAndUnowned(long handle) {
+            return unownedTracker.getOrCreate(handle);
+        }
+
+        public NrtAudioEmitterStateComponent() {
+            super(allocateStruct(), true, NrtAudioEmitterStateComponent::destroyStruct);
+        }
+
+        public NrtAudioEmitterStateComponent(long handle, boolean isOwned) {
+            super(handle, isOwned, NrtAudioEmitterStateComponent::destroyStruct);
+        }
+        public NrtAudioEmitterStateComponent(long handle, boolean isOwned, DisposalMethod disposalMethod) {
+            super(handle, isOwned, disposalMethod, NrtAudioEmitterStateComponent::destroyStruct);
+        }
+
+        public void overwrite(@Pointer("NrtAudioEmitterStateComponent*") long dataHandle) {
+            overwrite(getHandle(), dataHandle);
+        }
+
+        public static native int getStateRaw(@Pointer long handle);
+        public int getState() {
+            @Pointer long handle$$intermediate = getHandle();
+            int returnValue = getStateRaw(handle$$intermediate);
+            return returnValue;
+        }
+
+        public static native void setStateRaw(@Pointer long handle, int value);
+        public void setState(int value) {
+            @Pointer long handle$$intermediate = getHandle();
+            int value$$intermediate = value;
+            setStateRaw(handle$$intermediate, value$$intermediate);
+        }
+
+        public static native float getFadeDurationRaw(@Pointer long handle);
+        public float getFadeDuration() {
+            @Pointer long handle$$intermediate = getHandle();
+            float returnValue = getFadeDurationRaw(handle$$intermediate);
+            return returnValue;
+        }
+
+        public static native void setFadeDurationRaw(@Pointer long handle, float value);
+        public void setFadeDuration(float value) {
+            @Pointer long handle$$intermediate = getHandle();
+            float value$$intermediate = value;
+            setFadeDurationRaw(handle$$intermediate, value$$intermediate);
+        }
+
+        public static native float getFadeExpectedVolumeRaw(@Pointer long handle);
+        public float getFadeExpectedVolume() {
+            @Pointer long handle$$intermediate = getHandle();
+            float returnValue = getFadeExpectedVolumeRaw(handle$$intermediate);
+            return returnValue;
+        }
+
+        public static native void setFadeExpectedVolumeRaw(@Pointer long handle, float value);
+        public void setFadeExpectedVolume(float value) {
+            @Pointer long handle$$intermediate = getHandle();
+            float value$$intermediate = value;
+            setFadeExpectedVolumeRaw(handle$$intermediate, value$$intermediate);
+        }
+    }
     public final class NrtCameraFrameStateKind {
         public static final int NRT_UNMODIFIED = 0;
         public static final int NRT_MODIFIEDINCURRENT = 1;
@@ -826,13 +1008,13 @@ public final class NovelRT {
     public static java.lang.String Nrt_getLastError(com.github.novelrt.fumocement.StringDeletionBehaviour returnValueDeletionBehaviour) {
         boolean returnValueDeletionBehaviour$$intermediate = returnValueDeletionBehaviour.isDeletingString();
         byte[] returnValue = Nrt_getLastError$Raw(returnValueDeletionBehaviour$$intermediate);
-        return new String(returnValue);
+        return returnValue == null ? null : new String(returnValue);
     }
     public static native byte[] Nrt_getLastErrorInternal$Raw(boolean returnValueDeletionBehaviour);
     public static java.lang.String Nrt_getLastErrorInternal(com.github.novelrt.fumocement.StringDeletionBehaviour returnValueDeletionBehaviour) {
         boolean returnValueDeletionBehaviour$$intermediate = returnValueDeletionBehaviour.isDeletingString();
         byte[] returnValue = Nrt_getLastErrorInternal$Raw(returnValueDeletionBehaviour$$intermediate);
-        return new String(returnValue);
+        return returnValue == null ? null : new String(returnValue);
     }
     public static native void Nrt_setErrMsgIsNullptrInternal$Raw();
     public static void Nrt_setErrMsgIsNullptrInternal() {
@@ -997,13 +1179,6 @@ public final class NovelRT {
     public static int Nrt_NovelRunner_destroy(@Pointer("NrtNovelRunnerHandle") long runner) {
         @Pointer("NrtNovelRunnerHandle") long runner$$intermediate = runner;
         int returnValue = Nrt_NovelRunner_destroy$Raw(runner$$intermediate);
-        return returnValue;
-    }
-    public static native int Nrt_NovelRunner_getAudioService$Raw(@Pointer("NrtNovelRunnerHandle") long runner, @Pointer("NrtAudioServiceHandle *") long outputService);
-    public static int Nrt_NovelRunner_getAudioService(@Pointer("NrtNovelRunnerHandle") long runner, @Pointer("NrtAudioServiceHandle *") long outputService) {
-        @Pointer("NrtNovelRunnerHandle") long runner$$intermediate = runner;
-        @Pointer("NrtAudioServiceHandle *") long outputService$$intermediate = outputService;
-        int returnValue = Nrt_NovelRunner_getAudioService$Raw(runner$$intermediate, outputService$$intermediate);
         return returnValue;
     }
     public static native int Nrt_NovelRunner_getInteractionService$Raw(@Pointer("NrtNovelRunnerHandle") long runner, @Pointer("NrtInteractionServiceHandle *") long outputService);
@@ -1257,121 +1432,161 @@ public final class NovelRT {
         int returnValue = Nrt_SpriteAnimatorFrameVector_delete$Raw(vector$$intermediate);
         return returnValue;
     }
-    public static native @Pointer("NrtAudioServiceHandle") long Nrt_AudioService_create$Raw();
-    public static @Pointer("NrtAudioServiceHandle") long Nrt_AudioService_create() {
-        @Pointer("NrtAudioServiceHandle") long returnValue = Nrt_AudioService_create$Raw();
+    public static native @Pointer("NrtAudioServiceHandle") long Nrt_AudioService_Create$Raw();
+    public static @Pointer("NrtAudioServiceHandle") long Nrt_AudioService_Create() {
+        @Pointer("NrtAudioServiceHandle") long returnValue = Nrt_AudioService_Create$Raw();
         return returnValue;
     }
-    public static native int Nrt_AudioService_destroy$Raw(@Pointer("NrtAudioServiceHandle") long service);
-    public static int Nrt_AudioService_destroy(@Pointer("NrtAudioServiceHandle") long service) {
+    public static native int Nrt_AudioService_Destroy$Raw(@Pointer("NrtAudioServiceHandle") long service);
+    public static int Nrt_AudioService_Destroy(@Pointer("NrtAudioServiceHandle") long service) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
-        int returnValue = Nrt_AudioService_destroy$Raw(service$$intermediate);
+        int returnValue = Nrt_AudioService_Destroy$Raw(service$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_initialiseAudio$Raw(@Pointer("NrtAudioServiceHandle") long service);
-    public static int Nrt_AudioService_initialiseAudio(@Pointer("NrtAudioServiceHandle") long service) {
+    public static native int Nrt_AudioService_InitialiseAudio$Raw(@Pointer("NrtAudioServiceHandle") long service);
+    public static int Nrt_AudioService_InitialiseAudio(@Pointer("NrtAudioServiceHandle") long service) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
-        int returnValue = Nrt_AudioService_initialiseAudio$Raw(service$$intermediate);
+        int returnValue = Nrt_AudioService_InitialiseAudio$Raw(service$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_loadMusic$Raw(@Pointer("NrtAudioServiceHandle") long service, byte[] input, @Pointer("NrtAudioServiceIteratorHandle *") long output);
-    public static int Nrt_AudioService_loadMusic(@Pointer("NrtAudioServiceHandle") long service, java.lang.String input, @Pointer("NrtAudioServiceIteratorHandle *") long output) {
+    public static native int Nrt_AudioService_LoadMusic$Raw(@Pointer("NrtAudioServiceHandle") long service, byte[] input, @Pointer("NrtAudioServiceIteratorHandle *") long output);
+    public static int Nrt_AudioService_LoadMusic(@Pointer("NrtAudioServiceHandle") long service, java.lang.String input, @Pointer("NrtAudioServiceIteratorHandle *") long output) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
         byte[] input$$intermediate = input.getBytes();
         @Pointer("NrtAudioServiceIteratorHandle *") long output$$intermediate = output;
-        int returnValue = Nrt_AudioService_loadMusic$Raw(service$$intermediate, input$$intermediate, output$$intermediate);
+        int returnValue = Nrt_AudioService_LoadMusic$Raw(service$$intermediate, input$$intermediate, output$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_setSoundVolume$Raw(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int source, float val);
-    public static int Nrt_AudioService_setSoundVolume(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int source, float val) {
+    public static native int Nrt_AudioService_SetSoundVolume$Raw(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int source, float val);
+    public static int Nrt_AudioService_SetSoundVolume(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int source, float val) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
         @Unsigned int source$$intermediate = source;
         float val$$intermediate = val;
-        int returnValue = Nrt_AudioService_setSoundVolume$Raw(service$$intermediate, source$$intermediate, val$$intermediate);
+        int returnValue = Nrt_AudioService_SetSoundVolume$Raw(service$$intermediate, source$$intermediate, val$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_setSoundPosition$Raw(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int source, float posX, float posY);
-    public static int Nrt_AudioService_setSoundPosition(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int source, float posX, float posY) {
+    public static native int Nrt_AudioService_SetSoundPosition$Raw(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int source, float posX, float posY);
+    public static int Nrt_AudioService_SetSoundPosition(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int source, float posX, float posY) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
         @Unsigned int source$$intermediate = source;
         float posX$$intermediate = posX;
         float posY$$intermediate = posY;
-        int returnValue = Nrt_AudioService_setSoundPosition$Raw(service$$intermediate, source$$intermediate, posX$$intermediate, posY$$intermediate);
+        int returnValue = Nrt_AudioService_SetSoundPosition$Raw(service$$intermediate, source$$intermediate, posX$$intermediate, posY$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_resumeMusic$Raw(@Pointer("NrtAudioServiceHandle") long service);
-    public static int Nrt_AudioService_resumeMusic(@Pointer("NrtAudioServiceHandle") long service) {
+    public static native int Nrt_AudioService_ResumeMusic$Raw(@Pointer("NrtAudioServiceHandle") long service);
+    public static int Nrt_AudioService_ResumeMusic(@Pointer("NrtAudioServiceHandle") long service) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
-        int returnValue = Nrt_AudioService_resumeMusic$Raw(service$$intermediate);
+        int returnValue = Nrt_AudioService_ResumeMusic$Raw(service$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_playMusic$Raw(@Pointer("NrtAudioServiceHandle") long service, @Pointer("NrtAudioServiceIteratorHandle") long handle, int loops);
-    public static int Nrt_AudioService_playMusic(@Pointer("NrtAudioServiceHandle") long service, @Pointer("NrtAudioServiceIteratorHandle") long handle, int loops) {
+    public static native int Nrt_AudioService_PlayMusic$Raw(@Pointer("NrtAudioServiceHandle") long service, @Pointer("NrtAudioServiceIteratorHandle") long handle, int loops);
+    public static int Nrt_AudioService_PlayMusic(@Pointer("NrtAudioServiceHandle") long service, @Pointer("NrtAudioServiceIteratorHandle") long handle, int loops) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
         @Pointer("NrtAudioServiceIteratorHandle") long handle$$intermediate = handle;
         int loops$$intermediate = loops;
-        int returnValue = Nrt_AudioService_playMusic$Raw(service$$intermediate, handle$$intermediate, loops$$intermediate);
+        int returnValue = Nrt_AudioService_PlayMusic$Raw(service$$intermediate, handle$$intermediate, loops$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_pauseMusic$Raw(@Pointer("NrtAudioServiceHandle") long service);
-    public static int Nrt_AudioService_pauseMusic(@Pointer("NrtAudioServiceHandle") long service) {
+    public static native int Nrt_AudioService_PauseMusic$Raw(@Pointer("NrtAudioServiceHandle") long service);
+    public static int Nrt_AudioService_PauseMusic(@Pointer("NrtAudioServiceHandle") long service) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
-        int returnValue = Nrt_AudioService_pauseMusic$Raw(service$$intermediate);
+        int returnValue = Nrt_AudioService_PauseMusic$Raw(service$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_stopMusic$Raw(@Pointer("NrtAudioServiceHandle") long service);
-    public static int Nrt_AudioService_stopMusic(@Pointer("NrtAudioServiceHandle") long service) {
+    public static native int Nrt_AudioService_StopMusic$Raw(@Pointer("NrtAudioServiceHandle") long service);
+    public static int Nrt_AudioService_StopMusic(@Pointer("NrtAudioServiceHandle") long service) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
-        int returnValue = Nrt_AudioService_stopMusic$Raw(service$$intermediate);
+        int returnValue = Nrt_AudioService_StopMusic$Raw(service$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_setMusicVolume$Raw(@Pointer("NrtAudioServiceHandle") long service, float value);
-    public static int Nrt_AudioService_setMusicVolume(@Pointer("NrtAudioServiceHandle") long service, float value) {
+    public static native int Nrt_AudioService_SetMusicVolume$Raw(@Pointer("NrtAudioServiceHandle") long service, float value);
+    public static int Nrt_AudioService_SetMusicVolume(@Pointer("NrtAudioServiceHandle") long service, float value) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
         float value$$intermediate = value;
-        int returnValue = Nrt_AudioService_setMusicVolume$Raw(service$$intermediate, value$$intermediate);
+        int returnValue = Nrt_AudioService_SetMusicVolume$Raw(service$$intermediate, value$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_checkSources$Raw(@Pointer("NrtAudioServiceHandle") long service);
-    public static int Nrt_AudioService_checkSources(@Pointer("NrtAudioServiceHandle") long service) {
+    public static native int Nrt_AudioService_CheckSources$Raw(@Pointer("NrtAudioServiceHandle") long service);
+    public static int Nrt_AudioService_CheckSources(@Pointer("NrtAudioServiceHandle") long service) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
-        int returnValue = Nrt_AudioService_checkSources$Raw(service$$intermediate);
+        int returnValue = Nrt_AudioService_CheckSources$Raw(service$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_loadSound$Raw(@Pointer("NrtAudioServiceHandle") long service, byte[] input, @Pointer("unsigned int *") long output);
-    public static int Nrt_AudioService_loadSound(@Pointer("NrtAudioServiceHandle") long service, java.lang.String input, @Pointer("unsigned int *") long output) {
+    public static native int Nrt_AudioService_LoadSound$Raw(@Pointer("NrtAudioServiceHandle") long service, byte[] input, @Pointer("unsigned int *") long output);
+    public static int Nrt_AudioService_LoadSound(@Pointer("NrtAudioServiceHandle") long service, java.lang.String input, @Pointer("unsigned int *") long output) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
         byte[] input$$intermediate = input.getBytes();
         @Pointer("unsigned int *") long output$$intermediate = output;
-        int returnValue = Nrt_AudioService_loadSound$Raw(service$$intermediate, input$$intermediate, output$$intermediate);
+        int returnValue = Nrt_AudioService_LoadSound$Raw(service$$intermediate, input$$intermediate, output$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_unload$Raw(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle);
-    public static int Nrt_AudioService_unload(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle) {
+    public static native int Nrt_AudioService_Unload$Raw(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle);
+    public static int Nrt_AudioService_Unload(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
         @Unsigned int handle$$intermediate = handle;
-        int returnValue = Nrt_AudioService_unload$Raw(service$$intermediate, handle$$intermediate);
+        int returnValue = Nrt_AudioService_Unload$Raw(service$$intermediate, handle$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_playSound$Raw(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle, int loops);
-    public static int Nrt_AudioService_playSound(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle, int loops) {
+    public static native int Nrt_AudioService_PlaySound$Raw(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle, int loops);
+    public static int Nrt_AudioService_PlaySound(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle, int loops) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
         @Unsigned int handle$$intermediate = handle;
         int loops$$intermediate = loops;
-        int returnValue = Nrt_AudioService_playSound$Raw(service$$intermediate, handle$$intermediate, loops$$intermediate);
+        int returnValue = Nrt_AudioService_PlaySound$Raw(service$$intermediate, handle$$intermediate, loops$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_stopSound$Raw(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle);
-    public static int Nrt_AudioService_stopSound(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle) {
+    public static native int Nrt_AudioService_StopSound$Raw(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle);
+    public static int Nrt_AudioService_StopSound(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
         @Unsigned int handle$$intermediate = handle;
-        int returnValue = Nrt_AudioService_stopSound$Raw(service$$intermediate, handle$$intermediate);
+        int returnValue = Nrt_AudioService_StopSound$Raw(service$$intermediate, handle$$intermediate);
         return returnValue;
     }
-    public static native int Nrt_AudioService_tearDown$Raw(@Pointer("NrtAudioServiceHandle") long service);
-    public static int Nrt_AudioService_tearDown(@Pointer("NrtAudioServiceHandle") long service) {
+    public static native int Nrt_AudioService_TearDown$Raw(@Pointer("NrtAudioServiceHandle") long service);
+    public static int Nrt_AudioService_TearDown(@Pointer("NrtAudioServiceHandle") long service) {
         @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
-        int returnValue = Nrt_AudioService_tearDown$Raw(service$$intermediate);
+        int returnValue = Nrt_AudioService_TearDown$Raw(service$$intermediate);
+        return returnValue;
+    }
+    public static native int Nrt_AudioService_IsMusicLoaded$Raw(@Pointer("NrtAudioServiceHandle") long service, @Pointer("NrtAudioServiceIteratorHandle") long handle);
+    public static int Nrt_AudioService_IsMusicLoaded(@Pointer("NrtAudioServiceHandle") long service, @Pointer("NrtAudioServiceIteratorHandle") long handle) {
+        @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
+        @Pointer("NrtAudioServiceIteratorHandle") long handle$$intermediate = handle;
+        int returnValue = Nrt_AudioService_IsMusicLoaded$Raw(service$$intermediate, handle$$intermediate);
+        return returnValue;
+    }
+    public static native int Nrt_AudioService_IsSoundLoaded$Raw(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle);
+    public static int Nrt_AudioService_IsSoundLoaded(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle) {
+        @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
+        @Unsigned int handle$$intermediate = handle;
+        int returnValue = Nrt_AudioService_IsSoundLoaded$Raw(service$$intermediate, handle$$intermediate);
+        return returnValue;
+    }
+    public static native int Nrt_AudioService_IsMusicPlaying$Raw(@Pointer("NrtAudioServiceHandle") long service);
+    public static int Nrt_AudioService_IsMusicPlaying(@Pointer("NrtAudioServiceHandle") long service) {
+        @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
+        int returnValue = Nrt_AudioService_IsMusicPlaying$Raw(service$$intermediate);
+        return returnValue;
+    }
+    public static native int Nrt_AudioService_IsSoundPlaying$Raw(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle);
+    public static int Nrt_AudioService_IsSoundPlaying(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int handle) {
+        @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
+        @Unsigned int handle$$intermediate = handle;
+        int returnValue = Nrt_AudioService_IsSoundPlaying$Raw(service$$intermediate, handle$$intermediate);
+        return returnValue;
+    }
+    public static native float Nrt_AudioService_GetMusicVolume$Raw(@Pointer("NrtAudioServiceHandle") long service);
+    public static float Nrt_AudioService_GetMusicVolume(@Pointer("NrtAudioServiceHandle") long service) {
+        @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
+        float returnValue = Nrt_AudioService_GetMusicVolume$Raw(service$$intermediate);
+        return returnValue;
+    }
+    public static native float Nrt_AudioService_GetSoundVolume$Raw(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int source);
+    public static float Nrt_AudioService_GetSoundVolume(@Pointer("NrtAudioServiceHandle") long service, @Unsigned int source) {
+        @Pointer("NrtAudioServiceHandle") long service$$intermediate = service;
+        @Unsigned int source$$intermediate = source;
+        float returnValue = Nrt_AudioService_GetSoundVolume$Raw(service$$intermediate, source$$intermediate);
         return returnValue;
     }
     public static native @Pointer("NrtRuntimeServiceHandle") long Nrt_RuntimeService_create$Raw();
@@ -1441,10 +1656,10 @@ public final class NovelRT {
         @Pointer("NrtUnsafeComponentViewHandle") long returnValue = Nrt_Catalogue_GetComponentViewByIdUnsafe$Raw(catalogue$$intermediate, componentId$$intermediate);
         return returnValue;
     }
-    public static native @Unsigned int Nrt_catalogue_CreateEntity$Raw(@Pointer("NrtCatalogueHandle") long catalogue);
-    public static @Unsigned int Nrt_catalogue_CreateEntity(@Pointer("NrtCatalogueHandle") long catalogue) {
+    public static native @Unsigned int Nrt_Catalogue_CreateEntity$Raw(@Pointer("NrtCatalogueHandle") long catalogue);
+    public static @Unsigned int Nrt_Catalogue_CreateEntity(@Pointer("NrtCatalogueHandle") long catalogue) {
         @Pointer("NrtCatalogueHandle") long catalogue$$intermediate = catalogue;
-        @Unsigned int returnValue = Nrt_catalogue_CreateEntity$Raw(catalogue$$intermediate);
+        @Unsigned int returnValue = Nrt_Catalogue_CreateEntity$Raw(catalogue$$intermediate);
         return returnValue;
     }
     public static native int Nrt_Catalogue_DeleteEntity$Raw(@Pointer("NrtCatalogueHandle") long catalogue, @Unsigned int entity);
@@ -2028,6 +2243,72 @@ public final class NovelRT {
         int returnValue = Nrt_UnsafeComponentView_Destroy$Raw(componentView$$intermediate);
         return returnValue;
     }
+    public static native void Nrt_AudioEmitterComponent_Update$Raw(@Pointer("NrtAudioEmitterComponent *") long lhs, @Pointer("const NrtAudioEmitterComponent *") long rhs, @Unsigned int size, @Pointer("void *") long context);
+    public static void Nrt_AudioEmitterComponent_Update(@Pointer("NrtAudioEmitterComponent *") long lhs, @Pointer("const NrtAudioEmitterComponent *") long rhs, @Unsigned int size, @Pointer("void *") long context) {
+        @Pointer("NrtAudioEmitterComponent *") long lhs$$intermediate = lhs;
+        @Pointer("const NrtAudioEmitterComponent *") long rhs$$intermediate = rhs;
+        @Unsigned int size$$intermediate = size;
+        @Pointer("void *") long context$$intermediate = context;
+        Nrt_AudioEmitterComponent_Update$Raw(lhs$$intermediate, rhs$$intermediate, size$$intermediate, context$$intermediate);
+    }
+    public static native void Nrt_AudioEmitterStateComponent_Update$Raw(@Pointer("NrtAudioEmitterStateComponent *") long lhs, @Pointer("const NrtAudioEmitterStateComponent *") long rhs, @Unsigned int size, @Pointer("void *") long context);
+    public static void Nrt_AudioEmitterStateComponent_Update(@Pointer("NrtAudioEmitterStateComponent *") long lhs, @Pointer("const NrtAudioEmitterStateComponent *") long rhs, @Unsigned int size, @Pointer("void *") long context) {
+        @Pointer("NrtAudioEmitterStateComponent *") long lhs$$intermediate = lhs;
+        @Pointer("const NrtAudioEmitterStateComponent *") long rhs$$intermediate = rhs;
+        @Unsigned int size$$intermediate = size;
+        @Pointer("void *") long context$$intermediate = context;
+        Nrt_AudioEmitterStateComponent_Update$Raw(lhs$$intermediate, rhs$$intermediate, size$$intermediate, context$$intermediate);
+    }
+    public static native @Pointer("NrtAudioSystemHandle") long Nrt_AudioSystem_Create$Raw();
+    public static @Pointer("NrtAudioSystemHandle") long Nrt_AudioSystem_Create() {
+        @Pointer("NrtAudioSystemHandle") long returnValue = Nrt_AudioSystem_Create$Raw();
+        return returnValue;
+    }
+    public static native int Nrt_AudioSystem_Destroy$Raw(@Pointer("NrtAudioSystemHandle") long service);
+    public static int Nrt_AudioSystem_Destroy(@Pointer("NrtAudioSystemHandle") long service) {
+        @Pointer("NrtAudioSystemHandle") long service$$intermediate = service;
+        int returnValue = Nrt_AudioSystem_Destroy$Raw(service$$intermediate);
+        return returnValue;
+    }
+    public static native int Nrt_AudioSystem_RegisterDefaultAudioComponents$Raw(@Pointer("NrtSystemSchedulerHandle") long system);
+    public static int Nrt_AudioSystem_RegisterDefaultAudioComponents(@Pointer("NrtSystemSchedulerHandle") long system) {
+        @Pointer("NrtSystemSchedulerHandle") long system$$intermediate = system;
+        int returnValue = Nrt_AudioSystem_RegisterDefaultAudioComponents$Raw(system$$intermediate);
+        return returnValue;
+    }
+    public static native int Nrt_AudioSystem_Update$Raw(long delta, @Pointer("NrtCatalogueHandle") long catalogue, @Pointer("void *") long context);
+    public static int Nrt_AudioSystem_Update(long delta, @Pointer("NrtCatalogueHandle") long catalogue, @Pointer("void *") long context) {
+        long delta$$intermediate = delta;
+        @Pointer("NrtCatalogueHandle") long catalogue$$intermediate = catalogue;
+        @Pointer("void *") long context$$intermediate = context;
+        int returnValue = Nrt_AudioSystem_Update$Raw(delta$$intermediate, catalogue$$intermediate, context$$intermediate);
+        return returnValue;
+    }
+    public static native int Nrt_AudioSystem_CreateAudio$Raw(@Pointer("NrtAudioSystemHandle") long system, byte[] fileName, int isMusic, @Pointer("uint32_t *") long result);
+    public static int Nrt_AudioSystem_CreateAudio(@Pointer("NrtAudioSystemHandle") long system, java.lang.String fileName, int isMusic, @Pointer("uint32_t *") long result) {
+        @Pointer("NrtAudioSystemHandle") long system$$intermediate = system;
+        byte[] fileName$$intermediate = fileName.getBytes();
+        int isMusic$$intermediate = isMusic;
+        @Pointer("uint32_t *") long result$$intermediate = result;
+        int returnValue = Nrt_AudioSystem_CreateAudio$Raw(system$$intermediate, fileName$$intermediate, isMusic$$intermediate, result$$intermediate);
+        return returnValue;
+    }
+    public static native int Nrt_AudioSystem_PushEmitterComponentUpdate$Raw(@Pointer("NrtSystemSchedulerHandle") long system, @Unsigned int entity, @Pointer("NrtAudioEmitterComponent*") long emitter);
+    public static int Nrt_AudioSystem_PushEmitterComponentUpdate(@Pointer("NrtSystemSchedulerHandle") long system, @Unsigned int entity, com.github.novelrt.interop.NovelRT.NrtAudioEmitterComponent emitter) {
+        @Pointer("NrtSystemSchedulerHandle") long system$$intermediate = system;
+        @Unsigned int entity$$intermediate = entity;
+        @Pointer("NrtAudioEmitterComponent*") long emitter$$intermediate = emitter.getHandle();
+        int returnValue = Nrt_AudioSystem_PushEmitterComponentUpdate$Raw(system$$intermediate, entity$$intermediate, emitter$$intermediate);
+        return returnValue;
+    }
+    public static native int Nrt_AudioSystem_PushEmitterStateComponentUpdate$Raw(@Pointer("NrtSystemSchedulerHandle") long system, @Unsigned int entity, @Pointer("NrtAudioEmitterStateComponent*") long state);
+    public static int Nrt_AudioSystem_PushEmitterStateComponentUpdate(@Pointer("NrtSystemSchedulerHandle") long system, @Unsigned int entity, com.github.novelrt.interop.NovelRT.NrtAudioEmitterStateComponent state) {
+        @Pointer("NrtSystemSchedulerHandle") long system$$intermediate = system;
+        @Unsigned int entity$$intermediate = entity;
+        @Pointer("NrtAudioEmitterStateComponent*") long state$$intermediate = state.getHandle();
+        int returnValue = Nrt_AudioSystem_PushEmitterStateComponentUpdate$Raw(system$$intermediate, entity$$intermediate, state$$intermediate);
+        return returnValue;
+    }
     public static native @Pointer("NrtTransform*") long Nrt_BasicFillRect_getTransform$Raw(@Pointer("NrtBasicFillRectHandle") long rect);
     public static com.github.novelrt.interop.NovelRT.NrtTransform Nrt_BasicFillRect_getTransform(@Pointer("NrtBasicFillRectHandle") long rect) {
         @Pointer("NrtBasicFillRectHandle") long rect$$intermediate = rect;
@@ -2549,7 +2830,7 @@ public final class NovelRT {
         @Pointer("NrtTextRectHandle") long rect$$intermediate = rect;
         boolean returnValueDeletionBehaviour$$intermediate = returnValueDeletionBehaviour.isDeletingString();
         byte[] returnValue = Nrt_TextRect_getText$Raw(rect$$intermediate, returnValueDeletionBehaviour$$intermediate);
-        return new String(returnValue);
+        return returnValue == null ? null : new String(returnValue);
     }
     public static native int Nrt_TextRect_setText$Raw(@Pointer("NrtTextRectHandle") long rect, byte[] inputText);
     public static int Nrt_TextRect_setText(@Pointer("NrtTextRectHandle") long rect, java.lang.String inputText) {
@@ -2597,7 +2878,7 @@ public final class NovelRT {
         @Pointer("NrtTextureHandle") long targetTexture$$intermediate = targetTexture;
         boolean returnValueDeletionBehaviour$$intermediate = returnValueDeletionBehaviour.isDeletingString();
         byte[] returnValue = Nrt_Texture_getTextureFile$Raw(targetTexture$$intermediate, returnValueDeletionBehaviour$$intermediate);
-        return new String(returnValue);
+        return returnValue == null ? null : new String(returnValue);
     }
     public static native @Pointer("NrtGeoVector2F*") long Nrt_Texture_getSize$Raw(@Pointer("NrtTextureHandle") long targetTexture);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_Texture_getSize(@Pointer("NrtTextureHandle") long targetTexture) {
@@ -2649,14 +2930,14 @@ public final class NovelRT {
         @Pointer("NrtStoryHandle") long story$$intermediate = story;
         boolean returnValueDeletionBehaviour$$intermediate = returnValueDeletionBehaviour.isDeletingString();
         byte[] returnValue = Nrt_Story_continue$Raw(story$$intermediate, returnValueDeletionBehaviour$$intermediate);
-        return new String(returnValue);
+        return returnValue == null ? null : new String(returnValue);
     }
     public static native byte[] Nrt_Story_continueMaximally$Raw(@Pointer("NrtStoryHandle") long story, boolean returnValueDeletionBehaviour);
     public static java.lang.String Nrt_Story_continueMaximally(@Pointer("NrtStoryHandle") long story, com.github.novelrt.fumocement.StringDeletionBehaviour returnValueDeletionBehaviour) {
         @Pointer("NrtStoryHandle") long story$$intermediate = story;
         boolean returnValueDeletionBehaviour$$intermediate = returnValueDeletionBehaviour.isDeletingString();
         byte[] returnValue = Nrt_Story_continueMaximally$Raw(story$$intermediate, returnValueDeletionBehaviour$$intermediate);
-        return new String(returnValue);
+        return returnValue == null ? null : new String(returnValue);
     }
     public static native void Nrt_Story_resetState$Raw(@Pointer("NrtStoryHandle") long story);
     public static void Nrt_Story_resetState(@Pointer("NrtStoryHandle") long story) {
@@ -4265,13 +4546,13 @@ public final class NovelRT {
     public static java.lang.String Nrt_getExecutablePath(com.github.novelrt.fumocement.StringDeletionBehaviour returnValueDeletionBehaviour) {
         boolean returnValueDeletionBehaviour$$intermediate = returnValueDeletionBehaviour.isDeletingString();
         byte[] returnValue = Nrt_getExecutablePath$Raw(returnValueDeletionBehaviour$$intermediate);
-        return new String(returnValue);
+        return returnValue == null ? null : new String(returnValue);
     }
     public static native byte[] Nrt_getExecutableDirPath$Raw(boolean returnValueDeletionBehaviour);
     public static java.lang.String Nrt_getExecutableDirPath(com.github.novelrt.fumocement.StringDeletionBehaviour returnValueDeletionBehaviour) {
         boolean returnValueDeletionBehaviour$$intermediate = returnValueDeletionBehaviour.isDeletingString();
         byte[] returnValue = Nrt_getExecutableDirPath$Raw(returnValueDeletionBehaviour$$intermediate);
-        return new String(returnValue);
+        return returnValue == null ? null : new String(returnValue);
     }
     public static native byte[] Nrt_appendFilePath$Raw(int numberOfArgs, @Pointer("const char *const *") long args, boolean returnValueDeletionBehaviour);
     public static java.lang.String Nrt_appendFilePath(int numberOfArgs, @Pointer("const char *const *") long args, com.github.novelrt.fumocement.StringDeletionBehaviour returnValueDeletionBehaviour) {
@@ -4279,7 +4560,7 @@ public final class NovelRT {
         @Pointer("const char *const *") long args$$intermediate = args;
         boolean returnValueDeletionBehaviour$$intermediate = returnValueDeletionBehaviour.isDeletingString();
         byte[] returnValue = Nrt_appendFilePath$Raw(numberOfArgs$$intermediate, args$$intermediate, returnValueDeletionBehaviour$$intermediate);
-        return new String(returnValue);
+        return returnValue == null ? null : new String(returnValue);
     }
     public static native byte[] Nrt_appendText$Raw(int numberOfArgs, @Pointer("const char *const *") long args, boolean returnValueDeletionBehaviour);
     public static java.lang.String Nrt_appendText(int numberOfArgs, @Pointer("const char *const *") long args, com.github.novelrt.fumocement.StringDeletionBehaviour returnValueDeletionBehaviour) {
@@ -4287,7 +4568,7 @@ public final class NovelRT {
         @Pointer("const char *const *") long args$$intermediate = args;
         boolean returnValueDeletionBehaviour$$intermediate = returnValueDeletionBehaviour.isDeletingString();
         byte[] returnValue = Nrt_appendText$Raw(numberOfArgs$$intermediate, args$$intermediate, returnValueDeletionBehaviour$$intermediate);
-        return new String(returnValue);
+        return returnValue == null ? null : new String(returnValue);
     }
     public static native @Pointer("NrtWindowingServiceHandle") long Nrt_WindowingService_create$Raw();
     public static @Pointer("NrtWindowingServiceHandle") long Nrt_WindowingService_create() {
@@ -4315,7 +4596,7 @@ public final class NovelRT {
         @Pointer("NrtWindowingServiceHandle") long service$$intermediate = service;
         boolean returnValueDeletionBehaviour$$intermediate = returnValueDeletionBehaviour.isDeletingString();
         byte[] returnValue = Nrt_WindowingService_getWindowTitle$Raw(service$$intermediate, returnValueDeletionBehaviour$$intermediate);
-        return new String(returnValue);
+        return returnValue == null ? null : new String(returnValue);
     }
     public static native int Nrt_WindowingService_setWindowTitle$Raw(@Pointer("NrtWindowingServiceHandle") long service, byte[] value);
     public static int Nrt_WindowingService_setWindowTitle(@Pointer("NrtWindowingServiceHandle") long service, java.lang.String value) {

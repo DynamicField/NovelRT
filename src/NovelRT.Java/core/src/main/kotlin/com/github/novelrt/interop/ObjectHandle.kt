@@ -3,6 +3,9 @@ package com.github.novelrt.interop
 import com.github.novelrt.fumocement.DisposalMethod
 import com.github.novelrt.fumocement.Pointers
 
+/**
+ * Wraps a raw handle to specify its type.
+ */
 @JvmInline
 value class ObjectHandle<T> internal constructor(val value: Long) {
     inline fun make(

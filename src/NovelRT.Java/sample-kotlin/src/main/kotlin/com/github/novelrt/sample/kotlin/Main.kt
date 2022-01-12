@@ -3,54 +3,76 @@ package com.github.novelrt.sample.kotlin
 import com.github.novelrt.NovelRTLoader
 import com.github.novelrt.NovelRunner
 import com.github.novelrt.Transform
-import com.github.novelrt.ecs.SparseSetKey
-import com.github.novelrt.ecs.SparseSetMemoryContainer
+import com.github.novelrt.ecs.Catalogue
+import com.github.novelrt.ecs.ComponentDefinition
+import com.github.novelrt.ecs.SystemScheduler
 import com.github.novelrt.graphics.RGBAColour
 import com.github.novelrt.input.KeyCode
 import com.github.novelrt.maths.GeoVector2F
-import com.github.novelrt.nativedata.DataStructure
-import com.github.novelrt.nativedata.DataStructureInfo
+import com.github.novelrt.timing.Timestamp
 import com.github.novelrt.windowing.WindowMode
 import java.nio.ByteBuffer
 import kotlin.io.path.Path
+import kotlin.io.path.exists
 import kotlin.math.pow
 
-@DataStructureInfo(size = 16)
-data class Struct(var helloWorld: Int = 0, var fumoWorld: Int = 0, var whatTheWorld: Long = 0) : DataStructure() {
-    override fun writeTo(buffer: ByteBuffer) {
-        buffer.putInt(helloWorld)
-            .putInt(fumoWorld)
-            .putLong(whatTheWorld)
-    }
+data class NiceComponent(var helloWorld: Int = 0, var fumoWorld: Int = 0, var whatTheWorld: Long = 0) {
+    companion object : ComponentDefinition<NiceComponent>(size = 16) {
+        override fun createEmpty(): NiceComponent = NiceComponent()
+        override val deleteState: NiceComponent get() = NiceComponent(-1, -1, -1)
 
-    override fun fillWith(buffer: ByteBuffer) {
-        helloWorld = buffer.int
-        fumoWorld = buffer.int
-        whatTheWorld = buffer.long
+        override fun serialize(component: NiceComponent, buffer: ByteBuffer) {
+            buffer.putInt(component.helloWorld)
+                .putInt(component.fumoWorld)
+                .putLong(component.whatTheWorld)
+        }
+
+        override fun deserialize(component: NiceComponent, buffer: ByteBuffer) {
+            component.helloWorld = buffer.int
+            component.fumoWorld = buffer.int
+            component.whatTheWorld = buffer.long
+        }
+
+        override fun applyUpdate(rootComponent: NiceComponent, updateComponent: NiceComponent) {
+            rootComponent.helloWorld = updateComponent.helloWorld
+            rootComponent.fumoWorld = updateComponent.fumoWorld
+            rootComponent.whatTheWorld = updateComponent.whatTheWorld
+        }
     }
 }
 
-fun ByteArray.toHexString() = joinToString(" ") { (0xFF and it.toInt()).toString(16).padStart(2, '0') }
-
 fun main() {
     NovelRTLoader.load()
-    val set = SparseSetMemoryContainer(Struct::class.java, ::Struct)
-    val key: SparseSetKey = 123u
+    val scheduler = SystemScheduler(4u)
+    val componentCache = scheduler.componentCache
+    val catalogue = Catalogue(0u, componentCache, scheduler.entityCache)
 
-    set.insert(key, Struct(147, 200, 143))
-    println(set[key])
-    // set.overwrite(key, Struct(147, 777, 143))
+    val niceComponentTypeId = componentCache.registerComponentType(NiceComponent)
+    val niceComponentBuffer = componentCache.getComponentBufferById(niceComponentTypeId)
+
+    val niceEntity = catalogue.createEntity()
+    niceComponentBuffer.pushComponentUpdateInstruction(0u, niceEntity, NiceComponent(1, 2, 3))
+
+    scheduler.executeIteration(Timestamp.ZERO)
+
+    for (i in 1..10) {
+        benchmark("get it 1000 times") {
+            for (i in 1..1000) {
+                niceComponentBuffer.getComponent(niceEntity)
+            }
+        }
+    }
 }
 
 fun oldBenchmark() {
     val buffer = ByteBuffer.allocateDirect(720_000)
-    val input = Struct(123, 456, 789)
-    val output = Struct()
+    val input = NiceComponent(123, 456, 789)
+    val output = NiceComponent()
 
     fun runWriteBuffered(objectCount: Int) {
-        val writeBuffer = ByteBuffer.allocate(input.size * objectCount)
+        val writeBuffer = ByteBuffer.allocate(NiceComponent.size * objectCount)
         for (i in 1..objectCount) {
-            input.writeTo(writeBuffer)
+            NiceComponent.serialize(input, writeBuffer)
         }
 
         writeBuffer.position(0)

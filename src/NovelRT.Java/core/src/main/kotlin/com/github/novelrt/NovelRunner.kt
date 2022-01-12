@@ -9,12 +9,12 @@ import com.github.novelrt.fumocement.Pointer
 import com.github.novelrt.fumocement.Pointers
 import com.github.novelrt.graphics.RenderingService
 import com.github.novelrt.input.InteractionService
-import com.github.novelrt.interop.KotlinNativeObject
-import com.github.novelrt.interop.NovelRT
+import com.github.novelrt.interop.*
 import com.github.novelrt.interop.makeOutputPointer
 import com.github.novelrt.timing.Timestamp
 import com.github.novelrt.windowing.WindowMode
 import java.util.concurrent.atomic.AtomicInteger
+
 
 /**
  * The main class for running a game.
@@ -35,9 +35,9 @@ class NovelRunner(
     NovelRT::Nrt_NovelRunner_destroy
 ) {
     val onConstructionRequested = object : Event<SceneConstructionRequestedListener>() {
-        val callback: FunctionPointer<NovelRT.Callback_Nrt_NovelRunner_SubscribeToSceneConstructionRequested_func> =
+        val callback: FunctionPointer<SubscribeToSceneConstructionRequestedPtr> =
             FunctionPointer(
-                NovelRT.Callback_Nrt_NovelRunner_SubscribeToSceneConstructionRequested_func {
+                SubscribeToSceneConstructionRequestedPtr {
                     fireEvent { it.listen() }
                 },
                 DisposalMethod.GARBAGE_COLLECTED
@@ -49,8 +49,8 @@ class NovelRunner(
     }
 
     val onUpdate = object : Event<UpdateListener>() {
-        val callback: FunctionPointer<NovelRT.Callback_Nrt_NovelRunner_SubscribeToUpdate_func> = FunctionPointer(
-            NovelRT.Callback_Nrt_NovelRunner_SubscribeToUpdate_func { timestamp ->
+        val callback: FunctionPointer<SubscribeToUpdatePtr> = FunctionPointer(
+            SubscribeToUpdatePtr { timestamp ->
                 fireEvent { it.listen(Timestamp(timestamp.toULong())) }
             },
             DisposalMethod.GARBAGE_COLLECTED

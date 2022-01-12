@@ -1,12 +1,16 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+repositories {
+  mavenCentral()
+}
+
 plugins {
   id("com.github.novelrt.java-conventions-library")
   kotlin("jvm")
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.0-RC")
+  implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10")
   implementation(project(":fumocement"))
 }
 
@@ -22,9 +26,6 @@ tasks {
 }
 
 description = "NovelRT for Java - Core"
-repositories {
-  mavenCentral()
-}
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
   jvmTarget = "1.8"

@@ -5,10 +5,11 @@ plugins {
 
 repositories {
   // Use the plugin portal to apply community plugins in convention plugins.
+  mavenCentral()
   gradlePluginPortal()
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.0-RC")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.6.10")
   implementation("org.beryx:badass-jlink-plugin:2.24.0")
 }

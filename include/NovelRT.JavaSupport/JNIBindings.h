@@ -285,6 +285,104 @@ extern "C"
         value$$intermediate = FumoCement::passAsC(FumoCement::toNativePrimitive(value));
     }
     // End struct declaration: NrtTransform
+    // Struct declaration: NrtAudioEmitterComponent
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterComponent_allocateStruct(JNIEnv* env, jclass)
+    {
+        return FumoCement::toJavaPointer(new NrtAudioEmitterComponent);
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterComponent_destroyStruct(JNIEnv* env, jclass, jlong handle)
+    {
+        delete FumoCement::toNativePointer<NrtAudioEmitterComponent>(handle);
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterComponent_overwrite(JNIEnv* env, jclass, jlong targetHandle, jlong dataHandle)
+    {
+        *FumoCement::toNativePointer<NrtAudioEmitterComponent>(targetHandle) = *FumoCement::toNativePointer<NrtAudioEmitterComponent>(dataHandle);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterComponent_getHandleFieldRaw(JNIEnv* env, jclass, jlong handle)
+    {
+        auto& returnValue = (FumoCement::toNativePointer<NrtAudioEmitterComponent>(handle))->handle;
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterComponent_setHandleFieldRaw(JNIEnv* env, jclass, jlong handle, jint value)
+    {
+        auto& value$$intermediate = (FumoCement::toNativePointer<NrtAudioEmitterComponent>(handle))->handle;
+        value$$intermediate = FumoCement::passAsC(FumoCement::toNativePrimitive(value));
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterComponent_getIsMusicRaw(JNIEnv* env, jclass, jlong handle)
+    {
+        auto& returnValue = (FumoCement::toNativePointer<NrtAudioEmitterComponent>(handle))->isMusic;
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterComponent_setIsMusicRaw(JNIEnv* env, jclass, jlong handle, jint value)
+    {
+        auto& value$$intermediate = (FumoCement::toNativePointer<NrtAudioEmitterComponent>(handle))->isMusic;
+        value$$intermediate = FumoCement::passAsC(FumoCement::toNativePrimitive(value));
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterComponent_getNumberOfLoopsRaw(JNIEnv* env, jclass, jlong handle)
+    {
+        auto& returnValue = (FumoCement::toNativePointer<NrtAudioEmitterComponent>(handle))->numberOfLoops;
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterComponent_setNumberOfLoopsRaw(JNIEnv* env, jclass, jlong handle, jint value)
+    {
+        auto& value$$intermediate = (FumoCement::toNativePointer<NrtAudioEmitterComponent>(handle))->numberOfLoops;
+        value$$intermediate = FumoCement::passAsC(FumoCement::toNativePrimitive(value));
+    }
+    JNIEXPORT jfloat JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterComponent_getVolumeRaw(JNIEnv* env, jclass, jlong handle)
+    {
+        auto& returnValue = (FumoCement::toNativePointer<NrtAudioEmitterComponent>(handle))->volume;
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterComponent_setVolumeRaw(JNIEnv* env, jclass, jlong handle, jfloat value)
+    {
+        auto& value$$intermediate = (FumoCement::toNativePointer<NrtAudioEmitterComponent>(handle))->volume;
+        value$$intermediate = FumoCement::passAsC(FumoCement::toNativePrimitive(value));
+    }
+    // End struct declaration: NrtAudioEmitterComponent
+    // Struct declaration: NrtAudioEmitterStateComponent
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterStateComponent_allocateStruct(JNIEnv* env, jclass)
+    {
+        return FumoCement::toJavaPointer(new NrtAudioEmitterStateComponent);
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterStateComponent_destroyStruct(JNIEnv* env, jclass, jlong handle)
+    {
+        delete FumoCement::toNativePointer<NrtAudioEmitterStateComponent>(handle);
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterStateComponent_overwrite(JNIEnv* env, jclass, jlong targetHandle, jlong dataHandle)
+    {
+        *FumoCement::toNativePointer<NrtAudioEmitterStateComponent>(targetHandle) = *FumoCement::toNativePointer<NrtAudioEmitterStateComponent>(dataHandle);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterStateComponent_getStateRaw(JNIEnv* env, jclass, jlong handle)
+    {
+        auto& returnValue = (FumoCement::toNativePointer<NrtAudioEmitterStateComponent>(handle))->state;
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterStateComponent_setStateRaw(JNIEnv* env, jclass, jlong handle, jint value)
+    {
+        auto& value$$intermediate = (FumoCement::toNativePointer<NrtAudioEmitterStateComponent>(handle))->state;
+        value$$intermediate = FumoCement::passAsC(FumoCement::toNativePrimitive(value));
+    }
+    JNIEXPORT jfloat JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterStateComponent_getFadeDurationRaw(JNIEnv* env, jclass, jlong handle)
+    {
+        auto& returnValue = (FumoCement::toNativePointer<NrtAudioEmitterStateComponent>(handle))->fadeDuration;
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterStateComponent_setFadeDurationRaw(JNIEnv* env, jclass, jlong handle, jfloat value)
+    {
+        auto& value$$intermediate = (FumoCement::toNativePointer<NrtAudioEmitterStateComponent>(handle))->fadeDuration;
+        value$$intermediate = FumoCement::passAsC(FumoCement::toNativePrimitive(value));
+    }
+    JNIEXPORT jfloat JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterStateComponent_getFadeExpectedVolumeRaw(JNIEnv* env, jclass, jlong handle)
+    {
+        auto& returnValue = (FumoCement::toNativePointer<NrtAudioEmitterStateComponent>(handle))->fadeExpectedVolume;
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_00024NrtAudioEmitterStateComponent_setFadeExpectedVolumeRaw(JNIEnv* env, jclass, jlong handle, jfloat value)
+    {
+        auto& value$$intermediate = (FumoCement::toNativePointer<NrtAudioEmitterStateComponent>(handle))->fadeExpectedVolume;
+        value$$intermediate = FumoCement::passAsC(FumoCement::toNativePrimitive(value));
+    }
+    // End struct declaration: NrtAudioEmitterStateComponent
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1DebugService_1create_00024Raw(JNIEnv* env, jclass, jlong sceneConstructionEvent, jlong renderingService, jlong outputService)
     {
         auto&& sceneConstructionEvent$$intermediate = FumoCement::toNativePointer<struct NrtUtilitiesEvent>(sceneConstructionEvent);
@@ -492,13 +590,6 @@ extern "C"
     {
         auto&& runner$$intermediate = FumoCement::toNativePointer<struct NrtNovelRunner>(runner);
         auto&& returnValue = Nrt_NovelRunner_destroy(FumoCement::passAsC(runner$$intermediate));
-        return FumoCement::toJavaPrimitive(returnValue);
-    }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1NovelRunner_1getAudioService_00024Raw(JNIEnv* env, jclass, jlong runner, jlong outputService)
-    {
-        auto&& runner$$intermediate = FumoCement::toNativePointer<struct NrtNovelRunner>(runner);
-        auto&& outputService$$intermediate = FumoCement::toNativePointer<NrtAudioServiceHandle>(outputService);
-        auto&& returnValue = Nrt_NovelRunner_getAudioService(FumoCement::passAsC(runner$$intermediate), FumoCement::passAsC(outputService$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1NovelRunner_1getInteractionService_00024Raw(JNIEnv* env, jclass, jlong runner, jlong outputService)
@@ -801,121 +892,161 @@ extern "C"
         auto&& returnValue = Nrt_SpriteAnimatorFrameVector_delete(FumoCement::passAsC(vector$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1create_00024Raw(JNIEnv* env, jclass)
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1Create_00024Raw(JNIEnv* env, jclass)
     {
-        auto&& returnValue = Nrt_AudioService_create();
+        auto&& returnValue = Nrt_AudioService_Create();
         return FumoCement::toJavaPointer(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1destroy_00024Raw(JNIEnv* env, jclass, jlong service)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1Destroy_00024Raw(JNIEnv* env, jclass, jlong service)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
-        auto&& returnValue = Nrt_AudioService_destroy(FumoCement::passAsC(service$$intermediate));
+        auto&& returnValue = Nrt_AudioService_Destroy(FumoCement::passAsC(service$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1initialiseAudio_00024Raw(JNIEnv* env, jclass, jlong service)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1InitialiseAudio_00024Raw(JNIEnv* env, jclass, jlong service)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
-        auto&& returnValue = Nrt_AudioService_initialiseAudio(FumoCement::passAsC(service$$intermediate));
+        auto&& returnValue = Nrt_AudioService_InitialiseAudio(FumoCement::passAsC(service$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1loadMusic_00024Raw(JNIEnv* env, jclass, jlong service, jbyteArray input, jlong output)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1LoadMusic_00024Raw(JNIEnv* env, jclass, jlong service, jbyteArray input, jlong output)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
         auto&& input$$intermediate = FumoCement::toCppString(env, input);
         auto&& output$$intermediate = FumoCement::toNativePointer<NrtAudioServiceIteratorHandle>(output);
-        auto&& returnValue = Nrt_AudioService_loadMusic(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(input$$intermediate), FumoCement::passAsC(output$$intermediate));
+        auto&& returnValue = Nrt_AudioService_LoadMusic(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(input$$intermediate), FumoCement::passAsC(output$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1setSoundVolume_00024Raw(JNIEnv* env, jclass, jlong service, jint source, jfloat val)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1SetSoundVolume_00024Raw(JNIEnv* env, jclass, jlong service, jint source, jfloat val)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
         auto&& source$$intermediate = FumoCement::toNativePrimitive(source);
         auto&& val$$intermediate = FumoCement::toNativePrimitive(val);
-        auto&& returnValue = Nrt_AudioService_setSoundVolume(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(source$$intermediate), FumoCement::passAsC(val$$intermediate));
+        auto&& returnValue = Nrt_AudioService_SetSoundVolume(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(source$$intermediate), FumoCement::passAsC(val$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1setSoundPosition_00024Raw(JNIEnv* env, jclass, jlong service, jint source, jfloat posX, jfloat posY)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1SetSoundPosition_00024Raw(JNIEnv* env, jclass, jlong service, jint source, jfloat posX, jfloat posY)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
         auto&& source$$intermediate = FumoCement::toNativePrimitive(source);
         auto&& posX$$intermediate = FumoCement::toNativePrimitive(posX);
         auto&& posY$$intermediate = FumoCement::toNativePrimitive(posY);
-        auto&& returnValue = Nrt_AudioService_setSoundPosition(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(source$$intermediate), FumoCement::passAsC(posX$$intermediate), FumoCement::passAsC(posY$$intermediate));
+        auto&& returnValue = Nrt_AudioService_SetSoundPosition(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(source$$intermediate), FumoCement::passAsC(posX$$intermediate), FumoCement::passAsC(posY$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1resumeMusic_00024Raw(JNIEnv* env, jclass, jlong service)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1ResumeMusic_00024Raw(JNIEnv* env, jclass, jlong service)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
-        auto&& returnValue = Nrt_AudioService_resumeMusic(FumoCement::passAsC(service$$intermediate));
+        auto&& returnValue = Nrt_AudioService_ResumeMusic(FumoCement::passAsC(service$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1playMusic_00024Raw(JNIEnv* env, jclass, jlong service, jlong handle, jint loops)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1PlayMusic_00024Raw(JNIEnv* env, jclass, jlong service, jlong handle, jint loops)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
         auto&& handle$$intermediate = FumoCement::toNativePointer<struct NrtAudioServiceIterator>(handle);
         auto&& loops$$intermediate = FumoCement::toNativePrimitive(loops);
-        auto&& returnValue = Nrt_AudioService_playMusic(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(handle$$intermediate), FumoCement::passAsC(loops$$intermediate));
+        auto&& returnValue = Nrt_AudioService_PlayMusic(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(handle$$intermediate), FumoCement::passAsC(loops$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1pauseMusic_00024Raw(JNIEnv* env, jclass, jlong service)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1PauseMusic_00024Raw(JNIEnv* env, jclass, jlong service)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
-        auto&& returnValue = Nrt_AudioService_pauseMusic(FumoCement::passAsC(service$$intermediate));
+        auto&& returnValue = Nrt_AudioService_PauseMusic(FumoCement::passAsC(service$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1stopMusic_00024Raw(JNIEnv* env, jclass, jlong service)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1StopMusic_00024Raw(JNIEnv* env, jclass, jlong service)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
-        auto&& returnValue = Nrt_AudioService_stopMusic(FumoCement::passAsC(service$$intermediate));
+        auto&& returnValue = Nrt_AudioService_StopMusic(FumoCement::passAsC(service$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1setMusicVolume_00024Raw(JNIEnv* env, jclass, jlong service, jfloat value)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1SetMusicVolume_00024Raw(JNIEnv* env, jclass, jlong service, jfloat value)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
         auto&& value$$intermediate = FumoCement::toNativePrimitive(value);
-        auto&& returnValue = Nrt_AudioService_setMusicVolume(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(value$$intermediate));
+        auto&& returnValue = Nrt_AudioService_SetMusicVolume(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(value$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1checkSources_00024Raw(JNIEnv* env, jclass, jlong service)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1CheckSources_00024Raw(JNIEnv* env, jclass, jlong service)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
-        auto&& returnValue = Nrt_AudioService_checkSources(FumoCement::passAsC(service$$intermediate));
+        auto&& returnValue = Nrt_AudioService_CheckSources(FumoCement::passAsC(service$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1loadSound_00024Raw(JNIEnv* env, jclass, jlong service, jbyteArray input, jlong output)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1LoadSound_00024Raw(JNIEnv* env, jclass, jlong service, jbyteArray input, jlong output)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
         auto&& input$$intermediate = FumoCement::toCppString(env, input);
         auto&& output$$intermediate = FumoCement::toNativePointer<unsigned int>(output);
-        auto&& returnValue = Nrt_AudioService_loadSound(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(input$$intermediate), FumoCement::passAsC(output$$intermediate));
+        auto&& returnValue = Nrt_AudioService_LoadSound(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(input$$intermediate), FumoCement::passAsC(output$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1unload_00024Raw(JNIEnv* env, jclass, jlong service, jint handle)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1Unload_00024Raw(JNIEnv* env, jclass, jlong service, jint handle)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
         auto&& handle$$intermediate = FumoCement::toNativePrimitive(handle);
-        auto&& returnValue = Nrt_AudioService_unload(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(handle$$intermediate));
+        auto&& returnValue = Nrt_AudioService_Unload(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(handle$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1playSound_00024Raw(JNIEnv* env, jclass, jlong service, jint handle, jint loops)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1PlaySound_00024Raw(JNIEnv* env, jclass, jlong service, jint handle, jint loops)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
         auto&& handle$$intermediate = FumoCement::toNativePrimitive(handle);
         auto&& loops$$intermediate = FumoCement::toNativePrimitive(loops);
-        auto&& returnValue = Nrt_AudioService_playSound(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(handle$$intermediate), FumoCement::passAsC(loops$$intermediate));
+        auto&& returnValue = Nrt_AudioService_PlaySound(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(handle$$intermediate), FumoCement::passAsC(loops$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1stopSound_00024Raw(JNIEnv* env, jclass, jlong service, jint handle)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1StopSound_00024Raw(JNIEnv* env, jclass, jlong service, jint handle)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
         auto&& handle$$intermediate = FumoCement::toNativePrimitive(handle);
-        auto&& returnValue = Nrt_AudioService_stopSound(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(handle$$intermediate));
+        auto&& returnValue = Nrt_AudioService_StopSound(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(handle$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1tearDown_00024Raw(JNIEnv* env, jclass, jlong service)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1TearDown_00024Raw(JNIEnv* env, jclass, jlong service)
     {
         auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
-        auto&& returnValue = Nrt_AudioService_tearDown(FumoCement::passAsC(service$$intermediate));
+        auto&& returnValue = Nrt_AudioService_TearDown(FumoCement::passAsC(service$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1IsMusicLoaded_00024Raw(JNIEnv* env, jclass, jlong service, jlong handle)
+    {
+        auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
+        auto&& handle$$intermediate = FumoCement::toNativePointer<struct NrtAudioServiceIterator>(handle);
+        auto&& returnValue = Nrt_AudioService_IsMusicLoaded(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(handle$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1IsSoundLoaded_00024Raw(JNIEnv* env, jclass, jlong service, jint handle)
+    {
+        auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
+        auto&& handle$$intermediate = FumoCement::toNativePrimitive(handle);
+        auto&& returnValue = Nrt_AudioService_IsSoundLoaded(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(handle$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1IsMusicPlaying_00024Raw(JNIEnv* env, jclass, jlong service)
+    {
+        auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
+        auto&& returnValue = Nrt_AudioService_IsMusicPlaying(FumoCement::passAsC(service$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1IsSoundPlaying_00024Raw(JNIEnv* env, jclass, jlong service, jint handle)
+    {
+        auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
+        auto&& handle$$intermediate = FumoCement::toNativePrimitive(handle);
+        auto&& returnValue = Nrt_AudioService_IsSoundPlaying(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(handle$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jfloat JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1GetMusicVolume_00024Raw(JNIEnv* env, jclass, jlong service)
+    {
+        auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
+        auto&& returnValue = Nrt_AudioService_GetMusicVolume(FumoCement::passAsC(service$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jfloat JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioService_1GetSoundVolume_00024Raw(JNIEnv* env, jclass, jlong service, jint source)
+    {
+        auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioService>(service);
+        auto&& source$$intermediate = FumoCement::toNativePrimitive(source);
+        auto&& returnValue = Nrt_AudioService_GetSoundVolume(FumoCement::passAsC(service$$intermediate), FumoCement::passAsC(source$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
     JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1RuntimeService_1create_00024Raw(JNIEnv* env, jclass)
@@ -985,10 +1116,10 @@ extern "C"
         auto&& returnValue = Nrt_Catalogue_GetComponentViewByIdUnsafe(FumoCement::passAsC(catalogue$$intermediate), FumoCement::passAsC(componentId$$intermediate));
         return FumoCement::toJavaPointer(returnValue);
     }
-    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1catalogue_1CreateEntity_00024Raw(JNIEnv* env, jclass, jlong catalogue)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1Catalogue_1CreateEntity_00024Raw(JNIEnv* env, jclass, jlong catalogue)
     {
         auto&& catalogue$$intermediate = FumoCement::toNativePointer<struct NrtCatalogue>(catalogue);
-        auto&& returnValue = Nrt_catalogue_CreateEntity(FumoCement::passAsC(catalogue$$intermediate));
+        auto&& returnValue = Nrt_Catalogue_CreateEntity(FumoCement::passAsC(catalogue$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1Catalogue_1DeleteEntity_00024Raw(JNIEnv* env, jclass, jlong catalogue, jint entity)
@@ -1493,8 +1624,7 @@ extern "C"
         auto&& returnValue = Nrt_SystemScheduler_GetThreadsAreSpinning(FumoCement::passAsC(systemScheduler$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
-    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1SystemScheduler_1RegisterSystem_00024Raw(
-        JNIEnv* env, jclass, jlong systemScheduler, jlong systemUpdatePtr)
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1SystemScheduler_1RegisterSystem_00024Raw(JNIEnv* env, jclass, jlong systemScheduler, jlong systemUpdatePtr)
     {
         auto&& systemScheduler$$intermediate = FumoCement::toNativePointer<struct NrtSystemScheduler>(systemScheduler);
         auto&& systemUpdatePtr$$intermediate = [](NrtTimestamp param0, NrtCatalogueHandle param1, void * func$$rawContext) -> void
@@ -1509,15 +1639,10 @@ extern "C"
             using MethodSignature = FumoCement::TemplateString<'(', 'L', 'c', 'o', 'm', '/', 'g', 'i', 't', 'h', 'u', 'b', '/', 'n', 'o', 'v', 'e', 'l', 'r', 't', '/', 'i', 'n', 't', 'e', 'r', 'o', 'p', '/', 'N', 'o', 'v', 'e', 'l', 'R', 'T', '$', 'C', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '_', 'N', 'r', 't', '_', 'S', 'y', 's', 't', 'e', 'm', 'S', 'c', 'h', 'e', 'd', 'u', 'l', 'e', 'r', '_', 'R', 'e', 'g', 'i', 's', 't', 'e', 'r', 'S', 'y', 's', 't', 'e', 'm', '_', 's', 'y', 's', 't', 'e', 'm', 'U', 'p', 'd', 'a', 't', 'e', 'P', 't', 'r', ';', 'J', 'J', ')', 'V'>;
             auto classId = FumoCement::getCachedClass<ClassName>(funcEnv);
             auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);
-            funcEnv->CallStaticVoidMethod(classId, methodId,
-                                          FumoCement::passAsC(callback$$intermediate),
-                                          FumoCement::passAsC(param0$$intermediate),
-                                          FumoCement::passAsC(param1$$intermediate));
+            funcEnv->CallStaticVoidMethod(classId, methodId, FumoCement::passAsC(callback$$intermediate), FumoCement::passAsC(param0$$intermediate), FumoCement::passAsC(param1$$intermediate));
         };
         auto&& systemUpdatePtr$$context$$intermediate = reinterpret_cast<void*>(systemUpdatePtr);
-        Nrt_SystemScheduler_RegisterSystem(FumoCement::passAsC(systemScheduler$$intermediate),
-                                           FumoCement::passAsC(systemUpdatePtr$$intermediate),
-                                           FumoCement::passAsC(systemUpdatePtr$$context$$intermediate));
+        Nrt_SystemScheduler_RegisterSystem(FumoCement::passAsC(systemScheduler$$intermediate), FumoCement::passAsC(systemUpdatePtr$$intermediate), FumoCement::passAsC(systemUpdatePtr$$context$$intermediate));
     }
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1SystemScheduler_1GetWorkerThreadCount_00024Raw(JNIEnv* env, jclass, jlong systemScheduler)
     {
@@ -1620,6 +1745,72 @@ extern "C"
     {
         auto&& componentView$$intermediate = FumoCement::toNativePointer<struct NrtUnsafeComponentView>(componentView);
         auto&& returnValue = Nrt_UnsafeComponentView_Destroy(FumoCement::passAsC(componentView$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioEmitterComponent_1Update_00024Raw(JNIEnv* env, jclass, jlong lhs, jlong rhs, jint size, jlong context)
+    {
+        auto&& lhs$$intermediate = FumoCement::toNativePointer<NrtAudioEmitterComponent>(lhs);
+        auto&& rhs$$intermediate = FumoCement::toNativePointer<const NrtAudioEmitterComponent>(rhs);
+        auto&& size$$intermediate = FumoCement::toNativePrimitive(size);
+        auto&& context$$intermediate = FumoCement::toNativePointer<void>(context);
+        Nrt_AudioEmitterComponent_Update(FumoCement::passAsC(lhs$$intermediate), FumoCement::passAsC(rhs$$intermediate), FumoCement::passAsC(size$$intermediate), FumoCement::passAsC(context$$intermediate));
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioEmitterStateComponent_1Update_00024Raw(JNIEnv* env, jclass, jlong lhs, jlong rhs, jint size, jlong context)
+    {
+        auto&& lhs$$intermediate = FumoCement::toNativePointer<NrtAudioEmitterStateComponent>(lhs);
+        auto&& rhs$$intermediate = FumoCement::toNativePointer<const NrtAudioEmitterStateComponent>(rhs);
+        auto&& size$$intermediate = FumoCement::toNativePrimitive(size);
+        auto&& context$$intermediate = FumoCement::toNativePointer<void>(context);
+        Nrt_AudioEmitterStateComponent_Update(FumoCement::passAsC(lhs$$intermediate), FumoCement::passAsC(rhs$$intermediate), FumoCement::passAsC(size$$intermediate), FumoCement::passAsC(context$$intermediate));
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioSystem_1Create_00024Raw(JNIEnv* env, jclass)
+    {
+        auto&& returnValue = Nrt_AudioSystem_Create();
+        return FumoCement::toJavaPointer(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioSystem_1Destroy_00024Raw(JNIEnv* env, jclass, jlong service)
+    {
+        auto&& service$$intermediate = FumoCement::toNativePointer<struct NrtAudioSystem>(service);
+        auto&& returnValue = Nrt_AudioSystem_Destroy(FumoCement::passAsC(service$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioSystem_1RegisterDefaultAudioComponents_00024Raw(JNIEnv* env, jclass, jlong system)
+    {
+        auto&& system$$intermediate = FumoCement::toNativePointer<struct NrtSystemScheduler>(system);
+        auto&& returnValue = Nrt_AudioSystem_RegisterDefaultAudioComponents(FumoCement::passAsC(system$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioSystem_1Update_00024Raw(JNIEnv* env, jclass, jlong delta, jlong catalogue, jlong context)
+    {
+        auto&& delta$$intermediate = FumoCement::toNativePrimitive(delta);
+        auto&& catalogue$$intermediate = FumoCement::toNativePointer<struct NrtCatalogue>(catalogue);
+        auto&& context$$intermediate = FumoCement::toNativePointer<void>(context);
+        auto&& returnValue = Nrt_AudioSystem_Update(FumoCement::passAsC(delta$$intermediate), FumoCement::passAsC(catalogue$$intermediate), FumoCement::passAsC(context$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioSystem_1CreateAudio_00024Raw(JNIEnv* env, jclass, jlong system, jbyteArray fileName, jint isMusic, jlong result)
+    {
+        auto&& system$$intermediate = FumoCement::toNativePointer<struct NrtAudioSystem>(system);
+        auto&& fileName$$intermediate = FumoCement::toCppString(env, fileName);
+        auto&& isMusic$$intermediate = FumoCement::toNativePrimitive(isMusic);
+        auto&& result$$intermediate = FumoCement::toNativePointer<uint32_t>(result);
+        auto&& returnValue = Nrt_AudioSystem_CreateAudio(FumoCement::passAsC(system$$intermediate), FumoCement::passAsC(fileName$$intermediate), FumoCement::passAsC(isMusic$$intermediate), FumoCement::passAsC(result$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioSystem_1PushEmitterComponentUpdate_00024Raw(JNIEnv* env, jclass, jlong system, jint entity, jlong emitter)
+    {
+        auto&& system$$intermediate = FumoCement::toNativePointer<struct NrtSystemScheduler>(system);
+        auto&& entity$$intermediate = FumoCement::toNativePrimitive(entity);
+        auto&& emitter$$intermediate = *FumoCement::toNativePointer<NrtAudioEmitterComponent>(emitter);
+        auto&& returnValue = Nrt_AudioSystem_PushEmitterComponentUpdate(FumoCement::passAsC(system$$intermediate), FumoCement::passAsC(entity$$intermediate), FumoCement::passAsC(emitter$$intermediate));
+        return FumoCement::toJavaPrimitive(returnValue);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1AudioSystem_1PushEmitterStateComponentUpdate_00024Raw(JNIEnv* env, jclass, jlong system, jint entity, jlong state)
+    {
+        auto&& system$$intermediate = FumoCement::toNativePointer<struct NrtSystemScheduler>(system);
+        auto&& entity$$intermediate = FumoCement::toNativePrimitive(entity);
+        auto&& state$$intermediate = *FumoCement::toNativePointer<NrtAudioEmitterStateComponent>(state);
+        auto&& returnValue = Nrt_AudioSystem_PushEmitterStateComponentUpdate(FumoCement::passAsC(system$$intermediate), FumoCement::passAsC(entity$$intermediate), FumoCement::passAsC(state$$intermediate));
         return FumoCement::toJavaPrimitive(returnValue);
     }
     JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1BasicFillRect_1getTransform_00024Raw(JNIEnv* env, jclass, jlong rect)
@@ -3530,7 +3721,7 @@ extern "C"
             using MethodName = FumoCement::TemplateString<'c', 'a', 'l', 'l', 'b', 'a', 'c', 'k', 'C', 'a', 'l', 'l'>;
             using MethodSignature = FumoCement::TemplateString<'(', 'L', 'c', 'o', 'm', '/', 'g', 'i', 't', 'h', 'u', 'b', '/', 'n', 'o', 'v', 'e', 'l', 'r', 't', '/', 'i', 'n', 't', 'e', 'r', 'o', 'p', '/', 'N', 'o', 'v', 'e', 'l', 'R', 'T', '$', 'C', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '_', 'N', 'r', 't', '_', 'S', 'c', 'e', 'n', 'e', 'N', 'o', 'd', 'e', '_', 't', 'r', 'a', 'v', 'e', 'r', 's', 'e', 'B', 'r', 'e', 'a', 'd', 't', 'h', 'F', 'i', 'r', 's', 't', 'W', 'i', 't', 'h', 'I', 't', 'e', 'r', 'a', 't', 'o', 'r', '_', 'a', 'c', 't', 'i', 'o', 'n', ';', 'J', ')', 'I'>;
             auto classId = FumoCement::getCachedClass<ClassName>(funcEnv);
-            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue =
+            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue = 
             funcEnv->CallStaticIntMethod(classId, methodId, FumoCement::passAsC(callback$$intermediate), FumoCement::passAsC(param0$$intermediate));
             return FumoCement::toNativePrimitive(returnValue);
         };
@@ -3572,7 +3763,7 @@ extern "C"
             using MethodName = FumoCement::TemplateString<'c', 'a', 'l', 'l', 'b', 'a', 'c', 'k', 'C', 'a', 'l', 'l'>;
             using MethodSignature = FumoCement::TemplateString<'(', 'L', 'c', 'o', 'm', '/', 'g', 'i', 't', 'h', 'u', 'b', '/', 'n', 'o', 'v', 'e', 'l', 'r', 't', '/', 'i', 'n', 't', 'e', 'r', 'o', 'p', '/', 'N', 'o', 'v', 'e', 'l', 'R', 'T', '$', 'C', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '_', 'N', 'r', 't', '_', 'S', 'c', 'e', 'n', 'e', 'N', 'o', 'd', 'e', '_', 't', 'r', 'a', 'v', 'e', 'r', 's', 'e', 'D', 'e', 'p', 't', 'h', 'F', 'i', 'r', 's', 't', 'W', 'i', 't', 'h', 'I', 't', 'e', 'r', 'a', 't', 'o', 'r', '_', 'a', 'c', 't', 'i', 'o', 'n', ';', 'J', ')', 'I'>;
             auto classId = FumoCement::getCachedClass<ClassName>(funcEnv);
-            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue =
+            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue = 
             funcEnv->CallStaticIntMethod(classId, methodId, FumoCement::passAsC(callback$$intermediate), FumoCement::passAsC(param0$$intermediate));
             return FumoCement::toNativePrimitive(returnValue);
         };
@@ -3627,7 +3818,7 @@ extern "C"
             using MethodName = FumoCement::TemplateString<'c', 'a', 'l', 'l', 'b', 'a', 'c', 'k', 'C', 'a', 'l', 'l'>;
             using MethodSignature = FumoCement::TemplateString<'(', 'L', 'c', 'o', 'm', '/', 'g', 'i', 't', 'h', 'u', 'b', '/', 'n', 'o', 'v', 'e', 'l', 'r', 't', '/', 'i', 'n', 't', 'e', 'r', 'o', 'p', '/', 'N', 'o', 'v', 'e', 'l', 'R', 'T', '$', 'C', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '_', 'N', 'r', 't', '_', 'S', 'c', 'e', 'n', 'e', 'N', 'o', 'd', 'e', 'B', 'r', 'e', 'a', 'd', 't', 'h', 'F', 'i', 'r', 's', 't', 'I', 't', 'e', 'r', 'a', 't', 'o', 'r', '_', 'c', 'r', 'e', 'a', 't', 'e', '_', 'f', 'u', 'n', 'c', ';', 'J', ')', 'I'>;
             auto classId = FumoCement::getCachedClass<ClassName>(funcEnv);
-            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue =
+            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue = 
             funcEnv->CallStaticIntMethod(classId, methodId, FumoCement::passAsC(callback$$intermediate), FumoCement::passAsC(param0$$intermediate));
             return FumoCement::toNativePrimitive(returnValue);
         };
@@ -3687,7 +3878,7 @@ extern "C"
             using MethodName = FumoCement::TemplateString<'c', 'a', 'l', 'l', 'b', 'a', 'c', 'k', 'C', 'a', 'l', 'l'>;
             using MethodSignature = FumoCement::TemplateString<'(', 'L', 'c', 'o', 'm', '/', 'g', 'i', 't', 'h', 'u', 'b', '/', 'n', 'o', 'v', 'e', 'l', 'r', 't', '/', 'i', 'n', 't', 'e', 'r', 'o', 'p', '/', 'N', 'o', 'v', 'e', 'l', 'R', 'T', '$', 'C', 'a', 'l', 'l', 'b', 'a', 'c', 'k', '_', 'N', 'r', 't', '_', 'S', 'c', 'e', 'n', 'e', 'N', 'o', 'd', 'e', 'D', 'e', 'p', 't', 'h', 'F', 'i', 'r', 's', 't', 'I', 't', 'e', 'r', 'a', 't', 'o', 'r', '_', 'c', 'r', 'e', 'a', 't', 'e', '_', 'f', 'u', 'n', 'c', ';', 'J', ')', 'I'>;
             auto classId = FumoCement::getCachedClass<ClassName>(funcEnv);
-            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue =
+            auto methodId = FumoCement::getCachedStaticMethod<ClassName, MethodName, MethodSignature>(funcEnv);auto&& returnValue = 
             funcEnv->CallStaticIntMethod(classId, methodId, FumoCement::passAsC(callback$$intermediate), FumoCement::passAsC(param0$$intermediate));
             return FumoCement::toNativePrimitive(returnValue);
         };

@@ -10,10 +10,8 @@ java {
 }
 
 repositories {
+  mavenCentral()
   mavenLocal()
-  maven {
-    url = uri("https://dl.bintray.com/kotlin/kotlin-eap")
-  }
   maven {
     url = uri("https://repo.maven.apache.org/maven2/")
   }

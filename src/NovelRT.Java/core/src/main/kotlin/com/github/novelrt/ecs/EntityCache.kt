@@ -39,7 +39,7 @@ class EntityCache internal constructor(
     /**
      * Fetches an immutable reference to the entities to be deleted this particular iteration of the ECS.
      *
-     * While this method is not marked as const, it does not modify the object directly.
+     * This method does not modify the object directly.
      * This is a pure method. Calling this without using the result has no effect and introduces overhead for
      * calling a method.
      *

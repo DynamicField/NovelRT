@@ -4,5 +4,6 @@ endif()
 add_subdirectory(NovelRT)
 add_subdirectory(NovelRT.Java)
 add_subdirectory(NovelRT.Interop)
-add_subdirectory(NovelRT.JavaBootstrapper)
 add_subdirectory(NovelRT.JavaSupport)
+add_subdirectory(NovelRT.JavaBootstrapper)
+

@@ -10,6 +10,6 @@ object MemoryAllocator {
     }
 
     fun release(memory: MemorySpan) {
-        // no-op atm
+
     }
 }

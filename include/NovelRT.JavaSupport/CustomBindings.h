@@ -38,6 +38,7 @@ extern "C"
 
         auto result = Nrt_SparseSetMemoryContainer_Insert(memoryContainer, key, bytesNativeArray);
 
+        // mode JNI_ABORT: free the buffer without copying back the possible changes
         env->ReleasePrimitiveArrayCritical(bytes, bytesNativeArray, JNI_ABORT);
         return result;
     }
@@ -53,6 +54,7 @@ extern "C"
 
         auto result = Nrt_SparseSetMemoryContainer_TryInsert(memoryContainer, key, bytesNativeArray);
 
+        // mode JNI_ABORT: free the buffer without copying back the possible changes
         env->ReleasePrimitiveArrayCritical(bytes, bytesNativeArray, JNI_ABORT);
         return static_cast<jboolean>(result);
     }
@@ -69,7 +71,69 @@ extern "C"
 
         auto* outBytesNativeArray = env->GetPrimitiveArrayCritical(outBytes, nullptr);
         std::memcpy(outBytesNativeArray, data, length);
+
+        // mode 0: copy back the content and free the elems buffer
         env->ReleasePrimitiveArrayCritical(outBytes, outBytesNativeArray, 0);
+    }
+
+    JNIEXPORT void JNICALL
+    Java_com_github_novelrt_ecs_ComponentDefinition_retrieveUpdateComponentData(JNIEnv* env,
+                                                                                jclass,
+                                                                                jlong root,
+                                                                                jlong update,
+                                                                                jint size,
+                                                                                jbyteArray output)
+    {
+        const auto* rootData = reinterpret_cast<const char*>(root);
+        const auto* updateData = reinterpret_cast<const char*>(update);
+
+        auto* outputNativeArray = reinterpret_cast<char*>(env->GetPrimitiveArrayCritical(output, nullptr));
+        std::memcpy(outputNativeArray, rootData, size);
+        std::memcpy(outputNativeArray + size, updateData, size);
+
+        // mode 0: copy back the content and free the elems buffer
+        env->ReleasePrimitiveArrayCritical(output, outputNativeArray, 0);
+    }
+
+    JNIEXPORT void JNICALL Java_com_github_novelrt_ecs_ComponentDefinition_overwriteComponent(JNIEnv* env,
+                                                                                              jclass,
+                                                                                              jlong handle,
+                                                                                              jint size,
+                                                                                              jbyteArray newData)
+    {
+        auto* component = reinterpret_cast<char*>(handle);
+
+        auto* newDataNativeArray = reinterpret_cast<char*>(env->GetPrimitiveArrayCritical(newData, nullptr));
+        std::memcpy(component, newDataNativeArray, size);
+
+        // mode JNI_ABORT: free the buffer without copying back the possible changes
+        env->ReleasePrimitiveArrayCritical(newData, newDataNativeArray, JNI_ABORT);
+    }
+
+    JNIEXPORT jint JNICALL
+    Java_com_github_novelrt_ecs_ComponentBufferMemoryContainer_retrieveComponent(JNIEnv* env,
+                                                                                 jclass,
+                                                                                 jlong handle,
+                                                                                 jlong entity,
+                                                                                 jint size,
+                                                                                 jbyteArray output)
+    {
+        auto* componentBuffer = reinterpret_cast<NrtComponentBufferMemoryContainerHandle>(handle);
+
+        NrtComponentBufferMemoryContainer_ImmutableDataViewHandle viewResult;
+        auto result = Nrt_ComponentBufferMemoryContainer_GetComponent(componentBuffer, static_cast<NrtEntityId>(entity),
+                                                                      &viewResult);
+        if (result >= 0)
+        {
+            auto* outputNativeArray = env->GetPrimitiveArrayCritical(output, nullptr);
+            auto* viewData = Nrt_ComponentBufferMemoryContainer_ImmutableDataView_GetDataHandle(viewResult);
+            std::memcpy(outputNativeArray, viewData, size);
+
+            // mode 0: copy back the content and free the elems buffer
+            env->ReleasePrimitiveArrayCritical(output, outputNativeArray, 0);
+        }
+
+        return result;
     }
 #ifdef __cplusplus
 }
