@@ -4,8 +4,8 @@ import com.github.novelrt.fumocement.Pointers
 import java.nio.ByteBuffer
 
 object MemoryAllocator {
-    fun allocate(length: Int): MemoryScope {
-        val buffer = ByteBuffer.allocateDirect(length) // TODO: this method takes fucking 2µs to run!!! Optimize it!
+    fun allocate(length: Long): MemoryScope {
+        val buffer = ByteBuffer.allocateDirect(length.toInt()) // TODO: this method takes fucking 2µs to run!!! Optimize it!
         return MemoryScope(MemorySpan(buffer, Pointers.getByteBufferLocation(buffer)))
     }
 

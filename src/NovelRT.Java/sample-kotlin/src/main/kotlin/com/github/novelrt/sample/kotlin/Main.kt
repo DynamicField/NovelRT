@@ -43,6 +43,8 @@ data class NiceComponent(var helloWorld: Int = 0, var fumoWorld: Int = 0, var wh
 
 fun main() {
     NovelRTLoader.load()
+    mainOld()
+    /*
     val scheduler = SystemScheduler(4u)
     val componentCache = scheduler.componentCache
     val catalogue = Catalogue(0u, componentCache, scheduler.entityCache)
@@ -62,6 +64,8 @@ fun main() {
             }
         }
     }
+    */
+
 }
 
 fun oldBenchmark() {
@@ -70,7 +74,7 @@ fun oldBenchmark() {
     val output = NiceComponent()
 
     fun runWriteBuffered(objectCount: Int) {
-        val writeBuffer = ByteBuffer.allocate(NiceComponent.size * objectCount)
+        val writeBuffer = ByteBuffer.allocate((NiceComponent.size * objectCount).toInt())
         for (i in 1..objectCount) {
             NiceComponent.serialize(input, writeBuffer)
         }

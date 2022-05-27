@@ -17,10 +17,10 @@ class ImageRect internal constructor(handle: Long, isOwned: Boolean) :
     override val transform: Transform = object : Transform() {
         override var nativeTransform: ObjectHandle<NovelRT.NrtTransform>
             get() {
-                return ObjectHandle(NovelRT.`Nrt_ImageRect_getTransform$Raw`(handle))
+                return ObjectHandle(NovelRT.`Nrt_ImageRect_getTransformRaw`(handle))
             }
             set(value) {
-                NovelRT.`Nrt_ImageRect_setTransform$Raw`(this@ImageRect.handle, value.value)
+                NovelRT.`Nrt_ImageRect_setTransformRaw`(this@ImageRect.handle, value.value)
             }
     }
 

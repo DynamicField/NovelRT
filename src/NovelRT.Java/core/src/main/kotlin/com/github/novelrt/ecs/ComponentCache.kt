@@ -25,6 +25,7 @@ class ComponentCache internal constructor(
         NovelRT.Nrt_ComponentCache_PrepAllBuffersForNextFrame(handle, entitiesToDelete.handle)
 
     fun <T> registerComponentType(definition: ComponentDefinition<T>): BufferIdentifier<T> {
+        // todo: this shouldn't be int?
         val id = UInt32Pointer(DisposalMethod.MANUAL).resultWith { myHandle, pointerHandle ->
             NovelRT.Nrt_ComponentCache_RegisterComponentTypeUnsafe(
                 myHandle,
@@ -34,7 +35,7 @@ class ComponentCache internal constructor(
                 pointerHandle
             )
         }
-        return BufferIdentifier(definition, id)
+        return BufferIdentifier(definition, id.toULong())
     }
 
     fun <T> getComponentBufferById(identifier: BufferIdentifier<T>): ComponentBuffer<T> {

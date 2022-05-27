@@ -15,8 +15,8 @@ class TextRect internal constructor(handle: Long, isOwned: Boolean) :
 
     override val transform: Transform = object : Transform() {
         override var nativeTransform: ObjectHandle<NovelRT.NrtTransform>
-            get() = ObjectHandle(NovelRT.`Nrt_TextRect_getTransform$Raw`(handle))
-            set(value) = NovelRT.`Nrt_TextRect_setTransform$Raw`(this@TextRect.handle, value.value).handleNrtResult()
+            get() = ObjectHandle(NovelRT.`Nrt_TextRect_getTransformRaw`(handle))
+            set(value) = NovelRT.`Nrt_TextRect_setTransformRaw`(this@TextRect.handle, value.value).handleNrtResult()
     }
 
     override var layer: Int

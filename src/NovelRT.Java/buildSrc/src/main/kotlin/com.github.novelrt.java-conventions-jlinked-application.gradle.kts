@@ -10,7 +10,7 @@ tasks.assemble {
 }
 
 val copyNovelrtLauncher by tasks.registering(Copy::class) {
-  from(novelrtRootPath.resolve("build/src/NovelRT.JavaBootstrapper"))
+  from(novelrtRootPath.resolve("build/src/NovelRT.JavaBootstrapper/Debug"))
   exclude("CMakeFiles")
   exclude("cmake_install.cmake")
   into(jlink.imageDir)

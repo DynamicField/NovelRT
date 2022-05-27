@@ -14,7 +14,7 @@ class Texture internal constructor(handle: Long) : KotlinNativeObject(handle, fa
         get() = Path(getNative(NovelRT::Nrt_Texture_getTextureFile, StringDeletionBehaviour.NO_DELETE))
 
     val size: GeoVector2F
-        get() = NovelRT.`Nrt_Texture_getSize$Raw`(handle)
+        get() = NovelRT.`Nrt_Texture_getSizeRaw`(handle)
             .toObjectHandle<NovelRT.NrtGeoVector2F>()
             .scope(NovelRT.NrtGeoVector2F::destroyStruct, GeoVector2F.Companion::fromHandle)
 

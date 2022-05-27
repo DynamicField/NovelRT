@@ -12,8 +12,8 @@ class ComponentBuffer<T> internal constructor(
     isOwned: Boolean
 ) : KotlinNativeObject(handle, isOwned, NovelRT::Nrt_ComponentBufferMemoryContainer_Destroy) {
     fun getComponent(entity: EntityId): T {
-        val output = ByteBuffer.allocate(definition.size)
-        retrieveComponent(handle, entity.toLong(), definition.size, output.array()).handleNrtResult()
+        val output = ByteBuffer.allocate(definition.size.toInt())
+        retrieveComponent(handle, entity.toLong(), definition.size.toInt(), output.array()).handleNrtResult()
         return definition.deserialize(output)
     }
 
@@ -23,7 +23,7 @@ class ComponentBuffer<T> internal constructor(
 
             NovelRT.Nrt_ComponentBufferMemoryContainer_PushComponentUpdateInstruction(
                 handle,
-                poolId.toInt(),
+                poolId.toLong(),
                 entity.toInt(),
                 memory.address
             ).handleNrtResult()

@@ -16,9 +16,9 @@ class BasicInteractionRect internal constructor(handle: Long, isOwned: Boolean) 
     override val transform: Transform
         get() = object : Transform() {
             override var nativeTransform: ObjectHandle<NovelRT.NrtTransform>
-                get() = ObjectHandle(NovelRT.`Nrt_Input_BasicInteractionRect_getTransform$Raw`(handle))
+                get() = ObjectHandle(NovelRT.`Nrt_Input_BasicInteractionRect_getTransformRaw`(handle))
                 set(value) =
-                    NovelRT.`Nrt_Input_BasicInteractionRect_setTransform$Raw`(
+                    NovelRT.`Nrt_Input_BasicInteractionRect_setTransformRaw`(
                         this@BasicInteractionRect.handle,
                         value.value
                     ).handleNrtResult()

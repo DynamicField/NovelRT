@@ -17,9 +17,9 @@ class BasicFillRect internal constructor(handle: Long, isOwned: Boolean) :
 
     override val transform: Transform = object : Transform() {
         override var nativeTransform: ObjectHandle<NovelRT.NrtTransform>
-            get() = ObjectHandle(NovelRT.`Nrt_BasicFillRect_getTransform$Raw`(handle))
+            get() = ObjectHandle(NovelRT.Nrt_BasicFillRect_getTransformRaw(handle))
             set(value) =
-                NovelRT.`Nrt_BasicFillRect_setTransform$Raw`(this@BasicFillRect.handle, value.value).handleNrtResult()
+                NovelRT.Nrt_BasicFillRect_setTransformRaw(this@BasicFillRect.handle, value.value).handleNrtResult()
     }
 
     override var layer: Int

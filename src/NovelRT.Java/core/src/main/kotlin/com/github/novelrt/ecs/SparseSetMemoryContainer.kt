@@ -12,32 +12,32 @@ class SparseSetMemoryContainer<T>(private val definition: ComponentDefinition<T>
     NovelRT::Nrt_SparseSetMemoryContainer_Destroy
 ) {
     fun insert(key: SparseSetKey, value: T) {
-        val output = ByteBuffer.allocate(definition.size)
+        val output = ByteBuffer.allocate(definition.size.toInt())
         definition.serialize(value, output)
 
         insertBytes(handle, key.toInt(), output.array()).handleNrtResult()
     }
 
     fun tryInsert(key: SparseSetKey, value: T): Boolean {
-        val output = ByteBuffer.allocate(definition.size)
+        val output = ByteBuffer.allocate(definition.size.toInt())
         definition.serialize(value, output)
 
         return tryInsertBytes(handle, key.toInt(), output.array())
     }
 
-    fun remove(key: SparseSetKey) = NovelRT.Nrt_SparseSetMemoryContainer_Remove(handle, key.toInt()).handleNrtResult()
+    fun remove(key: SparseSetKey) = NovelRT.Nrt_SparseSetMemoryContainer_Remove(handle, key.toLong()).handleNrtResult()
 
-    fun tryRemove(key: SparseSetKey) = NovelRT.Nrt_SparseSetMemoryContainer_TryRemove(handle, key.toInt()).toBoolean()
+    fun tryRemove(key: SparseSetKey) = NovelRT.Nrt_SparseSetMemoryContainer_TryRemove(handle, key.toLong()).toBoolean()
 
     fun clear() = NovelRT.Nrt_SparseSetMemoryContainer_Clear(handle)
 
     fun containsKey(key: SparseSetKey) =
-        NovelRT.Nrt_SparseSetMemoryContainer_ContainsKey(handle, key.toInt()).toBoolean()
+        NovelRT.Nrt_SparseSetMemoryContainer_ContainsKey(handle, key.toLong()).toBoolean()
 
     operator fun get(key: SparseSetKey): T {
         val output = definition.createEmpty()
 
-        val viewHandle = NovelRT.Nrt_SparseSetMemoryContainer_Indexer(handle, key.toInt())
+        val viewHandle = NovelRT.Nrt_SparseSetMemoryContainer_Indexer(handle, key.toLong())
         ByteIteratorView(viewHandle, false, DisposalMethod.MANUAL).use { view ->
             MemoryAllocator.allocate(definition.size).scope { span ->
                 view.copyFromLocation(span.address)
@@ -52,7 +52,7 @@ class SparseSetMemoryContainer<T>(private val definition: ComponentDefinition<T>
         if (!containsKey(key)) {
             throw IllegalArgumentException("Cannot overwrite the value attached to $key because it is not present.")
         }
-        val viewHandle = NovelRT.Nrt_SparseSetMemoryContainer_Indexer(handle, key.toInt())
+        val viewHandle = NovelRT.Nrt_SparseSetMemoryContainer_Indexer(handle, key.toLong())
         ByteIteratorView(viewHandle, false, DisposalMethod.MANUAL).use { view ->
             MemoryAllocator.allocate(definition.size).scope { span ->
                 definition.deserialize(value, span.buffer)
@@ -61,7 +61,7 @@ class SparseSetMemoryContainer<T>(private val definition: ComponentDefinition<T>
         }
     }
 
-    val length: Int get() = NovelRT.Nrt_SparseSetMemoryContainer_Length(handle)
+    val length: Long get() = NovelRT.Nrt_SparseSetMemoryContainer_Length(handle)
 
     internal class ByteIteratorView(
         handle: Long,

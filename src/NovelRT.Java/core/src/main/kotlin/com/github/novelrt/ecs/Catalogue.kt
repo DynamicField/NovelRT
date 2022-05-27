@@ -24,10 +24,10 @@ class Catalogue internal constructor(
      * as a delete instruction).
      */
     constructor(poolId: PoolId, componentCache: ComponentCache, entityCache: EntityCache) : this(
-        NovelRT.Nrt_Catalogue_Create(poolId.toInt(), componentCache.handle, entityCache.handle), true
+        NovelRT.Nrt_Catalogue_Create(poolId.toLong(), componentCache.handle, entityCache.handle), true
     )
 
-    fun createEntity(): EntityId = NovelRT.Nrt_Catalogue_CreateEntity(handle).toUInt()
+    fun createEntity(): EntityId = NovelRT.Nrt_Catalogue_CreateEntity(handle).toULong()
     fun deleteEntity(entity: EntityId) = NovelRT.Nrt_Catalogue_DeleteEntity(handle, entity.toInt()).handleNrtResult()
 
     companion object : SingleTrackingContainer<Catalogue>(NativeObjectTracker.Target.UNOWNED_OBJECTS) {

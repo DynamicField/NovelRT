@@ -8,7 +8,7 @@ import com.github.novelrt.nativedata.MemorySpan
 import java.nio.ByteBuffer
 
 // Natively, components are expressed as byte arrays (char*).
-abstract class ComponentDefinition<T>(val size: Int) {
+abstract class ComponentDefinition<T>(val size: Long) {
     abstract fun createEmpty(): T
     abstract val deleteState: T
     abstract fun serialize(component: T, buffer: ByteBuffer)
@@ -35,7 +35,7 @@ abstract class ComponentDefinition<T>(val size: Int) {
     private fun createNativeUpdateApplier(): FunctionPointer<ComponentUpdatePtr> {
         return FunctionPointer(
             ComponentUpdatePtr { rootComponentHandle, updateComponentHandle, size ->
-                val retrieveBuffer = ByteBuffer.allocate(size * 2)
+                val retrieveBuffer = ByteBuffer.allocate((size * 2).toInt())
                 retrieveUpdateComponentData(rootComponentHandle, updateComponentHandle, size, retrieveBuffer.array())
 
                 val rootComponent = deserialize(retrieveBuffer)
@@ -62,8 +62,8 @@ abstract class ComponentDefinition<T>(val size: Int) {
          * * The [output] buffer must have a total size of `size * 2`
          */
         @JvmStatic
-        private external fun retrieveUpdateComponentData(root: Long, update: Long, size: Int, output: ByteArray)
+        private external fun retrieveUpdateComponentData(root: Long, update: Long, size: Long, output: ByteArray)
         @JvmStatic
-        private external fun overwriteComponent(handle: Long, size: Int, newData: ByteArray)
+        private external fun overwriteComponent(handle: Long, size: Long, newData: ByteArray)
     }
 }

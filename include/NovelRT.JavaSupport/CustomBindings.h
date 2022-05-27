@@ -111,7 +111,7 @@ extern "C"
     }
 
     JNIEXPORT jint JNICALL
-    Java_com_github_novelrt_ecs_ComponentBufferMemoryContainer_retrieveComponent(JNIEnv* env,
+    Java_com_github_novelrt_ecs_ComponentBuffer_retrieveComponent(JNIEnv* env,
                                                                                  jclass,
                                                                                  jlong handle,
                                                                                  jlong entity,

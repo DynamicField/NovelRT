@@ -16,7 +16,7 @@ class EntityCache internal constructor(
      * Constructs a new instance of EntityCache with the given thread pool size.
      * @param poolSize The amount of worker threads to allocate for.
      */
-    constructor(poolSize: PoolId) : this(NovelRT.Nrt_EntityCache_Create(poolSize.toInt()), true)
+    constructor(poolSize: PoolId) : this(NovelRT.Nrt_EntityCache_Create(poolSize.toLong()), true)
 
     /**
      * Queues an entity for removal in the next frame.
@@ -25,7 +25,7 @@ class EntityCache internal constructor(
      * @param entityToRemove The EntityId to delete.
      */
     fun removeEntity(poolId: PoolId, entityToRemove: EntityId) =
-        NovelRT.Nrt_EntityCache_RemoveEntity(handle, poolId.toInt(), entityToRemove.toInt())
+        NovelRT.Nrt_EntityCache_RemoveEntity(handle, poolId.toLong(), entityToRemove.toInt())
 
     /**
      * Propagates deletion requests from worker threads to the main thread. Once this is called, the data can
