@@ -25,7 +25,7 @@ class EntityCache internal constructor(
      * @param entityToRemove The EntityId to delete.
      */
     fun removeEntity(poolId: PoolId, entityToRemove: EntityId) =
-        NovelRT.Nrt_EntityCache_RemoveEntity(handle, poolId.toLong(), entityToRemove.toInt())
+        NovelRT.Nrt_EntityCache_RemoveEntity(handle, poolId.toLong(), entityToRemove.toLong())
 
     /**
      * Propagates deletion requests from worker threads to the main thread. Once this is called, the data can

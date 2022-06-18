@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.ByteArrayOutputStream
 
 plugins {
   id("com.github.novelrt.java-conventions-jlinked-application")
@@ -16,7 +17,17 @@ val moduleName by extra("novelrt.sample.kotlin")
 application {
   mainModule.set("novelrt.sample.kotlin")
   mainClass.set("com.github.novelrt.sample.kotlin.MainKt")
+  applicationDefaultJvmArgs = listOf(
+    "-XX:+UnlockDiagnosticVMOptions",
+    "-XX:PrintAssemblyOptions=intel",
+    "-Xbatch",
+    "-XX:+LogCompilation",
+    "-XX:+PrintAssembly",
+    "-XX:LogFile=build/last_run.log"
+     // "-XX:CompileCommand=print, *MainKt.main"
+  )
 }
+
 
 tasks {
   prepareMergedJarsDir {
@@ -27,12 +38,4 @@ tasks {
 description = "NovelRT for Java - Sample in Kotlin"
 repositories {
   mavenCentral()
-}
-val compileKotlin: KotlinCompile by tasks
-compileKotlin.kotlinOptions {
-  jvmTarget = "1.8"
-}
-val compileTestKotlin: KotlinCompile by tasks
-compileTestKotlin.kotlinOptions {
-  jvmTarget = "1.8"
 }

@@ -28,7 +28,7 @@ class Catalogue internal constructor(
     )
 
     fun createEntity(): EntityId = NovelRT.Nrt_Catalogue_CreateEntity(handle).toULong()
-    fun deleteEntity(entity: EntityId) = NovelRT.Nrt_Catalogue_DeleteEntity(handle, entity.toInt()).handleNrtResult()
+    fun deleteEntity(entity: EntityId) = NovelRT.Nrt_Catalogue_DeleteEntity(handle, entity.toLong()).handleNrtResult()
 
     companion object : SingleTrackingContainer<Catalogue>(NativeObjectTracker.Target.UNOWNED_OBJECTS) {
         override fun makeObject(handle: ObjectHandle<Catalogue>): Catalogue = Catalogue(handle.value, false)

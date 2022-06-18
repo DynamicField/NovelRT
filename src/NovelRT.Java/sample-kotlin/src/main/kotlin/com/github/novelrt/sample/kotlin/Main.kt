@@ -1,73 +1,107 @@
 package com.github.novelrt.sample.kotlin
 
-import com.github.novelrt.NovelRTLoader
-import com.github.novelrt.NovelRunner
-import com.github.novelrt.Transform
-import com.github.novelrt.ecs.Catalogue
 import com.github.novelrt.ecs.ComponentDefinition
-import com.github.novelrt.ecs.SystemScheduler
-import com.github.novelrt.graphics.RGBAColour
-import com.github.novelrt.input.KeyCode
-import com.github.novelrt.maths.GeoVector2F
-import com.github.novelrt.timing.Timestamp
-import com.github.novelrt.windowing.WindowMode
-import java.nio.ByteBuffer
-import kotlin.io.path.Path
-import kotlin.io.path.exists
-import kotlin.math.pow
+import com.github.novelrt.nativedata.AllocatedStruct
+import com.github.novelrt.nativedata.StructArray
+import com.github.novelrt.nativedata.StructDefinition
+import com.github.novelrt.nativedata.StructField
+import com.github.novelrt.sample.kotlin.Vector3.forEach
+import kotlin.reflect.KProperty
 
-data class NiceComponent(var helloWorld: Int = 0, var fumoWorld: Int = 0, var whatTheWorld: Long = 0) {
-    companion object : ComponentDefinition<NiceComponent>(size = 16) {
-        override fun createEmpty(): NiceComponent = NiceComponent()
-        override val deleteState: NiceComponent get() = NiceComponent(-1, -1, -1)
-
-        override fun serialize(component: NiceComponent, buffer: ByteBuffer) {
-            buffer.putInt(component.helloWorld)
-                .putInt(component.fumoWorld)
-                .putLong(component.whatTheWorld)
-        }
-
-        override fun deserialize(component: NiceComponent, buffer: ByteBuffer) {
-            component.helloWorld = buffer.int
-            component.fumoWorld = buffer.int
-            component.whatTheWorld = buffer.long
-        }
-
-        override fun applyUpdate(rootComponent: NiceComponent, updateComponent: NiceComponent) {
-            rootComponent.helloWorld = updateComponent.helloWorld
-            rootComponent.fumoWorld = updateComponent.fumoWorld
-            rootComponent.whatTheWorld = updateComponent.whatTheWorld
-        }
-    }
+object Vector3 : ComponentDefinition<Vector3>() {
+    val x = floatField()
+    val y = floatField()
+    val z = floatField()
+    override val size: Long = finalSize
+    override val deleteState: AllocatedStruct<Vector3> = allocate()
 }
 
 fun main() {
-    NovelRTLoader.load()
-    mainOld()
+    sumExperiments()
     /*
+    NovelRTLoader.load()
     val scheduler = SystemScheduler(4u)
     val componentCache = scheduler.componentCache
     val catalogue = Catalogue(0u, componentCache, scheduler.entityCache)
 
-    val niceComponentTypeId = componentCache.registerComponentType(NiceComponent)
+    val niceComponentTypeId = componentCache.registerComponentType(Vector3)
     val niceComponentBuffer = componentCache.getComponentBufferById(niceComponentTypeId)
 
     val niceEntity = catalogue.createEntity()
-    niceComponentBuffer.pushComponentUpdateInstruction(0u, niceEntity, NiceComponent(1, 2, 3))
+    val tempVector = Vector3.allocateTemp().mutate {
+        set(Vector3.x, 7.2f)
+        set(Vector3.y, 4.2f)
+        set(Vector3.z, 8.2f)
+    }
+    niceComponentBuffer.pushComponentUpdateInstruction(0u, niceEntity, tempVector.move())
 
     scheduler.executeIteration(Timestamp.ZERO)
-
+    print("let's a go?")
     for (i in 1..10) {
-        benchmark("get it 1000 times") {
-            for (i in 1..1000) {
+        benchmark("get it 20000 times safe") {
+            var sum = 0.0f
+            for (j in 1..20000) {
                 niceComponentBuffer.getComponent(niceEntity)
             }
         }
     }
+    print("----")
+    for (i in 1..10) {
+        benchmark("get it 20000 times unsafe") {
+            var sum = 0.0f
+            for (j in 1..20000) {
+                niceComponentBuffer.getComponentUnsafe(niceEntity)
+            }
+        }
+    }
     */
-
 }
 
+fun sumExperiments() {
+    val array = Vector3.allocateArray(20000)
+    for (struct in array) {
+        struct.set(Vector3.x, 4f)
+        struct.set(Vector3.y, 4f)
+        struct.set(Vector3.z, 4f)
+    }
+    for (i in 1..100) {
+        benchmark("sum it 20000 times (iterator)") {
+            sumIterator(array)
+        }
+    }
+    for (i in 1..100) {
+        benchmark("sum it 20000 times (forEach)") {
+            sumForEach(array)
+        }
+    }
+}
+
+// [BENCHMARK: sum it 20000 times (iterator)] Time elapsed: 23,1000µs -> 0,0ms
+fun sumIterator(array: StructArray<Vector3>) {
+    var sum = 0.0f
+    for (struct in array) {
+        sum += struct.get(Vector3.x) + struct.get(Vector3.y) + struct.get(Vector3.z)
+    }
+}
+
+// [BENCHMARK: sum it 20000 times (forEach)] Time elapsed: 19,3000µs -> 0,0ms
+fun sumForEach(array: StructArray<Vector3>) {
+    var sum = 0.0f
+    array.forEach {
+        sum += it.get(Vector3.x) + it.get(Vector3.y) + it.get(Vector3.z)
+    }
+}
+
+inline fun benchmark(name: String, action: () -> Unit) {
+    val time = System.nanoTime()
+    action()
+    val elapsed = System.nanoTime() - time;
+    println(
+        "[BENCHMARK: %s] Time elapsed: %.4fµs -> %.1fms"
+            .format(name, elapsed.toFloat() / 1000f, elapsed.toFloat() / 1000f / 1000f)
+    )
+}
+/*
 fun oldBenchmark() {
     val buffer = ByteBuffer.allocateDirect(720_000)
     val input = NiceComponent(123, 456, 789)
@@ -175,16 +209,6 @@ fun mainOld() {
     runner.run()
 }
 
-inline fun benchmark(name: String, action: () -> Unit) {
-    val time = System.nanoTime()
-    action()
-    val elapsed = System.nanoTime() - time;
-    println(
-        "[BENCHMARK: %s] Time elapsed: %.4fµs -> %.1fms"
-            .format(name, elapsed.toFloat() / 1000f, elapsed.toFloat() / 1000f / 1000f)
-    )
-}
-
 /*
   val novelrt = NovelRunner()
 
@@ -215,3 +239,4 @@ inline fun benchmark(name: String, action: () -> Unit) {
 
   novelrt.run()
   */ // Old code
+*/

@@ -9,5 +9,5 @@ class UnsafeComponentView internal constructor(handle: Long, owned: Boolean) :
     // PushComponentUpdate - requires JNI, TODO
 
     fun removeComponent(entity: EntityId) =
-        NovelRT.Nrt_UnsafeComponentView_RemoveComponent(handle, entity.toInt()).handleNrtResult()
+        NovelRT.Nrt_UnsafeComponentView_RemoveComponent(handle, entity.toLong()).handleNrtResult()
 }

@@ -7,6 +7,7 @@ import com.github.novelrt.fumocement.NativeObject
 import com.github.novelrt.fumocement.builtin.FloatPointer
 import com.github.novelrt.fumocement.builtin.Int32Pointer
 import com.github.novelrt.fumocement.builtin.UInt32Pointer
+import com.github.novelrt.fumocement.builtin.UIntPtrPointer
 
 abstract class KotlinNativeObject internal constructor(
     handle: Long,
@@ -43,6 +44,15 @@ abstract class KotlinNativeObject internal constructor(
         this.use { output ->
             filler(this@KotlinNativeObject.handle, output.handle).handleNrtResult()
             return this.unsignedValue.toUInt()
+        }
+    }
+
+    internal inline fun UIntPtrPointer.resultWith(
+        filler: (myHandle: Long, pointerHandle: Long) -> NrtResult
+    ): Long {
+        this.use { output ->
+            filler(this@KotlinNativeObject.handle, output.handle).handleNrtResult()
+            return this.value
         }
     }
 

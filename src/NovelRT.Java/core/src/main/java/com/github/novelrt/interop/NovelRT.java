@@ -768,109 +768,124 @@ public final class NovelRT {
     }
     public interface Callback_Nrt_NovelRunner_SubscribeToUpdate_func {
         public void execute(long proxyParam0);
-        public static void runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_NovelRunner_SubscribeToUpdate_func func$callbackObject, long proxyParam0) {
+        public static void runCallback(long proxyParam0, com.github.novelrt.interop.NovelRT.Callback_Nrt_NovelRunner_SubscribeToUpdate_func func$callbackObject) {
             long proxyParam0$int = proxyParam0;
-            func$callbackObject.execute(proxyParam0$int);
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_NovelRunner_SubscribeToUpdate_func func$callbackObject$int = func$callbackObject;
+            func$callbackObject$int.execute(proxyParam0$int);
         }
     }
     public interface Callback_Nrt_NovelRunner_SubscribeToSceneConstructionRequested_func {
         public void execute();
         public static void runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_NovelRunner_SubscribeToSceneConstructionRequested_func func$callbackObject) {
-            func$callbackObject.execute();
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_NovelRunner_SubscribeToSceneConstructionRequested_func func$callbackObject$int = func$callbackObject;
+            func$callbackObject$int.execute();
         }
     }
     public interface Callback_Nrt_SpriteAnimatorFrame_addFrameEnter_func {
         public void execute();
         public static void runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_SpriteAnimatorFrame_addFrameEnter_func func$callbackObject) {
-            func$callbackObject.execute();
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_SpriteAnimatorFrame_addFrameEnter_func func$callbackObject$int = func$callbackObject;
+            func$callbackObject$int.execute();
         }
     }
     public interface Callback_Nrt_SpriteAnimatorFrame_addFrameExit_func {
         public void execute();
         public static void runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_SpriteAnimatorFrame_addFrameExit_func func$callbackObject) {
-            func$callbackObject.execute();
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_SpriteAnimatorFrame_addFrameExit_func func$callbackObject$int = func$callbackObject;
+            func$callbackObject$int.execute();
         }
     }
     public interface Callback_Nrt_ComponentBufferMemoryContainer_Create_fnPtr {
         public void execute(@Pointer("void *") long proxyParam0, @Pointer("const void *") long proxyParam1, @Unsigned long proxyParam2);
-        public static void runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_ComponentBufferMemoryContainer_Create_fnPtr func$callbackObject, long proxyParam0, long proxyParam1, long proxyParam2) {
+        public static void runCallback(long proxyParam0, long proxyParam1, long proxyParam2, com.github.novelrt.interop.NovelRT.Callback_Nrt_ComponentBufferMemoryContainer_Create_fnPtr func$callbackObject) {
             @Pointer("void *") long proxyParam0$int = proxyParam0;
             @Pointer("const void *") long proxyParam1$int = proxyParam1;
             @Unsigned long proxyParam2$int = proxyParam2;
-            func$callbackObject.execute(proxyParam0$int, proxyParam1$int, proxyParam2$int);
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_ComponentBufferMemoryContainer_Create_fnPtr func$callbackObject$int = func$callbackObject;
+            func$callbackObject$int.execute(proxyParam0$int, proxyParam1$int, proxyParam2$int);
         }
     }
     public interface Callback_Nrt_ComponentCache_RegisterComponentTypeUnsafe_updateFnPtr {
         public void execute(@Pointer("void *") long proxyParam0, @Pointer("const void *") long proxyParam1, @Unsigned long proxyParam2);
-        public static void runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_ComponentCache_RegisterComponentTypeUnsafe_updateFnPtr func$callbackObject, long proxyParam0, long proxyParam1, long proxyParam2) {
+        public static void runCallback(long proxyParam0, long proxyParam1, long proxyParam2, com.github.novelrt.interop.NovelRT.Callback_Nrt_ComponentCache_RegisterComponentTypeUnsafe_updateFnPtr func$callbackObject) {
             @Pointer("void *") long proxyParam0$int = proxyParam0;
             @Pointer("const void *") long proxyParam1$int = proxyParam1;
             @Unsigned long proxyParam2$int = proxyParam2;
-            func$callbackObject.execute(proxyParam0$int, proxyParam1$int, proxyParam2$int);
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_ComponentCache_RegisterComponentTypeUnsafe_updateFnPtr func$callbackObject$int = func$callbackObject;
+            func$callbackObject$int.execute(proxyParam0$int, proxyParam1$int, proxyParam2$int);
         }
     }
     public interface Callback_Nrt_SystemScheduler_RegisterSystem_systemUpdatePtr {
         public void execute(long proxyParam0, @Pointer("NrtCatalogueHandle") long proxyParam1);
-        public static void runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_SystemScheduler_RegisterSystem_systemUpdatePtr func$callbackObject, long proxyParam0, long proxyParam1) {
+        public static void runCallback(long proxyParam0, long proxyParam1, com.github.novelrt.interop.NovelRT.Callback_Nrt_SystemScheduler_RegisterSystem_systemUpdatePtr func$callbackObject) {
             long proxyParam0$int = proxyParam0;
             @Pointer("NrtCatalogueHandle") long proxyParam1$int = proxyParam1;
-            func$callbackObject.execute(proxyParam0$int, proxyParam1$int);
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_SystemScheduler_RegisterSystem_systemUpdatePtr func$callbackObject$int = func$callbackObject;
+            func$callbackObject$int.execute(proxyParam0$int, proxyParam1$int);
         }
     }
     public interface Callback_Nrt_Camera_setForceResizeCallback_callback {
         public void execute(@Pointer("NrtCameraHandle") long proxyParam0, com.github.novelrt.interop.NovelRT.NrtGeoVector2F proxyParam1);
-        public static void runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_Camera_setForceResizeCallback_callback func$callbackObject, long proxyParam0, long proxyParam1) {
+        public static void runCallback(long proxyParam0, long proxyParam1, com.github.novelrt.interop.NovelRT.Callback_Nrt_Camera_setForceResizeCallback_callback func$callbackObject) {
             @Pointer("NrtCameraHandle") long proxyParam0$int = proxyParam0;
             com.github.novelrt.interop.NovelRT.NrtGeoVector2F proxyParam1$int = NrtGeoVector2F.getTrackedAndOwned(proxyParam1);
-            func$callbackObject.execute(proxyParam0$int, proxyParam1$int);
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_Camera_setForceResizeCallback_callback func$callbackObject$int = func$callbackObject;
+            func$callbackObject$int.execute(proxyParam0$int, proxyParam1$int);
         }
     }
     public interface Callback_Nrt_Input_BasicInteractionRect_addInteraction_ptr {
         public void execute();
         public static void runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_Input_BasicInteractionRect_addInteraction_ptr func$callbackObject) {
-            func$callbackObject.execute();
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_Input_BasicInteractionRect_addInteraction_ptr func$callbackObject$int = func$callbackObject;
+            func$callbackObject$int.execute();
         }
     }
     public interface Callback_Nrt_SceneNode_traverseBreadthFirst_action {
         public void execute(@Pointer("NrtSceneNodeHandle") long proxyParam0);
-        public static void runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNode_traverseBreadthFirst_action func$callbackObject, long proxyParam0) {
+        public static void runCallback(long proxyParam0, com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNode_traverseBreadthFirst_action func$callbackObject) {
             @Pointer("NrtSceneNodeHandle") long proxyParam0$int = proxyParam0;
-            func$callbackObject.execute(proxyParam0$int);
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNode_traverseBreadthFirst_action func$callbackObject$int = func$callbackObject;
+            func$callbackObject$int.execute(proxyParam0$int);
         }
     }
     public interface Callback_Nrt_SceneNode_traverseBreadthFirstWithIterator_action {
         public int execute(@Pointer("NrtSceneNodeHandle") long proxyParam0);
-        public static int runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNode_traverseBreadthFirstWithIterator_action func$callbackObject, long proxyParam0) {
+        public static int runCallback(long proxyParam0, com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNode_traverseBreadthFirstWithIterator_action func$callbackObject) {
             @Pointer("NrtSceneNodeHandle") long proxyParam0$int = proxyParam0;
-            return func$callbackObject.execute(proxyParam0$int);
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNode_traverseBreadthFirstWithIterator_action func$callbackObject$int = func$callbackObject;
+            return func$callbackObject$int.execute(proxyParam0$int);
         }
     }
     public interface Callback_Nrt_SceneNode_traverseDepthFirst_action {
         public void execute(@Pointer("NrtSceneNodeHandle") long proxyParam0);
-        public static void runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNode_traverseDepthFirst_action func$callbackObject, long proxyParam0) {
+        public static void runCallback(long proxyParam0, com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNode_traverseDepthFirst_action func$callbackObject) {
             @Pointer("NrtSceneNodeHandle") long proxyParam0$int = proxyParam0;
-            func$callbackObject.execute(proxyParam0$int);
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNode_traverseDepthFirst_action func$callbackObject$int = func$callbackObject;
+            func$callbackObject$int.execute(proxyParam0$int);
         }
     }
     public interface Callback_Nrt_SceneNode_traverseDepthFirstWithIterator_action {
         public int execute(@Pointer("NrtSceneNodeHandle") long proxyParam0);
-        public static int runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNode_traverseDepthFirstWithIterator_action func$callbackObject, long proxyParam0) {
+        public static int runCallback(long proxyParam0, com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNode_traverseDepthFirstWithIterator_action func$callbackObject) {
             @Pointer("NrtSceneNodeHandle") long proxyParam0$int = proxyParam0;
-            return func$callbackObject.execute(proxyParam0$int);
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNode_traverseDepthFirstWithIterator_action func$callbackObject$int = func$callbackObject;
+            return func$callbackObject$int.execute(proxyParam0$int);
         }
     }
     public interface Callback_Nrt_SceneNodeBreadthFirstIterator_create_func {
         public int execute(@Pointer("NrtSceneNodeHandle") long proxyParam0);
-        public static int runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNodeBreadthFirstIterator_create_func func$callbackObject, long proxyParam0) {
+        public static int runCallback(long proxyParam0, com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNodeBreadthFirstIterator_create_func func$callbackObject) {
             @Pointer("NrtSceneNodeHandle") long proxyParam0$int = proxyParam0;
-            return func$callbackObject.execute(proxyParam0$int);
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNodeBreadthFirstIterator_create_func func$callbackObject$int = func$callbackObject;
+            return func$callbackObject$int.execute(proxyParam0$int);
         }
     }
     public interface Callback_Nrt_SceneNodeDepthFirstIterator_create_func {
         public int execute(@Pointer("NrtSceneNodeHandle") long proxyParam0);
-        public static int runCallback(com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNodeDepthFirstIterator_create_func func$callbackObject, long proxyParam0) {
+        public static int runCallback(long proxyParam0, com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNodeDepthFirstIterator_create_func func$callbackObject) {
             @Pointer("NrtSceneNodeHandle") long proxyParam0$int = proxyParam0;
-            return func$callbackObject.execute(proxyParam0$int);
+            com.github.novelrt.interop.NovelRT.Callback_Nrt_SceneNodeDepthFirstIterator_create_func func$callbackObject$int = func$callbackObject;
+            return func$callbackObject$int.execute(proxyParam0$int);
         }
     }
     public static native int Nrt_DebugService_createRaw(long sceneConstructionEvent, long renderingService, long outputService);
@@ -1100,10 +1115,10 @@ public final class NovelRT {
         long eventHandlerId$int = eventHandlerId;
         return Nrt_NovelRunner_SubscribeToUpdateRaw(runner$int, context$int, eventHandlerId$int);
     }
-    public static native int Nrt_NovelRunner_UnsubscribeFromUpdateRaw(long runner, int eventHandlerId);
-    public static int Nrt_NovelRunner_UnsubscribeFromUpdate(@Pointer("NrtNovelRunnerHandle") long runner, @Unsigned int eventHandlerId) {
+    public static native int Nrt_NovelRunner_UnsubscribeFromUpdateRaw(long runner, long eventHandlerId);
+    public static int Nrt_NovelRunner_UnsubscribeFromUpdate(@Pointer("NrtNovelRunnerHandle") long runner, @Unsigned long eventHandlerId) {
         long runner$int = runner;
-        int eventHandlerId$int = eventHandlerId;
+        long eventHandlerId$int = eventHandlerId;
         return Nrt_NovelRunner_UnsubscribeFromUpdateRaw(runner$int, eventHandlerId$int);
     }
     public static native int Nrt_NovelRunner_SubscribeToSceneConstructionRequestedRaw(long runner, long context, long eventHandlerId);
@@ -1113,10 +1128,10 @@ public final class NovelRT {
         long eventHandlerId$int = eventHandlerId;
         return Nrt_NovelRunner_SubscribeToSceneConstructionRequestedRaw(runner$int, context$int, eventHandlerId$int);
     }
-    public static native int Nrt_NovelRunner_UnsubscribeFromSceneConstructionRequestedRaw(long runner, int eventHandlerId);
-    public static int Nrt_NovelRunner_UnsubscribeFromSceneConstructionRequested(@Pointer("NrtNovelRunnerHandle") long runner, @Unsigned int eventHandlerId) {
+    public static native int Nrt_NovelRunner_UnsubscribeFromSceneConstructionRequestedRaw(long runner, long eventHandlerId);
+    public static int Nrt_NovelRunner_UnsubscribeFromSceneConstructionRequested(@Pointer("NrtNovelRunnerHandle") long runner, @Unsigned long eventHandlerId) {
         long runner$int = runner;
-        int eventHandlerId$int = eventHandlerId;
+        long eventHandlerId$int = eventHandlerId;
         return Nrt_NovelRunner_UnsubscribeFromSceneConstructionRequestedRaw(runner$int, eventHandlerId$int);
     }
     public static native int Nrt_NovelRunner_getUpdateEventRaw(long runner, long outputEvent);
@@ -1430,10 +1445,10 @@ public final class NovelRT {
         long service$int = service;
         return Nrt_RuntimeService_tearDownRaw(service$int);
     }
-    public static native int Nrt_RuntimeService_freeObjectRaw(long service, int obj);
-    public static int Nrt_RuntimeService_freeObject(@Pointer("NrtRuntimeServiceHandle") long service, int obj) {
+    public static native int Nrt_RuntimeService_freeObjectRaw(long service, long obj);
+    public static int Nrt_RuntimeService_freeObject(@Pointer("NrtRuntimeServiceHandle") long service, long obj) {
         long service$int = service;
-        int obj$int = obj;
+        long obj$int = obj;
         return Nrt_RuntimeService_freeObjectRaw(service$int, obj$int);
     }
     public static native int Nrt_RuntimeService_freeStringRaw(long service, byte[] str);
@@ -1455,28 +1470,28 @@ public final class NovelRT {
         long entityCache$int = entityCache;
         return Nrt_Catalogue_CreateRaw(poolId$int, componentCache$int, entityCache$int);
     }
-    public static native int Nrt_Catalogue_GetComponentViewByIdRaw(long catalogue, int componentId, long outputResult);
-    public static int Nrt_Catalogue_GetComponentViewById(@Pointer("NrtCatalogueHandle") long catalogue, @Unsigned int componentId, @Pointer("NrtUnsafeComponentViewHandle *") long outputResult) {
+    public static native int Nrt_Catalogue_GetComponentViewByIdRaw(long catalogue, long componentId, long outputResult);
+    public static int Nrt_Catalogue_GetComponentViewById(@Pointer("NrtCatalogueHandle") long catalogue, @Unsigned long componentId, @Pointer("NrtUnsafeComponentViewHandle *") long outputResult) {
         long catalogue$int = catalogue;
-        int componentId$int = componentId;
+        long componentId$int = componentId;
         long outputResult$int = outputResult;
         return Nrt_Catalogue_GetComponentViewByIdRaw(catalogue$int, componentId$int, outputResult$int);
     }
-    public static native long Nrt_Catalogue_GetComponentViewByIdUnsafeRaw(long catalogue, int componentId);
-    public static @Pointer("NrtUnsafeComponentViewHandle") long Nrt_Catalogue_GetComponentViewByIdUnsafe(@Pointer("NrtCatalogueHandle") long catalogue, @Unsigned int componentId) {
+    public static native long Nrt_Catalogue_GetComponentViewByIdUnsafeRaw(long catalogue, long componentId);
+    public static @Pointer("NrtUnsafeComponentViewHandle") long Nrt_Catalogue_GetComponentViewByIdUnsafe(@Pointer("NrtCatalogueHandle") long catalogue, @Unsigned long componentId) {
         long catalogue$int = catalogue;
-        int componentId$int = componentId;
+        long componentId$int = componentId;
         return Nrt_Catalogue_GetComponentViewByIdUnsafeRaw(catalogue$int, componentId$int);
     }
-    public static native int Nrt_Catalogue_CreateEntityRaw(long catalogue);
-    public static @Unsigned int Nrt_Catalogue_CreateEntity(@Pointer("NrtCatalogueHandle") long catalogue) {
+    public static native long Nrt_Catalogue_CreateEntityRaw(long catalogue);
+    public static @Unsigned long Nrt_Catalogue_CreateEntity(@Pointer("NrtCatalogueHandle") long catalogue) {
         long catalogue$int = catalogue;
         return Nrt_Catalogue_CreateEntityRaw(catalogue$int);
     }
-    public static native int Nrt_Catalogue_DeleteEntityRaw(long catalogue, int entity);
-    public static int Nrt_Catalogue_DeleteEntity(@Pointer("NrtCatalogueHandle") long catalogue, @Unsigned int entity) {
+    public static native int Nrt_Catalogue_DeleteEntityRaw(long catalogue, long entity);
+    public static int Nrt_Catalogue_DeleteEntity(@Pointer("NrtCatalogueHandle") long catalogue, @Unsigned long entity) {
         long catalogue$int = catalogue;
-        int entity$int = entity;
+        long entity$int = entity;
         return Nrt_Catalogue_DeleteEntityRaw(catalogue$int, entity$int);
     }
     public static native int Nrt_Catalogue_DestroyRaw(long catalogue);
@@ -1503,31 +1518,31 @@ public final class NovelRT {
         long container$int = container;
         return Nrt_ComponentBufferMemoryContainer_GetDeleteInstructionStateRaw(container$int);
     }
-    public static native int Nrt_ComponentBufferMemoryContainer_PushComponentUpdateInstructionRaw(long container, long poolId, int entity, long componentData);
-    public static int Nrt_ComponentBufferMemoryContainer_PushComponentUpdateInstruction(@Pointer("NrtComponentBufferMemoryContainerHandle") long container, @Unsigned long poolId, @Unsigned int entity, @Pointer("const void *") long componentData) {
+    public static native int Nrt_ComponentBufferMemoryContainer_PushComponentUpdateInstructionRaw(long container, long poolId, long entity, long componentData);
+    public static int Nrt_ComponentBufferMemoryContainer_PushComponentUpdateInstruction(@Pointer("NrtComponentBufferMemoryContainerHandle") long container, @Unsigned long poolId, @Unsigned long entity, @Pointer("const void *") long componentData) {
         long container$int = container;
         long poolId$int = poolId;
-        int entity$int = entity;
+        long entity$int = entity;
         long componentData$int = componentData;
         return Nrt_ComponentBufferMemoryContainer_PushComponentUpdateInstructionRaw(container$int, poolId$int, entity$int, componentData$int);
     }
-    public static native int Nrt_ComponentBufferMemoryContainer_GetComponentRaw(long container, int entity, long outputResult);
-    public static int Nrt_ComponentBufferMemoryContainer_GetComponent(@Pointer("NrtComponentBufferMemoryContainerHandle") long container, @Unsigned int entity, @Pointer("NrtComponentBufferMemoryContainer_ImmutableDataViewHandle *") long outputResult) {
+    public static native int Nrt_ComponentBufferMemoryContainer_GetComponentRaw(long container, long entity, long outputResult);
+    public static int Nrt_ComponentBufferMemoryContainer_GetComponent(@Pointer("NrtComponentBufferMemoryContainerHandle") long container, @Unsigned long entity, @Pointer("NrtComponentBufferMemoryContainer_ImmutableDataViewHandle *") long outputResult) {
         long container$int = container;
-        int entity$int = entity;
+        long entity$int = entity;
         long outputResult$int = outputResult;
         return Nrt_ComponentBufferMemoryContainer_GetComponentRaw(container$int, entity$int, outputResult$int);
     }
-    public static native long Nrt_ComponentBufferMemoryContainer_GetComponentUnsafeRaw(long container, int entity);
-    public static @Pointer("NrtComponentBufferMemoryContainer_ImmutableDataViewHandle") long Nrt_ComponentBufferMemoryContainer_GetComponentUnsafe(@Pointer("NrtComponentBufferMemoryContainerHandle") long container, @Unsigned int entity) {
+    public static native long Nrt_ComponentBufferMemoryContainer_GetComponentUnsafeRaw(long container, long entity);
+    public static @Pointer("NrtComponentBufferMemoryContainer_ImmutableDataViewHandle") long Nrt_ComponentBufferMemoryContainer_GetComponentUnsafe(@Pointer("NrtComponentBufferMemoryContainerHandle") long container, @Unsigned long entity) {
         long container$int = container;
-        int entity$int = entity;
+        long entity$int = entity;
         return Nrt_ComponentBufferMemoryContainer_GetComponentUnsafeRaw(container$int, entity$int);
     }
-    public static native int Nrt_ComponentBufferMemoryContainer_HasComponentRaw(long container, int entity);
-    public static int Nrt_ComponentBufferMemoryContainer_HasComponent(@Pointer("NrtComponentBufferMemoryContainerHandle") long container, @Unsigned int entity) {
+    public static native int Nrt_ComponentBufferMemoryContainer_HasComponentRaw(long container, long entity);
+    public static int Nrt_ComponentBufferMemoryContainer_HasComponent(@Pointer("NrtComponentBufferMemoryContainerHandle") long container, @Unsigned long entity) {
         long container$int = container;
-        int entity$int = entity;
+        long entity$int = entity;
         return Nrt_ComponentBufferMemoryContainer_HasComponentRaw(container$int, entity$int);
     }
     public static native long Nrt_ComponentBufferMemoryContainer_GetImmutableDataLengthRaw(long container);
@@ -1574,10 +1589,10 @@ public final class NovelRT {
         long outputResult$int = outputResult;
         return Nrt_ComponentCache_RegisterComponentTypeUnsafeRaw(componentCache$int, sizeOfDataType$int, deleteInstructionState$int, context$int, outputResult$int);
     }
-    public static native int Nrt_ComponentCache_GetComponentBufferByIdRaw(long componentCache, int id, long outputResult);
-    public static int Nrt_ComponentCache_GetComponentBufferById(@Pointer("NrtComponentCacheHandle") long componentCache, @Unsigned int id, @Pointer("NrtComponentBufferMemoryContainerHandle *") long outputResult) {
+    public static native int Nrt_ComponentCache_GetComponentBufferByIdRaw(long componentCache, long id, long outputResult);
+    public static int Nrt_ComponentCache_GetComponentBufferById(@Pointer("NrtComponentCacheHandle") long componentCache, @Unsigned long id, @Pointer("NrtComponentBufferMemoryContainerHandle *") long outputResult) {
         long componentCache$int = componentCache;
-        int id$int = id;
+        long id$int = id;
         long outputResult$int = outputResult;
         return Nrt_ComponentCache_GetComponentBufferByIdRaw(componentCache$int, id$int, outputResult$int);
     }
@@ -1602,11 +1617,11 @@ public final class NovelRT {
         long entityCache$int = entityCache;
         return Nrt_EntityCache_GetEntitiesToRemoveThisFrameRaw(entityCache$int);
     }
-    public static native void Nrt_EntityCache_RemoveEntityRaw(long entityCache, long poolId, int entityToRemove);
-    public static void Nrt_EntityCache_RemoveEntity(@Pointer("NrtEntityCacheHandle") long entityCache, @Unsigned long poolId, @Unsigned int entityToRemove) {
+    public static native void Nrt_EntityCache_RemoveEntityRaw(long entityCache, long poolId, long entityToRemove);
+    public static void Nrt_EntityCache_RemoveEntity(@Pointer("NrtEntityCacheHandle") long entityCache, @Unsigned long poolId, @Unsigned long entityToRemove) {
         long entityCache$int = entityCache;
         long poolId$int = poolId;
-        int entityToRemove$int = entityToRemove;
+        long entityToRemove$int = entityToRemove;
         Nrt_EntityCache_RemoveEntityRaw(entityCache$int, poolId$int, entityToRemove$int);
     }
     public static native void Nrt_EntityCache_ProcessEntityDeletionRequestsFromThreadsRaw(long entityCache);
@@ -1623,16 +1638,16 @@ public final class NovelRT {
     public static @Pointer("NrtEntityIdVectorHandle") long Nrt_EntityIdVector_Create() {
         return Nrt_EntityIdVector_CreateRaw();
     }
-    public static native int Nrt_EntityIdVector_InsertRaw(long vector, int entity);
-    public static int Nrt_EntityIdVector_Insert(@Pointer("NrtEntityIdVectorHandle") long vector, @Unsigned int entity) {
+    public static native int Nrt_EntityIdVector_InsertRaw(long vector, long entity);
+    public static int Nrt_EntityIdVector_Insert(@Pointer("NrtEntityIdVectorHandle") long vector, @Unsigned long entity) {
         long vector$int = vector;
-        int entity$int = entity;
+        long entity$int = entity;
         return Nrt_EntityIdVector_InsertRaw(vector$int, entity$int);
     }
-    public static native int Nrt_EntityIdVector_RemoveRaw(long vector, int entity);
-    public static int Nrt_EntityIdVector_Remove(@Pointer("NrtEntityIdVectorHandle") long vector, @Unsigned int entity) {
+    public static native int Nrt_EntityIdVector_RemoveRaw(long vector, long entity);
+    public static int Nrt_EntityIdVector_Remove(@Pointer("NrtEntityIdVectorHandle") long vector, @Unsigned long entity) {
         long vector$int = vector;
-        int entity$int = entity;
+        long entity$int = entity;
         return Nrt_EntityIdVector_RemoveRaw(vector$int, entity$int);
     }
     public static native int Nrt_EntityIdVector_DeleteRaw(long vector);
@@ -1931,30 +1946,30 @@ public final class NovelRT {
         long container$int = container;
         return Nrt_UnsafeComponentView_CreateRaw(poolId$int, container$int);
     }
-    public static native int Nrt_UnsafeComponentView_PushComponentUpdateInstructionRaw(long componentView, int entity, long instructionData);
-    public static int Nrt_UnsafeComponentView_PushComponentUpdateInstruction(@Pointer("NrtUnsafeComponentViewHandle") long componentView, @Unsigned int entity, @Pointer("void *") long instructionData) {
+    public static native int Nrt_UnsafeComponentView_PushComponentUpdateInstructionRaw(long componentView, long entity, long instructionData);
+    public static int Nrt_UnsafeComponentView_PushComponentUpdateInstruction(@Pointer("NrtUnsafeComponentViewHandle") long componentView, @Unsigned long entity, @Pointer("void *") long instructionData) {
         long componentView$int = componentView;
-        int entity$int = entity;
+        long entity$int = entity;
         long instructionData$int = instructionData;
         return Nrt_UnsafeComponentView_PushComponentUpdateInstructionRaw(componentView$int, entity$int, instructionData$int);
     }
-    public static native int Nrt_UnsafeComponentView_RemoveComponentRaw(long componentView, int entity);
-    public static int Nrt_UnsafeComponentView_RemoveComponent(@Pointer("NrtUnsafeComponentViewHandle") long componentView, @Unsigned int entity) {
+    public static native int Nrt_UnsafeComponentView_RemoveComponentRaw(long componentView, long entity);
+    public static int Nrt_UnsafeComponentView_RemoveComponent(@Pointer("NrtUnsafeComponentViewHandle") long componentView, @Unsigned long entity) {
         long componentView$int = componentView;
-        int entity$int = entity;
+        long entity$int = entity;
         return Nrt_UnsafeComponentView_RemoveComponentRaw(componentView$int, entity$int);
     }
-    public static native int Nrt_UnsafeComponentView_GetComponentRaw(long componentView, int entity, long outputResult);
-    public static int Nrt_UnsafeComponentView_GetComponent(@Pointer("NrtUnsafeComponentViewHandle") long componentView, @Unsigned int entity, @Pointer("NrtComponentBufferMemoryContainer_ImmutableDataViewHandle *") long outputResult) {
+    public static native int Nrt_UnsafeComponentView_GetComponentRaw(long componentView, long entity, long outputResult);
+    public static int Nrt_UnsafeComponentView_GetComponent(@Pointer("NrtUnsafeComponentViewHandle") long componentView, @Unsigned long entity, @Pointer("NrtComponentBufferMemoryContainer_ImmutableDataViewHandle *") long outputResult) {
         long componentView$int = componentView;
-        int entity$int = entity;
+        long entity$int = entity;
         long outputResult$int = outputResult;
         return Nrt_UnsafeComponentView_GetComponentRaw(componentView$int, entity$int, outputResult$int);
     }
-    public static native long Nrt_UnsafeComponentView_GetComponentUnsafeRaw(long componentView, int entity);
-    public static @Pointer("NrtComponentBufferMemoryContainer_ImmutableDataViewHandle") long Nrt_UnsafeComponentView_GetComponentUnsafe(@Pointer("NrtUnsafeComponentViewHandle") long componentView, @Unsigned int entity) {
+    public static native long Nrt_UnsafeComponentView_GetComponentUnsafeRaw(long componentView, long entity);
+    public static @Pointer("NrtComponentBufferMemoryContainer_ImmutableDataViewHandle") long Nrt_UnsafeComponentView_GetComponentUnsafe(@Pointer("NrtUnsafeComponentViewHandle") long componentView, @Unsigned long entity) {
         long componentView$int = componentView;
-        int entity$int = entity;
+        long entity$int = entity;
         return Nrt_UnsafeComponentView_GetComponentUnsafeRaw(componentView$int, entity$int);
     }
     public static native long Nrt_UnsafeComponentView_GetImmutableDataLengthRaw(long componentView);
@@ -2022,17 +2037,17 @@ public final class NovelRT {
         long result$int = result;
         return Nrt_AudioSystem_CreateAudioRaw(system$int, fileName$int, isMusic$int, result$int);
     }
-    public static native int Nrt_AudioSystem_PushEmitterComponentUpdateRaw(long system, int entity, long emitter);
-    public static int Nrt_AudioSystem_PushEmitterComponentUpdate(@Pointer("NrtSystemSchedulerHandle") long system, @Unsigned int entity, com.github.novelrt.interop.NovelRT.NrtAudioEmitterComponent emitter) {
+    public static native int Nrt_AudioSystem_PushEmitterComponentUpdateRaw(long system, long entity, long emitter);
+    public static int Nrt_AudioSystem_PushEmitterComponentUpdate(@Pointer("NrtSystemSchedulerHandle") long system, @Unsigned long entity, com.github.novelrt.interop.NovelRT.NrtAudioEmitterComponent emitter) {
         long system$int = system;
-        int entity$int = entity;
+        long entity$int = entity;
         long emitter$int = emitter.getHandle();
         return Nrt_AudioSystem_PushEmitterComponentUpdateRaw(system$int, entity$int, emitter$int);
     }
-    public static native int Nrt_AudioSystem_PushEmitterStateComponentUpdateRaw(long system, int entity, long state);
-    public static int Nrt_AudioSystem_PushEmitterStateComponentUpdate(@Pointer("NrtSystemSchedulerHandle") long system, @Unsigned int entity, com.github.novelrt.interop.NovelRT.NrtAudioEmitterStateComponent state) {
+    public static native int Nrt_AudioSystem_PushEmitterStateComponentUpdateRaw(long system, long entity, long state);
+    public static int Nrt_AudioSystem_PushEmitterStateComponentUpdate(@Pointer("NrtSystemSchedulerHandle") long system, @Unsigned long entity, com.github.novelrt.interop.NovelRT.NrtAudioEmitterStateComponent state) {
         long system$int = system;
-        int entity$int = entity;
+        long entity$int = entity;
         long state$int = state.getHandle();
         return Nrt_AudioSystem_PushEmitterStateComponentUpdateRaw(system$int, entity$int, state$int);
     }

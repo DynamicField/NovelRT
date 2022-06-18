@@ -4,10 +4,7 @@ import com.github.novelrt.fumocement.DisposalMethod
 import com.github.novelrt.fumocement.IndirectedPointer
 import com.github.novelrt.fumocement.NativeObjectTracker
 import com.github.novelrt.fumocement.builtin.UInt32Pointer
-import com.github.novelrt.interop.KotlinNativeObject
-import com.github.novelrt.interop.NovelRT
-import com.github.novelrt.interop.ObjectHandle
-import com.github.novelrt.interop.SingleTrackingContainer
+import com.github.novelrt.interop.*
 
 class ComponentCache internal constructor(
     handle: Long,
@@ -24,31 +21,37 @@ class ComponentCache internal constructor(
     fun prepAllBuffersForNextFrame(entitiesToDelete: EntityIdVector) =
         NovelRT.Nrt_ComponentCache_PrepAllBuffersForNextFrame(handle, entitiesToDelete.handle)
 
-    fun <T> registerComponentType(definition: ComponentDefinition<T>): BufferIdentifier<T> {
-        // todo: this shouldn't be int?
+    fun <C : ComponentDefinition<C>> registerComponentType(definition: C): BufferIdentifier<C> {
         val id = UInt32Pointer(DisposalMethod.MANUAL).resultWith { myHandle, pointerHandle ->
-            NovelRT.Nrt_ComponentCache_RegisterComponentTypeUnsafe(
+            registerComponentType(
                 myHandle,
                 definition.size,
-                definition.nativeDeleteState,
-                definition.nativeUpdateApplier,
+                definition.deleteState.pointer.address,
                 pointerHandle
             )
         }
         return BufferIdentifier(definition, id.toULong())
     }
 
-    fun <T> getComponentBufferById(identifier: BufferIdentifier<T>): ComponentBuffer<T> {
+    fun <C : ComponentDefinition<C>> getComponentBufferById(identifier: BufferIdentifier<C>): ComponentBuffer<C> {
         val output = IndirectedPointer { handle -> ComponentBuffer(identifier.definition, handle, false) }
         return output.resultWith { myHandle, outputHandle ->
-            NovelRT.Nrt_ComponentCache_GetComponentBufferById(myHandle, identifier.id.toInt(), outputHandle)
+            NovelRT.Nrt_ComponentCache_GetComponentBufferById(myHandle, identifier.id.toLong(), outputHandle)
         }
     }
 
-    data class BufferIdentifier<T>(val definition: ComponentDefinition<T>, val id: ComponentTypeId)
+    data class BufferIdentifier<C : ComponentDefinition<C>>(val definition: C, val id: ComponentTypeId)
 
     companion object : SingleTrackingContainer<ComponentCache>(NativeObjectTracker.Target.UNOWNED_OBJECTS) {
         override fun makeObject(handle: ObjectHandle<ComponentCache>): ComponentCache =
             ComponentCache(handle.value, false)
+
+        @JvmStatic
+        private external fun registerComponentType(
+            cacheHandle: Long,
+            size: Long,
+            deleteState: Long,
+            resultOut: Long
+        ): NrtResult
     }
 }

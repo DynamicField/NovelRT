@@ -1,6 +1,6 @@
 module novelrt {
   requires kotlin.stdlib;
-  requires novelrt.fumocement;
+  requires transitive novelrt.fumocement;
   requires kotlin.stdlib.jdk7;
 
   exports com.github.novelrt;

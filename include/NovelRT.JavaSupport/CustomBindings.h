@@ -3,6 +3,8 @@
 #ifndef NOVELRT_CUSTOMBINDINGS_H
 #define NOVELRT_CUSTOMBINDINGS_H
 
+#include "NovelRT/Ecs/Ecs.h"
+#include "PrecompiledFunctions.h"
 #include "jni.h"
 #ifdef __cplusplus
 extern "C"
@@ -110,13 +112,12 @@ extern "C"
         env->ReleasePrimitiveArrayCritical(newData, newDataNativeArray, JNI_ABORT);
     }
 
-    JNIEXPORT jint JNICALL
-    Java_com_github_novelrt_ecs_ComponentBuffer_retrieveComponent(JNIEnv* env,
-                                                                                 jclass,
-                                                                                 jlong handle,
-                                                                                 jlong entity,
-                                                                                 jint size,
-                                                                                 jbyteArray output)
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_ecs_ComponentBuffer_retrieveComponent(JNIEnv* env,
+                                                                                         jclass,
+                                                                                         jlong handle,
+                                                                                         jlong entity,
+                                                                                         jint size,
+                                                                                         jbyteArray output)
     {
         auto* componentBuffer = reinterpret_cast<NrtComponentBufferMemoryContainerHandle>(handle);
 
@@ -134,6 +135,28 @@ extern "C"
         }
 
         return result;
+    }
+
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_ecs_ComponentCache_registerComponentType(JNIEnv*,
+                                                                                            jclass,
+                                                                                            jlong cacheHandle,
+                                                                                            jlong size,
+                                                                                            jlong deleteState,
+                                                                                            jlong resultOut)
+    {
+        return Nrt_ComponentCache_RegisterComponentTypeUnsafe(
+            reinterpret_cast<NrtComponentCacheHandle>(cacheHandle), size, reinterpret_cast<void*>(deleteState),
+            &NovelRT::JavaSupport::updateComponent, nullptr, reinterpret_cast<NrtComponentTypeId*>(resultOut));
+    }
+
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_ecs_ComponentBuffer_getComponentHandleUnsafe(JNIEnv*,
+                                                                                                 jclass,
+                                                                                                 jlong bufferHandle,
+                                                                                                 jlong entityId)
+    {
+        auto container = reinterpret_cast<NovelRT::Ecs::ComponentBufferMemoryContainer*>(bufferHandle);
+        return FumoCement::toJavaPointer(
+            container->GetComponentUnsafe(static_cast<NrtEntityId>(entityId)).GetDataHandle());
     }
 #ifdef __cplusplus
 }
