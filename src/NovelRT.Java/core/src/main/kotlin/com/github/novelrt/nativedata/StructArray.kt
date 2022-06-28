@@ -1,6 +1,6 @@
 package com.github.novelrt.nativedata
 
-import com.github.novelrt.fumocement.NativeMemory
+import com.github.novelrt.fumocement.memory.NativeMemory
 
 class StructArray<S : StructDefinition<S>> internal constructor(val definition: S, start: Long, end: Long, owned: Boolean) :
     NativeArray(start, end, owned) {
@@ -11,7 +11,7 @@ class StructArray<S : StructDefinition<S>> internal constructor(val definition: 
 
     constructor(definition: S, itemCount: Long) : this(
         definition,
-        NativeMemory.allocateMemory(definition.size * itemCount),
+        NativeMemory.access().allocateMemory(definition.size * itemCount),
         itemCount
     )
 

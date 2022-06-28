@@ -3,6 +3,7 @@
 package com.github.novelrt.interop;
 
 import com.github.novelrt.fumocement.*;
+import com.github.novelrt.fumocement.layout.*;
 import java.nio.charset.*;
 
 @SuppressWarnings("ALL")
@@ -283,7 +284,7 @@ public final class NovelRT {
         public static native long getXRaw(long handle);
         public com.github.novelrt.interop.NovelRT.NrtGeoVector4F getX() {
             long struct$ptr = getHandle();
-            return NrtGeoVector4F.getTrackedAndUnowned(getXRaw(struct$ptr));
+            return NovelRT.NrtGeoVector4F.getTrackedAndUnowned(getXRaw(struct$ptr));
         }
         public static native void setXRaw(long handle, long newValue);
         public void setX(com.github.novelrt.interop.NovelRT.NrtGeoVector4F newValue) {
@@ -294,7 +295,7 @@ public final class NovelRT {
         public static native long getYRaw(long handle);
         public com.github.novelrt.interop.NovelRT.NrtGeoVector4F getY() {
             long struct$ptr = getHandle();
-            return NrtGeoVector4F.getTrackedAndUnowned(getYRaw(struct$ptr));
+            return NovelRT.NrtGeoVector4F.getTrackedAndUnowned(getYRaw(struct$ptr));
         }
         public static native void setYRaw(long handle, long newValue);
         public void setY(com.github.novelrt.interop.NovelRT.NrtGeoVector4F newValue) {
@@ -305,7 +306,7 @@ public final class NovelRT {
         public static native long getZRaw(long handle);
         public com.github.novelrt.interop.NovelRT.NrtGeoVector4F getZ() {
             long struct$ptr = getHandle();
-            return NrtGeoVector4F.getTrackedAndUnowned(getZRaw(struct$ptr));
+            return NovelRT.NrtGeoVector4F.getTrackedAndUnowned(getZRaw(struct$ptr));
         }
         public static native void setZRaw(long handle, long newValue);
         public void setZ(com.github.novelrt.interop.NovelRT.NrtGeoVector4F newValue) {
@@ -316,7 +317,7 @@ public final class NovelRT {
         public static native long getWRaw(long handle);
         public com.github.novelrt.interop.NovelRT.NrtGeoVector4F getW() {
             long struct$ptr = getHandle();
-            return NrtGeoVector4F.getTrackedAndUnowned(getWRaw(struct$ptr));
+            return NovelRT.NrtGeoVector4F.getTrackedAndUnowned(getWRaw(struct$ptr));
         }
         public static native void setWRaw(long handle, long newValue);
         public void setW(com.github.novelrt.interop.NovelRT.NrtGeoVector4F newValue) {
@@ -362,7 +363,7 @@ public final class NovelRT {
         public static native long getPositionRaw(long handle);
         public com.github.novelrt.interop.NovelRT.NrtGeoVector2F getPosition() {
             long struct$ptr = getHandle();
-            return NrtGeoVector2F.getTrackedAndUnowned(getPositionRaw(struct$ptr));
+            return NovelRT.NrtGeoVector2F.getTrackedAndUnowned(getPositionRaw(struct$ptr));
         }
         public static native void setPositionRaw(long handle, long newValue);
         public void setPosition(com.github.novelrt.interop.NovelRT.NrtGeoVector2F newValue) {
@@ -373,7 +374,7 @@ public final class NovelRT {
         public static native long getSizeRaw(long handle);
         public com.github.novelrt.interop.NovelRT.NrtGeoVector2F getSize() {
             long struct$ptr = getHandle();
-            return NrtGeoVector2F.getTrackedAndUnowned(getSizeRaw(struct$ptr));
+            return NovelRT.NrtGeoVector2F.getTrackedAndUnowned(getSizeRaw(struct$ptr));
         }
         public static native void setSizeRaw(long handle, long newValue);
         public void setSize(com.github.novelrt.interop.NovelRT.NrtGeoVector2F newValue) {
@@ -430,7 +431,7 @@ public final class NovelRT {
         public static native long getPositionRaw(long handle);
         public com.github.novelrt.interop.NovelRT.NrtGeoVector2F getPosition() {
             long struct$ptr = getHandle();
-            return NrtGeoVector2F.getTrackedAndUnowned(getPositionRaw(struct$ptr));
+            return NovelRT.NrtGeoVector2F.getTrackedAndUnowned(getPositionRaw(struct$ptr));
         }
         public static native void setPositionRaw(long handle, long newValue);
         public void setPosition(com.github.novelrt.interop.NovelRT.NrtGeoVector2F newValue) {
@@ -441,7 +442,7 @@ public final class NovelRT {
         public static native long getScaleRaw(long handle);
         public com.github.novelrt.interop.NovelRT.NrtGeoVector2F getScale() {
             long struct$ptr = getHandle();
-            return NrtGeoVector2F.getTrackedAndUnowned(getScaleRaw(struct$ptr));
+            return NovelRT.NrtGeoVector2F.getTrackedAndUnowned(getScaleRaw(struct$ptr));
         }
         public static native void setScaleRaw(long handle, long newValue);
         public void setScale(com.github.novelrt.interop.NovelRT.NrtGeoVector2F newValue) {
@@ -767,9 +768,9 @@ public final class NovelRT {
         public static final int NRT_WINDOW_MODE_FULLSCREEN = 2;
     }
     public interface Callback_Nrt_NovelRunner_SubscribeToUpdate_func {
-        public void execute(long proxyParam0);
+        public void execute(@Unsigned long proxyParam0);
         public static void runCallback(long proxyParam0, com.github.novelrt.interop.NovelRT.Callback_Nrt_NovelRunner_SubscribeToUpdate_func func$callbackObject) {
-            long proxyParam0$int = proxyParam0;
+            @Unsigned long proxyParam0$int = proxyParam0;
             com.github.novelrt.interop.NovelRT.Callback_Nrt_NovelRunner_SubscribeToUpdate_func func$callbackObject$int = func$callbackObject;
             func$callbackObject$int.execute(proxyParam0$int);
         }
@@ -816,9 +817,9 @@ public final class NovelRT {
         }
     }
     public interface Callback_Nrt_SystemScheduler_RegisterSystem_systemUpdatePtr {
-        public void execute(long proxyParam0, @Pointer("NrtCatalogueHandle") long proxyParam1);
+        public void execute(@Unsigned long proxyParam0, @Pointer("NrtCatalogueHandle") long proxyParam1);
         public static void runCallback(long proxyParam0, long proxyParam1, com.github.novelrt.interop.NovelRT.Callback_Nrt_SystemScheduler_RegisterSystem_systemUpdatePtr func$callbackObject) {
-            long proxyParam0$int = proxyParam0;
+            @Unsigned long proxyParam0$int = proxyParam0;
             @Pointer("NrtCatalogueHandle") long proxyParam1$int = proxyParam1;
             com.github.novelrt.interop.NovelRT.Callback_Nrt_SystemScheduler_RegisterSystem_systemUpdatePtr func$callbackObject$int = func$callbackObject;
             func$callbackObject$int.execute(proxyParam0$int, proxyParam1$int);
@@ -828,7 +829,7 @@ public final class NovelRT {
         public void execute(@Pointer("NrtCameraHandle") long proxyParam0, com.github.novelrt.interop.NovelRT.NrtGeoVector2F proxyParam1);
         public static void runCallback(long proxyParam0, long proxyParam1, com.github.novelrt.interop.NovelRT.Callback_Nrt_Camera_setForceResizeCallback_callback func$callbackObject) {
             @Pointer("NrtCameraHandle") long proxyParam0$int = proxyParam0;
-            com.github.novelrt.interop.NovelRT.NrtGeoVector2F proxyParam1$int = NrtGeoVector2F.getTrackedAndOwned(proxyParam1);
+            com.github.novelrt.interop.NovelRT.NrtGeoVector2F proxyParam1$int = NovelRT.NrtGeoVector2F.getTrackedAndOwned(proxyParam1);
             com.github.novelrt.interop.NovelRT.Callback_Nrt_Camera_setForceResizeCallback_callback func$callbackObject$int = func$callbackObject;
             func$callbackObject$int.execute(proxyParam0$int, proxyParam1$int);
         }
@@ -1196,12 +1197,12 @@ public final class NovelRT {
         return Nrt_SpriteAnimatorFrame_setTextureRaw(frame$int, texture$int);
     }
     public static native long Nrt_SpriteAnimatorFrame_getDurationRaw(long frame);
-    public static long Nrt_SpriteAnimatorFrame_getDuration(@Pointer("NrtSpriteAnimatorFrameHandle") long frame) {
+    public static @Unsigned long Nrt_SpriteAnimatorFrame_getDuration(@Pointer("NrtSpriteAnimatorFrameHandle") long frame) {
         long frame$int = frame;
         return Nrt_SpriteAnimatorFrame_getDurationRaw(frame$int);
     }
     public static native int Nrt_SpriteAnimatorFrame_setDurationRaw(long frame, long timestamp);
-    public static int Nrt_SpriteAnimatorFrame_setDuration(@Pointer("NrtSpriteAnimatorFrameHandle") long frame, long timestamp) {
+    public static int Nrt_SpriteAnimatorFrame_setDuration(@Pointer("NrtSpriteAnimatorFrameHandle") long frame, @Unsigned long timestamp) {
         long frame$int = frame;
         long timestamp$int = timestamp;
         return Nrt_SpriteAnimatorFrame_setDurationRaw(frame$int, timestamp$int);
@@ -1925,7 +1926,7 @@ public final class NovelRT {
         Nrt_SystemScheduler_SpinThreadsRaw(systemScheduler$int);
     }
     public static native int Nrt_SystemScheduler_ExecuteIterationRaw(long systemScheduler, long delta);
-    public static int Nrt_SystemScheduler_ExecuteIteration(@Pointer("NrtSystemSchedulerHandle") long systemScheduler, long delta) {
+    public static int Nrt_SystemScheduler_ExecuteIteration(@Pointer("NrtSystemSchedulerHandle") long systemScheduler, @Unsigned long delta) {
         long systemScheduler$int = systemScheduler;
         long delta$int = delta;
         return Nrt_SystemScheduler_ExecuteIterationRaw(systemScheduler$int, delta$int);
@@ -2023,7 +2024,7 @@ public final class NovelRT {
         return Nrt_AudioSystem_RegisterDefaultAudioComponentsRaw(system$int);
     }
     public static native int Nrt_AudioSystem_UpdateRaw(long delta, long catalogue, long context);
-    public static int Nrt_AudioSystem_Update(long delta, @Pointer("NrtCatalogueHandle") long catalogue, @Pointer("void *") long context) {
+    public static int Nrt_AudioSystem_Update(@Unsigned long delta, @Pointer("NrtCatalogueHandle") long catalogue, @Pointer("void *") long context) {
         long delta$int = delta;
         long catalogue$int = catalogue;
         long context$int = context;
@@ -2054,7 +2055,7 @@ public final class NovelRT {
     public static native long Nrt_BasicFillRect_getTransformRaw(long rect);
     public static com.github.novelrt.interop.NovelRT.NrtTransform Nrt_BasicFillRect_getTransform(@Pointer("NrtBasicFillRectHandle") long rect) {
         long rect$int = rect;
-        return NrtTransform.getTrackedAndOwned(Nrt_BasicFillRect_getTransformRaw(rect$int));
+        return NovelRT.NrtTransform.getTrackedAndOwned(Nrt_BasicFillRect_getTransformRaw(rect$int));
     }
     public static native int Nrt_BasicFillRect_setTransformRaw(long rect, long inputTransform);
     public static int Nrt_BasicFillRect_setTransform(@Pointer("NrtBasicFillRectHandle") long rect, com.github.novelrt.interop.NovelRT.NrtTransform inputTransform) {
@@ -2119,7 +2120,7 @@ public final class NovelRT {
     public static native long Nrt_Camera_getViewMatrixRaw(long camera);
     public static com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F Nrt_Camera_getViewMatrix(@Pointer("NrtCameraHandle") long camera) {
         long camera$int = camera;
-        return NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_Camera_getViewMatrixRaw(camera$int));
+        return NovelRT.NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_Camera_getViewMatrixRaw(camera$int));
     }
     public static native int Nrt_Camera_setViewMatrixRaw(long camera, long inputMatrix);
     public static int Nrt_Camera_setViewMatrix(@Pointer("NrtCameraHandle") long camera, com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F inputMatrix) {
@@ -2130,7 +2131,7 @@ public final class NovelRT {
     public static native long Nrt_Camera_getProjectionMatrixRaw(long camera);
     public static com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F Nrt_Camera_getProjectionMatrix(@Pointer("NrtCameraHandle") long camera) {
         long camera$int = camera;
-        return NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_Camera_getProjectionMatrixRaw(camera$int));
+        return NovelRT.NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_Camera_getProjectionMatrixRaw(camera$int));
     }
     public static native int Nrt_Camera_setProjectionMatrixRaw(long camera, long inputMatrix);
     public static int Nrt_Camera_setProjectionMatrix(@Pointer("NrtCameraHandle") long camera, com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F inputMatrix) {
@@ -2141,7 +2142,7 @@ public final class NovelRT {
     public static native long Nrt_Camera_getCameraUboMatrixRaw(long camera);
     public static com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F Nrt_Camera_getCameraUboMatrix(@Pointer("NrtCameraHandle") long camera) {
         long camera$int = camera;
-        return NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_Camera_getCameraUboMatrixRaw(camera$int));
+        return NovelRT.NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_Camera_getCameraUboMatrixRaw(camera$int));
     }
     public static native int Nrt_Camera_getFrameStateRaw(long camera);
     public static int Nrt_Camera_getFrameState(@Pointer("NrtCameraHandle") long camera) {
@@ -2191,7 +2192,7 @@ public final class NovelRT {
     public static native long Nrt_ImageRect_getTransformRaw(long rect);
     public static com.github.novelrt.interop.NovelRT.NrtTransform Nrt_ImageRect_getTransform(@Pointer("NrtImageRectHandle") long rect) {
         long rect$int = rect;
-        return NrtTransform.getTrackedAndOwned(Nrt_ImageRect_getTransformRaw(rect$int));
+        return NovelRT.NrtTransform.getTrackedAndOwned(Nrt_ImageRect_getTransformRaw(rect$int));
     }
     public static native int Nrt_ImageRect_setTransformRaw(long rect, long inputTransform);
     public static int Nrt_ImageRect_setTransform(@Pointer("NrtImageRectHandle") long rect, com.github.novelrt.interop.NovelRT.NrtTransform inputTransform) {
@@ -2444,7 +2445,7 @@ public final class NovelRT {
     public static native long Nrt_TextRect_getTransformRaw(long rect);
     public static com.github.novelrt.interop.NovelRT.NrtTransform Nrt_TextRect_getTransform(@Pointer("NrtTextRectHandle") long rect) {
         long rect$int = rect;
-        return NrtTransform.getTrackedAndOwned(Nrt_TextRect_getTransformRaw(rect$int));
+        return NovelRT.NrtTransform.getTrackedAndOwned(Nrt_TextRect_getTransformRaw(rect$int));
     }
     public static native int Nrt_TextRect_setTransformRaw(long rect, long inputTransform);
     public static int Nrt_TextRect_setTransform(@Pointer("NrtTextRectHandle") long rect, com.github.novelrt.interop.NovelRT.NrtTransform inputTransform) {
@@ -2543,7 +2544,7 @@ public final class NovelRT {
     public static native long Nrt_Texture_getSizeRaw(long targetTexture);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_Texture_getSize(@Pointer("NrtTextureHandle") long targetTexture) {
         long targetTexture$int = targetTexture;
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_Texture_getSizeRaw(targetTexture$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_Texture_getSizeRaw(targetTexture$int));
     }
     public static native int Nrt_InkService_initialiseRaw(long service);
     public static int Nrt_InkService_initialise(@Pointer("NrtInkServiceHandle") long service) {
@@ -2606,7 +2607,7 @@ public final class NovelRT {
     public static native long Nrt_Input_BasicInteractionRect_getTransformRaw(long object);
     public static com.github.novelrt.interop.NovelRT.NrtTransform Nrt_Input_BasicInteractionRect_getTransform(@Pointer("NrtBasicInteractionRectHandle") long object) {
         long object$int = object;
-        return NrtTransform.getTrackedAndOwned(Nrt_Input_BasicInteractionRect_getTransformRaw(object$int));
+        return NovelRT.NrtTransform.getTrackedAndOwned(Nrt_Input_BasicInteractionRect_getTransformRaw(object$int));
     }
     public static native int Nrt_Input_BasicInteractionRect_setTransformRaw(long object, long transform);
     public static int Nrt_Input_BasicInteractionRect_setTransform(@Pointer("NrtBasicInteractionRectHandle") long object, com.github.novelrt.interop.NovelRT.NrtTransform transform) {
@@ -2713,29 +2714,29 @@ public final class NovelRT {
     }
     public static native long Nrt_GeoBounds_zeroRaw();
     public static com.github.novelrt.interop.NovelRT.NrtGeoBounds Nrt_GeoBounds_zero() {
-        return NrtGeoBounds.getTrackedAndOwned(Nrt_GeoBounds_zeroRaw());
+        return NovelRT.NrtGeoBounds.getTrackedAndOwned(Nrt_GeoBounds_zeroRaw());
     }
     public static native long Nrt_GeoBounds_GetAABBFromTransformRaw(long transform);
     public static com.github.novelrt.interop.NovelRT.NrtGeoBounds Nrt_GeoBounds_GetAABBFromTransform(com.github.novelrt.interop.NovelRT.NrtTransform transform) {
         long transform$int = transform.getHandle();
-        return NrtGeoBounds.getTrackedAndOwned(Nrt_GeoBounds_GetAABBFromTransformRaw(transform$int));
+        return NovelRT.NrtGeoBounds.getTrackedAndOwned(Nrt_GeoBounds_GetAABBFromTransformRaw(transform$int));
     }
     public static native long Nrt_GeoBounds_FromTransformRaw(long transform);
     public static com.github.novelrt.interop.NovelRT.NrtGeoBounds Nrt_GeoBounds_FromTransform(com.github.novelrt.interop.NovelRT.NrtTransform transform) {
         long transform$int = transform.getHandle();
-        return NrtGeoBounds.getTrackedAndOwned(Nrt_GeoBounds_FromTransformRaw(transform$int));
+        return NovelRT.NrtGeoBounds.getTrackedAndOwned(Nrt_GeoBounds_FromTransformRaw(transform$int));
     }
     public static native long Nrt_GeoBounds_getCornerInLocalSpaceRaw(long bounds, int index);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoBounds_getCornerInLocalSpace(com.github.novelrt.interop.NovelRT.NrtGeoBounds bounds, int index) {
         long bounds$int = bounds.getHandle();
         int index$int = index;
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoBounds_getCornerInLocalSpaceRaw(bounds$int, index$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoBounds_getCornerInLocalSpaceRaw(bounds$int, index$int));
     }
     public static native long Nrt_GeoBounds_getCornerInWorldSpaceRaw(long bounds, int index);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoBounds_getCornerInWorldSpace(com.github.novelrt.interop.NovelRT.NrtGeoBounds bounds, int index) {
         long bounds$int = bounds.getHandle();
         int index$int = index;
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoBounds_getCornerInWorldSpaceRaw(bounds$int, index$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoBounds_getCornerInWorldSpaceRaw(bounds$int, index$int));
     }
     public static native int Nrt_GeoBounds_pointIsWithinBoundsRaw(long bounds, long point);
     public static int Nrt_GeoBounds_pointIsWithinBounds(com.github.novelrt.interop.NovelRT.NrtGeoBounds bounds, com.github.novelrt.interop.NovelRT.NrtGeoVector2F point) {
@@ -2746,7 +2747,7 @@ public final class NovelRT {
     public static native long Nrt_GeoBounds_getExtentsRaw(long bounds);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoBounds_getExtents(com.github.novelrt.interop.NovelRT.NrtGeoBounds bounds) {
         long bounds$int = bounds.getHandle();
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoBounds_getExtentsRaw(bounds$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoBounds_getExtentsRaw(bounds$int));
     }
     public static native int Nrt_GeoBounds_intersectsWithRaw(long first, long other, long outputResult);
     public static int Nrt_GeoBounds_intersectsWith(com.github.novelrt.interop.NovelRT.NrtGeoBounds first, com.github.novelrt.interop.NovelRT.NrtGeoBounds other, @Pointer("NrtBool *") long outputResult) {
@@ -2775,15 +2776,15 @@ public final class NovelRT {
     public static native long Nrt_GeoVector2F_uniformRaw(float value);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoVector2F_uniform(float value) {
         float value$int = value;
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_uniformRaw(value$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_uniformRaw(value$int));
     }
     public static native long Nrt_GeoVector2F_zeroRaw();
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoVector2F_zero() {
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_zeroRaw());
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_zeroRaw());
     }
     public static native long Nrt_GeoVector2F_oneRaw();
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoVector2F_one() {
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_oneRaw());
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_oneRaw());
     }
     public static native void Nrt_GeoVector2F_rotateToAngleAroundPointRaw(long vector, float angleRotationValue, long point);
     public static void Nrt_GeoVector2F_rotateToAngleAroundPoint(@Pointer("NrtGeoVector2F *") long vector, float angleRotationValue, com.github.novelrt.interop.NovelRT.NrtGeoVector2F point) {
@@ -2802,7 +2803,7 @@ public final class NovelRT {
     public static native long Nrt_GeoVector2F_getNormalisedRaw(long vector);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoVector2F_getNormalised(com.github.novelrt.interop.NovelRT.NrtGeoVector2F vector) {
         long vector$int = vector.getHandle();
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_getNormalisedRaw(vector$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_getNormalisedRaw(vector$int));
     }
     public static native float Nrt_GeoVector2F_getLengthRaw(long vector);
     public static float Nrt_GeoVector2F_getLength(com.github.novelrt.interop.NovelRT.NrtGeoVector2F vector) {
@@ -2854,49 +2855,49 @@ public final class NovelRT {
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoVector2F_addVector(com.github.novelrt.interop.NovelRT.NrtGeoVector2F lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector2F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_addVectorRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_addVectorRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector2F_subtractVectorRaw(long lhs, long rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoVector2F_subtractVector(com.github.novelrt.interop.NovelRT.NrtGeoVector2F lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector2F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_subtractVectorRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_subtractVectorRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector2F_multiplyVectorRaw(long lhs, long rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoVector2F_multiplyVector(com.github.novelrt.interop.NovelRT.NrtGeoVector2F lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector2F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_multiplyVectorRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_multiplyVectorRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector2F_divideVectorRaw(long lhs, long rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoVector2F_divideVector(com.github.novelrt.interop.NovelRT.NrtGeoVector2F lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector2F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_divideVectorRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_divideVectorRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector2F_addFloatRaw(long lhs, float rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoVector2F_addFloat(com.github.novelrt.interop.NovelRT.NrtGeoVector2F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_addFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_addFloatRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector2F_subtractFloatRaw(long lhs, float rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoVector2F_subtractFloat(com.github.novelrt.interop.NovelRT.NrtGeoVector2F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_subtractFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_subtractFloatRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector2F_multiplyFloatRaw(long lhs, float rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoVector2F_multiplyFloat(com.github.novelrt.interop.NovelRT.NrtGeoVector2F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_multiplyFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_multiplyFloatRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector2F_divideFloatRaw(long lhs, float rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_GeoVector2F_divideFloat(com.github.novelrt.interop.NovelRT.NrtGeoVector2F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_divideFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_GeoVector2F_divideFloatRaw(lhs$int, rhs$int));
     }
     public static native void Nrt_GeoVector2F_addAssignVectorRaw(long lhs, long rhs);
     public static void Nrt_GeoVector2F_addAssignVector(@Pointer("NrtGeoVector2F *") long lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector2F rhs) {
@@ -2949,7 +2950,7 @@ public final class NovelRT {
     public static native long Nrt_GeoVector3F_createFromGeoVector2FRaw(long vector);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector3F Nrt_GeoVector3F_createFromGeoVector2F(com.github.novelrt.interop.NovelRT.NrtGeoVector2F vector) {
         long vector$int = vector.getHandle();
-        return NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_createFromGeoVector2FRaw(vector$int));
+        return NovelRT.NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_createFromGeoVector2FRaw(vector$int));
     }
     public static native int Nrt_GeoVector3F_isNaNRaw(long vector);
     public static int Nrt_GeoVector3F_isNaN(com.github.novelrt.interop.NovelRT.NrtGeoVector3F vector) {
@@ -2959,15 +2960,15 @@ public final class NovelRT {
     public static native long Nrt_GeoVector3F_uniformRaw(float value);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector3F Nrt_GeoVector3F_uniform(float value) {
         float value$int = value;
-        return NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_uniformRaw(value$int));
+        return NovelRT.NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_uniformRaw(value$int));
     }
     public static native long Nrt_GeoVector3F_zeroRaw();
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector3F Nrt_GeoVector3F_zero() {
-        return NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_zeroRaw());
+        return NovelRT.NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_zeroRaw());
     }
     public static native long Nrt_GeoVector3F_oneRaw();
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector3F Nrt_GeoVector3F_one() {
-        return NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_oneRaw());
+        return NovelRT.NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_oneRaw());
     }
     public static native void Nrt_GeoVector3F_rotateToAngleAroundPointRaw(long vector, float angleRotationValue, long point);
     public static void Nrt_GeoVector3F_rotateToAngleAroundPoint(@Pointer("NrtGeoVector3F *") long vector, float angleRotationValue, com.github.novelrt.interop.NovelRT.NrtGeoVector3F point) {
@@ -2986,7 +2987,7 @@ public final class NovelRT {
     public static native long Nrt_GeoVector3F_getNormalisedRaw(long vector);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector3F Nrt_GeoVector3F_getNormalised(com.github.novelrt.interop.NovelRT.NrtGeoVector3F vector) {
         long vector$int = vector.getHandle();
-        return NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_getNormalisedRaw(vector$int));
+        return NovelRT.NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_getNormalisedRaw(vector$int));
     }
     public static native float Nrt_GeoVector3F_getLengthRaw(long vector);
     public static float Nrt_GeoVector3F_getLength(com.github.novelrt.interop.NovelRT.NrtGeoVector3F vector) {
@@ -3038,49 +3039,49 @@ public final class NovelRT {
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector3F Nrt_GeoVector3F_addVector(com.github.novelrt.interop.NovelRT.NrtGeoVector3F lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector3F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_addVectorRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_addVectorRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector3F_subtractVectorRaw(long lhs, long rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector3F Nrt_GeoVector3F_subtractVector(com.github.novelrt.interop.NovelRT.NrtGeoVector3F lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector3F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_subtractVectorRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_subtractVectorRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector3F_multiplyVectorRaw(long lhs, long rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector3F Nrt_GeoVector3F_multiplyVector(com.github.novelrt.interop.NovelRT.NrtGeoVector3F lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector3F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_multiplyVectorRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_multiplyVectorRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector3F_divideVectorRaw(long lhs, long rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector3F Nrt_GeoVector3F_divideVector(com.github.novelrt.interop.NovelRT.NrtGeoVector3F lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector3F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_divideVectorRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_divideVectorRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector3F_addFloatRaw(long lhs, float rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector3F Nrt_GeoVector3F_addFloat(com.github.novelrt.interop.NovelRT.NrtGeoVector3F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_addFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_addFloatRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector3F_subtractFloatRaw(long lhs, float rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector3F Nrt_GeoVector3F_subtractFloat(com.github.novelrt.interop.NovelRT.NrtGeoVector3F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_subtractFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_subtractFloatRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector3F_multiplyFloatRaw(long lhs, float rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector3F Nrt_GeoVector3F_multiplyFloat(com.github.novelrt.interop.NovelRT.NrtGeoVector3F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_multiplyFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_multiplyFloatRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector3F_divideFloatRaw(long lhs, float rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector3F Nrt_GeoVector3F_divideFloat(com.github.novelrt.interop.NovelRT.NrtGeoVector3F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_divideFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector3F.getTrackedAndOwned(Nrt_GeoVector3F_divideFloatRaw(lhs$int, rhs$int));
     }
     public static native void Nrt_GeoVector3F_addAssignVectorRaw(long lhs, long rhs);
     public static void Nrt_GeoVector3F_addAssignVector(@Pointer("NrtGeoVector3F *") long lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector3F rhs) {
@@ -3133,12 +3134,12 @@ public final class NovelRT {
     public static native long Nrt_GeoVector4F_createFromGeoVector2FRaw(long vector);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector4F Nrt_GeoVector4F_createFromGeoVector2F(com.github.novelrt.interop.NovelRT.NrtGeoVector2F vector) {
         long vector$int = vector.getHandle();
-        return NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_createFromGeoVector2FRaw(vector$int));
+        return NovelRT.NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_createFromGeoVector2FRaw(vector$int));
     }
     public static native long Nrt_GeoVector4F_createFromGeoVector3FRaw(long vector);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector4F Nrt_GeoVector4F_createFromGeoVector3F(com.github.novelrt.interop.NovelRT.NrtGeoVector3F vector) {
         long vector$int = vector.getHandle();
-        return NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_createFromGeoVector3FRaw(vector$int));
+        return NovelRT.NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_createFromGeoVector3FRaw(vector$int));
     }
     public static native int Nrt_GeoVector4F_isNaNRaw(long vector);
     public static int Nrt_GeoVector4F_isNaN(com.github.novelrt.interop.NovelRT.NrtGeoVector4F vector) {
@@ -3148,15 +3149,15 @@ public final class NovelRT {
     public static native long Nrt_GeoVector4F_uniformRaw(float value);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector4F Nrt_GeoVector4F_uniform(float value) {
         float value$int = value;
-        return NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_uniformRaw(value$int));
+        return NovelRT.NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_uniformRaw(value$int));
     }
     public static native long Nrt_GeoVector4F_zeroRaw();
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector4F Nrt_GeoVector4F_zero() {
-        return NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_zeroRaw());
+        return NovelRT.NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_zeroRaw());
     }
     public static native long Nrt_GeoVector4F_oneRaw();
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector4F Nrt_GeoVector4F_one() {
-        return NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_oneRaw());
+        return NovelRT.NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_oneRaw());
     }
     public static native void Nrt_GeoVector4F_rotateToAngleAroundPointRaw(long vector, float angleRotationValue, long point);
     public static void Nrt_GeoVector4F_rotateToAngleAroundPoint(@Pointer("NrtGeoVector4F *const") long vector, float angleRotationValue, com.github.novelrt.interop.NovelRT.NrtGeoVector3F point) {
@@ -3175,7 +3176,7 @@ public final class NovelRT {
     public static native long Nrt_GeoVector4F_getNormalisedRaw(long vector);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector4F Nrt_GeoVector4F_getNormalised(com.github.novelrt.interop.NovelRT.NrtGeoVector4F vector) {
         long vector$int = vector.getHandle();
-        return NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_getNormalisedRaw(vector$int));
+        return NovelRT.NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_getNormalisedRaw(vector$int));
     }
     public static native float Nrt_GeoVector4F_getLengthRaw(long vector);
     public static float Nrt_GeoVector4F_getLength(com.github.novelrt.interop.NovelRT.NrtGeoVector4F vector) {
@@ -3227,49 +3228,49 @@ public final class NovelRT {
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector4F Nrt_GeoVector4F_addVector(com.github.novelrt.interop.NovelRT.NrtGeoVector4F lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector4F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_addVectorRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_addVectorRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector4F_subtractVectorRaw(long lhs, long rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector4F Nrt_GeoVector4F_subtractVector(com.github.novelrt.interop.NovelRT.NrtGeoVector4F lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector4F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_subtractVectorRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_subtractVectorRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector4F_multiplyVectorRaw(long lhs, long rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector4F Nrt_GeoVector4F_multiplyVector(com.github.novelrt.interop.NovelRT.NrtGeoVector4F lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector4F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_multiplyVectorRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_multiplyVectorRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector4F_divideVectorRaw(long lhs, long rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector4F Nrt_GeoVector4F_divideVector(com.github.novelrt.interop.NovelRT.NrtGeoVector4F lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector4F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_divideVectorRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_divideVectorRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector4F_addFloatRaw(long lhs, float rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector4F Nrt_GeoVector4F_addFloat(com.github.novelrt.interop.NovelRT.NrtGeoVector4F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_addFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_addFloatRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector4F_subtractFloatRaw(long lhs, float rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector4F Nrt_GeoVector4F_subtractFloat(com.github.novelrt.interop.NovelRT.NrtGeoVector4F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_subtractFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_subtractFloatRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector4F_multiplyFloatRaw(long lhs, float rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector4F Nrt_GeoVector4F_multiplyFloat(com.github.novelrt.interop.NovelRT.NrtGeoVector4F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_multiplyFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_multiplyFloatRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoVector4F_divideFloatRaw(long lhs, float rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector4F Nrt_GeoVector4F_divideFloat(com.github.novelrt.interop.NovelRT.NrtGeoVector4F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_divideFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoVector4F.getTrackedAndOwned(Nrt_GeoVector4F_divideFloatRaw(lhs$int, rhs$int));
     }
     public static native void Nrt_GeoVector4F_addAssignVectorRaw(long lhs, long rhs);
     public static void Nrt_GeoVector4F_addAssignVector(@Pointer("NrtGeoVector4F *") long lhs, com.github.novelrt.interop.NovelRT.NrtGeoVector4F rhs) {
@@ -3326,7 +3327,7 @@ public final class NovelRT {
     }
     public static native long Nrt_GeoMatrix4x4F_getDefaultIdentityRaw();
     public static com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F Nrt_GeoMatrix4x4F_getDefaultIdentity() {
-        return NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_GeoMatrix4x4F_getDefaultIdentityRaw());
+        return NovelRT.NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_GeoMatrix4x4F_getDefaultIdentityRaw());
     }
     public static native int Nrt_GeoMatrix4x4F_equalRaw(long lhs, long rhs);
     public static int Nrt_GeoMatrix4x4F_equal(com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F lhs, com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F rhs) {
@@ -3344,19 +3345,19 @@ public final class NovelRT {
     public static com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F Nrt_GeoMatrix4x4F_addMatrix(com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F lhs, com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_GeoMatrix4x4F_addMatrixRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_GeoMatrix4x4F_addMatrixRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoMatrix4x4F_subtractMatrixRaw(long lhs, long rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F Nrt_GeoMatrix4x4F_subtractMatrix(com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F lhs, com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_GeoMatrix4x4F_subtractMatrixRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_GeoMatrix4x4F_subtractMatrixRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoMatrix4x4F_multiplyMatrixRaw(long lhs, long rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F Nrt_GeoMatrix4x4F_multiplyMatrix(com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F lhs, com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F rhs) {
         long lhs$int = lhs.getHandle();
         long rhs$int = rhs.getHandle();
-        return NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_GeoMatrix4x4F_multiplyMatrixRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_GeoMatrix4x4F_multiplyMatrixRaw(lhs$int, rhs$int));
     }
     public static native void Nrt_GeoMatrix4x4F_addAssignMatrixRaw(long lhs, long rhs);
     public static void Nrt_GeoMatrix4x4F_addAssignMatrix(@Pointer("NrtGeoMatrix4x4F *") long lhs, com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F rhs) {
@@ -3380,19 +3381,19 @@ public final class NovelRT {
     public static com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F Nrt_GeoMatrix4x4F_addFloat(com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_GeoMatrix4x4F_addFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_GeoMatrix4x4F_addFloatRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoMatrix4x4F_subtractFloatRaw(long lhs, float rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F Nrt_GeoMatrix4x4F_subtractFloat(com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_GeoMatrix4x4F_subtractFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_GeoMatrix4x4F_subtractFloatRaw(lhs$int, rhs$int));
     }
     public static native long Nrt_GeoMatrix4x4F_multiplyFloatRaw(long lhs, float rhs);
     public static com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F Nrt_GeoMatrix4x4F_multiplyFloat(com.github.novelrt.interop.NovelRT.NrtGeoMatrix4x4F lhs, float rhs) {
         long lhs$int = lhs.getHandle();
         float rhs$int = rhs;
-        return NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_GeoMatrix4x4F_multiplyFloatRaw(lhs$int, rhs$int));
+        return NovelRT.NrtGeoMatrix4x4F.getTrackedAndOwned(Nrt_GeoMatrix4x4F_multiplyFloatRaw(lhs$int, rhs$int));
     }
     public static native void Nrt_GeoMatrix4x4F_addAssignFloatRaw(long lhs, float rhs);
     public static void Nrt_GeoMatrix4x4F_addAssignFloat(@Pointer("NrtGeoMatrix4x4F *") long lhs, float rhs) {
@@ -3426,7 +3427,7 @@ public final class NovelRT {
     public static native long Nrt_QuadTree_getBoundsRaw(long tree);
     public static com.github.novelrt.interop.NovelRT.NrtGeoBounds Nrt_QuadTree_getBounds(@Pointer("const NrtQuadTreeHandle") long tree) {
         long tree$int = tree;
-        return NrtGeoBounds.getTrackedAndOwned(Nrt_QuadTree_getBoundsRaw(tree$int));
+        return NovelRT.NrtGeoBounds.getTrackedAndOwned(Nrt_QuadTree_getBoundsRaw(tree$int));
     }
     public static native int Nrt_QuadTree_getPointRaw(long tree, long index, long outputPoint);
     public static int Nrt_QuadTree_getPoint(@Pointer("const NrtQuadTreeHandle") long tree, @Unsigned long index, @Pointer("NrtQuadTreePointHandle *") long outputPoint) {
@@ -3519,7 +3520,7 @@ public final class NovelRT {
     public static native long Nrt_QuadTreePoint_getPositionRaw(long point);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_QuadTreePoint_getPosition(@Pointer("const NrtQuadTreePointHandle") long point) {
         long point$int = point;
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_QuadTreePoint_getPositionRaw(point$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_QuadTreePoint_getPositionRaw(point$int));
     }
     public static native int Nrt_QuadTreePoint_deleteRaw(long point);
     public static int Nrt_QuadTreePoint_delete(@Pointer("NrtQuadTreePointHandle") long point) {
@@ -3804,43 +3805,43 @@ public final class NovelRT {
         return Nrt_StepTimer_createRaw(targetFrameRate$int, maxSecondDelta$int, output$int);
     }
     public static native long Nrt_StepTimer_getElapsedTicksRaw(long timer);
-    public static long Nrt_StepTimer_getElapsedTicks(@Pointer("NrtStepTimerHandle") long timer) {
+    public static @Unsigned long Nrt_StepTimer_getElapsedTicks(@Pointer("NrtStepTimerHandle") long timer) {
         long timer$int = timer;
         return Nrt_StepTimer_getElapsedTicksRaw(timer$int);
     }
     public static native long Nrt_StepTimer_getTotalTicksRaw(long timer);
-    public static long Nrt_StepTimer_getTotalTicks(@Pointer("NrtStepTimerHandle") long timer) {
+    public static @Unsigned long Nrt_StepTimer_getTotalTicks(@Pointer("NrtStepTimerHandle") long timer) {
         long timer$int = timer;
         return Nrt_StepTimer_getTotalTicksRaw(timer$int);
     }
     public static native long Nrt_StepTimer_getElapsedTimeRaw(long timer);
-    public static long Nrt_StepTimer_getElapsedTime(@Pointer("NrtStepTimerHandle") long timer) {
+    public static @Unsigned long Nrt_StepTimer_getElapsedTime(@Pointer("NrtStepTimerHandle") long timer) {
         long timer$int = timer;
         return Nrt_StepTimer_getElapsedTimeRaw(timer$int);
     }
     public static native long Nrt_StepTimer_getTotalTimeRaw(long timer);
-    public static long Nrt_StepTimer_getTotalTime(@Pointer("NrtStepTimerHandle") long timer) {
+    public static @Unsigned long Nrt_StepTimer_getTotalTime(@Pointer("NrtStepTimerHandle") long timer) {
         long timer$int = timer;
         return Nrt_StepTimer_getTotalTimeRaw(timer$int);
     }
     public static native long Nrt_StepTimer_getTargetElapsedTicksRaw(long timer);
-    public static long Nrt_StepTimer_getTargetElapsedTicks(@Pointer("NrtStepTimerHandle") long timer) {
+    public static @Unsigned long Nrt_StepTimer_getTargetElapsedTicks(@Pointer("NrtStepTimerHandle") long timer) {
         long timer$int = timer;
         return Nrt_StepTimer_getTargetElapsedTicksRaw(timer$int);
     }
     public static native int Nrt_StepTimer_setTargetElapsedTicksRaw(long timer, long input);
-    public static int Nrt_StepTimer_setTargetElapsedTicks(@Pointer("NrtStepTimerHandle") long timer, long input) {
+    public static int Nrt_StepTimer_setTargetElapsedTicks(@Pointer("NrtStepTimerHandle") long timer, @Unsigned long input) {
         long timer$int = timer;
         long input$int = input;
         return Nrt_StepTimer_setTargetElapsedTicksRaw(timer$int, input$int);
     }
     public static native long Nrt_StepTimer_getTargetElapsedTimeRaw(long timer);
-    public static long Nrt_StepTimer_getTargetElapsedTime(@Pointer("NrtStepTimerHandle") long timer) {
+    public static @Unsigned long Nrt_StepTimer_getTargetElapsedTime(@Pointer("NrtStepTimerHandle") long timer) {
         long timer$int = timer;
         return Nrt_StepTimer_getTargetElapsedTimeRaw(timer$int);
     }
     public static native int Nrt_StepTimer_setTargetElapsedTimeRaw(long timer, long target);
-    public static int Nrt_StepTimer_setTargetElapsedTime(@Pointer("NrtStepTimerHandle") long timer, long target) {
+    public static int Nrt_StepTimer_setTargetElapsedTime(@Pointer("NrtStepTimerHandle") long timer, @Unsigned long target) {
         long timer$int = timer;
         long target$int = target;
         return Nrt_StepTimer_setTargetElapsedTimeRaw(timer$int, target$int);
@@ -3878,114 +3879,114 @@ public final class NovelRT {
         return Nrt_StepTimer_tickRaw(timer$int, event$int);
     }
     public static native long Nrt_Timestamp_createRaw(long ticks);
-    public static long Nrt_Timestamp_create(long ticks) {
+    public static @Unsigned long Nrt_Timestamp_create(@Unsigned long ticks) {
         long ticks$int = ticks;
         return Nrt_Timestamp_createRaw(ticks$int);
     }
     public static native int Nrt_Timestamp_isNaNRaw(long timestamp);
-    public static int Nrt_Timestamp_isNaN(long timestamp) {
+    public static int Nrt_Timestamp_isNaN(@Unsigned long timestamp) {
         long timestamp$int = timestamp;
         return Nrt_Timestamp_isNaNRaw(timestamp$int);
     }
     public static native double Nrt_Timestamp_getSecondsDoubleRaw(long timestamp);
-    public static double Nrt_Timestamp_getSecondsDouble(long timestamp) {
+    public static double Nrt_Timestamp_getSecondsDouble(@Unsigned long timestamp) {
         long timestamp$int = timestamp;
         return Nrt_Timestamp_getSecondsDoubleRaw(timestamp$int);
     }
     public static native float Nrt_Timestamp_getSecondsFloatRaw(long timestamp);
-    public static float Nrt_Timestamp_getSecondsFloat(long timestamp) {
+    public static float Nrt_Timestamp_getSecondsFloat(@Unsigned long timestamp) {
         long timestamp$int = timestamp;
         return Nrt_Timestamp_getSecondsFloatRaw(timestamp$int);
     }
     public static native long Nrt_Timestamp_zeroRaw();
-    public static long Nrt_Timestamp_zero() {
+    public static @Unsigned long Nrt_Timestamp_zero() {
         return Nrt_Timestamp_zeroRaw();
     }
     public static native long Nrt_Timestamp_fromSecondsRaw(double seconds);
-    public static long Nrt_Timestamp_fromSeconds(double seconds) {
+    public static @Unsigned long Nrt_Timestamp_fromSeconds(double seconds) {
         double seconds$int = seconds;
         return Nrt_Timestamp_fromSecondsRaw(seconds$int);
     }
     public static native long Nrt_Timestamp_addTimestampRaw(long first, long other);
-    public static long Nrt_Timestamp_addTimestamp(long first, long other) {
+    public static @Unsigned long Nrt_Timestamp_addTimestamp(@Unsigned long first, @Unsigned long other) {
         long first$int = first;
         long other$int = other;
         return Nrt_Timestamp_addTimestampRaw(first$int, other$int);
     }
     public static native long Nrt_Timestamp_subtractTimestampRaw(long first, long other);
-    public static long Nrt_Timestamp_subtractTimestamp(long first, long other) {
+    public static @Unsigned long Nrt_Timestamp_subtractTimestamp(@Unsigned long first, @Unsigned long other) {
         long first$int = first;
         long other$int = other;
         return Nrt_Timestamp_subtractTimestampRaw(first$int, other$int);
     }
     public static native long Nrt_Timestamp_multiplyTimestampRaw(long first, long other);
-    public static long Nrt_Timestamp_multiplyTimestamp(long first, long other) {
+    public static @Unsigned long Nrt_Timestamp_multiplyTimestamp(@Unsigned long first, @Unsigned long other) {
         long first$int = first;
         long other$int = other;
         return Nrt_Timestamp_multiplyTimestampRaw(first$int, other$int);
     }
     public static native long Nrt_Timestamp_divideTimestampRaw(long first, long other);
-    public static long Nrt_Timestamp_divideTimestamp(long first, long other) {
+    public static @Unsigned long Nrt_Timestamp_divideTimestamp(@Unsigned long first, @Unsigned long other) {
         long first$int = first;
         long other$int = other;
         return Nrt_Timestamp_divideTimestampRaw(first$int, other$int);
     }
     public static native void Nrt_Timestamp_addAssignTimestampRaw(long first, long other);
-    public static void Nrt_Timestamp_addAssignTimestamp(@Pointer("NrtTimestamp *") long first, long other) {
+    public static void Nrt_Timestamp_addAssignTimestamp(@Pointer("NrtTimestamp *") long first, @Unsigned long other) {
         long first$int = first;
         long other$int = other;
         Nrt_Timestamp_addAssignTimestampRaw(first$int, other$int);
     }
     public static native void Nrt_Timestamp_subtractAssignTimestampRaw(long first, long other);
-    public static void Nrt_Timestamp_subtractAssignTimestamp(@Pointer("NrtTimestamp *") long first, long other) {
+    public static void Nrt_Timestamp_subtractAssignTimestamp(@Pointer("NrtTimestamp *") long first, @Unsigned long other) {
         long first$int = first;
         long other$int = other;
         Nrt_Timestamp_subtractAssignTimestampRaw(first$int, other$int);
     }
     public static native void Nrt_Timestamp_multiplyAssignTimestampRaw(long first, long other);
-    public static void Nrt_Timestamp_multiplyAssignTimestamp(@Pointer("NrtTimestamp *") long first, long other) {
+    public static void Nrt_Timestamp_multiplyAssignTimestamp(@Pointer("NrtTimestamp *") long first, @Unsigned long other) {
         long first$int = first;
         long other$int = other;
         Nrt_Timestamp_multiplyAssignTimestampRaw(first$int, other$int);
     }
     public static native void Nrt_Timestamp_divideAssignTimestampRaw(long first, long other);
-    public static void Nrt_Timestamp_divideAssignTimestamp(@Pointer("NrtTimestamp *") long first, long other) {
+    public static void Nrt_Timestamp_divideAssignTimestamp(@Pointer("NrtTimestamp *") long first, @Unsigned long other) {
         long first$int = first;
         long other$int = other;
         Nrt_Timestamp_divideAssignTimestampRaw(first$int, other$int);
     }
     public static native int Nrt_Timestamp_lessThanRaw(long lhs, long rhs);
-    public static int Nrt_Timestamp_lessThan(long lhs, long rhs) {
+    public static int Nrt_Timestamp_lessThan(@Unsigned long lhs, @Unsigned long rhs) {
         long lhs$int = lhs;
         long rhs$int = rhs;
         return Nrt_Timestamp_lessThanRaw(lhs$int, rhs$int);
     }
     public static native int Nrt_Timestamp_lessThanOrEqualToRaw(long lhs, long rhs);
-    public static int Nrt_Timestamp_lessThanOrEqualTo(long lhs, long rhs) {
+    public static int Nrt_Timestamp_lessThanOrEqualTo(@Unsigned long lhs, @Unsigned long rhs) {
         long lhs$int = lhs;
         long rhs$int = rhs;
         return Nrt_Timestamp_lessThanOrEqualToRaw(lhs$int, rhs$int);
     }
     public static native int Nrt_Timestamp_greaterThanRaw(long lhs, long rhs);
-    public static int Nrt_Timestamp_greaterThan(long lhs, long rhs) {
+    public static int Nrt_Timestamp_greaterThan(@Unsigned long lhs, @Unsigned long rhs) {
         long lhs$int = lhs;
         long rhs$int = rhs;
         return Nrt_Timestamp_greaterThanRaw(lhs$int, rhs$int);
     }
     public static native int Nrt_Timestamp_greaterThanOrEqualToRaw(long lhs, long rhs);
-    public static int Nrt_Timestamp_greaterThanOrEqualTo(long lhs, long rhs) {
+    public static int Nrt_Timestamp_greaterThanOrEqualTo(@Unsigned long lhs, @Unsigned long rhs) {
         long lhs$int = lhs;
         long rhs$int = rhs;
         return Nrt_Timestamp_greaterThanOrEqualToRaw(lhs$int, rhs$int);
     }
     public static native int Nrt_Timestamp_equalRaw(long lhs, long rhs);
-    public static int Nrt_Timestamp_equal(long lhs, long rhs) {
+    public static int Nrt_Timestamp_equal(@Unsigned long lhs, @Unsigned long rhs) {
         long lhs$int = lhs;
         long rhs$int = rhs;
         return Nrt_Timestamp_equalRaw(lhs$int, rhs$int);
     }
     public static native int Nrt_Timestamp_notEqualRaw(long lhs, long rhs);
-    public static int Nrt_Timestamp_notEqual(long lhs, long rhs) {
+    public static int Nrt_Timestamp_notEqual(@Unsigned long lhs, @Unsigned long rhs) {
         long lhs$int = lhs;
         long rhs$int = rhs;
         return Nrt_Timestamp_notEqualRaw(lhs$int, rhs$int);
@@ -4058,6 +4059,6 @@ public final class NovelRT {
     public static native long Nrt_WindowingService_getWindowSizeRaw(long service);
     public static com.github.novelrt.interop.NovelRT.NrtGeoVector2F Nrt_WindowingService_getWindowSize(@Pointer("NrtWindowingServiceHandle") long service) {
         long service$int = service;
-        return NrtGeoVector2F.getTrackedAndOwned(Nrt_WindowingService_getWindowSizeRaw(service$int));
+        return NovelRT.NrtGeoVector2F.getTrackedAndOwned(Nrt_WindowingService_getWindowSizeRaw(service$int));
     }
 }

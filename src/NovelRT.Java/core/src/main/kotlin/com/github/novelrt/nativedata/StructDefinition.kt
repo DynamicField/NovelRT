@@ -1,6 +1,6 @@
 package com.github.novelrt.nativedata
 
-import com.github.novelrt.fumocement.NativeMemory
+import com.github.novelrt.fumocement.memory.NativeMemory
 
 abstract class StructDefinition<S : StructDefinition<S>> {
     private var currentOffset: Long = 0
@@ -38,15 +38,15 @@ abstract class StructDefinition<S : StructDefinition<S>> {
     }
 
     fun allocate(): AllocatedStruct<S> {
-        return AllocatedStruct(StructPointer(NativeMemory.allocateMemory(size)))
+        return AllocatedStruct(StructPointer(NativeMemory.access().allocateMemory(size)))
     }
 
     fun allocateTemp(): TemporaryAllocatedStruct<S> {
-        return TemporaryAllocatedStruct(NativeMemory.allocateMemory(size))
+        return TemporaryAllocatedStruct(NativeMemory.access().allocateMemory(size))
     }
 
     fun allocateRaw(): StructPointer<S> {
-        return StructPointer(NativeMemory.allocateMemory(size))
+        return StructPointer(NativeMemory.access().allocateMemory(size))
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -61,11 +61,11 @@ abstract class StructDefinition<S : StructDefinition<S>> {
     }
 
     fun StructPointer<S>.overwriteWith(other: StructPointer<S>) {
-        NativeMemory.copyMemory(address, other.address, size)
+        NativeMemory.access().copyMemory(address, other.address, size)
     }
 
     fun <S1 : StructDefinition<S1>> StructPointer<S1>.set(field: StructField<S1, S>, value: StructPointer<S>) {
-        NativeMemory.copyMemory(value.address, address + field.offset, size)
+        NativeMemory.access().copyMemory(value.address, address + field.offset, size)
     }
 
     inline fun StructArray<S>.forEach(func: (StructPointer<S>) -> Unit) {

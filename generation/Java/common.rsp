@@ -35,3 +35,6 @@ header.txt
 
 --with-librarypath
 *=NovelRT.Interop
+
+--jni-config
+jni-config.xml

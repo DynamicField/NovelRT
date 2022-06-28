@@ -31,7 +31,7 @@ data class GeoVector2F(val x: Float = 0f, val y: Float = 0f) {
         private external fun overwriteNativeFromValues(handle: Long, x: Float, y: Float)
 
         internal fun NovelRT.NrtGeoVector2F.createKotlin(): GeoVector2F = GeoVector2F(x, y)
-        internal inline fun fromHandle(handle: Long): GeoVector2F {
+        internal fun fromHandle(handle: Long): GeoVector2F {
             return GeoVector2F(
                 NovelRT.NrtGeoVector2F.getXRaw(handle),
                 NovelRT.NrtGeoVector2F.getYRaw(handle)

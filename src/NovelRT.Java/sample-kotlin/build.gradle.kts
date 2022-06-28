@@ -8,7 +8,6 @@ plugins {
 
 dependencies {
   implementation(project(":novelrt"))
-  implementation(project(":fumocement"))
   implementation(kotlin("stdlib-jdk8"))
 }
 

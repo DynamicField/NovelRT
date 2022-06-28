@@ -11,11 +11,14 @@ plugins {
 
 dependencies {
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.10")
-  implementation(project(":fumocement"))
+  // api includes the dependency transitively, which is necessary for resolving
+  // NativeObject-derived types and other inline optimizations
+  api("com.github.novelrt:fumo-cement:1.0-SNAPSHOT")
 }
 
 val moduleName by extra("novelrt")
 
+// This is a workaround to make modular kotlin code work.
 tasks {
   compileJava {
     inputs.property("moduleName", moduleName)
@@ -28,7 +31,7 @@ tasks {
 description = "NovelRT for Java - Core"
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions {
-  jvmTarget = "1.8"
+  jvmTarget = "17"
 }
 val compileTestKotlin: KotlinCompile by tasks
 compileTestKotlin.kotlinOptions {

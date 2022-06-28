@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<JniGenerationConfiguration xmlns="https://novelrt.org/jni-generation-config">
+  <MethodRule Pattern="(get|set)(Transform|Size)">
+    <ExposeRawMethod>true</ExposeRawMethod>
+  </MethodRule>
+</JniGenerationConfiguration>
