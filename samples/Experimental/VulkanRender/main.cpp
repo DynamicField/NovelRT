@@ -1,13 +1,13 @@
 // Copyright © Matt Jones and Contributors. Licensed under the MIT Licence (MIT). See LICENCE.md in the repository root
 // for more information.
 
-#include <NovelRT.h>
+#include <NovelRT/NovelRT.h>
 #include <memory>
 
-using namespace NovelRT::Experimental::Windowing::Glfw;
-using namespace NovelRT::Experimental::Windowing;
-using namespace NovelRT::Experimental::Graphics::Vulkan;
-using namespace NovelRT::Experimental::Graphics;
+using namespace NovelRT::Windowing::Glfw;
+using namespace NovelRT::Windowing;
+using namespace NovelRT::Graphics::Vulkan;
+using namespace NovelRT::Graphics;
 
 std::vector<uint8_t> LoadSpv(std::filesystem::path relativeTarget)
 {
@@ -40,7 +40,17 @@ int main()
     NovelRT::EngineConfig::EnableDebugOutputFromEngineInternals() = false;
     NovelRT::EngineConfig::MinimumInternalLoggingLevel() = NovelRT::LogLevel::Warn;
 
-    auto device = std::shared_ptr<IWindowingDevice>(new GlfwWindowingDevice());
+    NovelRT::LoggingService logger = NovelRT::LoggingService();
+    logger.setLogLevel(NovelRT::LogLevel::Info);
+
+#if NOVELRT_MOLTENVK_VENDORED
+    auto icdPath = NovelRT::Utilities::Misc::getExecutablePath() / "MoltenVK_icd.json";
+    setenv("VK_ICD_FILENAMES", icdPath.c_str(), 0);
+    logger.logInfo("macOS detected - setting VK_ICD_FILENAMES to path: {}", icdPath.c_str());
+#endif
+
+    auto window = new GlfwWindowingDevice();
+    auto device = std::shared_ptr<IWindowingDevice>(window);
 
     device->Initialise(NovelRT::Windowing::WindowMode::Windowed, NovelRT::Maths::GeoVector2F(400, 400));
 
@@ -52,12 +62,20 @@ int main()
 
     std::shared_ptr<GraphicsAdapter> adapter = selector.GetDefaultRecommendedAdapter(vulkanProvider, surfaceContext);
 
-    auto gfxDevice = adapter->CreateDevice(surfaceContext, 1);
+    auto gfxDevice = adapter->CreateDevice(surfaceContext, 2);
     auto gfxContext = gfxDevice->GetCurrentContext();
+
+    auto vertexStagingBuffer = gfxDevice->GetMemoryAllocator()->CreateBufferWithDefaultArguments(
+        GraphicsBufferKind::Default, GraphicsResourceAccess::Write, GraphicsResourceAccess::Read, 64 * 1024);
+    auto textureStagingBuffer = gfxDevice->GetMemoryAllocator()->CreateBufferWithDefaultArguments(
+        GraphicsBufferKind::Default, GraphicsResourceAccess::Write, GraphicsResourceAccess::Read, 64 * 1024 * 4);
+    auto vertexBuffer = gfxDevice->GetMemoryAllocator()->CreateBufferWithDefaultArguments(
+        GraphicsBufferKind::Vertex, GraphicsResourceAccess::None, GraphicsResourceAccess::Write, 64 * 1024);
 
     auto vertShaderData = LoadSpv("vert.spv");
     auto pixelShaderData = LoadSpv("frag.spv");
 
+    gfxContext->BeginFrame();
     std::vector<GraphicsPipelineInputElement> elements{
         GraphicsPipelineInputElement(typeid(NovelRT::Maths::GeoVector3F), GraphicsPipelineInputElementKind::Position,
                                      12),
@@ -68,28 +86,20 @@ int main()
     std::vector<GraphicsPipelineResource> resources{
         GraphicsPipelineResource(GraphicsPipelineResourceKind::Texture, ShaderProgramVisibility::Pixel)};
 
+    auto signature = gfxDevice->CreatePipelineSignature(
+        GraphicsPipelineBlendFactor::SrcAlpha, GraphicsPipelineBlendFactor::OneMinusSrcAlpha, inputs, resources);
     auto vertShaderProg = gfxDevice->CreateShaderProgram("main", ShaderProgramKind::Vertex, vertShaderData);
     auto pixelShaderProg = gfxDevice->CreateShaderProgram("main", ShaderProgramKind::Pixel, pixelShaderData);
-    auto signature = gfxDevice->CreatePipelineSignature(inputs, resources);
     auto pipeline = gfxDevice->CreatePipeline(signature, vertShaderProg, pixelShaderProg);
     auto dummyRegion = GraphicsMemoryRegion<GraphicsResource>(0, nullptr, gfxDevice, false, 0, 0);
 
-    auto vertexBuffer = gfxDevice->GetMemoryAllocator()->CreateBufferWithDefaultArguments(
-        GraphicsBufferKind::Vertex, GraphicsResourceAccess::None, GraphicsResourceAccess::Write, 64 * 1024);
-    auto vertexStagingBuffer = gfxDevice->GetMemoryAllocator()->CreateBufferWithDefaultArguments(
-        GraphicsBufferKind::Default, GraphicsResourceAccess::Write, GraphicsResourceAccess::Read, 64 * 1024);
-    auto textureStagingBuffer = gfxDevice->GetMemoryAllocator()->CreateBufferWithDefaultArguments(
-        GraphicsBufferKind::Default, GraphicsResourceAccess::Write, GraphicsResourceAccess::Read, 64 * 1024 * 4);
-
     auto vertexBufferRegion = vertexBuffer->Allocate(sizeof(TexturedVertex) * 3, 16);
 
-    gfxDevice->Signal(gfxContext->GetFence());
-    gfxContext->BeginFrame();
     auto pVertexBuffer = vertexStagingBuffer->Map<TexturedVertex>(vertexBufferRegion);
 
-    pVertexBuffer[0] = TexturedVertex{NovelRT::Maths::GeoVector3F(0, 1, 0), NovelRT::Maths::GeoVector2F(1.0f, 0.0f)};
-    pVertexBuffer[1] = TexturedVertex{NovelRT::Maths::GeoVector3F(1, -1, 0), NovelRT::Maths::GeoVector2F(0.0f, 1.0f)};
-    pVertexBuffer[2] = TexturedVertex{NovelRT::Maths::GeoVector3F(-1, -1, 0), NovelRT::Maths::GeoVector2F(0.0f, 0.0f)};
+    pVertexBuffer[0] = TexturedVertex{NovelRT::Maths::GeoVector3F(0, 1, 0), NovelRT::Maths::GeoVector2F(0.5f, 0.0f)};
+    pVertexBuffer[1] = TexturedVertex{NovelRT::Maths::GeoVector3F(1, -1, 0), NovelRT::Maths::GeoVector2F(1.0f, 1.0f)};
+    pVertexBuffer[2] = TexturedVertex{NovelRT::Maths::GeoVector3F(-1, -1, 0), NovelRT::Maths::GeoVector2F(0.0f, 1.0f)};
 
     vertexStagingBuffer->UnmapAndWrite(vertexBufferRegion);
     gfxContext->Copy(vertexBuffer, vertexStagingBuffer);
@@ -101,8 +111,8 @@ int main()
     uint32_t cellHeight = textureHeight / 8;
 
     auto texture2D = gfxContext->GetDevice()->GetMemoryAllocator()->CreateTextureWithDefaultArguments(
-        GraphicsTextureKind::TwoDimensional, GraphicsResourceAccess::None, GraphicsResourceAccess::Write, textureWidth,
-        textureHeight);
+        GraphicsTextureAddressMode::Repeat, GraphicsTextureKind::TwoDimensional, GraphicsResourceAccess::None,
+        GraphicsResourceAccess::Write, textureWidth, textureHeight);
     auto texture2DRegion = texture2D->Allocate(texture2D->GetSize(), 4);
     auto pTextureData = textureStagingBuffer->Map<uint32_t>(texture2DRegion);
 
@@ -119,17 +129,27 @@ int main()
     std::vector<GraphicsMemoryRegion<GraphicsResource>> inputResourceRegions{texture2DRegion};
 
     gfxContext->Copy(texture2D, textureStagingBuffer);
-    auto primitive = gfxDevice->CreatePrimitive(pipeline, vertexBufferRegion, sizeof(TexturedVertex), dummyRegion, 0,
-                                                inputResourceRegions);
-    gfxContext->BeginDrawing(NovelRT::Graphics::RGBAColour(0, 0, 255, 255));
-    gfxContext->Draw(primitive);
-    gfxContext->EndDrawing();
     gfxContext->EndFrame();
-    gfxDevice->PresentFrame();
-
+    gfxDevice->Signal(gfxContext->GetFence());
     gfxDevice->WaitForIdle();
 
-    int dummy = 0;
-    std::cin >> dummy;
+    while (!device->GetShouldClose())
+    {
+        device->ProcessAllMessages();
+        if (device->GetIsVisible())
+        {
+            auto context = gfxDevice->GetCurrentContext();
+            context->BeginFrame();
+            context->BeginDrawing(NovelRT::Graphics::RGBAColour(0, 0, 255, 255));
+            auto primitive = gfxDevice->CreatePrimitive(pipeline, vertexBufferRegion, sizeof(TexturedVertex),
+                                                        dummyRegion, 0, inputResourceRegions);
+            context->Draw(primitive);
+            context->EndDrawing();
+            context->EndFrame();
+            gfxDevice->PresentFrame();
+            gfxDevice->WaitForIdle();
+        }
+    }
+
     return 0;
 }

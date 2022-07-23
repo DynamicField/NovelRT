@@ -12,12 +12,8 @@ namespace NovelRT::ResourceManagement
 {
     class ResourceLoader : public std::enable_shared_from_this<ResourceLoader>
     {
-    private:
-        std::filesystem::path _resourcesRootDirectory = Utilities::Misc::getExecutableDirPath() / "Resources";
-
     protected:
-        [[nodiscard]] virtual std::vector<std::vector<uint8_t>> LoadTextureInternal(std::filesystem::path filePath) = 0;
-        [[nodiscard]] virtual std::vector<uint8_t> LoadShaderSourceInternal(std::filesystem::path filePath) = 0;
+        std::filesystem::path _resourcesRootDirectory = Utilities::Misc::getExecutableDirPath() / "Resources";
 
     public:
         [[nodiscard]] inline std::filesystem::path& ResourcesRootDirectory() noexcept
@@ -30,15 +26,33 @@ namespace NovelRT::ResourceManagement
             return _resourcesRootDirectory;
         }
 
-        [[nodiscard]] inline std::vector<std::vector<uint8_t>> LoadTexture(const std::string& fileName)
-        {
-            return LoadTextureInternal(_resourcesRootDirectory / "Textures" / fileName);
-        }
+        /**
+         * @brief Loads a texture from a file on a given path.
+         *
+         * The path can be either relative or absolute.
+         * When using a relative path it will look in the Resources/Images directory.
+         *
+         * @param filePath Relative or absolute path to the texture.
+         * @returns TextureMetadata The texture data contained in the file.
+         * @exception NovelRT::Exceptions::FileNotFoundException if there is no file at the specified location.
+         */
+        [[nodiscard]] virtual TextureMetadata LoadTextureFromFile(std::filesystem::path filePath) = 0;
 
-        [[nodiscard]] inline std::vector<uint8_t> LoadShaderSource(const std::string& fileName)
-        {
-            return LoadShaderSourceInternal(_resourcesRootDirectory / "Shaders" / fileName);
-        }
+        /**
+         * @brief Loads shader from a file on a given path.
+         *
+         * The path can be either relative or absolute.
+         * When using a relative path it will look in the Resources/Shaders directory.
+         *
+         * @param filePath Relative or absolute path to the shader.
+         * @returns std::vector<uint8_t> Shader data as a memory block that was contained in the file.
+         * @exception NovelRT::Exceptions::FileNotFoundException if there is no file at the specified location.
+         */
+        [[nodiscard]] virtual std::vector<uint8_t> LoadShaderSource(std::filesystem::path filePath) = 0;
+
+        [[nodiscard]] virtual BinaryPackage LoadPackage(std::filesystem::path fileName) = 0;
+
+        virtual void SavePackage(std::filesystem::path filePath, const BinaryPackage& package) = 0;
 
         virtual ~ResourceLoader() = default;
     };

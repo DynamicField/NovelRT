@@ -2,6 +2,7 @@
 // for more information.
 
 #include <NovelRT.Interop/Ecs/NrtComponentCache.h>
+#include <NovelRT.Interop/NrtErrorHandling.h>
 #include <NovelRT/Ecs/Ecs.h>
 
 using namespace NovelRT::Ecs;
@@ -17,16 +18,19 @@ extern "C"
                                                              size_t sizeOfDataType,
                                                              const void* deleteInstructionState,
                                                              NrtComponentUpdateFnPtr updateFnPtr,
+                                                             const char* serialisedTypeName,
                                                              void* context,
                                                              NrtComponentTypeId* outputResult)
     {
         if (componentCache == nullptr)
         {
+            Nrt_setErrIsNullInstanceProvidedInternal();
             return NRT_FAILURE_NULL_INSTANCE_PROVIDED;
         }
 
         if (deleteInstructionState == nullptr || outputResult == nullptr)
         {
+            Nrt_setErrIsNullArgProvidedInternal();
             return NRT_FAILURE_NULL_ARGUMENT_PROVIDED;
         }
 
@@ -35,16 +39,19 @@ extern "C"
             *outputResult =
                 reinterpret_cast<ComponentCache*>(componentCache)
                     ->RegisterComponentTypeUnsafe(
-                        sizeOfDataType, deleteInstructionState, [=](auto lhs, auto rhs, auto size) {
+                        sizeOfDataType, deleteInstructionState,
+                        [=](auto lhs, auto rhs, auto size) {
                             updateFnPtr(reinterpret_cast<NrtSparseSetMemoryContainer_ByteIteratorViewHandle>(&lhs),
                                         reinterpret_cast<NrtSparseSetMemoryContainer_ByteIteratorViewHandle>(&rhs),
                                         size, context);
-                        });
+                        },
+                        std::string(serialisedTypeName));
 
             return NRT_SUCCESS;
         }
         catch (const std::bad_alloc&)
         {
+            Nrt_setErrMsgIsOutOfMemoryInternal();
             return NRT_FAILURE_OUT_OF_MEMORY;
         }
     }
@@ -55,11 +62,13 @@ extern "C"
     {
         if (componentCache == nullptr)
         {
+            Nrt_setErrIsNullInstanceProvidedInternal();
             return NRT_FAILURE_NULL_INSTANCE_PROVIDED;
         }
 
         if (outputResult == nullptr)
         {
+            Nrt_setErrIsNullArgProvidedInternal();
             return NRT_FAILURE_NULL_ARGUMENT_PROVIDED;
         }
 
@@ -80,6 +89,7 @@ extern "C"
     {
         if (componentCache == nullptr)
         {
+            Nrt_setErrIsNullInstanceProvidedInternal();
             return NRT_FAILURE_NULL_INSTANCE_PROVIDED;
         }
 

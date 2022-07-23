@@ -1,8 +1,19 @@
-add_subdirectory(Simple)
-add_subdirectory(CAPI)
+include(CopyBuildProducts)
 add_subdirectory(Experimental)
-add_subdirectory(Ecs)
+add_subdirectory(EcsPipeline)
+add_subdirectory(InputEcsSample)
+add_subdirectory(PersistenceSample)
+add_subdirectory(UIEventExample)
+add_subdirectory(FabulistTest)
+add_subdirectory(AudioEcsSample)
 
-if(NOVELRT_INCLUDE_INK)
-  add_subdirectory(NovelRT.DotNet.Sample)
-endif()
+add_custom_target(Samples
+  DEPENDS
+    VulkanRender
+    EcsPipeline
+    InputEcsSample
+    PersistenceSample
+    UIEventExample
+    FabulistTest
+    AudioEcsSample
+)

@@ -104,7 +104,7 @@ namespace NovelRT::Ecs
 
         for (auto&& index : _sparse)
         {
-            if (index < indexCutoff)
+            if (index < indexCutoff || index == 0)
             {
                 continue;
             }
@@ -194,6 +194,35 @@ namespace NovelRT::Ecs
     size_t SparseSetMemoryContainer::Length() const noexcept
     {
         return _dense.size();
+    }
+
+    void SparseSetMemoryContainer::ResetAndWriteDenseData(gsl::span<const size_t> ids, gsl::span<const uint8_t> data)
+    {
+        _dense.clear();
+        _dense.resize(ids.size());
+        _sparse.clear();
+        _data.clear();
+        _data.resize(data.size());
+
+        std::memcpy(_dense.data(), ids.data(), sizeof(size_t) * ids.size());
+        std::memcpy(_data.data(), data.data(), sizeof(uint8_t) * data.size());
+
+        for (size_t denseIndex = 0; denseIndex < _dense.size(); denseIndex++)
+        {
+            size_t id = _dense[denseIndex];
+            if (_sparse.size() <= id)
+            {
+                _sparse.resize(id + 1);
+            }
+
+            _sparse[id] = denseIndex;
+        }
+    }
+
+    void SparseSetMemoryContainer::ResetAndWriteDenseData(const size_t* ids, size_t length, const uint8_t* data)
+    {
+        ResetAndWriteDenseData(gsl::span<const size_t>(ids, length),
+                               gsl::span<const uint8_t>(data, length * GetSizeOfDataTypeInBytes()));
     }
 
     SparseSetMemoryContainer::ByteIteratorView SparseSetMemoryContainer::operator[](size_t key) noexcept

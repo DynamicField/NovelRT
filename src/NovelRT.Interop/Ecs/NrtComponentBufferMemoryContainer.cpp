@@ -2,6 +2,7 @@
 // for more information.
 
 #include <NovelRT.Interop/Ecs/NrtComponentBufferMemoryContainer.h>
+#include <NovelRT.Interop/NrtErrorHandling.h>
 #include <NovelRT/Ecs/Ecs.h>
 
 #include <vector>
@@ -18,12 +19,13 @@ extern "C"
                                                                                       void* deleteInstructionState,
                                                                                       size_t sizeOfDataTypeInBytes,
                                                                                       NrtComponentUpdateFnPtr fnPtr,
+                                                                                      const char* serialisedTypeName,
                                                                                       void* context)
     {
         auto func = [=](void* lhs, const void* rhs, size_t size) { fnPtr(lhs, rhs, size, context); };
 
-        return reinterpret_cast<NrtComponentBufferMemoryContainerHandle>(
-            new ComponentBufferMemoryContainer(poolSize, deleteInstructionState, sizeOfDataTypeInBytes, func));
+        return reinterpret_cast<NrtComponentBufferMemoryContainerHandle>(new ComponentBufferMemoryContainer(
+            poolSize, deleteInstructionState, sizeOfDataTypeInBytes, func, std::string(serialisedTypeName)));
     }
 
     // TODO: Not sure if I should add safety here?
@@ -51,11 +53,13 @@ extern "C"
     {
         if (container == nullptr)
         {
+            Nrt_setErrIsNullInstanceProvidedInternal();
             return NRT_FAILURE_NULL_INSTANCE_PROVIDED;
         }
 
         if (componentData == nullptr)
         {
+            Nrt_setErrIsNullArgProvidedInternal();
             return NRT_FAILURE_NULL_ARGUMENT_PROVIDED;
         }
 
@@ -67,10 +71,12 @@ extern "C"
         }
         catch (const std::out_of_range&)
         {
+            Nrt_setErrMsgIsArgumentOutOfRangeInternal();
             return NRT_FAILURE_ARGUMENT_OUT_OF_RANGE;
         }
         catch (const DuplicateKeyException&)
         {
+            Nrt_setErrMsgDupKeyGivenInternal();
             return NRT_FAILURE_DUPLICATE_KEY_PROVIDED;
         }
     }
@@ -82,11 +88,13 @@ extern "C"
     {
         if (container == nullptr)
         {
+            Nrt_setErrIsNullInstanceProvidedInternal();
             return NRT_FAILURE_NULL_INSTANCE_PROVIDED;
         }
 
         if (outputResult == nullptr)
         {
+            Nrt_setErrIsNullArgProvidedInternal();
             return NRT_FAILURE_NULL_ARGUMENT_PROVIDED;
         }
 
@@ -100,6 +108,7 @@ extern "C"
         }
         catch (const KeyNotFoundException&)
         {
+            Nrt_setErrMsgKeyNotFoundInternal();
             return NRT_FAILURE_KEY_NOT_FOUND;
         }
     }
@@ -150,6 +159,7 @@ extern "C"
     {
         if (container == nullptr)
         {
+            Nrt_setErrIsNullInstanceProvidedInternal();
             return NRT_FAILURE_NULL_INSTANCE_PROVIDED;
         }
 
@@ -169,6 +179,7 @@ extern "C"
     {
         if (view == nullptr)
         {
+            Nrt_setErrIsNullInstanceProvidedInternal();
             return NRT_FAILURE_NULL_INSTANCE_PROVIDED;
         }
 

@@ -1,7 +1,7 @@
 // Copyright © Matt Jones and Contributors. Licensed under the MIT License (MIT). See LICENCE.md in the repository root
 // for more information.
 
-#include <NovelRT.h>
+#include <NovelRT/NovelRT.h>
 #include <atomic>
 #include <gtest/gtest.h>
 
@@ -20,9 +20,9 @@ protected:
     {
         componentCache = ComponentCache(1);
         entityCache = EntityCache(1);
-        componentCache.RegisterComponentType<int32_t>(-1);
-        componentCache.RegisterComponentType<size_t>(-1);
-        componentCache.RegisterComponentType<char>('e');
+        componentCache.RegisterComponentType<int32_t>(-1, "THROW_AWAY");
+        componentCache.RegisterComponentType<size_t>(-1, "THROW_AWAY_AGAIN");
+        componentCache.RegisterComponentType<char>('e', "THROW_AWAY_AGAIN_AGAIN");
 
         componentCache.GetComponentBuffer<int32_t>().PushComponentUpdateInstruction(0, 0, 10);
         componentCache.GetComponentBuffer<size_t>().PushComponentUpdateInstruction(0, 0, 100);

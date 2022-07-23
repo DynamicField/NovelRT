@@ -2,7 +2,7 @@
 // Copyright © Matt Jones and Contributors. Licensed under the MIT License (MIT). See LICENCE.md in the repository root
 // for more information.
 
-#include <NovelRT.h>
+#include <NovelRT/NovelRT.h>
 #include <atomic>
 #include <gtest/gtest.h>
 
@@ -13,12 +13,12 @@ class ComponentViewTest : public testing::Test
 {
 public:
     ComponentView<int32_t>* testView = nullptr;
-    ComponentBuffer<int32_t> testBuffer = ComponentBuffer<int32_t>(1, -1);
+    ComponentBuffer<int32_t> testBuffer = ComponentBuffer<int32_t>(1, -1, "THROW_AWAY");
 
 protected:
     void SetUp() override
     {
-        testBuffer = ComponentBuffer<int32_t>(1, -1);
+        testBuffer = ComponentBuffer<int32_t>(1, -1, "THROW_AWAY");
         testView = new ComponentView<int32_t>(0, testBuffer);
     }
 

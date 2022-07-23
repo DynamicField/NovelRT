@@ -2,7 +2,7 @@
 // for more information.
 
 #include <NovelRT.Interop/Ecs/NrtEcs.h>
-#include <NovelRT.h>
+#include <NovelRT/NovelRT.h>
 
 #include <atomic>
 #include <gtest/gtest.h>
@@ -21,6 +21,7 @@ public:
     std::function<void(Timestamp, Catalogue)> sysOne;
     std::function<void(Timestamp, Catalogue)> sysTwo;
     std::function<void(Timestamp, Catalogue)> sysThree;
+    inline static NovelRT::AtomFactory& entityIdFactory = NovelRT::AtomFactoryDatabase::GetFactory("EntityId");
 
 protected:
     void SetUp() override
@@ -72,10 +73,10 @@ TEST_F(InteropSystemSchedulerTest, IndependentSystemsCanModifyValues)
 
 TEST_F(InteropSystemSchedulerTest, IndependentSystemsObtainValidCatalogue)
 {
-    EntityId entity = Atom::getNextEntityId();
+    EntityId entity = entityIdFactory.GetNext();
 
     auto cache = Nrt_SystemScheduler_GetComponentCache(scheduler);
-    reinterpret_cast<SystemScheduler*>(scheduler)->GetComponentCache().RegisterComponentType<int32_t>(-1);
+    reinterpret_cast<SystemScheduler*>(scheduler)->GetComponentCache().RegisterComponentType<int32_t>(-1, "THROW_AWAY");
 
     NrtComponentBufferMemoryContainerHandle container = nullptr;
     ASSERT_EQ(Nrt_ComponentCache_GetComponentBufferById(cache, GetComponentTypeId<int32_t>(), &container), NRT_SUCCESS);
@@ -122,10 +123,10 @@ TEST_F(InteropSystemSchedulerTest, IndependentSystemsCanHandleRemainderWithThree
     cppScheduler->RegisterSystem(sysThree);
     scheduler = reinterpret_cast<NrtSystemSchedulerHandle>(cppScheduler);
 
-    EntityId entity = Atom::getNextEntityId();
+    EntityId entity = entityIdFactory.GetNext();
 
     auto cache = Nrt_SystemScheduler_GetComponentCache(scheduler);
-    reinterpret_cast<SystemScheduler*>(scheduler)->GetComponentCache().RegisterComponentType<int32_t>(-1);
+    reinterpret_cast<SystemScheduler*>(scheduler)->GetComponentCache().RegisterComponentType<int32_t>(-1, "THROW_AWAY");
 
     NrtComponentBufferMemoryContainerHandle container = nullptr;
     ASSERT_EQ(Nrt_ComponentCache_GetComponentBufferById(cache, GetComponentTypeId<int32_t>(), &container), NRT_SUCCESS);
@@ -214,10 +215,10 @@ TEST_F(InteropSystemSchedulerTest, IndependentSystemsCanHandleRemainderWithThree
 
 TEST_F(InteropSystemSchedulerTest, IndependentSystemsCanHandleManySystems)
 {
-    EntityId entity = Atom::getNextEntityId();
+    EntityId entity = entityIdFactory.GetNext();
 
     auto cache = Nrt_SystemScheduler_GetComponentCache(scheduler);
-    reinterpret_cast<SystemScheduler*>(scheduler)->GetComponentCache().RegisterComponentType<int32_t>(-1);
+    reinterpret_cast<SystemScheduler*>(scheduler)->GetComponentCache().RegisterComponentType<int32_t>(-1, "THROW_AWAY");
 
     NrtComponentBufferMemoryContainerHandle container = nullptr;
     ASSERT_EQ(Nrt_ComponentCache_GetComponentBufferById(cache, GetComponentTypeId<int32_t>(), &container), NRT_SUCCESS);

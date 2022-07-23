@@ -3,6 +3,8 @@
 
 #include <atomic>
 #include <cstddef>
+#include <limits>
+#include <string>
 
 #ifndef NOVELRT_ATOM_H
 #define NOVELRT_ATOM_H
@@ -17,11 +19,11 @@ namespace NovelRT
         uintptr_t _value;
 
     public:
-        explicit Atom() noexcept : Atom(0)
+        constexpr Atom() noexcept : Atom(0)
         {
         }
 
-        Atom(uintptr_t value) noexcept : _value(value)
+        constexpr Atom(uintptr_t value) noexcept : _value(value)
         {
         }
 
@@ -30,9 +32,19 @@ namespace NovelRT
             return _value == other._value;
         }
 
+        bool operator==(uintptr_t other) const noexcept
+        {
+            return _value == other;
+        }
+
         bool operator!=(Atom other) const noexcept
         {
             return _value != other._value;
+        }
+
+        bool operator!=(uintptr_t other) const noexcept
+        {
+            return _value != other;
         }
 
         bool operator<(Atom other) const noexcept
@@ -60,19 +72,33 @@ namespace NovelRT
             return _value;
         }
 
-        // TODO: These should be internal to NovelRT
+        static Atom GetNextEcsPrimitiveInfoConfigurationId() noexcept;
+    };
 
-        static Atom getNextEventHandlerId() noexcept;
+    class AtomFactory
+    {
+    private:
+        std::atomic_uintptr_t _currentValue;
+        bool _moved;
 
-        static Atom getNextFontSetId() noexcept;
+    public:
+        AtomFactory() noexcept;
+        explicit AtomFactory(Atom startingValue) noexcept;
+        AtomFactory(const AtomFactory& other) noexcept;
+        AtomFactory(AtomFactory&& other) noexcept;
+        AtomFactory& operator=(const AtomFactory& other) noexcept;
+        AtomFactory& operator=(AtomFactory&& other) noexcept;
+        ~AtomFactory() = default;
 
-        static Atom getNextTextureId() noexcept;
+        [[nodiscard]] Atom GetNext();
 
-        static Atom getNextComponentTypeId() noexcept;
+        void SetToValue(Atom newValue);
+    };
 
-        static Atom getNextEntityId() noexcept;
-
-        static Atom getNextSystemId() noexcept;
+    class AtomFactoryDatabase
+    {
+    public:
+        [[nodiscard]] static AtomFactory& GetFactory(const std::string& factoryName) noexcept;
     };
 
     class AtomHashFunction
@@ -82,6 +108,13 @@ namespace NovelRT
         {
             return static_cast<size_t>(atom._value);
         }
+    };
+}
+
+namespace std
+{
+    template<> class numeric_limits<NovelRT::Atom> : public numeric_limits<uintptr_t>
+    {
     };
 }
 

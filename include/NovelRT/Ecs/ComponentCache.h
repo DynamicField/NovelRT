@@ -26,7 +26,8 @@ namespace NovelRT::Ecs
         std::shared_ptr<ComponentBufferMemoryContainer> CreateContainer(
             size_t sizeOfDataType,
             const void* deleteInstructionState,
-            const std::function<void(void*, const void*, size_t)>& componentUpdateLogic) const;
+            const std::function<void(void*, const void*, size_t)>& componentUpdateLogic,
+            const std::string& serialisedTypeName) const;
 
     public:
         /**
@@ -49,6 +50,7 @@ namespace NovelRT::Ecs
          * @param sizeOfDataType The size of the object type, in bytes.
          * @param deleteInstructionState The object state that indicates that the component should be deleted.
          * @param componentUpdateLogic The function to use for concurrent update consolidation.
+         * @param serialisedTypeName The type name to use for data serialisation.
          * @return the ID of the new component type and associated ComponentBufferMemoryContainer
          * instance.
          *
@@ -58,7 +60,8 @@ namespace NovelRT::Ecs
         [[nodiscard]] ComponentTypeId RegisterComponentTypeUnsafe(
             size_t sizeOfDataType,
             const void* deleteInstructionState,
-            const std::function<void(void*, const void*, size_t)>& componentUpdateLogic);
+            const std::function<void(void*, const void*, size_t)>& componentUpdateLogic,
+            const std::string& serialisedTypeName);
 
         /**
          * @brief Registers a new component type to the cache.
@@ -74,12 +77,14 @@ namespace NovelRT::Ecs
          * @exception std::bad_alloc when a ComponentBuffer could not be allocated in memory for the given component
          * type.
          */
-        template<typename T> void RegisterComponentType(T deleteInstructionState)
+        template<typename T> void RegisterComponentType(T deleteInstructionState, const std::string& serialisedTypeName)
         {
-            std::shared_ptr<ComponentBufferMemoryContainer> ptr =
-                CreateContainer(sizeof(T), &deleteInstructionState, [](auto rootComponent, auto updateComponent, auto) {
+            std::shared_ptr<ComponentBufferMemoryContainer> ptr = CreateContainer(
+                sizeof(T), &deleteInstructionState,
+                [](auto rootComponent, auto updateComponent, auto) {
                     *reinterpret_cast<T*>(rootComponent) += *reinterpret_cast<const T*>(updateComponent);
-                });
+                },
+                serialisedTypeName);
             _bufferPrepEvent += [ptr](auto vec) { ptr->PrepContainerForFrame(vec); };
             _componentMap.emplace(GetComponentTypeId<T>(), ptr);
         }
@@ -119,6 +124,28 @@ namespace NovelRT::Ecs
          * @param entitiesToDelete All entities that were explicitly pushed for deletion in the last update cycle.
          */
         void PrepAllBuffersForNextFrame(const std::vector<EntityId>& entitiesToDelete) noexcept;
+
+        /**
+         * @brief Gets all the currently registered ComponentBufferMemoryContainer instances.
+         *
+         * This is a pure method. Retrieving the list and discarding will incur a large performance hit for no gain.
+         * This method has to construct the collection on each invocation, use this sparingly.
+         *
+         * @return A collection of pointers to the registered ComponentBufferMemoryContainer instances.
+         */
+        [[nodiscard]] inline std::vector<std::shared_ptr<ComponentBufferMemoryContainer>> GetAllComponentBuffers()
+            const noexcept
+        {
+            std::vector<std::shared_ptr<ComponentBufferMemoryContainer>> returnCollection{};
+            returnCollection.reserve(_componentMap.size());
+
+            for (auto&& pair : _componentMap)
+            {
+                returnCollection.emplace_back(pair.second);
+            }
+
+            return returnCollection;
+        }
     };
 }
 

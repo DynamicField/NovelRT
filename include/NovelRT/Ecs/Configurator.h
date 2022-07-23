@@ -23,10 +23,36 @@ namespace NovelRT::Ecs
         std::vector<std::function<void(Timing::Timestamp, Catalogue)>> _systems;
         std::shared_ptr<PluginManagement::IGraphicsPluginProvider> _graphicsPluginProvider;
         std::shared_ptr<PluginManagement::IWindowingPluginProvider> _windowingPluginProvider;
+        std::shared_ptr<PluginManagement::IResourceManagementPluginProvider> _resourceManagementPluginProvider;
+        std::shared_ptr<PluginManagement::IInputPluginProvider> _inputPluginProvider;
 
-        inline void AddDefaultComponentsAndSystems(SystemScheduler& /*target*/)
+        inline void AddDefaultComponentsAndSystems(SystemScheduler& target)
         {
-            // Add default components and systems here when they exist. Uncomment parameter when you do.
+            target.GetComponentCache().RegisterComponentType(Graphics::RenderComponent{0, 0, 0, 0, true},
+                                                             "NovelRT::Ecs::Graphics::RenderComponent");
+
+            target.GetComponentCache().RegisterComponentType(
+                EntityGraphComponent{false, std::numeric_limits<EntityId>::max(), std::numeric_limits<EntityId>::max()},
+                "NovelRT::Ecs::EntityGraphComponent");
+
+            target.GetComponentCache().RegisterComponentType(
+                LinkedEntityListNodeComponent{false, std::numeric_limits<EntityId>::max(),
+                                              std::numeric_limits<EntityId>::max()},
+                "NovelRT::Ecs::LinkedEntityListNodeComponent");
+
+            target.GetComponentCache().RegisterComponentType(
+                TransformComponent{Maths::GeoVector3F::uniform(NAN), Maths::GeoVector2F::uniform(NAN), NAN},
+                "NovelRT::Ecs::TransformComponent");
+
+            target.RegisterSystem(std::make_shared<Ecs::Graphics::DefaultRenderingSystem>(
+                _graphicsPluginProvider, _windowingPluginProvider, _resourceManagementPluginProvider));
+
+            target.GetComponentCache().RegisterComponentType(
+                Input::InputEventComponent{0, NovelRT::Input::KeyState::Idle, 0, 0},
+                "NovelRT::Ecs::Input::InputEventComponent");
+
+            target.RegisterSystem(
+                std::make_shared<Ecs::Input::InputSystem>(_windowingPluginProvider, _inputPluginProvider));
         }
 
     public:
@@ -121,16 +147,52 @@ namespace NovelRT::Ecs
         }
 
         /**
+         * @brief Specifies a plugin provider object to use for creating the default systems.
+         *
+         * @tparam TPluginProvider The type of PluginProvider interface this provider implements.
+         * @return A reference to this to allow method chaining.
+         *
+         * @exception Exceptions::NotSupportedException if the plugin provider type is currently not used or supported
+         * by default systems.
+         */
+        template<>
+        [[nodiscard]] Configurator& WithPluginProvider<PluginManagement::IResourceManagementPluginProvider>(
+            std::shared_ptr<PluginManagement::IResourceManagementPluginProvider> pluginInstance)
+        {
+            _resourceManagementPluginProvider = std::move(pluginInstance);
+            return *this;
+        }
+
+        /**
+         * @brief Specifies a plugin provider object to use for creating the default systems.
+         *
+         * @tparam TPluginProvider The type of PluginProvider interface this provider implements.
+         * @return A reference to this to allow method chaining.
+         *
+         * @exception Exceptions::NotSupportedException if the plugin provider type is currently not used or supported
+         * by default systems.
+         */
+        template<>
+        [[nodiscard]] Configurator& WithPluginProvider<PluginManagement::IInputPluginProvider>(
+            std::shared_ptr<PluginManagement::IInputPluginProvider> pluginInstance)
+        {
+            _inputPluginProvider = std::move(pluginInstance);
+            return *this;
+        }
+
+        /**
          * @brief Creates the ECS instance and registers component types to it.
          * This is the final method you should call to obtain the ECS instance.
          *
          * @tparam TComponentTypes List of component types to register with this ECS instance.
-         * @param deleteInstructionStates The state of the given component type that signals this component is to be
-         * deleted to the ECS.
+         * @tparam Names List of the names to used for type serialisation.
+         * @param deleteInstructionStatesAndSerialisedTypeNames The state of the given component type that signals this
+         * component is to be, accompanied by the serialised type name. deleted to the ECS.
          * @returns An instance of the ECS SystemScheduler root object based on the provided configuration.
          */
         template<typename... TComponentTypes>
-        [[nodiscard]] SystemScheduler InitialiseAndRegisterComponents(TComponentTypes... deleteInstructionStates)
+        [[nodiscard]] SystemScheduler InitialiseAndRegisterComponents(
+            std::tuple<TComponentTypes, std::string>... deleteInstructionStatesAndSerialisedTypeNames)
         {
             SystemScheduler scheduler(_threadCount.value_or(0));
 
@@ -144,7 +206,9 @@ namespace NovelRT::Ecs
                 scheduler.RegisterSystem(system);
             }
 
-            scheduler.GetComponentCache().RegisterComponentType<TComponentTypes...>(deleteInstructionStates...);
+            scheduler.GetComponentCache().RegisterComponentType<TComponentTypes...>(
+                std::get<0>(deleteInstructionStatesAndSerialisedTypeNames)...,
+                std::get<1>(deleteInstructionStatesAndSerialisedTypeNames)...);
             scheduler.SpinThreads();
 
             return scheduler;

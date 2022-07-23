@@ -5,16 +5,22 @@
 
 namespace NovelRT::ResourceManagement::Desktop
 {
-    std::vector<std::vector<uint8_t>> DesktopResourceLoader::LoadTextureInternal(std::filesystem::path filePath)
+    TextureMetadata DesktopResourceLoader::LoadTextureFromFile(std::filesystem::path filePath)
     {
+        if (filePath.is_relative())
+        {
+            filePath = _resourcesRootDirectory / "Images" / filePath;
+        }
+
+        std::string filePathStr = filePath.string();
         FILE* cFile;
 #if defined(__STDC_LIB_EXT1__) || defined(_MSC_VER)
         // todo: replace with file not found exc
         _logger.throwIfNotZero(
-            fopen_s(&cFile, reinterpret_cast<const char*>(filePath.c_str()), "rb"),
+            fopen_s(&cFile, filePathStr.c_str(), "rb"),
             "Image file cannot be opened! Please ensure the path is correct and that the file is not locked.");
 #else
-        cFile = fopen(filePath.c_str(), "rb");
+        cFile = fopen(filePathStr.c_str(), "rb");
         _logger.throwIfNullPtr(
             cFile, "Image file cannot be opened! Please ensure the path is correct and that the file is not locked.");
 #endif
@@ -96,7 +102,7 @@ namespace NovelRT::ResourceManagement::Desktop
         }
 
         data.rowPointers = new png_bytep[data.height]; // Setup row pointer array and set it into the pixel buffer.
-        unsigned char* p = rawImage;
+        uint8_t* p = reinterpret_cast<uint8_t*>(rawImage);
 
         // TODO: Proper error check on data.rowPointers
         if (data.rowPointers == nullptr)
@@ -119,25 +125,36 @@ namespace NovelRT::ResourceManagement::Desktop
 
         fclose(cFile);
 
-        std::vector<std::vector<uint8_t>> returnImage{};
+        std::vector<uint8_t> returnImage{};
 
-        returnImage.reserve(data.height);
+        size_t finalLength = data.width * data.height;
 
-        for (size_t i = 0; i < data.height; i++)
+        returnImage.reserve(finalLength * 4);
+
+        for (size_t i = 0; i < finalLength * 4; ++i)
         {
-            uint8_t* localRowBytes = reinterpret_cast<uint8_t**>(data.rowPointers)[i];
-            returnImage[i] = std::vector<uint8_t>(localRowBytes, localRowBytes + data.width);
+            returnImage.emplace_back(rawImage[i]);
+        }
+
+        if (data.colourType != PNG_COLOR_TYPE_RGBA)
+        {
+            throw std::runtime_error("reeeeeeee");
         }
 
         delete[] rawImage;
         delete[] data.rowPointers;
         png_destroy_read_struct(&png, &info, nullptr);
 
-        return returnImage;
+        return TextureMetadata{returnImage, data.width, data.height, finalLength};
     }
 
-    std::vector<uint8_t> DesktopResourceLoader::LoadShaderSourceInternal(std::filesystem::path filePath)
+    std::vector<uint8_t> DesktopResourceLoader::LoadShaderSource(std::filesystem::path filePath)
     {
+        if (filePath.is_relative())
+        {
+            filePath = _resourcesRootDirectory / "Shaders" / filePath;
+        }
+
         std::ifstream file(filePath.string(), std::ios::ate | std::ios::binary);
 
         if (!file.is_open())
@@ -153,5 +170,81 @@ namespace NovelRT::ResourceManagement::Desktop
         file.close();
 
         return buffer;
+    }
+
+    BinaryPackage DesktopResourceLoader::LoadPackage(std::filesystem::path filePath)
+    {
+        filePath = _resourcesRootDirectory / filePath;
+
+        std::ifstream file(filePath.string(), std::ios::ate | std::ios::binary);
+
+        if (!file.is_open())
+        {
+            throw NovelRT::Exceptions::FileNotFoundException(filePath.string());
+        }
+
+        size_t fileSize = static_cast<size_t>(file.tellg());
+        std::vector<uint8_t> buffer(fileSize);
+        file.seekg(0);
+        file.read(reinterpret_cast<char*>(buffer.data()), std::streamsize(fileSize));
+        file.close();
+
+        BinaryPackage package{};
+        package.memberMetadata = {};
+
+        jsoncons::json j = jsoncons::bson::decode_bson<jsoncons::json>(buffer);
+        jsoncons::json metadata = j["memberMetadata"];
+
+        for (auto&& obj : metadata.array_value())
+        {
+            BinaryMemberMetadata newMemberMetadata{
+                obj["name"].as<std::string>(), static_cast<BinaryDataType>(obj["type"].as<uint32_t>()),
+                obj["location"].as<size_t>(),  obj["sizeOfTypeInBytes"].as<size_t>(),
+                obj["length"].as<size_t>(),    obj["sizeOfSerialisedDataInBytes"].as<size_t>()};
+
+            package.memberMetadata.emplace_back(newMemberMetadata);
+        }
+
+        package.data = j["data"].as<std::vector<uint8_t>>();
+
+        return package;
+    }
+
+    void DesktopResourceLoader::SavePackage(std::filesystem::path filePath, const BinaryPackage& package)
+    {
+        filePath = _resourcesRootDirectory / filePath;
+
+        jsoncons::json j(jsoncons::json_object_arg);
+        std::vector<jsoncons::json> memberMetadataJson{};
+
+        for (auto&& member : package.memberMetadata)
+        {
+            jsoncons::json newMemberJson(jsoncons::json_object_arg);
+
+            newMemberJson["name"] = member.name;
+            newMemberJson["type"] = static_cast<uint32_t>(member.type);
+            newMemberJson["location"] = member.location;
+            newMemberJson["sizeOfTypeInBytes"] = member.sizeOfTypeInBytes;
+            newMemberJson["length"] = member.length;
+            newMemberJson["sizeOfSerialisedDataInBytes"] = member.sizeOfSerialisedDataInBytes;
+
+            memberMetadataJson.emplace_back(newMemberJson);
+        }
+
+        j["memberMetadata"] = memberMetadataJson;
+        j["data"] = package.data;
+
+        std::vector<uint8_t> buffer{};
+        jsoncons::bson::encode_bson(j, buffer);
+
+        std::ofstream file(filePath.string(), std::ios::out | std::ios::binary);
+
+        if (!file.is_open())
+        {
+            throw NovelRT::Exceptions::InvalidOperationException("Unable to create file at " + filePath.string());
+        }
+
+        file.write(reinterpret_cast<const char*>(buffer.data()), std::streamsize(buffer.size()));
+        file.close();
     }
 }

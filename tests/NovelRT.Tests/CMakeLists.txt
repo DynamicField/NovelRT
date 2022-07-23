@@ -1,12 +1,9 @@
-find_package(GTest ${NOVELRT_GTEST_VERSION} REQUIRED
-  COMPONENTS gtest_main
-)
-
 include(GoogleTest)
+if(NOVELRT_VULKAN_SDK)
+  find_dependency(Vulkan REQUIRED)
+endif()
 
 set(SOURCES
-  Animation/SpriteAnimatorStateTest.cpp
-
   Ecs/CatalogueTest.cpp
   Ecs/ComponentBufferMemoryContainerTest.cpp
   Ecs/ComponentBufferTest.cpp
@@ -14,27 +11,28 @@ set(SOURCES
   Ecs/ComponentViewTest.cpp
   Ecs/ConfiguratorTest.cpp
   Ecs/EntityCacheTest.cpp
+  Ecs/EntityGraphViewTest.cpp
+  Ecs/LinkedEntityListViewTest.cpp
   Ecs/SparseSetTest.cpp
   Ecs/SystemSchedulerTest.cpp
   Ecs/SparseSetMemoryContainerTest.cpp
 
-  Interop/NovelRTInteropUtilsTest.cpp
-  Interop/Animation/SpriteAnimatorStateTest.cpp
-  Interop/Ecs/NrtCatalogueTest.cpp
-  Interop/Ecs/NrtComponentBufferMemoryContainerTest.cpp
-  Interop/Ecs/NrtComponentCacheTest.cpp
-  Interop/Ecs/NrtEntityCacheTest.cpp
-  Interop/Ecs/NrtSparseSetMemoryContainerTest.cpp
-  Interop/Ecs/NrtSystemSchedulerTest.cpp
-  Interop/Maths/GeoBoundsTest.cpp
-  Interop/Maths/GeoMatrix4x4Test.cpp
-  Interop/Maths/GeoVector2FTest.cpp
-  Interop/Maths/GeoVector3FTest.cpp
-  Interop/Maths/GeoVector4FTest.cpp
-  Interop/Maths/QuadTreePointTest.cpp
-  Interop/Maths/QuadTreeTest.cpp
-  Interop/SceneGraph/NovelRTSceneNodeTest.cpp
-  Interop/Timing/NovelRTTimestampTest.cpp
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/NovelRTInteropUtilsTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Ecs/NrtCatalogueTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Ecs/NrtComponentBufferMemoryContainerTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Ecs/NrtComponentCacheTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Ecs/NrtEntityCacheTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Ecs/NrtSparseSetMemoryContainerTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Ecs/NrtSystemSchedulerTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Maths/GeoBoundsTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Maths/GeoMatrix4x4Test.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Maths/GeoVector2FTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Maths/GeoVector3FTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Maths/GeoVector4FTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Maths/QuadTreePointTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Maths/QuadTreeTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/SceneGraph/NovelRTSceneNodeTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Timing/NovelRTTimestampTest.cpp>
 
   Maths/GeoBoundsTest.cpp
   Maths/GeoMatrix4x4Test.cpp
@@ -42,6 +40,9 @@ set(SOURCES
   Maths/GeoVector3Test.cpp
   Maths/GeoVector4Test.cpp
   Maths/QuadTreeTest.cpp
+  Maths/UtilitiesTest.cpp
+
+  Persistence/ChapterTest.cpp
 
   SceneGraph/SceneNodeTest.cpp
 
@@ -51,33 +52,33 @@ set(SOURCES
   Utilities/EventTest.cpp
 
   main.cpp
- )
+)
 
 add_executable(Engine_Tests ${SOURCES})
+include(${CMAKE_SOURCE_DIR}/cmake/CopyBuildProducts.cmake)
+if(NOVELRT_BUILD_INTEROP)
+  copy_build_products(Engine_Tests
+    DEPENDENCY Engine
+    TARGET_LOCATION $<TARGET_FILE_DIR:Engine_Tests>
+
+    DEPENDENCY Interop
+    TARGET_LOCATION $<TARGET_FILE_DIR:Engine_Tests>
+  )
+else()
+  copy_build_products(Engine_Tests
+    DEPENDENCY Engine
+    TARGET_LOCATION $<TARGET_FILE_DIR:Engine_Tests>
+  )
+endif()
+
 target_link_libraries(Engine_Tests
   PUBLIC
     Engine
-    Interop
-    GTest::gtest
-    GTest::gtest_main
-)
-
-copy_build_products(Engine_Tests
-  DEPENDENCY Engine
-  TARGET_LOCATION $<TARGET_FILE_DIR:Engine_Tests>
-
-  DEPENDENCY Interop
-  TARGET_LOCATION $<TARGET_FILE_DIR:Engine_Tests>
-
-  DEPENDENCY Dotnet
-  TARGET_LOCATION $<TARGET_FILE_DIR:Engine_Tests>/dotnet
-  CONDITION NOVELRT_INCLUDE_INK
-
-  DEPENDENCY Dotnet
-  DEPENDENCY_FILES nethost.dll
-  TARGET_LOCATION $<TARGET_FILE_DIR:Engine_Tests>
-  CONDITION NOVELRT_INCLUDE_INK AND WIN32
+    $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop>
+    gtest_main
 )
 
 gtest_discover_tests(Engine_Tests
-  EXTRA_ARGS "--gtest_output=xml:${CMAKE_CURRENT_BINARY_DIR}/../results/")
+  EXTRA_ARGS "--gtest_output=xml:${CMAKE_CURRENT_BINARY_DIR}/../results/"
+  DISCOVERY_MODE PRE_TEST)
+

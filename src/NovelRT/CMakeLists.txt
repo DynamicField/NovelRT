@@ -1,146 +1,117 @@
-find_package(BZip2 ${NOVELRT_BZIP2_VERSION} REQUIRED)
-find_package(flac ${NOVELRT_FLAC_VERSION} REQUIRED)
-find_package(Freetype ${NOVELRT_FREETYPE_VERSION} REQUIRED)
-find_package(glad ${NOVELRT_GLAD_VERSION} REQUIRED
-  COMPONENTS
-    REPRODUCIBLE
-    PROFILE core
-    SPEC gl
-    API gl=4.0,gles2=3.0
-)
-find_package(glfw3 ${NOVELRT_GLFW_VERSION} REQUIRED)
-find_package(glm ${NOVELRT_GLM_VERSION} REQUIRED)
-find_package(Microsoft.GSL ${NOVELRT_GSL_VERSION} REQUIRED)
-find_package(Ogg ${NOVELRT_OGG_VERSION} REQUIRED)
-find_package(OpenAL ${NOVELRT_OPENAL_VERSION} REQUIRED)
-find_package(Opus ${NOVELRT_Opus_VERSION} REQUIRED)
-find_package(PNG ${NOVELRT_PNG_VERSION} REQUIRED)
-find_package(SndFile ${NOVELRT_SNDFILE_VERISON} REQUIRED)
-find_package(spdlog ${NOVELRT_SPDLOG_VERSION} REQUIRED)
-find_package(TBB ${NOVELRT_ONETBB_VERSION} REQUIRED)
-find_package(Vorbis ${NOVELRT_VORBIS_VERSION} REQUIRED)
-find_package(Vulkan ${NOVELRT_VULKAN_VERSION} REQUIRED)
-find_package(vulkan-memory-allocator ${NOVELRT_VULKAN_MEMORY_ALLOCATOR_VERSION} REQUIRED)
-find_package(JNI REQUIRED)
+if(NOVELRT_VULKAN_SDK)
+  include(CMakeFindDependencyMacro)
+  find_dependency(Vulkan REQUIRED)
+endif()
+
+if(NOT DEFINED NOVELRT_LIB_SUFFIX)
+  set(NOVELRT_LIB_SUFFIX "" CACHE INTERNAL "")
+endif()
 
 set(SOURCES
-  Animation/SpriteAnimator.cpp
-
   Atom.cpp
 
   Audio/AudioService.cpp
-
-  DebugService.cpp
 
   Ecs/Catalogue.cpp
   Ecs/ComponentBufferMemoryContainer.cpp
   Ecs/ComponentCache.cpp
   Ecs/EcsUtils.cpp
   Ecs/EntityCache.cpp
+  Ecs/EntityGraphView.cpp
+  Ecs/LinkedEntityListView.cpp
   Ecs/SparseSetMemoryContainer.cpp
   Ecs/SystemScheduler.cpp
   Ecs/UnsafeComponentView.cpp
+  Ecs/Graphics/DefaultRenderingSystem.cpp
   Ecs/Audio/AudioSystem.cpp
+  Ecs/Input/InputSystem.cpp
 
-  Experimental/EngineConfig.cpp
-  Experimental/Graphics/GraphicsMemoryBlock.cpp
-  Experimental/Graphics/GraphicsMemoryBlockCollection.cpp
-  Experimental/Graphics/GraphicsPipeline.cpp
-  Experimental/Graphics/GraphicsPipelineInput.cpp
-  Experimental/Graphics/GraphicsPipelineInputElement.cpp
-  Experimental/Graphics/GraphicsPipelineResource.cpp
-  Experimental/Graphics/GraphicsPipelineSignature.cpp
-  Experimental/Graphics/ShaderProgram.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsAdapter.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsAdapterSelector.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsBuffer.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsContext.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsDevice.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsFence.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsMemoryAllocator.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsMemoryBlock.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsMemoryBlockCollection.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsPipeline.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsPipelineSignature.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsPluginProvider.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsProvider.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsSurfaceContext.cpp
-  Experimental/Graphics/Vulkan/VulkanGraphicsTexture.cpp
-  Experimental/Graphics/Vulkan/VulkanShaderProgram.cpp
-  Experimental/Threading/VolatileState.cpp
-  Experimental/Windowing/Glfw/GlfwWindowingDevice.cpp
-  Experimental/Windowing/Glfw/GlfwWindowingPluginProvider.cpp
+  EngineConfig.cpp
 
-  Graphics/BasicFillRect.cpp
-  Graphics/Camera.cpp
-  Graphics/FontSet.cpp
-  Graphics/ImageRect.cpp
-  Graphics/RenderingService.cpp
-  Graphics/RenderObject.cpp
-  Graphics/RGBAConfig.cpp
-  Graphics/TextRect.cpp
-  Graphics/Texture.cpp
+  Input/Glfw/GlfwInputDevice.cpp
+  Input/Glfw/GlfwInputPluginProvider.cpp
+  Input/NovelKey.cpp
 
-  Input/BasicInteractionRect.cpp
-  Input/InteractionObject.cpp
-  Input/InteractionService.cpp
+  Graphics/GraphicsMemoryBlock.cpp
+  Graphics/GraphicsMemoryBlockCollection.cpp
+  Graphics/GraphicsPipeline.cpp
+  Graphics/GraphicsPipelineInput.cpp
+  Graphics/GraphicsPipelineInputElement.cpp
+  Graphics/GraphicsPipelineResource.cpp
+  Graphics/GraphicsPipelineSignature.cpp
+  Graphics/GraphicsResourceManager.cpp
+  Graphics/ShaderProgram.cpp
+  Graphics/Vulkan/VulkanGraphicsAdapter.cpp
+  Graphics/Vulkan/VulkanGraphicsAdapterSelector.cpp
+  Graphics/Vulkan/VulkanGraphicsBuffer.cpp
+  Graphics/Vulkan/VulkanGraphicsContext.cpp
+  Graphics/Vulkan/VulkanGraphicsDevice.cpp
+  Graphics/Vulkan/VulkanGraphicsFence.cpp
+  Graphics/Vulkan/VulkanGraphicsMemoryAllocator.cpp
+  Graphics/Vulkan/VulkanGraphicsMemoryBlock.cpp
+  Graphics/Vulkan/VulkanGraphicsMemoryBlockCollection.cpp
+  Graphics/Vulkan/VulkanGraphicsPipeline.cpp
+  Graphics/Vulkan/VulkanGraphicsPipelineSignature.cpp
+  Graphics/Vulkan/VulkanGraphicsPluginProvider.cpp
+  Graphics/Vulkan/VulkanGraphicsProvider.cpp
+  Graphics/Vulkan/VulkanGraphicsSurfaceContext.cpp
+  Graphics/Vulkan/VulkanGraphicsTexture.cpp
+  Graphics/Vulkan/VulkanShaderProgram.cpp
+
+  Threading/VolatileState.cpp
+  Windowing/Glfw/GlfwWindowingDevice.cpp
+  Windowing/Glfw/GlfwWindowingPluginProvider.cpp
 
   LoggingService.cpp
 
   Maths/GeoBounds.cpp
   Maths/QuadTree.cpp
 
+  Persistence/Chapter.cpp
+  Persistence/Persistable.cpp
+
   PluginManagement/TemporaryFnPtrs.cpp
 
   ResourceManagement/Desktop/DesktopResourceLoader.cpp
   ResourceManagement/Desktop/DesktopResourceManagementPluginProvider.cpp
 
-  NovelRunner.cpp
-
   Timing/StepTimer.cpp
 
-  Transform.cpp
-
   Utilities/Misc.cpp
-
-  Windowing/WindowingService.cpp
-
-  WorldObject.cpp
 )
 
-if(NOVELRT_INCLUDE_INK)
-  message("NovelRT is compiling with Ink / C# Support.")
-  set(SOURCES
-    DotNet/RuntimeService.cpp
-    Ink/InkService.cpp
-    Ink/Story.cpp
-    ${SOURCES}
-  )
-endif()
-
 add_library(Engine SHARED ${SOURCES})
+set_property(TARGET Engine PROPERTY OUTPUT_NAME "$<IF:$<CONFIG:Release>,NovelRT,NovelRT-$<CONFIG>>")
 
-if(NOVELRT_INCLUDE_INK)
-  target_compile_definitions(Engine PRIVATE NOVELRT_INK)
-  target_link_libraries(Engine PUBLIC
-    Dotnet
-  )
-endif()
-
-set_property(TARGET Engine PROPERTY OUTPUT_NAME "NovelRT")
-
-if(WIN32)
+if(APPLE)
+  #Other OSes build fine but Apple builds in Alphabetical order which causes link failures
+  add_dependencies(Engine ${NOVELRT_VULKAN_DEPS})
+  set(NOVELRT_LIB_SUFFIX "dylib")
+elseif(WIN32)
   set_property(TARGET Engine PROPERTY MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
+  target_link_libraries(Engine
+    PUBLIC
+      Winmm
+  )
+  set(NOVELRT_LIB_SUFFIX "dll")
 endif()
 
 target_compile_features(Engine PUBLIC cxx_std_17)
 target_include_directories(Engine
   PUBLIC
     $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${glm_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${GSL_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${stduuid_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${NOVELRT_PNG_SOURCE_DIR}>
+    $<BUILD_INTERFACE:${NOVELRT_PNGLIBCONFG_SOURCE_DIR}>
+    $<BUILD_INTERFACE:$<TARGET_PROPERTY:Vulkan::Headers,INTERFACE_INCLUDE_DIRECTORIES>>
     $<INSTALL_INTERFACE:include>
 )
 
 if(MSVC)
+  set_property(TARGET Engine PROPERTY WINDOWS_EXPORT_ALL_SYMBOLS ON)
+  target_compile_definitions(Engine PUBLIC -D__TBB_NO_IMPLICIT_LINKAGE=$<IF:$<CONFIG:DEBUG>,1,0>)
   target_compile_options(Engine
     PRIVATE
       /W4
@@ -177,37 +148,62 @@ endif()
 
 target_link_libraries(Engine
   PUBLIC
-    BZip2::BZip2
-    FLAC::FLAC
-    Freetype::Freetype
-    glad::glad
-    glfw::glfw
-    glm::glm
-    Microsoft.GSL::Microsoft.GSL
-    Ogg::Ogg
-    OpenAL::OpenAL
-    Opus::Opus
-    PNG::PNG
-    SndFile::SndFile
-    spdlog::spdlog
-    TBB::TBB
-    Vorbis::Vorbis
-    Vulkan::Vulkan
-    vulkan-memory-allocator::vulkan-memory-allocator
-    ${JNI_LIBRARIES}
+    runtime # Fabulist support - target name is vague. Fix later. :]
+    freetype
+    glfw
+    OpenAL
+    png_static
+    spdlog
+    TBB::tbb
+    $<TARGET_LINKER_FILE:${NOVELRT_VULKAN_TARGET}>
+    jsoncons
+    sndfile
 )
 
-if(WIN32)
-  target_link_libraries(Engine
-    PUBLIC
-      Winmm
-  )
+install(
+  TARGETS Engine
+  EXPORT NovelRT
+  DESTINATION lib
+  RUNTIME DESTINATION bin
+)
+#Workaround due to hierarchy destruction when installing by TARGETS
+install(
+  DIRECTORY ${CMAKE_SOURCE_DIR}/include/NovelRT/
+  DESTINATION include/NovelRT
+  FILES_MATCHING PATTERN "*.h"
+)
 
   # I hate CMake I hate it I hate it I hate it
   # (work around for CMAKE REFUSING TO COPY NECESSARY FILES FOR DEBUGGING MAKING IT IMPOSSIBLE TO DEBUG)
+if(WIN32 OR APPLE)
+  #add_custom_command(TARGET Engine POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory
+  #    ${CMAKE_BINARY_DIR}/thirdparty
+  #    $<TARGET_FILE_DIR:Engine>)
   add_custom_command(TARGET Engine POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory
-      ${CMAKE_BINARY_DIR}/thirdparty
-      $<TARGET_FILE_DIR:Engine>)
-  file(GLOB libs RELATIVE ${CMAKE_BINARY_DIR}/thirdparty ${CMAKE_BINARY_DIR}/thirdparty/*.dll)
-  set_target_properties(Engine PROPERTIES RESOURCE "${libs}")
+    $<TARGET_FILE_DIR:OpenAL>
+    $<TARGET_FILE_DIR:Engine>)
+  add_custom_command(TARGET Engine POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory
+    $<TARGET_FILE_DIR:sndfile>
+    $<TARGET_FILE_DIR:Engine>)
+  add_custom_command(TARGET Engine POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory
+    $<TARGET_FILE_DIR:tbb>
+    $<TARGET_FILE_DIR:Engine>)
+  if(NOT NOVELRT_VULKAN_SDK)
+    add_custom_command(TARGET Engine POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy
+      $<TARGET_FILE:${NOVELRT_VULKAN_TARGET}>
+      $<TARGET_FILE_DIR:Engine>/$<TARGET_FILE_NAME:${NOVELRT_VULKAN_TARGET}>)
+    if(APPLE)
+      add_custom_command(TARGET Engine POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${NOVELRT_MOLTENVK_DYLIB_PATH}
+        $<TARGET_FILE_DIR:Engine>)
+      set(NOVELRT_ADDITIONAL_LIBS_APPLE ON)
+      set(NOVELRT_ADDITIONAL_LIBS "${NOVELRT_MOLTENVK_LIBTOCOPY};${NOVELRT_MOLTENVK_ICDTOCOPY}")
+    endif()
+  endif()
+  #file(GLOB libs RELATIVE
+  #  ${CMAKE_BINARY_DIR}/thirdparty ${CMAKE_BINARY_DIR}/thirdparty/*.${NOVELRT_LIB_SUFFIX})
+  set_target_properties(Engine
+    PROPERTIES
+      RESOURCE "$<TARGET_FILE_NAME:OpenAL>;$<TARGET_FILE_NAME:sndfile>;$<TARGET_FILE_NAME:tbb>;$<$<NOT:$<BOOL:${NOVELRT_VULKAN_SDK}>>:$<TARGET_FILE_NAME:${NOVELRT_VULKAN_TARGET}>>;$<$<BOOL:${NOVELRT_ADDITIONAL_LIBS_APPLE}>:${NOVELRT_ADDITIONAL_LIBS}>")
 endif()
+

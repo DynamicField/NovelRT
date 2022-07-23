@@ -4,8 +4,8 @@
 #ifndef NOVELRT_INPUT_KEYSTATE_H
 #define NOVELRT_INPUT_KEYSTATE_H
 
-#ifndef NOVELRT_H
-#error Please do not include this directly. Use the centralised header (NovelRT.h) instead!
+#ifndef NOVELRT_INPUT_H
+#error NovelRT does not support including types explicitly by default. Please include Input.h instead for the Input namespace subset.
 #endif
 
 namespace NovelRT::Input
@@ -15,10 +15,10 @@ namespace NovelRT::Input
      */
     enum class KeyState : int32_t
     {
-        Idle = -1,
-        KeyUp = GLFW_RELEASE,      // 0
-        KeyDown = GLFW_PRESS,      // 1
-        KeyDownHeld = GLFW_REPEAT, // 2
+        Idle = 0,
+        KeyUp = 1,
+        KeyDown = 2,
+        KeyDownHeld = 3
     };
 }
 

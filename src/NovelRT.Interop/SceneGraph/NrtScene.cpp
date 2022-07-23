@@ -3,7 +3,7 @@
 
 #include <NovelRT.Interop/NrtErrorHandling.h>
 #include <NovelRT.Interop/SceneGraph/NrtScene.h>
-#include <NovelRT.h>
+#include <NovelRT/NovelRT.h>
 
 using namespace NovelRT;
 
@@ -21,13 +21,13 @@ extern "C"
     {
         if (scene == nullptr)
         {
-            Nrt_setErrMsgIsNullptrInternal();
+            Nrt_setErrIsNullInstanceProvidedInternal();
             return NRT_FAILURE_NULL_INSTANCE_PROVIDED;
         }
 
         if (outputSet == nullptr)
         {
-            Nrt_setErrMsgIsNullptrInternal();
+            Nrt_setErrIsNullArgProvidedInternal();
             return NRT_FAILURE_NULL_ARGUMENT_PROVIDED;
         }
 
@@ -58,7 +58,7 @@ extern "C"
     {
         if (scene == nullptr)
         {
-            Nrt_setErrMsgIsNullptrInternal();
+            Nrt_setErrIsNullInstanceProvidedInternal();
             return NRT_FAILURE_NULL_INSTANCE_PROVIDED;
         }
 

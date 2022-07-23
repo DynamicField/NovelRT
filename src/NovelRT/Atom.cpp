@@ -1,49 +1,91 @@
 // Copyright © Matt Jones and Contributors. Licensed under the MIT Licence (MIT). See LICENCE.md in the repository root
 // for more information.
 
-#include <NovelRT.h>
+#include <NovelRT/Atom.h>
+#ifndef __TBB_PREVIEW_MUTEXES
+#define __TBB_PREVIEW_MUTEXES 1
+#endif
+#include <NovelRT/Exceptions/Exceptions.h>
+#include <mutex>
+#include <oneapi/tbb/mutex.h>
+#include <unordered_map>
 
 namespace NovelRT
 {
-    Atom Atom::getNextEventHandlerId() noexcept
+
+    Atom Atom::GetNextEcsPrimitiveInfoConfigurationId() noexcept
     {
-        static std::atomic_uintptr_t _nextEventHandlerId(0);
-        auto value = ++_nextEventHandlerId;
+        static std::atomic_uintptr_t _nextEcsPrimitiveInfoConfigurationId(0);
+        auto value = ++_nextEcsPrimitiveInfoConfigurationId;
         return Atom(value);
     }
 
-    Atom Atom::getNextFontSetId() noexcept
+    AtomFactory::AtomFactory() noexcept : AtomFactory(0)
     {
-        static std::atomic_uintptr_t _nextFontSetId(0);
-        auto value = ++_nextFontSetId;
-        return Atom(value);
     }
 
-    Atom Atom::getNextTextureId() noexcept
+    AtomFactory::AtomFactory(Atom startingValue) noexcept : _currentValue(startingValue), _moved(false)
     {
-        static std::atomic_uintptr_t _nextTextureId(0);
-        auto value = ++_nextTextureId;
-        return Atom(value);
     }
 
-    Atom Atom::getNextComponentTypeId() noexcept
+    AtomFactory::AtomFactory(const AtomFactory& other) noexcept
     {
-        static std::atomic_uintptr_t _nextComponentTypeId(0);
-        auto value = ++_nextComponentTypeId;
-        return Atom(value);
+        *this = other;
     }
 
-    Atom Atom::getNextEntityId() noexcept
+    AtomFactory::AtomFactory(AtomFactory&& other) noexcept
     {
-        static std::atomic_uintptr_t _nextEntityId(0);
-        auto value = ++_nextEntityId;
-        return Atom(value);
+        *this = std::move(other);
     }
 
-    Atom Atom::getNextSystemId() noexcept
+    AtomFactory& AtomFactory::operator=(const AtomFactory& other) noexcept
     {
-        static std::atomic_uintptr_t _nextSystemId(0);
-        auto value = ++_nextSystemId;
-        return Atom(value);
+        _currentValue = other._currentValue.load();
+        return *this;
     }
-} // namespace NovelRT
+
+    AtomFactory& AtomFactory::operator=(AtomFactory&& other) noexcept
+    {
+        other._moved = true;
+        _currentValue = other._currentValue.load();
+        return *this;
+    }
+
+    Atom AtomFactory::GetNext()
+    {
+        if (_moved)
+        {
+            throw Exceptions::InvalidOperationException("AtomFactory object has been moved. It is invalid to get the "
+                                                        "next atomic value from a factory in this state.");
+        }
+
+        auto value = ++_currentValue;
+        return value;
+    }
+
+    void AtomFactory::SetToValue(Atom value)
+    {
+        if (_moved)
+        {
+            throw Exceptions::InvalidOperationException("AtomFactory object has been moved. It is invalid to directly "
+                                                        "set the current atomic value from a factory in this state.");
+        }
+
+        _currentValue = value;
+    }
+
+    AtomFactory& AtomFactoryDatabase::GetFactory(const std::string& factoryName) noexcept
+    {
+        static tbb::mutex _mutex;
+        static std::unordered_map<std::string, AtomFactory> _factories;
+        std::scoped_lock lock(_mutex);
+        auto it = _factories.find(factoryName);
+
+        if (it == _factories.end())
+        {
+            _factories[factoryName] = AtomFactory(0);
+        }
+
+        return _factories[factoryName];
+    }
+}

@@ -3,7 +3,7 @@
 
 #include <NovelRT.Interop/Maths/NrtQuadTreePoint.h>
 #include <NovelRT.Interop/NrtErrorHandling.h>
-#include <NovelRT.h>
+#include <NovelRT/NovelRT.h>
 
 #include <algorithm>
 #include <list>
@@ -40,7 +40,7 @@ extern "C"
     {
         if (point == nullptr)
         {
-            Nrt_setErrMsgIsNullptrInternal();
+            Nrt_setErrIsNullInstanceProvidedInternal();
             return NRT_FAILURE_NULL_INSTANCE_PROVIDED;
         }
 

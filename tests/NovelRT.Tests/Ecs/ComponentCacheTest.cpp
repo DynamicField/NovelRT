@@ -1,7 +1,7 @@
 // Copyright © Matt Jones and Contributors. Licensed under the MIT License (MIT). See LICENCE.md in the repository root
 // for more information.
 
-#include <NovelRT.h>
+#include <NovelRT/NovelRT.h>
 #include <atomic>
 #include <gtest/gtest.h>
 
@@ -22,12 +22,12 @@ protected:
 
 TEST_F(ComponentCacheTest, RegisterComponentTypeDoesNotThrow)
 {
-    EXPECT_NO_THROW(cache.RegisterComponentType<int32_t>(NAN));
+    EXPECT_NO_THROW(cache.RegisterComponentType<int32_t>(NAN, "THROW_AWAY"));
 }
 
 TEST_F(ComponentCacheTest, GetComponentBufferReturnsValidBuffer)
 {
-    cache.RegisterComponentType<int32_t>(NAN);
+    cache.RegisterComponentType<int32_t>(NAN, "THROW_AWAY");
     auto buffer = cache.GetComponentBuffer<int32_t>();
     buffer.PushComponentUpdateInstruction(0, 0, 10);
     buffer.PrepComponentBufferForFrame(std::vector<EntityId>{});
@@ -40,7 +40,7 @@ TEST_F(ComponentCacheTest, GetComponentBufferReturnsValidBuffer)
 
 TEST_F(ComponentCacheTest, PrepAllBuffersForNextFrameUpdatesEntitiesCorrectly)
 {
-    cache.RegisterComponentType<int32_t>(NAN);
+    cache.RegisterComponentType<int32_t>(NAN, "THROW_AWAY");
     auto buffer = cache.GetComponentBuffer<int32_t>();
     buffer.PushComponentUpdateInstruction(0, 0, 10);
     ASSERT_NO_THROW(cache.PrepAllBuffersForNextFrame(std::vector<EntityId>{}));
