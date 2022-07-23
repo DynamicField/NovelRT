@@ -16,15 +16,15 @@ val moduleName by extra("novelrt.sample.kotlin")
 application {
   mainModule.set("novelrt.sample.kotlin")
   mainClass.set("com.github.novelrt.sample.kotlin.MainKt")
-  applicationDefaultJvmArgs = listOf(
-    "-XX:+UnlockDiagnosticVMOptions",
-    "-XX:PrintAssemblyOptions=intel",
-    "-Xbatch",
-    "-XX:+LogCompilation",
-    "-XX:+PrintAssembly",
-    "-XX:LogFile=build/last_run.log"
-     // "-XX:CompileCommand=print, *MainKt.main"
-  )
+//  applicationDefaultJvmArgs = listOf(
+//    "-XX:+UnlockDiagnosticVMOptions",
+//    "-XX:PrintAssemblyOptions=intel",
+//    "-Xbatch",
+//    "-XX:+LogCompilation",
+//    "-XX:+PrintAssembly",
+//    "-XX:LogFile=build/last_run.log"
+//     // "-XX:CompileCommand=print, *MainKt.main"
+//  )
 }
 
 

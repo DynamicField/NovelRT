@@ -1,48 +1,67 @@
 package com.github.novelrt.nativedata
 
+import com.github.novelrt.fumocement.layout.StructLayoutArranger
+import com.github.novelrt.fumocement.layout.TypeLayout
 import com.github.novelrt.fumocement.memory.NativeMemory
+import com.github.novelrt.fumocement.memory.NativeStack
 
 abstract class StructDefinition<S : StructDefinition<S>> {
-    private var currentOffset: Long = 0
+    private val arranger: StructLayoutArranger = StructLayoutArranger()
 
     abstract val size: Long
+    lateinit var layout: TypeLayout
 
     protected val finalSize: Long
-        get() = currentOffset
+        get() {
+            layout = arranger.completeStruct()
+            return layout.size
+        }
 
     protected fun intField(): StructField<S, Int> {
-        return registerField(4)
+        return registerField(TypeLayout.JAVA_INT)
     }
 
     protected fun longField(): StructField<S, Long> {
-        return registerField(8)
+        return registerField(TypeLayout.JAVA_LONG)
     }
 
     protected fun floatField(): StructField<S, Float> {
-        return registerField(4)
+        return registerField(TypeLayout.JAVA_FLOAT)
     }
 
     protected fun doubleField(): StructField<S, Double> {
-        return registerField(8)
+        return registerField(TypeLayout.JAVA_DOUBLE)
     }
 
     protected fun <S2 : StructDefinition<S2>> structField(definition: S2): StructField<S, S2> {
-        return registerField(definition.size)
+        return registerField(definition.layout)
     }
 
-    private fun <T> registerField(fieldSize: Long): StructField<S, T> {
-        val field = StructField<S, T>(currentOffset)
-        // Make sure we're on multiples of the field size.
-        currentOffset += (currentOffset % fieldSize) + fieldSize
-        return field
+    private fun <T> registerField(layout: TypeLayout): StructField<S, T> {
+        return StructField(arranger.addField(layout))
     }
 
     fun allocate(): AllocatedStruct<S> {
         return AllocatedStruct(StructPointer(NativeMemory.access().allocateMemory(size)))
     }
 
+    inline fun allocate(initializer: StructPointer<S>.() -> Unit): AllocatedStruct<S> {
+        val struct = allocate()
+        struct.mutate(initializer)
+        return struct
+    }
+
+    inline fun allocateOnStack(action: (StructPointer<S>) -> Unit) {
+        NativeStack.current().allocate(this, action)
+    }
+
     fun allocateTemp(): TemporaryAllocatedStruct<S> {
         return TemporaryAllocatedStruct(NativeMemory.access().allocateMemory(size))
+    }
+
+    inline fun allocateTemp(initializer: StructPointer<S>.() -> Unit): TemporaryAllocatedStruct<S> {
+        val struct = TemporaryAllocatedStruct<S>(NativeMemory.access().allocateMemory(size))
+        return struct.mutate(initializer)
     }
 
     fun allocateRaw(): StructPointer<S> {
