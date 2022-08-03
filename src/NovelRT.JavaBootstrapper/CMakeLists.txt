@@ -35,12 +35,7 @@ copy_build_products(JavaBootstrapper
   TARGET_LOCATION $<TARGET_FILE_DIR:JavaBootstrapper>
 
   DEPENDENCY JavaSupport
-  TARGET_LOCATION $<TARGET_FILE_DIR:JavaBootstrapper>
-
-  DEPENDENCY Dotnet
-  DEPENDENCY_FILES nethost.dll
-  TARGET_LOCATION $<TARGET_FILE_DIR:JavaBootstrapper>
-  CONDITION NOVELRT_INCLUDE_INK AND WIN32)
+  TARGET_LOCATION $<TARGET_FILE_DIR:JavaBootstrapper>)
 
 #add_custom_command(
 #  TARGET JavaBootstrapper POST_BUILD
