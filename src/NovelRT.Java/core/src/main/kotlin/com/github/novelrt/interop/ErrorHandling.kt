@@ -6,7 +6,7 @@ import com.github.novelrt.fumocement.StringDeletionBehaviour
 typealias NrtResult = Int
 
 internal fun NrtResult.handleNrtResult() {
-    if (this != NovelRT.NrtResultKind.NRT_SUCCESS && this != NovelRT.NrtResultKind.NRT_DATA_NOT_MODIFIED) {
+    if (this < 0) {
         val error = NovelRT.Nrt_getLastError(StringDeletionBehaviour.NO_DELETE)
         throw NovelRTException(error)
     }

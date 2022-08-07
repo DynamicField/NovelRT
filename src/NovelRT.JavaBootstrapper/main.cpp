@@ -1,7 +1,6 @@
 #define NOVELRT_C_API 1
-#define NOVELRT_INK 1
 #define JNI_TEMPORARY_REMOVAL 1
-#include <NovelRT.h>
+#include <NovelRT/NovelRT.h>
 #include <iostream>
 #include "jni.h"
 #include "jni/jni.hpp"

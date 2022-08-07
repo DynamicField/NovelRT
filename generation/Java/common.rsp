@@ -10,9 +10,7 @@
 -Wno-extern-initializer
 
 --define-macro
-NOVELRT_INK
 NOVELRT_C_API
-JNI_TEMPORARY_REMOVAL
 UNICODE
 
 --file

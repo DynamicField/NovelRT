@@ -1,3 +1,6 @@
+find_package(JNI REQUIRED)
+include(CopyBuildProducts)
+
 set(SOURCES
   main.cpp)
 
@@ -24,6 +27,13 @@ target_link_libraries(JavaSupport
     Engine
     Interop
     JNI::JVM)
+
+copy_build_products(JavaSupport
+  DEPENDENCY Engine
+  TARGET_LOCATION $<TARGET_FILE_DIR:JavaSupport>
+
+  DEPENDENCY Interop
+  TARGET_LOCATION $<TARGET_FILE_DIR:JavaSupport>)
 
 if(MSVC)
   target_compile_options(JavaSupport

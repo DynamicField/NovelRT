@@ -1,5 +1,4 @@
 include(CopyBuildProducts)
-find_package(JNI REQUIRED)
 
 set(JAVA_BOOTSTRAPPER_SOURCES
   main.cpp ArgumentParser.cpp StringConversions.cpp)

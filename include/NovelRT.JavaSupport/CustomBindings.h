@@ -146,7 +146,7 @@ extern "C"
     {
         return Nrt_ComponentCache_RegisterComponentTypeUnsafe(
             reinterpret_cast<NrtComponentCacheHandle>(cacheHandle), size, reinterpret_cast<void*>(deleteState),
-            &NovelRT::JavaSupport::updateComponent, nullptr, reinterpret_cast<NrtComponentTypeId*>(resultOut));
+            &NovelRT::JavaSupport::updateComponent, "TODO", nullptr, reinterpret_cast<NrtComponentTypeId*>(resultOut));
     }
 
     JNIEXPORT jlong JNICALL Java_com_github_novelrt_ecs_ComponentBuffer_getComponentHandleUnsafe(JNIEnv*,

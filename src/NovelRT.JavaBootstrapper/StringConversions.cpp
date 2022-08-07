@@ -1,5 +1,5 @@
 #include <jni/string_conversion.hpp>
-#include <NovelRT.h>
+#include <NovelRT/NovelRT.h>
 
 namespace jni {
     std::u16string convertUTF8ToUTF16(const std::string& string) {

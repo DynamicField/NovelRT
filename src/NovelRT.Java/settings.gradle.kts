@@ -1,12 +1,38 @@
 @file:Suppress("UnstableApiUsage")
 
+import java.util.Properties
+
 rootProject.name = "novelrt-java-project"
+
+val repositoriesProps = Properties()
+val repositoriesFile = file("repositories.properties")
+if (repositoriesFile.exists()) {
+  repositoriesFile.inputStream().use(repositoriesProps::load)
+} else {
+  try {
+    if (repositoriesFile.createNewFile()) {
+      java.io.PrintWriter(repositoriesFile.outputStream()).use { writer ->
+        writer.write("# novelrt.fumocement.path=\n")
+        writer.write("# novelrt.plugin.path=\n")
+      }
+    }
+  } catch (e: java.io.IOException) {
+    // Let's not explode our build for that little incident.
+  }
+}
 
 include("novelrt")
 include("sample-kotlin")
-include("sample-java")
-include("fumocement")
-includeBuild(file("D:\\Users\\jeuxj\\Documents\\Source Projects Dev\\FumoCement"))
+
+val fumoCementPath = repositoriesProps["novelrt.fumocement.path"]
+if (fumoCementPath != null) {
+  includeBuild(file(fumoCementPath))
+}
+
+val pluginPath = repositoriesProps["novelrt.plugin.path"]
+if (pluginPath != null) {
+  includeBuild(file(pluginPath))
+}
 
 project(":novelrt").projectDir = file("core")
 

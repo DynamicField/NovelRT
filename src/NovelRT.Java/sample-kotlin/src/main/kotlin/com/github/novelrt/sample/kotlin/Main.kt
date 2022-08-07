@@ -1,12 +1,14 @@
 package com.github.novelrt.sample.kotlin
 
 import com.github.novelrt.ecs.ComponentDefinition
+import com.github.novelrt.fumocement.NativeOpsEnhancedThread
+import com.github.novelrt.fumocement.memory.NativeStack
 import com.github.novelrt.nativedata.AllocatedStruct
 import com.github.novelrt.nativedata.StructArray
-import com.github.novelrt.nativedata.StructDefinition
-import com.github.novelrt.nativedata.StructField
+import com.github.novelrt.nativedata.StructPointer
 import com.github.novelrt.sample.kotlin.Vector3.forEach
-import kotlin.reflect.KProperty
+import java.lang.invoke.MethodHandles
+import java.lang.invoke.VarHandle
 
 object Vector3 : ComponentDefinition<Vector3>() {
     val x = floatField()
@@ -17,7 +19,6 @@ object Vector3 : ComponentDefinition<Vector3>() {
 }
 
 fun main() {
-    sumExperiments()
     /*
     NovelRTLoader.load()
     val scheduler = SystemScheduler(4u)

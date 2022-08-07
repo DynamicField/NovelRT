@@ -1,8 +1,10 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinTopLevelExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
   java
   kotlin("jvm")
+  id("dev.novelrt.novelrt-plugin")
 }
 
 repositories {
@@ -18,9 +20,11 @@ extra["novelrtRoot"] = rootProject.projectDir.toPath().parent.parent
 group = "com.github.novelrt"
 version = "0.1-SNAPSHOT"
 
-val compileKotlin: KotlinCompile by tasks
-
-compileKotlin.kotlinOptions.jvmTarget = "17"
+kotlin {
+  jvmToolchain {
+    languageVersion.set(JavaLanguageVersion.of(17))
+  }
+}
 
 tasks.withType<JavaCompile> {
   options.encoding = "UTF-8"
