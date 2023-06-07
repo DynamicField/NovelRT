@@ -1,9 +1,9 @@
 package com.github.novelrt.ecs
 
-import com.github.novelrt.fumocement.DisposalMethod
 import com.github.novelrt.fumocement.IndirectedPointer
 import com.github.novelrt.fumocement.NativeObjectTracker
-import com.github.novelrt.fumocement.builtin.UInt32Pointer
+import com.github.novelrt.fumocement.builtin.Int64Pointer
+import com.github.novelrt.fumocement.memory.NativeStack
 import com.github.novelrt.interop.*
 
 class ComponentCache internal constructor(
@@ -22,15 +22,15 @@ class ComponentCache internal constructor(
         NovelRT.Nrt_ComponentCache_PrepAllBuffersForNextFrame(handle, entitiesToDelete.handle)
 
     fun <C : ComponentDefinition<C>> registerComponentType(definition: C): BufferIdentifier<C> {
-        val id = UInt32Pointer(DisposalMethod.MANUAL).resultWith { myHandle, pointerHandle ->
+        Int64Pointer.allocate(NativeStack.current()).use { out ->
             registerComponentType(
-                myHandle,
+                handle,
                 definition.size,
                 definition.deleteState.pointer.address,
-                pointerHandle
-            )
+                out.address
+            ).handleNrtResult()
+            return BufferIdentifier(definition, out.value.toULong())
         }
-        return BufferIdentifier(definition, id.toULong())
     }
 
     fun <C : ComponentDefinition<C>> getComponentBufferById(identifier: BufferIdentifier<C>): ComponentBuffer<C> {
@@ -42,7 +42,7 @@ class ComponentCache internal constructor(
 
     data class BufferIdentifier<C : ComponentDefinition<C>>(val definition: C, val id: ComponentTypeId)
 
-    companion object : SingleTrackingContainer<ComponentCache>(NativeObjectTracker.Target.UNOWNED_OBJECTS) {
+    companion object : TrackingContainer<ComponentCache>(NativeObjectTracker.Target.UNOWNED_OBJECTS) {
         override fun makeObject(handle: ObjectHandle<ComponentCache>): ComponentCache =
             ComponentCache(handle.value, false)
 

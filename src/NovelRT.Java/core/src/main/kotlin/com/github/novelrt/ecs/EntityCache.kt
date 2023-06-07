@@ -50,7 +50,7 @@ class EntityCache internal constructor(
             .toObjectHandle<EntityIdVector>()
             .makeTracked()
 
-    companion object : SingleTrackingContainer<EntityCache>(NativeObjectTracker.Target.UNOWNED_OBJECTS) {
+    companion object : TrackingContainer<EntityCache>(NativeObjectTracker.Target.UNOWNED_OBJECTS) {
         override fun makeObject(handle: ObjectHandle<EntityCache>): EntityCache = EntityCache(handle.value, false)
     }
 }

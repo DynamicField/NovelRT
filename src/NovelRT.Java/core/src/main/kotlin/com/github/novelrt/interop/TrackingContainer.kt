@@ -5,7 +5,7 @@ import com.github.novelrt.fumocement.IndirectedPointer
 import com.github.novelrt.fumocement.NativeObject
 import com.github.novelrt.fumocement.NativeObjectTracker
 
-abstract class SingleTrackingContainer<T : NativeObject> internal constructor(target: NativeObjectTracker.Target) {
+abstract class TrackingContainer<T : NativeObject> internal constructor(target: NativeObjectTracker.Target) {
     private val tracker = NativeObjectTracker({ handle, _ -> makeObject(ObjectHandle(handle)) }, target)
 
     protected abstract fun makeObject(handle: ObjectHandle<T>): T

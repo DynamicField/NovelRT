@@ -11,7 +11,7 @@ class EntityIdVector internal constructor(
     fun insert(entity: EntityId) = NovelRT.Nrt_EntityIdVector_Insert(handle, entity.toLong()).handleNrtResult()
     fun remove(entity: EntityId) = NovelRT.Nrt_EntityIdVector_Remove(handle, entity.toLong()).handleNrtResult()
 
-    companion object : SingleTrackingContainer<EntityIdVector>(NativeObjectTracker.Target.UNOWNED_OBJECTS) {
+    companion object : TrackingContainer<EntityIdVector>(NativeObjectTracker.Target.UNOWNED_OBJECTS) {
         override fun makeObject(handle: ObjectHandle<EntityIdVector>): EntityIdVector =
             EntityIdVector(handle.value, false)
     }

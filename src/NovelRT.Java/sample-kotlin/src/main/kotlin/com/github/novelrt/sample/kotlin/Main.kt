@@ -1,14 +1,12 @@
 package com.github.novelrt.sample.kotlin
 
+import com.github.novelrt.NovelRTLoader
 import com.github.novelrt.ecs.ComponentDefinition
-import com.github.novelrt.fumocement.NativeOpsEnhancedThread
-import com.github.novelrt.fumocement.memory.NativeStack
+import com.github.novelrt.logging.logInfo
 import com.github.novelrt.nativedata.AllocatedStruct
 import com.github.novelrt.nativedata.StructArray
-import com.github.novelrt.nativedata.StructPointer
 import com.github.novelrt.sample.kotlin.Vector3.forEach
-import java.lang.invoke.MethodHandles
-import java.lang.invoke.VarHandle
+import java.text.MessageFormat
 
 object Vector3 : ComponentDefinition<Vector3>() {
     val x = floatField()
@@ -19,6 +17,10 @@ object Vector3 : ComponentDefinition<Vector3>() {
 }
 
 fun main() {
+    NovelRTLoader.load()
+
+    val logger = System.getLogger("MyApp")
+    logger.logInfo("Hello, World! {0}", 42)
     /*
     NovelRTLoader.load()
     val scheduler = SystemScheduler(4u)

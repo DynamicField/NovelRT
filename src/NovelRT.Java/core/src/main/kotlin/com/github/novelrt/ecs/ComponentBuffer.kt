@@ -1,7 +1,8 @@
 package com.github.novelrt.ecs
 
 import com.github.novelrt.fumocement.DisposalMethod
-import com.github.novelrt.fumocement.builtin.UIntPtrPointer
+import com.github.novelrt.fumocement.builtin.IntPtrPointer
+import com.github.novelrt.fumocement.memory.NativeStack
 import com.github.novelrt.interop.*
 import com.github.novelrt.interop.handleNrtResult
 import com.github.novelrt.nativedata.CopiedStructView
@@ -13,10 +14,11 @@ class ComponentBuffer<C : ComponentDefinition<C>> internal constructor(
     isOwned: Boolean
 ) : KotlinNativeObject(handle, isOwned, NovelRT::Nrt_ComponentBufferMemoryContainer_Destroy) {
     fun getComponent(entity: EntityId): CopiedStructView<C> {
-        val address = UIntPtrPointer(DisposalMethod.MANUAL).resultWith { myHandle, pointerHandle ->
-            NovelRT.Nrt_ComponentBufferMemoryContainer_GetComponent(myHandle, entity.toLong(), pointerHandle)
+        IntPtrPointer.allocate(NativeStack.current()).use { out ->
+            NovelRT.Nrt_ComponentBufferMemoryContainer_GetComponent(handle, entity.toLong(), out.address)
+                .handleNrtResult()
+            return CopiedStructView(NovelRT.Nrt_ComponentBufferMemoryContainer_ImmutableDataView_GetDataHandle(out.address))
         }
-        return CopiedStructView(NovelRT.Nrt_ComponentBufferMemoryContainer_ImmutableDataView_GetDataHandle(address))
     }
 
     fun getComponentUnsafe(entity: EntityId): CopiedStructView<C> {

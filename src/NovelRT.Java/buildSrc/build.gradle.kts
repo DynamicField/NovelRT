@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0")
-  implementation("org.beryx:badass-jlink-plugin:2.24.0")
+  implementation("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.21")
+  implementation("org.beryx:badass-jlink-plugin:2.26.0")
   implementation("dev.novelrt:novelrt-plugin:0.0.1")
 }

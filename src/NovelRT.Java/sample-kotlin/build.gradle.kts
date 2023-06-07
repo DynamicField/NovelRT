@@ -9,8 +9,10 @@ plugins {
 }
 
 novelrt {
-  // This will be different once we have an actual SDK
-  binariesLocation.set(novelrtRootPath.resolve("build/src/NovelRT.JavaSupport").toFile())
+  sdk {
+    binariesDir.set(novelrtRootPath.resolve("build/src/NovelRT.JavaSupport").toFile())
+    engineResourcesDir.set(novelrtRootPath.resolve("resources").toFile())
+  }
 }
 
 dependencies {
