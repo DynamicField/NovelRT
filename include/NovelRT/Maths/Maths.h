@@ -6,12 +6,16 @@
 
 // Maths dependencies
 #include <NovelRT/Exceptions/Exceptions.h>
+#include <NovelRT/Utilities/Misc.h>
 #include <array>
 #include <glm/glm.hpp>
 #include <glm/gtx/rotate_vector.hpp>
 #include <memory>
 #include <vector>
 
+/**
+ * @brief Contains features in assisting with mathematical operations, such as structures for vector and matrix maths.
+ */
 namespace NovelRT::Maths
 {
     class GeoBounds;

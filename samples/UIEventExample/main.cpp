@@ -15,12 +15,6 @@ int main()
     NovelRT::LoggingService logger = NovelRT::LoggingService();
     logger.setLogLevel(NovelRT::LogLevel::Info);
 
-#if NOVELRT_MOLTENVK_VENDORED
-    auto icdPath = NovelRT::Utilities::Misc::getExecutablePath() / "MoltenVK_icd.json";
-    setenv("VK_ICD_FILENAMES", icdPath.c_str(), 0);
-    logger.logInfo("macOS detected - setting VK_ICD_FILENAMES to path: {}", icdPath.c_str());
-#endif
-
     DefaultPluginSelector selector;
     auto windowingProvider = selector.GetDefaultPluginTypeOnCurrentPlatformFor<IWindowingPluginProvider>();
     auto inputProvider = selector.GetDefaultPluginTypeOnCurrentPlatformFor<IInputPluginProvider>();
@@ -68,7 +62,8 @@ int main()
                 pTextureData.emplace_back(colourValue);
             }
 
-            redTextureFuture = renderingSystem->LoadTextureDataRaw<uint32_t>("exampleTex", pTextureData, 100, 100);
+            redTextureFuture =
+                renderingSystem->LoadTextureDataRaw<uint32_t>("exampleTex", pTextureData, 100, 100, uuids::uuid{});
         }
     });
 
@@ -106,17 +101,17 @@ int main()
                 transformRegion.value());
 
             // im only adding 3 transforms for this example.
-            auto matrixToInsert = NovelRT::Maths::GeoMatrix4x4F::getDefaultIdentity();
+            auto matrixToInsert = NovelRT::Maths::GeoMatrix4x4F::GetDefaultIdentity();
             matrixToInsert.Translate(NovelRT::Maths::GeoVector3F(0, 250, 0));
-            matrixToInsert.Scale(NovelRT::Maths::GeoVector2F::uniform(500));
+            matrixToInsert.Scale(NovelRT::Maths::GeoVector2F::Uniform(500));
             ptr[0] = matrixToInsert;
-            matrixToInsert = NovelRT::Maths::GeoMatrix4x4F::getDefaultIdentity();
+            matrixToInsert = NovelRT::Maths::GeoMatrix4x4F::GetDefaultIdentity();
             matrixToInsert.Translate(NovelRT::Maths::GeoVector3F(700, -300, 0));
-            matrixToInsert.Scale(NovelRT::Maths::GeoVector2F::uniform(500));
+            matrixToInsert.Scale(NovelRT::Maths::GeoVector2F::Uniform(500));
             ptr[1] = matrixToInsert;
-            matrixToInsert = NovelRT::Maths::GeoMatrix4x4F::getDefaultIdentity();
+            matrixToInsert = NovelRT::Maths::GeoMatrix4x4F::GetDefaultIdentity();
             matrixToInsert.Translate(NovelRT::Maths::GeoVector3F(700, 250, 0));
-            matrixToInsert.Scale(NovelRT::Maths::GeoVector2F::uniform(500));
+            matrixToInsert.Scale(NovelRT::Maths::GeoVector2F::Uniform(500));
             ptr[2] = matrixToInsert;
 
             args.resourceManager.UnmapAndWriteAllConstantBuffers();

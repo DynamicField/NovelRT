@@ -94,6 +94,10 @@ namespace NovelRT::Windowing::Glfw
         {
             requiredExtensions.emplace_back(extensions[i]);
         }
+
+#ifdef __APPLE__
+        requiredExtensions.emplace_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
+#endif
     }
 
     void GlfwWindowingDevice::TearDown() noexcept
@@ -116,7 +120,7 @@ namespace NovelRT::Windowing::Glfw
 
         if (width == 0 || height == 0)
         {
-            return Maths::GeoVector2F::zero();
+            return Maths::GeoVector2F::Zero();
         }
 
         return Maths::GeoVector2F(static_cast<float>(width), static_cast<float>(height));

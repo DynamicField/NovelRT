@@ -1,7 +1,5 @@
+find_package(GTest)
 include(GoogleTest)
-if(NOVELRT_VULKAN_SDK)
-  find_dependency(Vulkan REQUIRED)
-endif()
 
 set(SOURCES
   Ecs/CatalogueTest.cpp
@@ -31,6 +29,7 @@ set(SOURCES
   $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Maths/GeoVector4FTest.cpp>
   $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Maths/QuadTreePointTest.cpp>
   $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Maths/QuadTreeTest.cpp>
+  $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/ResourceManagement/BinaryMemberMetadataTest.cpp>
   $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/SceneGraph/NovelRTSceneNodeTest.cpp>
   $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop/Timing/NovelRTTimestampTest.cpp>
 
@@ -48,26 +47,95 @@ set(SOURCES
 
   Timing/TimestampTest.cpp
 
+  Utilities/BitCastTest.cpp
   Utilities/BitflagsTest.cpp
   Utilities/EventTest.cpp
 
   main.cpp
 )
 
-add_executable(Engine_Tests ${SOURCES})
-include(${CMAKE_SOURCE_DIR}/cmake/CopyBuildProducts.cmake)
-if(NOVELRT_BUILD_INTEROP)
-  copy_build_products(Engine_Tests
-    DEPENDENCY Engine
-    TARGET_LOCATION $<TARGET_FILE_DIR:Engine_Tests>
 
-    DEPENDENCY Interop
-    TARGET_LOCATION $<TARGET_FILE_DIR:Engine_Tests>
+include(${PROJECT_SOURCE_DIR}/cmake/CopyBuildProducts.cmake)
+
+if(APPLE)
+  add_executable(Engine_Tests MACOSX_BUNDLE ${SOURCES})
+  set_target_properties(Engine_Tests 
+    PROPERTIES
+      BUNDLE True
+      MACOSX_BUNDLE_GUI_IDENTIFIER dev.novelrt.samples.Engine_Tests
+      MACOS_BUNDLE_BUNDLE_NAME Engine_Tests
+      MACOSX_BUNDLE_BUNDLE_VERSION "${PROJECT_VERSION}"
+      MACOSX_BUNDLE_SHORT_VERION_STRING "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}"
   )
 else()
-  copy_build_products(Engine_Tests
+  add_executable(Engine_Tests ${SOURCES})
+endif()
+
+target_compile_options(Engine_Tests
+  PRIVATE
+    $<$<CXX_COMPILER_ID:MSVC>:/W4>
+    $<$<CXX_COMPILER_ID:MSVC>:/WX>
+    $<$<CXX_COMPILER_ID:MSVC>:/wd4611>
+    $<$<CXX_COMPILER_ID:MSVC>:/MP>
+
+    $<$<CXX_COMPILER_ID:GNU>:-pedantic>
+    $<$<CXX_COMPILER_ID:GNU>:-pedantic-errors>
+    $<$<CXX_COMPILER_ID:GNU>:-Wall>
+    $<$<CXX_COMPILER_ID:GNU>:-Wextra>
+    $<$<CXX_COMPILER_ID:GNU>:-Werror>
+    $<$<CXX_COMPILER_ID:GNU>:-Wno-float-equal>
+    $<$<CXX_COMPILER_ID:GNU>:-Wno-padded>
+
+    $<$<CXX_COMPILER_ID:Clang>:-pedantic>
+    $<$<CXX_COMPILER_ID:Clang>:-pedantic-errors>
+    $<$<CXX_COMPILER_ID:Clang>:-Wall>
+    $<$<CXX_COMPILER_ID:Clang>:-Wextra>
+    $<$<CXX_COMPILER_ID:Clang>:-Werror>
+    $<$<CXX_COMPILER_ID:Clang>:-Wno-c++98-compat>
+    $<$<CXX_COMPILER_ID:Clang>:-Wno-c++98-compat-pedantic>
+    $<$<CXX_COMPILER_ID:Clang>:-Wno-float-equal>
+    $<$<CXX_COMPILER_ID:Clang>:-Wno-padded>
+    $<$<CXX_COMPILER_ID:Clang>:-Wno-reserved-id-macro>
+
+    $<$<CXX_COMPILER_ID:AppleClang>:-pedantic>
+    $<$<CXX_COMPILER_ID:AppleClang>:-pedantic-errors>
+    $<$<CXX_COMPILER_ID:AppleClang>:-Wall>
+    $<$<CXX_COMPILER_ID:AppleClang>:-Wextra>
+    $<$<CXX_COMPILER_ID:AppleClang>:-Werror>
+    $<$<CXX_COMPILER_ID:AppleClang>:-Wno-c++98-compat>
+    $<$<CXX_COMPILER_ID:AppleClang>:-Wno-c++98-compat-pedantic>
+    $<$<CXX_COMPILER_ID:AppleClang>:-Wno-float-equal>
+    $<$<CXX_COMPILER_ID:AppleClang>:-Wno-padded>
+    $<$<CXX_COMPILER_ID:AppleClang>:-Wno-reserved-id-macro>
+)
+
+if(MSVC)
+  set_property(TARGET Engine_Tests PROPERTY WINDOWS_EXPORT_ALL_SYMBOLS ON)
+  get_target_property(opts Engine_Tests COMPILE_OPTIONS)
+endif()
+
+if(NOVELRT_BUILD_INTEROP)
+  copy_runtime_dependencies(Engine_Tests
     DEPENDENCY Engine
-    TARGET_LOCATION $<TARGET_FILE_DIR:Engine_Tests>
+    DEPENDENCY Interop
+  )
+else()
+  copy_runtime_dependencies(Engine_Tests
+    DEPENDENCY Engine
+  )
+endif()
+
+if(APPLE)
+  copy_runtime_dependencies(Engine_Tests
+    LIBRARY GTest::gtest_main
+    LIBRARY GTest::gtest
+    LIBRARY Vulkan::MoltenVK
+    LIBRARY Vorbis::vorbisenc
+    LIBRARY Vorbis::vorbis
+    LIBRARY FLAC::FLAC
+    LIBRARY Opus::opus
+    LIBRARY Ogg::ogg
+    LIBRARY ZLIB::zlib
   )
 endif()
 
@@ -75,8 +143,8 @@ target_link_libraries(Engine_Tests
   PUBLIC
     Engine
     $<$<BOOL:${NOVELRT_BUILD_INTEROP}>:Interop>
-    gtest_main
-)
+    GTest::gtest_main
+) 
 
 gtest_discover_tests(Engine_Tests
   EXTRA_ARGS "--gtest_output=xml:${CMAKE_CURRENT_BINARY_DIR}/../results/"

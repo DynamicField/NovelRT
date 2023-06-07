@@ -5,7 +5,75 @@
 
 namespace NovelRT::ResourceManagement::Desktop
 {
-    TextureMetadata DesktopResourceLoader::LoadTextureFromFile(std::filesystem::path filePath)
+    void DesktopResourceLoader::LoadAssetDatabaseFile()
+    {
+        auto filePath = _resourcesRootDirectory / _assetDatabaseFileName;
+        std::ifstream file(filePath);
+
+        if (!file.is_open())
+        {
+            std::ofstream unusedOutputStream(filePath);
+            unusedOutputStream.close();
+
+            file = std::ifstream(filePath);
+            if (!file.is_open())
+            {
+                throw NovelRT::Exceptions::IOException(
+                    filePath.string(),
+                    "Unable to open asset database file even after a creation attempt. Please validate that there is "
+                    "room on the local disk, and that folder permissions are correct.");
+            }
+        }
+
+        auto& guidToPathMap = GetGuidsToFilePathsMap();
+        auto& pathToGuidMap = GetFilePathsToGuidsMap();
+
+        std::string line;
+        while (std::getline(file, line))
+        {
+            auto subStrings = Utilities::Misc::SplitString(line, ":");
+
+            if (subStrings.size() != 2)
+            {
+                throw Exceptions::InvalidOperationException(
+                    "Invalid record detected in asset database. Is the asset database corrupted?");
+            }
+
+            auto parsedGuid = uuids::uuid::from_string(subStrings[0]).value();
+            auto parsedAssetPath = std::filesystem::path(subStrings[1]);
+
+            guidToPathMap.emplace(parsedGuid, parsedAssetPath);
+            pathToGuidMap.emplace(parsedAssetPath, parsedGuid);
+        }
+    }
+
+    void DesktopResourceLoader::WriteAssetDatabaseFile()
+    {
+        auto filePath = _resourcesRootDirectory / _assetDatabaseFileName;
+        std::ofstream inputStream(filePath);
+
+        if (!inputStream.is_open())
+        {
+            throw NovelRT::Exceptions::IOException(
+                filePath.string(), "Unable to open asset database file for append-write. Please validate that there is "
+                                   "room on the local disk, and that folder permissions are correct.");
+        }
+
+        auto& guidToPathMap = GetGuidsToFilePathsMap();
+
+        std::string pathStr;
+        for (auto [guid, path] : guidToPathMap)
+        {
+            pathStr = path.string();
+            std::replace(pathStr.begin(), pathStr.end(), '\\', '/');
+            inputStream << to_string(guid) << ":" << pathStr << '\n';
+        }
+
+        inputStream.flush();
+        inputStream.close();
+    }
+
+    TextureMetadata DesktopResourceLoader::LoadTexture(std::filesystem::path filePath)
     {
         if (filePath.is_relative())
         {
@@ -24,6 +92,7 @@ namespace NovelRT::ResourceManagement::Desktop
         _logger.throwIfNullPtr(
             cFile, "Image file cannot be opened! Please ensure the path is correct and that the file is not locked.");
 #endif
+
         auto png = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr,
                                           nullptr); // TODO: Figure out how the error function ptr works
 
@@ -145,10 +214,13 @@ namespace NovelRT::ResourceManagement::Desktop
         delete[] data.rowPointers;
         png_destroy_read_struct(&png, &info, nullptr);
 
-        return TextureMetadata{returnImage, data.width, data.height, finalLength};
+        auto relativePathForAssetDatabase = std::filesystem::relative(filePath, _resourcesRootDirectory);
+
+        return TextureMetadata{returnImage, data.width, data.height, finalLength,
+                               RegisterAsset(relativePathForAssetDatabase)};
     }
 
-    std::vector<uint8_t> DesktopResourceLoader::LoadShaderSource(std::filesystem::path filePath)
+    ShaderMetadata DesktopResourceLoader::LoadShaderSource(std::filesystem::path filePath)
     {
         if (filePath.is_relative())
         {
@@ -169,12 +241,17 @@ namespace NovelRT::ResourceManagement::Desktop
                   std::streamsize(fileSize)); // TODO: Why on earth do we have to cast to char*?!
         file.close();
 
-        return buffer;
+        auto relativePathForAssetDatabase = std::filesystem::relative(filePath, _resourcesRootDirectory);
+
+        return ShaderMetadata{buffer, RegisterAsset(relativePathForAssetDatabase)};
     }
 
     BinaryPackage DesktopResourceLoader::LoadPackage(std::filesystem::path filePath)
     {
-        filePath = _resourcesRootDirectory / filePath;
+        if (filePath.is_relative())
+        {
+            filePath = _resourcesRootDirectory / filePath;
+        }
 
         std::ifstream file(filePath.string(), std::ios::ate | std::ios::binary);
 
@@ -192,20 +269,25 @@ namespace NovelRT::ResourceManagement::Desktop
         BinaryPackage package{};
         package.memberMetadata = {};
 
-        jsoncons::json j = jsoncons::bson::decode_bson<jsoncons::json>(buffer);
-        jsoncons::json metadata = j["memberMetadata"];
+        auto j = nlohmann::json::from_bson(buffer);
+        auto metadata = j["memberMetadata"];
 
-        for (auto&& obj : metadata.array_value())
+        for (auto&& obj : metadata)
         {
-            BinaryMemberMetadata newMemberMetadata{
-                obj["name"].as<std::string>(), static_cast<BinaryDataType>(obj["type"].as<uint32_t>()),
-                obj["location"].as<size_t>(),  obj["sizeOfTypeInBytes"].as<size_t>(),
-                obj["length"].as<size_t>(),    obj["sizeOfSerialisedDataInBytes"].as<size_t>()};
+            BinaryMemberMetadata newMemberMetadata{obj.value<std::string>("name", std::string()),
+                                                   obj.value<BinaryDataType>("type", BinaryDataType::NullOrUnknown),
+                                                   obj.value<size_t>("location", 0),
+                                                   obj.value<size_t>("sizeOfTypeInBytes", 0),
+                                                   obj.value<size_t>("length", 0),
+                                                   obj.value<size_t>("sizeOfSerialisedDataInBytes", 0)};
 
             package.memberMetadata.emplace_back(newMemberMetadata);
         }
 
-        package.data = j["data"].as<std::vector<uint8_t>>();
+        package.data = j.value<std::vector<uint8_t>>("data", std::vector<uint8_t>());
+
+        auto relativePathForAssetDatabase = std::filesystem::relative(filePath, _resourcesRootDirectory);
+        package.databaseHandle = RegisterAsset(relativePathForAssetDatabase);
 
         return package;
     }
@@ -214,28 +296,27 @@ namespace NovelRT::ResourceManagement::Desktop
     {
         filePath = _resourcesRootDirectory / filePath;
 
-        jsoncons::json j(jsoncons::json_object_arg);
-        std::vector<jsoncons::json> memberMetadataJson{};
+        nlohmann::json j{};
+        nlohmann::json memberMetadataJson = nlohmann::json::array();
 
         for (auto&& member : package.memberMetadata)
         {
-            jsoncons::json newMemberJson(jsoncons::json_object_arg);
+            nlohmann::json newMemberJson{};
 
             newMemberJson["name"] = member.name;
-            newMemberJson["type"] = static_cast<uint32_t>(member.type);
+            newMemberJson["type"] = member.type;
             newMemberJson["location"] = member.location;
             newMemberJson["sizeOfTypeInBytes"] = member.sizeOfTypeInBytes;
             newMemberJson["length"] = member.length;
             newMemberJson["sizeOfSerialisedDataInBytes"] = member.sizeOfSerialisedDataInBytes;
 
-            memberMetadataJson.emplace_back(newMemberJson);
+            memberMetadataJson.push_back(newMemberJson);
         }
 
         j["memberMetadata"] = memberMetadataJson;
         j["data"] = package.data;
 
-        std::vector<uint8_t> buffer{};
-        jsoncons::bson::encode_bson(j, buffer);
+        std::vector<uint8_t> buffer = nlohmann::json::to_bson(j);
 
         std::ofstream file(filePath.string(), std::ios::out | std::ios::binary);
 
@@ -244,7 +325,50 @@ namespace NovelRT::ResourceManagement::Desktop
             throw NovelRT::Exceptions::InvalidOperationException("Unable to create file at " + filePath.string());
         }
 
+        auto relativePathForAssetDatabase = std::filesystem::relative(filePath, _resourcesRootDirectory);
+        RegisterAsset(relativePathForAssetDatabase);
+
         file.write(reinterpret_cast<const char*>(buffer.data()), std::streamsize(buffer.size()));
         file.close();
+    }
+
+    AudioMetadata DesktopResourceLoader::LoadAudioFrameData(std::filesystem::path filePath)
+    {
+        constexpr size_t _bufferSize = 2048;
+
+        if (filePath.is_relative())
+        {
+            filePath = _resourcesRootDirectory / "Audio" / filePath;
+        }
+
+        SF_INFO info;
+        info.format = 0;
+        auto filePathString = filePath.string();
+        SNDFILE* file = sf_open(filePathString.c_str(), SFM_READ, &info);
+
+        if (file == nullptr)
+        {
+            throw NovelRT::Exceptions::IOException(filePath.string(), std::string(sf_strerror(file)));
+        }
+
+        std::vector<int16_t> data;
+        std::vector<short> readBuffer;
+        readBuffer.resize(_bufferSize);
+
+        sf_command(file, SFC_SET_SCALE_FLOAT_INT_READ, nullptr, SF_TRUE);
+
+        sf_count_t readSize = 0;
+
+        while ((readSize = sf_read_short(file, readBuffer.data(), static_cast<sf_count_t>(readBuffer.size()))) != 0)
+        {
+            data.insert(data.end(), readBuffer.begin(), readBuffer.begin() + readSize);
+        }
+
+        sf_close(file);
+
+        auto relativePathForAssetDatabase = std::filesystem::relative(filePath, _resourcesRootDirectory);
+        uuids::uuid databaseHandle = RegisterAsset(relativePathForAssetDatabase);
+
+        return AudioMetadata{data, info.channels, info.samplerate, databaseHandle};
     }
 }

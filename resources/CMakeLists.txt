@@ -1,4 +1,6 @@
 set(RESOURCES_FILES
+  novel-chan.icns
+  
   Fonts/Gayathri-Regular.ttf
   Fonts/Raleway-Regular.ttf
 
@@ -35,7 +37,7 @@ set_target_properties(Resources
 )
 
 install(
-  DIRECTORY ${CMAKE_SOURCE_DIR}/Resources/Shaders/
+  DIRECTORY ${PROJECT_SOURCE_DIR}/Resources/Shaders/
   DESTINATION bin/Resources/Shaders
   FILES_MATCHING PATTERN "*.spv"
 )

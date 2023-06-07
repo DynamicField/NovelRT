@@ -48,10 +48,6 @@
 #include <fabulist/runtime/story.hpp>
 #include <fabulist/runtime/version.hpp>
 
-// Freetype
-#include <ft2build.h>
-#include FT_FREETYPE_H
-
 // libpng
 #include <png.h>
 #endif // __cplusplus
@@ -163,6 +159,9 @@
   #include <NovelRT.Interop/Maths/NrtGeoVector4F.h>
   #include <NovelRT.Interop/Maths/NrtQuadTree.h>
   #include <NovelRT.Interop/Maths/NrtQuadTreePoint.h>
+
+  // Resource Management
+  #include <NovelRT.Interop/ResourceManagement/NrtResourceManagement.h>
 
   // SceneGraph
   #include <NovelRT.Interop/SceneGraph/NrtQuadTreeNode.h>
