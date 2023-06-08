@@ -30,6 +30,7 @@ Push-Location $PWD
 
 $traversedHeaders = (Get-ChildItem ../../include/NovelRT.Interop/ -Recurse -Filter *.h) | Resolve-Path -Relative
 $traversedHeaders += @("../../include/NovelRT.Interop/Windowing/../NrtTypedefs.h")
+Write-Host $traversedHeaders
 
 Write-Host "Generating Java classes..."
 &$ForkedClangsharpExe "@generate-java-classes.rsp" `

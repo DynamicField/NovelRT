@@ -34,10 +34,8 @@ class ComponentCache internal constructor(
     }
 
     fun <C : ComponentDefinition<C>> getComponentBufferById(identifier: BufferIdentifier<C>): ComponentBuffer<C> {
-        val output = IndirectedPointer { handle -> ComponentBuffer(identifier.definition, handle, false) }
-        return output.resultWith { myHandle, outputHandle ->
-            NovelRT.Nrt_ComponentCache_GetComponentBufferById(myHandle, identifier.id.toLong(), outputHandle)
-        }
+        val buffer = NovelRT.Nrt_ComponentCache_GetComponentBufferById(handle, identifier.id.toLong())
+        return ComponentBuffer(identifier.definition, buffer, false)
     }
 
     data class BufferIdentifier<C : ComponentDefinition<C>>(val definition: C, val id: ComponentTypeId)

@@ -14,14 +14,12 @@ class ComponentBuffer<C : ComponentDefinition<C>> internal constructor(
     isOwned: Boolean
 ) : KotlinNativeObject(handle, isOwned, NovelRT::Nrt_ComponentBufferMemoryContainer_Destroy) {
     fun getComponent(entity: EntityId): CopiedStructView<C> {
-        IntPtrPointer.allocate(NativeStack.current()).use { out ->
-            NovelRT.Nrt_ComponentBufferMemoryContainer_GetComponent(handle, entity.toLong(), out.address)
-                .handleNrtResult()
-            return CopiedStructView(NovelRT.Nrt_ComponentBufferMemoryContainer_ImmutableDataView_GetDataHandle(out.address))
-        }
+        val view = NovelRT.Nrt_ComponentBufferMemoryContainer_GetComponent(handle, entity.toLong())
+        return CopiedStructView(NovelRT.Nrt_ComponentBufferMemoryContainer_ImmutableDataView_GetDataHandle(view))
     }
 
     fun getComponentUnsafe(entity: EntityId): CopiedStructView<C> {
+
         val address = getComponentHandleUnsafe(handle, entity.toLong())
         return CopiedStructView(address)
     }

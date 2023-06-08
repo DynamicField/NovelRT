@@ -3,4 +3,7 @@
   <MethodRule Pattern="(get|set)(Transform|Size)">
     <ExposeRawMethod>true</ExposeRawMethod>
   </MethodRule>
+  <MethodRule Pattern="Nrt_ComponentBufferMemoryContainer_Create">
+    <UseSameContextPointer>true</UseSameContextPointer>
+  </MethodRule>
 </JniGenerationConfiguration>

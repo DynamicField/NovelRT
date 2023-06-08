@@ -41,5 +41,6 @@ if(APPLE)
 else()
   copy_runtime_dependencies(EcsPipeline
     DEPENDENCY Engine
+    DEPENDENCY Interop
   )
 endif()

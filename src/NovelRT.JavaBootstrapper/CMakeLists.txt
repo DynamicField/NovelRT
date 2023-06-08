@@ -1,3 +1,4 @@
+find_package(JNI REQUIRED)
 include(CopyBuildProducts)
 
 set(JAVA_BOOTSTRAPPER_SOURCES
@@ -10,11 +11,11 @@ target_include_directories(JavaBootstrapper
   $<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
   $<INSTALL_INTERFACE:include>)
 
-add_library(JNI::JVM UNKNOWN IMPORTED)
-set_target_properties(JNI::JVM
-  PROPERTIES
-    INTERFACE_INCLUDE_DIRECTORIES "${JAVA_INCLUDE_PATH};${JAVA_INCLUDE_PATH2}"
-    IMPORTED_LOCATION "${JAVA_JVM_LIBRARY}")
+#add_library(JNI::JVM UNKNOWN IMPORTED)
+#set_target_properties(JNI::JVM
+#  PROPERTIES
+#    INTERFACE_INCLUDE_DIRECTORIES "${JAVA_INCLUDE_PATH};${JAVA_INCLUDE_PATH2}"
+#    IMPORTED_LOCATION "${JAVA_JVM_LIBRARY}")
 
 target_link_libraries(JavaBootstrapper
   PRIVATE

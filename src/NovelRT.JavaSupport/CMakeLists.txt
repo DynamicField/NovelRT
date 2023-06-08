@@ -1,5 +1,6 @@
 find_package(JNI REQUIRED)
 include(CopyBuildProducts)
+include(CopyRuntimeDependencies)
 
 set(SOURCES
   main.cpp)
@@ -16,11 +17,11 @@ target_include_directories(JavaSupport
   $<INSTALL_INTERFACE:include>
 )
 
-add_library(JNI::JVM UNKNOWN IMPORTED)
-set_target_properties(JNI::JVM
-  PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "${JAVA_INCLUDE_PATH};${JAVA_INCLUDE_PATH2}"
-  IMPORTED_LOCATION "${JAVA_JVM_LIBRARY}")
+#add_library(JNI::JVM UNKNOWN IMPORTED)
+#set_target_properties(JNI::JVM
+#  PROPERTIES
+#  INTERFACE_INCLUDE_DIRECTORIES "${JAVA_INCLUDE_PATH};${JAVA_INCLUDE_PATH2}"
+#  IMPORTED_LOCATION "${JAVA_JVM_LIBRARY}")
 
 target_link_libraries(JavaSupport
   PUBLIC
@@ -28,12 +29,16 @@ target_link_libraries(JavaSupport
     Interop
     JNI::JVM)
 
-copy_build_products(JavaSupport
-  DEPENDENCY Engine
-  TARGET_LOCATION $<TARGET_FILE_DIR:JavaSupport>
+#copy_build_products(JavaSupport
+#  DEPENDENCY Engine
+#  TARGET_LOCATION $<TARGET_FILE_DIR:JavaSupport>
+#
+#  DEPENDENCY Interop
+#  TARGET_LOCATION $<TARGET_FILE_DIR:JavaSupport>)
 
-  DEPENDENCY Interop
-  TARGET_LOCATION $<TARGET_FILE_DIR:JavaSupport>)
+copy_runtime_dependencies(JavaSupport
+  DEPENDENCY Engine
+  DEPENDENCY Interop)
 
 if(MSVC)
   target_compile_options(JavaSupport

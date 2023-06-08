@@ -7,6 +7,9 @@
 #include <utility>
 
 #include <jni.h>
+#ifdef max
+#undef max
+#endif
 
 namespace jni
    {

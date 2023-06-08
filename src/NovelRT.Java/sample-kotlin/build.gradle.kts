@@ -13,6 +13,7 @@ novelrt {
     binariesDir.set(novelrtRootPath.resolve("build/src/NovelRT.JavaSupport").toFile())
     engineResourcesDir.set(novelrtRootPath.resolve("resources").toFile())
   }
+  moduleName.set("novelrt.sample.kotlin")
 }
 
 dependencies {

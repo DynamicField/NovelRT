@@ -2,7 +2,7 @@ module novelrt {
   requires java.base;
   requires kotlin.stdlib;
   requires transitive novelrt.fumocement;
-  requires kotlin.stdlib.jdk7;
+  requires static org.jetbrains.annotations;
 
   exports com.github.novelrt;
   exports com.github.novelrt.ecs;
@@ -11,6 +11,7 @@ module novelrt {
   exports com.github.novelrt.timing;
   exports com.github.novelrt.nativedata;
   exports com.github.novelrt.logging;
+  exports com.github.novelrt.interop; // temp!
 
   provides System.LoggerFinder with com.github.novelrt.logging.NovelLoggerFinder;
 }

@@ -16,6 +16,18 @@ namespace NovelRT::JavaSupport
         std::memcpy(target, newComponent, size);
     }
 
+    // Memory-wise equality.
+    NrtBool componentsEqual(const void* a, const void* b, void* sizePtr) {
+        size_t& size = *static_cast<size_t*>(sizePtr);
+        return std::memcmp(a, b, size) == 0;
+    }
+
+    // Same, but when we know the size
+    template<size_t S> NrtBool componentsEqual(const void* a, const void* b, void*) {
+        return std::memcmp(a, b, S) == 0;
+    }
+
+
     // The reason behind this huge mess is for neat optimizations to happen.
     // When using memcpy with a variable argument, like in memcpy(destination, source, someVar),
     // the compiler generates a call to memcpy. While a call to the system's memcpy shines with large
@@ -157,6 +169,162 @@ namespace NovelRT::JavaSupport
             return &updateComponent<128>;
         }
         return &updateComponent;
+    }
+
+    // For numbers in [0; 65536], returns a pointer that has the value of n.
+    // Else, it just bursts into flames.
+    size_t* getSizePtr(size_t n) {
+        static size_t sizes[65537];
+        static bool initialized = false;
+        if (!initialized) {
+            for (int i = 0; i < 65537; ++i)
+            {
+                sizes[i] = i;
+            }
+        }
+
+        if (n < 65537) {
+            return &sizes[n];
+        } else {
+            assert("Out of range number in getSizePtr. Probably coming from too large component struct.");
+            return NULL;
+        }
+    }
+
+    // Same thing, but for componentsEqual.
+    // However, this one is... peculiar. Since the function doesn't have a size parameter,
+    // We need to do some weird hacks to get it working for sizes outside the precomputed ones.
+    // See getSizePtr.
+    NrtComponentComparatorFnPtr pickComparatorFunc(size_t size) {
+        if (size == 4)
+        {
+            return &componentsEqual<4>;
+        }
+        if (size == 8)
+        {
+            return &componentsEqual<8>;
+        }
+        if (size == 12)
+        {
+            return &componentsEqual<12>;
+        }
+        if (size == 16)
+        {
+            return &componentsEqual<16>;
+        }
+        if (size == 20)
+        {
+            return &componentsEqual<20>;
+        }
+        if (size == 24)
+        {
+            return &componentsEqual<24>;
+        }
+        if (size == 28)
+        {
+            return &componentsEqual<28>;
+        }
+        if (size == 32)
+        {
+            return &componentsEqual<32>;
+        }
+        if (size == 36)
+        {
+            return &componentsEqual<36>;
+        }
+        if (size == 40)
+        {
+            return &componentsEqual<40>;
+        }
+        if (size == 44)
+        {
+            return &componentsEqual<44>;
+        }
+        if (size == 48)
+        {
+            return &componentsEqual<48>;
+        }
+        if (size == 52)
+        {
+            return &componentsEqual<52>;
+        }
+        if (size == 56)
+        {
+            return &componentsEqual<56>;
+        }
+        if (size == 60)
+        {
+            return &componentsEqual<60>;
+        }
+        if (size == 64)
+        {
+            return &componentsEqual<64>;
+        }
+        if (size == 68)
+        {
+            return &componentsEqual<68>;
+        }
+        if (size == 72)
+        {
+            return &componentsEqual<72>;
+        }
+        if (size == 76)
+        {
+            return &componentsEqual<76>;
+        }
+        if (size == 80)
+        {
+            return &componentsEqual<80>;
+        }
+        if (size == 84)
+        {
+            return &componentsEqual<84>;
+        }
+        if (size == 88)
+        {
+            return &componentsEqual<88>;
+        }
+        if (size == 92)
+        {
+            return &componentsEqual<92>;
+        }
+        if (size == 96)
+        {
+            return &componentsEqual<96>;
+        }
+        if (size == 100)
+        {
+            return &componentsEqual<100>;
+        }
+        if (size == 104)
+        {
+            return &componentsEqual<104>;
+        }
+        if (size == 108)
+        {
+            return &componentsEqual<108>;
+        }
+        if (size == 112)
+        {
+            return &componentsEqual<112>;
+        }
+        if (size == 116)
+        {
+            return &componentsEqual<116>;
+        }
+        if (size == 120)
+        {
+            return &componentsEqual<120>;
+        }
+        if (size == 124)
+        {
+            return &componentsEqual<124>;
+        }
+        if (size == 128)
+        {
+            return &componentsEqual<128>;
+        }
+        return &componentsEqual;
     }
 }
 

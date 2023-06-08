@@ -125,9 +125,12 @@ extern "C"
                                                                                             jlong deleteState,
                                                                                             jlong resultOut)
     {
+        size_t* sizePtr = NovelRT::JavaSupport::getSizePtr(size);
         return Nrt_ComponentCache_RegisterComponentTypeUnsafe(
             reinterpret_cast<NrtComponentCacheHandle>(cacheHandle), size, reinterpret_cast<void*>(deleteState),
-            NovelRT::JavaSupport::pickUpdateComponentFunc(size), "TODO", nullptr, reinterpret_cast<NrtComponentTypeId*>(resultOut));
+            NovelRT::JavaSupport::pickUpdateComponentFunc(size),
+            NovelRT::JavaSupport::pickComparatorFunc(size),
+            "TODO", sizePtr, reinterpret_cast<NrtComponentTypeId*>(resultOut));
     }
 
     JNIEXPORT jlong JNICALL Java_com_github_novelrt_ecs_ComponentBuffer_getComponentHandleUnsafe(JNIEnv*,
