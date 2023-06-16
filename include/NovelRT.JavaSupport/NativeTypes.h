@@ -1,7 +1,15 @@
 #define NOVELRT_C_API 1
 #include <NovelRT/NovelRT.h>
+#include <NovelRT.Interop/NrtTypedefs.h>
 #include <NovelRT.Interop/PluginManagement/NrtPluginManagement.h>
 #include <NovelRT.Interop/ResourceManagement/NrtResourceManagement.h>
 #include <NovelRT.Interop/Windowing/NrtWindowing.h>
-#include <NovelRT.Interop/Ecs/NrtConfigurator.h>
+#include <NovelRT.Interop/Ecs/NrtEcs.h>
+#include <NovelRT.Interop/Ecs/Graphics/NrtEcsGraphics.h>
+#include <NovelRT.Interop/Ecs/Input/NrtEcsInput.h>
 #include <NovelRT.Interop/Utilities/NrtEvent.h>
+#include <NovelRT.Interop/Threading/NrtFutureResult.h>
+#include <NovelRT.Interop/Input/NrtInput.h>
+
+// Include our custom functions
+#include "ErrorHandling.h"

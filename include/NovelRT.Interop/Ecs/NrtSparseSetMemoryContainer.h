@@ -122,6 +122,14 @@ extern "C"
         size_t* outputId,
         NrtSparseSetMemoryContainer_ByteIteratorViewHandle* outputView);
 
+    // Java temporary function
+    NrtResult Nrt_SparseSetMemoryContainer_Iterator_MoveNextUntil(
+        NrtSparseSetMemoryContainer_IteratorHandle iterator,
+        NrtSparseSetMemoryContainer_IteratorHandle end,
+        size_t* outputId,
+        void** outputComponent,
+        NrtBool* outputHasMoved);
+
     NrtResult Nrt_SparseSetMemoryContainer_Iterator_Destroy(NrtSparseSetMemoryContainer_IteratorHandle iterator);
 
     void Nrt_SparseSetMemoryContainer_ConstIterator_MoveNext(NrtSparseSetMemoryContainer_ConstIteratorHandle iterator);

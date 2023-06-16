@@ -1,6 +1,5 @@
 package com.github.novelrt.ecs
 
-import com.github.novelrt.fumocement.IndirectedPointer
 import com.github.novelrt.fumocement.NativeObjectTracker
 import com.github.novelrt.fumocement.builtin.Int64Pointer
 import com.github.novelrt.fumocement.memory.NativeStack
@@ -21,6 +20,8 @@ class ComponentCache internal constructor(
     fun prepAllBuffersForNextFrame(entitiesToDelete: EntityIdVector) =
         NovelRT.Nrt_ComponentCache_PrepAllBuffersForNextFrame(handle, entitiesToDelete.handle)
 
+    fun prepAllBuffersForNextFrame() = prepAllBuffersForNextFrame(EntityIdVector.EMPTY)
+
     fun <C : ComponentDefinition<C>> registerComponentType(definition: C): BufferIdentifier<C> {
         Int64Pointer.allocate(NativeStack.current()).use { out ->
             registerComponentType(
@@ -36,6 +37,10 @@ class ComponentCache internal constructor(
     fun <C : ComponentDefinition<C>> getComponentBufferById(identifier: BufferIdentifier<C>): ComponentBuffer<C> {
         val buffer = NovelRT.Nrt_ComponentCache_GetComponentBufferById(handle, identifier.id.toLong())
         return ComponentBuffer(identifier.definition, buffer, false)
+    }
+
+    fun <C : DefaultComponentDefinition<C>> getDefaultComponentBuffer(def: C): ComponentBuffer<C> {
+        return getComponentBufferById(BufferIdentifier(def, def.componentId))
     }
 
     data class BufferIdentifier<C : ComponentDefinition<C>>(val definition: C, val id: ComponentTypeId)

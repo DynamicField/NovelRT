@@ -112,7 +112,7 @@ extern "C"
         auto&& returnValue$int = Nrt_LoggingService_log(service$int, FumoCement::passAsC(message$int), level$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -128,7 +128,7 @@ extern "C"
         auto&& returnValue$int = Nrt_LoggingService_logInfoLine(service$int, FumoCement::passAsC(message$int));
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -144,7 +144,7 @@ extern "C"
         auto&& returnValue$int = Nrt_LoggingService_logErrorLine(service$int, FumoCement::passAsC(message$int));
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -160,7 +160,7 @@ extern "C"
         auto&& returnValue$int = Nrt_LoggingService_logWarningLine(service$int, FumoCement::passAsC(message$int));
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -176,7 +176,7 @@ extern "C"
         auto&& returnValue$int = Nrt_LoggingService_logDebugLine(service$int, FumoCement::passAsC(message$int));
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -193,7 +193,7 @@ extern "C"
         auto&& returnValue$int = Nrt_LoggingService_logInternal(service$int, FumoCement::passAsC(message$int), level$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -209,7 +209,7 @@ extern "C"
         auto&& returnValue$int = Nrt_LoggingService_setLogLevel(service$int, level$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -226,7 +226,7 @@ extern "C"
         auto&& returnValue$int = Nrt_LoggingService_throwIfNullPtr(service$int, object$int, FumoCement::passAsC(exceptionMessage$int));
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -243,7 +243,7 @@ extern "C"
         auto&& returnValue$int = Nrt_LoggingService_throwIfNotZero(service$int, error$int, FumoCement::passAsC(exceptionMessage$int));
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -262,7 +262,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_Destroy(service$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -288,7 +288,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_LoadMusic(service$int, audioFrameData$int, channelCount$int, sampleRate$int, output$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -305,7 +305,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_SetSoundVolume(service$int, source$int, val$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -323,7 +323,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_SetSoundPosition(service$int, source$int, posX$int, posY$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -338,7 +338,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_ResumeMusic(service$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -355,7 +355,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_PlayMusic(service$int, handle$int, loops$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -370,7 +370,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_PauseMusic(service$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -385,7 +385,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_StopMusic(service$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -401,7 +401,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_SetMusicVolume(service$int, value$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -416,7 +416,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_CheckSources(service$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -436,7 +436,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_LoadSound(service$int, audioFrameData$int, channelCount$int, sampleRate$int, output$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -452,7 +452,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_Unload(service$int, handle$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -469,7 +469,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_PlaySound(service$int, handle$int, loops$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -485,7 +485,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_StopSound(service$int, handle$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -500,7 +500,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioService_TearDown(service$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -566,7 +566,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Catalogue_GetComponentViewById(catalogue$int, componentId$int, outputResult$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -595,7 +595,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Catalogue_DeleteEntity(catalogue$int, entity$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -610,7 +610,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Catalogue_Destroy(catalogue$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -672,7 +672,7 @@ extern "C"
         auto&& returnValue$int = Nrt_ComponentBufferMemoryContainer_PushComponentUpdateInstruction(container$int, poolId$int, entity$int, componentData$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -690,7 +690,7 @@ extern "C"
         auto&& returnValue$int = Nrt_ComponentBufferMemoryContainer_GetComponent(container$int, entity$int, outputResult$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -737,7 +737,7 @@ extern "C"
         auto&& returnValue$int = Nrt_ComponentBufferMemoryContainer_Destroy(container$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -758,7 +758,7 @@ extern "C"
         auto&& returnValue$int = Nrt_ComponentBufferMemoryContainer_ImmutableDataView_Destroy(view$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -807,7 +807,7 @@ extern "C"
         auto&& returnValue$int = Nrt_ComponentCache_RegisterComponentTypeUnsafe(componentCache$int, sizeOfDataType$int, deleteInstructionState$int, updateFnPtr$int, comparatorFnPtr$int, FumoCement::passAsC(serialisedTypeName$int), context$int, outputResult$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -825,7 +825,7 @@ extern "C"
         auto&& returnValue$int = Nrt_ComponentCache_GetComponentBufferById(componentCache$int, id$int, outputResult$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -846,7 +846,7 @@ extern "C"
         auto&& returnValue$int = Nrt_ComponentCache_Destroy(componentCache$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -885,7 +885,7 @@ extern "C"
         auto&& returnValue$int = Nrt_EntityCache_Destroy(entityCache$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -905,7 +905,7 @@ extern "C"
         auto&& returnValue$int = Nrt_EntityIdVector_Insert(vector$int, entity$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -921,7 +921,7 @@ extern "C"
         auto&& returnValue$int = Nrt_EntityIdVector_Remove(vector$int, entity$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -936,7 +936,7 @@ extern "C"
         auto&& returnValue$int = Nrt_EntityIdVector_Destroy(vector$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -959,7 +959,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SparseSetMemoryContainer_Insert(container$int, key$int, value$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -983,7 +983,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SparseSetMemoryContainer_Remove(container$int, key$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1020,7 +1020,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SparseSetMemoryContainer_CopyKeyBasedOnDenseIndex(container$int, denseIndex$int, outputResult$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1045,7 +1045,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SparseSetMemoryContainer_GetByteIteratorViewBasedOnDenseIndex(container$int, denseIndex$int, outputResult$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1070,7 +1070,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SparseSetMemoryContainer_GetConstByteIteratorViewBasedOnDenseIndex(container$int, denseIndex$int, outputResult$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1136,7 +1136,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SparseSetMemoryContainer_Destroy(container$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1175,7 +1175,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SparseSetMemoryContainer_ByteIteratorView_Destroy(view$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1208,7 +1208,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SparseSetMemoryContainer_ConstByteIteratorView_Destroy(view$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1245,13 +1245,33 @@ extern "C"
         auto&& returnValue$int = Nrt_SparseSetMemoryContainer_Iterator_GetValuePair(iterator$int, outputId$int, outputView$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
             }
         }
         return FumoCement::toJavaPointer(outputView$out);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1SparseSetMemoryContainer_1Iterator_1MoveNextUntilRaw(JNIEnv* env, jclass, jlong iterator, jlong end, jlong outputId, jlong outputComponent)
+    {
+        auto&& iterator$int = FumoCement::toNativePointer<NrtSparseSetMemoryContainer_Iterator>(iterator);
+        auto&& end$int = FumoCement::toNativePointer<NrtSparseSetMemoryContainer_Iterator>(end);
+        auto&& outputId$int = FumoCement::toNativePointer<size_t>(outputId);
+        auto&& outputComponent$int = FumoCement::toNativePointer<void *>(outputComponent);
+        NrtBool outputHasMoved$out;
+        auto&& outputHasMoved$int = &outputHasMoved$out;
+        
+        auto&& returnValue$int = Nrt_SparseSetMemoryContainer_Iterator_MoveNextUntil(iterator$int, end$int, outputId$int, outputComponent$int, outputHasMoved$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(outputHasMoved$out);
     }
     JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1SparseSetMemoryContainer_1Iterator_1DestroyRaw(JNIEnv* env, jclass, jlong iterator)
     {
@@ -1260,7 +1280,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SparseSetMemoryContainer_Iterator_Destroy(iterator$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1297,7 +1317,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SparseSetMemoryContainer_ConstIterator_GetValuePair(iterator$int, outputId$int, outputView$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1312,7 +1332,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SparseSetMemoryContainer_ConstIterator_Destroy(iterator$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1383,7 +1403,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SystemScheduler_ExecuteIteration(systemScheduler$int, delta$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1398,7 +1418,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SystemScheduler_ShutDown(systemScheduler$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1413,7 +1433,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SystemScheduler_Destroy(systemScheduler$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1437,7 +1457,7 @@ extern "C"
         auto&& returnValue$int = Nrt_UnsafeComponentView_PushComponentUpdateInstruction(componentView$int, entity$int, instructionData$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1453,7 +1473,7 @@ extern "C"
         auto&& returnValue$int = Nrt_UnsafeComponentView_RemoveComponent(componentView$int, entity$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1471,7 +1491,7 @@ extern "C"
         auto&& returnValue$int = Nrt_UnsafeComponentView_GetComponent(componentView$int, entity$int, outputResult$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1511,7 +1531,7 @@ extern "C"
         auto&& returnValue$int = Nrt_UnsafeComponentView_Destroy(componentView$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1546,7 +1566,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioSystem_Destroy(service$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1561,7 +1581,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioSystem_RegisterDefaultAudioComponents(system$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1578,7 +1598,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioSystem_Update(delta$int, catalogue$int, context$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1596,7 +1616,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioSystem_CreateAudio(system$int, FumoCement::passAsC(fileName$int), isMusic$int, result$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1613,7 +1633,7 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioSystem_PushEmitterComponentUpdate(system$int, entity$int, emitter$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -1630,13 +1650,21 @@ extern "C"
         auto&& returnValue$int = Nrt_AudioSystem_PushEmitterStateComponentUpdate(system$int, entity$int, state$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
             }
         }
         return FumoCement::toJavaPrimitive(returnValue$int);
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1Components_1GetAudioEmitterComponentIdRaw(JNIEnv* env, jclass)
+    {
+        return FumoCement::toJavaPrimitive(Nrt_Components_GetAudioEmitterComponentId());
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1Components_1GetAudioEmitterStateComponentIdRaw(JNIEnv* env, jclass)
+    {
+        return FumoCement::toJavaPrimitive(Nrt_Components_GetAudioEmitterStateComponentId());
     }
     JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1GeoBounds_1zeroRaw(JNIEnv* env, jclass, jlong NrtGeoBoundsReturnValue)
     {
@@ -1695,7 +1723,7 @@ extern "C"
         auto&& returnValue$int = Nrt_GeoBounds_IntersectsWith(first$int, other$int, outputResult$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -2764,7 +2792,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTree_GetParent(tree$int, outputParentTree$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -2792,7 +2820,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTree_GetPoint(tree$int, index$int, outputPoint$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -2815,7 +2843,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTree_GetTopLeft(tree$int, outputCornerTree$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -2832,7 +2860,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTree_GetTopRight(tree$int, outputCornerTree$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -2849,7 +2877,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTree_GetBottomLeft(tree$int, outputCornerTree$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -2866,7 +2894,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTree_GetBottomRight(tree$int, outputCornerTree$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -2898,7 +2926,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTree_GetIntersectingPoints(tree$int, bounds$int, outputResultVector$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -2913,7 +2941,7 @@ extern "C"
         auto&& returnValue$int = Nrt_PointVector_Destroy(vector$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -2937,7 +2965,7 @@ extern "C"
         auto&& returnValue$int = Nrt_PointVector_GetPointFromIndex(vector$int, index$int, outputPoint$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -2952,7 +2980,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTree_Destroy(tree$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -2990,7 +3018,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTreePoint_Destroy(point$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3039,7 +3067,7 @@ extern "C"
         auto&& returnValue$int = Nrt_BinaryMemberMetadata_Destroy(memberMetadata$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3091,7 +3119,7 @@ extern "C"
         auto&& returnValue$int = Nrt_BinaryPackage_Destroy(package_$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3130,7 +3158,7 @@ extern "C"
         auto&& returnValue$int = Nrt_FilePathUuidMap_Indexer(map$int, FumoCement::passAsC(filePath$int), outUuid$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3149,7 +3177,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Int16Vector_Destroy(vector$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3165,7 +3193,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Int16Vector_Insert(vector$int, value$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3181,7 +3209,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Int16Vector_Remove(vector$int, value$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3204,7 +3232,28 @@ extern "C"
         auto&& returnValue$int = Nrt_ResourceLoader_SetResourcesLoaderRootDirectory(resourceLoader$int, FumoCement::passAsC(newDirectory$int));
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(returnValue$int);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1ResourceLoader_1GetIsAssetDBInitialisedRaw(JNIEnv* env, jclass, jlong resourceLoader)
+    {
+        auto&& resourceLoader$int = FumoCement::toNativePointer<NrtResourceLoader>(resourceLoader);
+        
+        return FumoCement::toJavaPrimitive(Nrt_ResourceLoader_GetIsAssetDBInitialised(resourceLoader$int));
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1ResourceLoader_1InitAssetDatabaseRaw(JNIEnv* env, jclass, jlong resourceLoader)
+    {
+        auto&& resourceLoader$int = FumoCement::toNativePointer<NrtResourceLoader>(resourceLoader);
+        
+        auto&& returnValue$int = Nrt_ResourceLoader_InitAssetDatabase(resourceLoader$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3233,7 +3282,7 @@ extern "C"
         auto&& returnValue$int = Nrt_ResourceLoader_LoadTexture(resourceLoader$int, FumoCement::passAsC(filePath$int), outTextureMetadata$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3250,7 +3299,7 @@ extern "C"
         auto&& returnValue$int = Nrt_ResourceLoader_LoadShaderSource(resourceLoader$int, FumoCement::passAsC(filePath$int), outShaderMetadata$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3267,7 +3316,7 @@ extern "C"
         auto&& returnValue$int = Nrt_ResourceLoader_LoadPackage(resourceLoader$int, FumoCement::passAsC(filePath$int), outBinaryPackage$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3282,7 +3331,7 @@ extern "C"
         auto&& returnValue$int = Nrt_ShaderMetadata_Destroy(shaderMetadata$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3313,7 +3362,7 @@ extern "C"
         auto&& returnValue$int = Nrt_TextureMetadata_Destroy(textureMetadata$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3366,7 +3415,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Uint8Vector_Destroy(vector$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3382,7 +3431,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Uint8Vector_Insert(vector$int, value$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3398,7 +3447,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Uint8Vector_Remove(vector$int, value$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3415,7 +3464,7 @@ extern "C"
         auto&& returnValue$int = Nrt_UuidFilePathMap_Indexer(map$int, id$int, outFilePath$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3432,7 +3481,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTreeNode_create(points$int, outputPoint$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3449,7 +3498,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTreeNode_getTopLeft(node$int, outputPoint$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3466,7 +3515,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTreeNode_getTopRight(node$int, outputPoint$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3483,7 +3532,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTreeNode_getBottomLeft(node$int, outputPoint$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3500,7 +3549,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTreeNode_getBottomRight(node$int, outputPoint$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3520,7 +3569,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTreeScenePointArray_create(pointOne$int, pointTwo$int, pointThree$int, pointFour$int, outputArray$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3538,7 +3587,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTreeScenePoint_createVector(position$int, node$int, outputPoint$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3557,7 +3606,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTreeScenePoint_createFloat(x$int, y$int, node$int, outputPoint$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3574,7 +3623,7 @@ extern "C"
         auto&& returnValue$int = Nrt_QuadTreeScenePoint_getSceneNode(point$int, outputNode$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3595,7 +3644,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Scene_getNodes(scene$int, outputSet$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3624,7 +3673,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Scene_Destroy(scene$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3645,7 +3694,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNode_getChildren(node$int, outputSet$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3662,7 +3711,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNode_getParents(node$int, outputSet$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3708,7 +3757,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNode_traverseBreadthFirst(node$int, action$int, context$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3736,7 +3785,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNode_traverseBreadthFirstWithIterator(node$int, action$int, context$int, outputIterator$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3761,7 +3810,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNode_traverseDepthFirst(node$int, action$int, context$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3789,7 +3838,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNode_traverseDepthFirstWithIterator(node$int, action$int, context$int, outputIterator$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3811,7 +3860,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNode_Destroy(node$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3826,7 +3875,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNodeSet_Destroy(nodeSet$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3850,7 +3899,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNodeSet_getSceneNodeFromIndex(nodeSet$int, index$int, outputSceneNode$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3878,7 +3927,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNodeBreadthFirstIterator_create(node$int, func$int, context$int, outputIterator$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3893,7 +3942,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNodeBreadthFirstIterator_increment(iterator$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3908,7 +3957,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNodeBreadthFirstIterator_postFixIncrement(iterator$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3962,7 +4011,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNodeDepthFirstIterator_create(node$int, func$int, context$int, outputIterator$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3977,7 +4026,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNodeDepthFirstIterator_increment(iterator$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -3992,7 +4041,7 @@ extern "C"
         auto&& returnValue$int = Nrt_SceneNodeDepthFirstIterator_postFixIncrement(iterator$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4036,7 +4085,7 @@ extern "C"
         auto&& returnValue$int = Nrt_StepTimer_create(targetFrameRate$int, maxSecondDelta$int, output$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4082,7 +4131,7 @@ extern "C"
         auto&& returnValue$int = Nrt_StepTimer_setTargetElapsedTicks(timer$int, input$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4104,7 +4153,7 @@ extern "C"
         auto&& returnValue$int = Nrt_StepTimer_setTargetElapsedTime(timer$int, target$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4138,7 +4187,7 @@ extern "C"
         auto&& returnValue$int = Nrt_StepTimer_setIsFixedTimeStep(timer$int, input$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4153,7 +4202,7 @@ extern "C"
         auto&& returnValue$int = Nrt_StepTimer_resetElapsedTime(timer$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4169,7 +4218,7 @@ extern "C"
         auto&& returnValue$int = Nrt_StepTimer_tick(timer$int, event$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4344,7 +4393,7 @@ extern "C"
         auto&& returnValue$int = Nrt_DefaultPluginSelector_GetDefaultResourceManagementPluginForCurrentPlatform(pluginSelector$int, outputResourceManagementPlugin$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4361,7 +4410,7 @@ extern "C"
         auto&& returnValue$int = Nrt_DefaultPluginSelector_GetDefaultGraphicsPluginForCurrentPlatform(pluginSelector$int, outputGraphicsPlugin$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4378,7 +4427,7 @@ extern "C"
         auto&& returnValue$int = Nrt_DefaultPluginSelector_GetDefaultInputPluginForCurrentPlatform(pluginSelector$int, outputInputPlugin$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4395,7 +4444,7 @@ extern "C"
         auto&& returnValue$int = Nrt_DefaultPluginSelector_GetDefaultWindowingPluginForCurrentPlatform(pluginSelector$int, outputWindowingPlugin$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4410,7 +4459,7 @@ extern "C"
         auto&& returnValue$int = Nrt_DefaultPluginSelector_Destroy(pluginSelector$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4425,7 +4474,7 @@ extern "C"
         auto&& returnValue$int = Nrt_IGraphicsPluginProvider_Destroy(plugin$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4442,7 +4491,7 @@ extern "C"
         auto&& returnValue$int = Nrt_IGraphicsPluginProvider_GetGraphicsProvider(plugin$int, outputProvider$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4457,7 +4506,7 @@ extern "C"
         auto&& returnValue$int = Nrt_IInputPluginProvider_Destroy(plugin$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4474,7 +4523,7 @@ extern "C"
         auto&& returnValue$int = Nrt_IInputPluginProvider_GetInputDevice(plugin$int, outputDevice$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4489,7 +4538,7 @@ extern "C"
         auto&& returnValue$int = Nrt_IResourceManagementPluginProvider_Destroy(plugin$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4497,16 +4546,17 @@ extern "C"
         }
         return FumoCement::toJavaPrimitive(returnValue$int);
     }
-    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1IResourceManagementPluginProvider_1GetResourceLoaderRaw(JNIEnv* env, jclass, jlong plugin)
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1IResourceManagementPluginProvider_1GetResourceLoaderRaw(JNIEnv* env, jclass, jlong plugin, jint initAssets)
     {
         auto&& plugin$int = FumoCement::toNativePointer<NrtIResourceManagementPluginProvider>(plugin);
+        auto&& initAssets$int = FumoCement::toNativePrimitive(initAssets);
         NrtResourceLoaderHandle outputLoader$out;
         auto&& outputLoader$int = &outputLoader$out;
         
-        auto&& returnValue$int = Nrt_IResourceManagementPluginProvider_GetResourceLoader(plugin$int, outputLoader$int);
+        auto&& returnValue$int = Nrt_IResourceManagementPluginProvider_GetResourceLoader(plugin$int, initAssets$int, outputLoader$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4521,7 +4571,7 @@ extern "C"
         auto&& returnValue$int = Nrt_IWindowingPluginProvider_Destroy(plugin$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4538,7 +4588,7 @@ extern "C"
         auto&& returnValue$int = Nrt_IWindowingPluginProvider_GetWindowingDevice(plugin$int, outputDevice$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4553,7 +4603,7 @@ extern "C"
         auto&& returnValue$int = Nrt_IWindowingDevice_Destroy(device$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4588,7 +4638,7 @@ extern "C"
         auto&& returnValue$int = Nrt_IWindowingDevice_SetWindowTitle(device$int, FumoCement::passAsC(newTitle$int));
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4603,7 +4653,7 @@ extern "C"
         auto&& returnValue$int = Nrt_IWindowingDevice_ProcessAllMessages(device$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4622,7 +4672,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Configurator_Destroy(configurator$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4637,7 +4687,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Configurator_AddDefaultSystemsAndComponents(configurator$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4653,7 +4703,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Configurator_AddGraphicsPluginProvider(configurator$int, provider$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4669,7 +4719,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Configurator_AddWindowingPluginProvider(configurator$int, provider$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4685,7 +4735,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Configurator_AddResourceManagementPluginProvider(configurator$int, provider$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4701,7 +4751,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Configurator_AddInputPluginProvider(configurator$int, provider$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4714,24 +4764,323 @@ extern "C"
         auto&& configurator$int = FumoCement::toNativePointer<NrtConfigurator>(configurator);
         NrtSystemSchedulerHandle outputSystemScheduler$out;
         auto&& outputSystemScheduler$int = &outputSystemScheduler$out;
-
-        try
+        
+        auto&& returnValue$int = Nrt_Configurator_InitialiseAndRegisterComponents(configurator$int, outputSystemScheduler$int);
+        if (returnValue$int < 0)
         {
-            auto&& returnValue$int =
-                Nrt_Configurator_InitialiseAndRegisterComponents(configurator$int, outputSystemScheduler$int);
-            if (returnValue$int < 0)
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
             {
-                // oh no
-                if (env->ExceptionCheck())
-                {
-                    return {};
-                }
+                return {};
             }
-        } catch (std::exception& hello) {
-            // whaahaha?
-            std::cout << "huhh??\n";
         }
         return FumoCement::toJavaPointer(outputSystemScheduler$out);
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1Components_1GetTransformComponentTypeIdRaw(JNIEnv* env, jclass)
+    {
+        return FumoCement::toJavaPrimitive(Nrt_Components_GetTransformComponentTypeId());
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1Components_1GetEntityGraphComponentTypeIdRaw(JNIEnv* env, jclass)
+    {
+        return FumoCement::toJavaPrimitive(Nrt_Components_GetEntityGraphComponentTypeId());
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1Components_1LinkedEntityListNodeComponentTypeIdRaw(JNIEnv* env, jclass)
+    {
+        return FumoCement::toJavaPrimitive(Nrt_Components_LinkedEntityListNodeComponentTypeId());
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1DefaultRenderingSystem_1FindInSchedulerRaw(JNIEnv* env, jclass, jlong scheduler)
+    {
+        auto&& scheduler$int = FumoCement::toNativePointer<NrtSystemScheduler>(scheduler);
+        NrtDefaultRenderingSystemHandle outputResult$out;
+        auto&& outputResult$int = &outputResult$out;
+        
+        auto&& returnValue$int = Nrt_DefaultRenderingSystem_FindInScheduler(scheduler$int, outputResult$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPointer(outputResult$out);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1DefaultRenderingSystem_1ForceVertexTextureFutureResolutionRaw(JNIEnv* env, jclass, jlong system)
+    {
+        auto&& system$int = FumoCement::toNativePointer<NrtDefaultRenderingSystem>(system);
+        
+        auto&& returnValue$int = Nrt_DefaultRenderingSystem_ForceVertexTextureFutureResolution(system$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(returnValue$int);
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1DefaultRenderingSystem_1GetOrLoadTextureRaw(JNIEnv* env, jclass, jlong system, jbyteArray textureName)
+    {
+        auto&& system$int = FumoCement::toNativePointer<NrtDefaultRenderingSystem>(system);
+        auto&& textureName$int = FumoCement::toCppString(env, textureName);
+        NrtFutureResultOfTextureInfoHandle outputTextureFuture$out;
+        auto&& outputTextureFuture$int = &outputTextureFuture$out;
+        
+        auto&& returnValue$int = Nrt_DefaultRenderingSystem_GetOrLoadTexture(system$int, FumoCement::passAsC(textureName$int), outputTextureFuture$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPointer(outputTextureFuture$out);
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1DefaultRenderingSystem_1GetExistingTextureByIdRaw(JNIEnv* env, jclass, jlong system, jlong id)
+    {
+        auto&& system$int = FumoCement::toNativePointer<NrtDefaultRenderingSystem>(system);
+        auto&& id$int = FumoCement::toNativePrimitive(id);
+        NrtTextureInfoHandle outputTexture$out;
+        auto&& outputTexture$int = &outputTexture$out;
+        
+        auto&& returnValue$int = Nrt_DefaultRenderingSystem_GetExistingTextureById(system$int, id$int, outputTexture$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPointer(outputTexture$out);
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1DefaultRenderingSystem_1GetExistingTextureByNameRaw(JNIEnv* env, jclass, jlong system, jbyteArray name)
+    {
+        auto&& system$int = FumoCement::toNativePointer<NrtDefaultRenderingSystem>(system);
+        auto&& name$int = FumoCement::toCppString(env, name);
+        NrtTextureInfoHandle outputTexture$out;
+        auto&& outputTexture$int = &outputTexture$out;
+        
+        auto&& returnValue$int = Nrt_DefaultRenderingSystem_GetExistingTextureByName(system$int, FumoCement::passAsC(name$int), outputTexture$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPointer(outputTexture$out);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1DefaultRenderingSystem_1DeleteTextureByHandleRaw(JNIEnv* env, jclass, jlong system, jlong texture)
+    {
+        auto&& system$int = FumoCement::toNativePointer<NrtDefaultRenderingSystem>(system);
+        auto&& texture$int = FumoCement::toNativePointer<NrtTextureInfo>(texture);
+        
+        auto&& returnValue$int = Nrt_DefaultRenderingSystem_DeleteTextureByHandle(system$int, texture$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(returnValue$int);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1DefaultRenderingSystem_1DeleteTextureByNameRaw(JNIEnv* env, jclass, jlong system, jbyteArray name)
+    {
+        auto&& system$int = FumoCement::toNativePointer<NrtDefaultRenderingSystem>(system);
+        auto&& name$int = FumoCement::toCppString(env, name);
+        
+        auto&& returnValue$int = Nrt_DefaultRenderingSystem_DeleteTextureByName(system$int, FumoCement::passAsC(name$int));
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(returnValue$int);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1DefaultRenderingSystem_1DeleteTextureByIdRaw(JNIEnv* env, jclass, jlong system, jlong id)
+    {
+        auto&& system$int = FumoCement::toNativePointer<NrtDefaultRenderingSystem>(system);
+        auto&& id$int = FumoCement::toNativePrimitive(id);
+        
+        auto&& returnValue$int = Nrt_DefaultRenderingSystem_DeleteTextureById(system$int, id$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(returnValue$int);
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1DefaultRenderingSystem_1CreateSpriteEntityRaw(JNIEnv* env, jclass, jlong system, jlong texture, jlong catalogue)
+    {
+        auto&& system$int = FumoCement::toNativePointer<NrtDefaultRenderingSystem>(system);
+        auto&& texture$int = FumoCement::toNativePointer<NrtTextureInfo>(texture);
+        auto&& catalogue$int = FumoCement::toNativePointer<NrtCatalogue>(catalogue);
+        NrtEntityId outputEntityId$out;
+        auto&& outputEntityId$int = &outputEntityId$out;
+        
+        auto&& returnValue$int = Nrt_DefaultRenderingSystem_CreateSpriteEntity(system$int, texture$int, catalogue$int, outputEntityId$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(outputEntityId$out);
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1DefaultRenderingSystem_1CreateSpriteEntityOutsideOfSystemRaw(JNIEnv* env, jclass, jlong system, jlong texture, jlong scheduler)
+    {
+        auto&& system$int = FumoCement::toNativePointer<NrtDefaultRenderingSystem>(system);
+        auto&& texture$int = FumoCement::toNativePointer<NrtTextureInfo>(texture);
+        auto&& scheduler$int = FumoCement::toNativePointer<NrtSystemScheduler>(scheduler);
+        NrtEntityId outputEntityId$out;
+        auto&& outputEntityId$int = &outputEntityId$out;
+        
+        auto&& returnValue$int = Nrt_DefaultRenderingSystem_CreateSpriteEntityOutsideOfSystem(system$int, texture$int, scheduler$int, outputEntityId$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(outputEntityId$out);
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1Components_1GetRenderComponentTypeIdRaw(JNIEnv* env, jclass)
+    {
+        return FumoCement::toJavaPrimitive(Nrt_Components_GetRenderComponentTypeId());
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1TextureInfo_1DestroyRaw(JNIEnv* env, jclass, jlong texture)
+    {
+        auto&& texture$int = FumoCement::toNativePointer<NrtTextureInfo>(texture);
+        
+        auto&& returnValue$int = Nrt_TextureInfo_Destroy(texture$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(returnValue$int);
+    }
+    JNIEXPORT jbyteArray JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1TextureInfo_1GetTextureNameRaw(JNIEnv* env, jclass, jlong texture, jboolean returnValueDeletionBehaviour)
+    {
+        auto&& texture$int = FumoCement::toNativePointer<NrtTextureInfo>(texture);
+        
+        auto&& returnValue$int = Nrt_TextureInfo_GetTextureName(texture$int);
+        return FumoCement::toJavaStringBytes(env, returnValue$int, returnValueDeletionBehaviour);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1TextureInfo_1GetTextureWidthRaw(JNIEnv* env, jclass, jlong texture)
+    {
+        auto&& texture$int = FumoCement::toNativePointer<NrtTextureInfo>(texture);
+        
+        return FumoCement::toJavaPrimitive(Nrt_TextureInfo_GetTextureWidth(texture$int));
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1TextureInfo_1GetTextureHeightRaw(JNIEnv* env, jclass, jlong texture)
+    {
+        auto&& texture$int = FumoCement::toNativePointer<NrtTextureInfo>(texture);
+        
+        return FumoCement::toJavaPrimitive(Nrt_TextureInfo_GetTextureHeight(texture$int));
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1TextureInfo_1GetEcsIdRaw(JNIEnv* env, jclass, jlong texture)
+    {
+        auto&& texture$int = FumoCement::toNativePointer<NrtTextureInfo>(texture);
+        
+        return FumoCement::toJavaPrimitive(Nrt_TextureInfo_GetEcsId(texture$int));
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1TextureInfo_1EqualsRaw(JNIEnv* env, jclass, jlong lhs, jlong rhs)
+    {
+        auto&& lhs$int = FumoCement::toNativePointer<NrtTextureInfo>(lhs);
+        auto&& rhs$int = FumoCement::toNativePointer<NrtTextureInfo>(rhs);
+        
+        return FumoCement::toJavaPrimitive(Nrt_TextureInfo_Equals(lhs$int, rhs$int));
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1Components_1GetInputEventComponentTypeIdRaw(JNIEnv* env, jclass)
+    {
+        return FumoCement::toJavaPrimitive(Nrt_Components_GetInputEventComponentTypeId());
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1InputSystem_1FindInSchedulerRaw(JNIEnv* env, jclass, jlong scheduler)
+    {
+        auto&& scheduler$int = FumoCement::toNativePointer<NrtSystemScheduler>(scheduler);
+        NrtInputSystemHandle outputSystem$out;
+        auto&& outputSystem$int = &outputSystem$out;
+        
+        auto&& returnValue$int = Nrt_InputSystem_FindInScheduler(scheduler$int, outputSystem$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPointer(outputSystem$out);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1InputSystem_1AddMappingRaw(JNIEnv* env, jclass, jlong system, jbyteArray name, jbyteArray id)
+    {
+        auto&& system$int = FumoCement::toNativePointer<NrtInputSystem>(system);
+        auto&& name$int = FumoCement::toCppString(env, name);
+        auto&& id$int = FumoCement::toCppString(env, id);
+        
+        auto&& returnValue$int = Nrt_InputSystem_AddMapping(system$int, FumoCement::passAsC(name$int), FumoCement::passAsC(id$int));
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(returnValue$int);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1InputSystem_1AddDefaultKBMMappingRaw(JNIEnv* env, jclass, jlong system)
+    {
+        auto&& system$int = FumoCement::toNativePointer<NrtInputSystem>(system);
+        
+        auto&& returnValue$int = Nrt_InputSystem_AddDefaultKBMMapping(system$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(returnValue$int);
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1InputSystem_1GetMappingIdRaw(JNIEnv* env, jclass, jlong system, jbyteArray mappingName)
+    {
+        auto&& system$int = FumoCement::toNativePointer<NrtInputSystem>(system);
+        auto&& mappingName$int = FumoCement::toCppString(env, mappingName);
+        NrtAtom outputAtom$out;
+        auto&& outputAtom$int = &outputAtom$out;
+        
+        auto&& returnValue$int = Nrt_InputSystem_GetMappingId(system$int, FumoCement::passAsC(mappingName$int), outputAtom$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(outputAtom$out);
     }
     JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1Event_1CreateRaw(JNIEnv* env, jclass)
     {
@@ -4755,7 +5104,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Event_AddEventHandler(event$int, handler$int, context$int, outputEventHandlerId$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4771,7 +5120,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Event_RemoveEventHandler(event$int, eventHandlerId$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4786,7 +5135,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Event_Invoke(event$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4801,7 +5150,7 @@ extern "C"
         auto&& returnValue$int = Nrt_Event_Destroy(event$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4832,7 +5181,7 @@ extern "C"
         auto&& returnValue$int = Nrt_EventWithTimestamp_AddEventHandler(event$int, handler$int, context$int, outputEventHandlerId$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4848,7 +5197,7 @@ extern "C"
         auto&& returnValue$int = Nrt_EventWithTimestamp_RemoveEventHandler(event$int, eventHandlerId$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4864,7 +5213,7 @@ extern "C"
         auto&& returnValue$int = Nrt_EventWithTimestamp_Invoke(event$int, timestamp$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
@@ -4879,13 +5228,235 @@ extern "C"
         auto&& returnValue$int = Nrt_EventWithTimestamp_Destroy(event$int);
         if (returnValue$int < 0)
         {
-            // oh no
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
             if (env->ExceptionCheck())
             {
                 return {};
             }
         }
         return FumoCement::toJavaPrimitive(returnValue$int);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1FutureResultOfTextureInfo_1DestroyRaw(JNIEnv* env, jclass, jlong handle)
+    {
+        auto&& handle$int = FumoCement::toNativePointer<NrtFutureResultOfTextureInfo>(handle);
+        
+        auto&& returnValue$int = Nrt_FutureResultOfTextureInfo_Destroy(handle$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(returnValue$int);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1FutureResultOfTextureInfo_1TryGetValueRaw(JNIEnv* env, jclass, jlong handle, jlong outValue)
+    {
+        auto&& handle$int = FumoCement::toNativePointer<NrtFutureResultOfTextureInfo>(handle);
+        auto&& outValue$int = FumoCement::toNativePointer<NrtTextureInfoHandle>(outValue);
+        
+        return FumoCement::toJavaPrimitive(Nrt_FutureResultOfTextureInfo_TryGetValue(handle$int, outValue$int));
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1IInputDevice_1DestroyRaw(JNIEnv* env, jclass, jlong device)
+    {
+        auto&& device$int = FumoCement::toNativePointer<NrtIInputDevice>(device);
+        
+        auto&& returnValue$int = Nrt_IInputDevice_Destroy(device$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(returnValue$int);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1IInputDevice_1IsKeyPressedRaw(JNIEnv* env, jclass, jlong device, jbyteArray key)
+    {
+        auto&& device$int = FumoCement::toNativePointer<NrtIInputDevice>(device);
+        auto&& key$int = FumoCement::toCppString(env, key);
+        
+        return FumoCement::toJavaPrimitive(Nrt_IInputDevice_IsKeyPressed(device$int, FumoCement::passAsC(key$int)));
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1IInputDevice_1IsKeyHeldRaw(JNIEnv* env, jclass, jlong device, jbyteArray key)
+    {
+        auto&& device$int = FumoCement::toNativePointer<NrtIInputDevice>(device);
+        auto&& key$int = FumoCement::toCppString(env, key);
+        
+        return FumoCement::toJavaPrimitive(Nrt_IInputDevice_IsKeyHeld(device$int, FumoCement::passAsC(key$int)));
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1IInputDevice_1IsKeyReleasedRaw(JNIEnv* env, jclass, jlong device, jbyteArray key)
+    {
+        auto&& device$int = FumoCement::toNativePointer<NrtIInputDevice>(device);
+        auto&& key$int = FumoCement::toCppString(env, key);
+        
+        return FumoCement::toJavaPrimitive(Nrt_IInputDevice_IsKeyReleased(device$int, FumoCement::passAsC(key$int)));
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1IInputDevice_1GetKeyStateRaw(JNIEnv* env, jclass, jlong device, jbyteArray key)
+    {
+        auto&& device$int = FumoCement::toNativePointer<NrtIInputDevice>(device);
+        auto&& key$int = FumoCement::toCppString(env, key);
+        
+        return static_cast<long>(Nrt_IInputDevice_GetKeyState(device$int, FumoCement::passAsC(key$int)));
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1IInputDevice_1AddInputActionRaw(JNIEnv* env, jclass, jlong device, jbyteArray actionName, jbyteArray keyIdentifier)
+    {
+        auto&& device$int = FumoCement::toNativePointer<NrtIInputDevice>(device);
+        auto&& actionName$int = FumoCement::toCppString(env, actionName);
+        auto&& keyIdentifier$int = FumoCement::toCppString(env, keyIdentifier);
+        NrtInputActionHandle outputAction$out;
+        auto&& outputAction$int = &outputAction$out;
+        
+        auto&& returnValue$int = Nrt_IInputDevice_AddInputAction(device$int, FumoCement::passAsC(actionName$int), FumoCement::passAsC(keyIdentifier$int), outputAction$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPointer(outputAction$out);
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1IInputDevice_1GetAvailableKeyRaw(JNIEnv* env, jclass, jlong device, jbyteArray requestedKey)
+    {
+        auto&& device$int = FumoCement::toNativePointer<NrtIInputDevice>(device);
+        auto&& requestedKey$int = FumoCement::toCppString(env, requestedKey);
+        NrtNovelKeyHandle outputKey$out;
+        auto&& outputKey$int = &outputKey$out;
+        
+        auto&& returnValue$int = Nrt_IInputDevice_GetAvailableKey(device$int, FumoCement::passAsC(requestedKey$int), outputKey$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPointer(outputKey$out);
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1IInputDevice_1GetMousePositionRaw(JNIEnv* env, jclass, jlong device, jlong NrtGeoVector2FReturnValue)
+    {
+        auto&& device$int = FumoCement::toNativePointer<NrtIInputDevice>(device);
+        
+        auto&& returnValue$int = Nrt_IInputDevice_GetMousePosition(device$int);
+        if (NrtGeoVector2FReturnValue != 0)
+        {
+            *FumoCement::toNativePointer<NrtGeoVector2F>(NrtGeoVector2FReturnValue) = returnValue$int;
+        }
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1IInputDevice_1GetAllMappingsRaw(JNIEnv* env, jclass, jlong device, jlong NrtInputActionListReturnValue)
+    {
+        auto&& device$int = FumoCement::toNativePointer<NrtIInputDevice>(device);
+        
+        auto&& returnValue$int = Nrt_IInputDevice_GetAllMappings(device$int);
+        if (NrtInputActionListReturnValue != 0)
+        {
+            *FumoCement::toNativePointer<NrtInputActionList>(NrtInputActionListReturnValue) = returnValue$int;
+        }
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1InputAction_1ReadAsInfoRaw(JNIEnv* env, jclass, jlong action, jlong NrtInputActionInfoReturnValue)
+    {
+        auto&& action$int = FumoCement::toNativePointer<NrtInputAction>(action);
+        
+        auto&& returnValue$int = Nrt_InputAction_ReadAsInfo(action$int);
+        if (NrtInputActionInfoReturnValue != 0)
+        {
+            *FumoCement::toNativePointer<NrtInputActionInfo>(NrtInputActionInfoReturnValue) = returnValue$int;
+        }
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1InputActionList_1IncrementSizeRaw(JNIEnv* env, jclass)
+    {
+        return FumoCement::toJavaPrimitive(Nrt_InputActionList_IncrementSize());
+    }
+    JNIEXPORT jbyteArray JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1InputAction_1GetActionNameRaw(JNIEnv* env, jclass, jlong action, jboolean returnValueDeletionBehaviour)
+    {
+        auto&& action$int = FumoCement::toNativePointer<NrtInputAction>(action);
+        
+        auto&& returnValue$int = Nrt_InputAction_GetActionName(action$int);
+        return FumoCement::toJavaStringBytes(env, returnValue$int, returnValueDeletionBehaviour);
+    }
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1InputAction_1GetPairedKeyRaw(JNIEnv* env, jclass, jlong action)
+    {
+        auto&& action$int = FumoCement::toNativePointer<NrtInputAction>(action);
+        
+        return FumoCement::toJavaPointer(Nrt_InputAction_GetPairedKey(action$int));
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1InputAction_1GetStateRaw(JNIEnv* env, jclass, jlong action)
+    {
+        auto&& action$int = FumoCement::toNativePointer<NrtInputAction>(action);
+        
+        return static_cast<long>(Nrt_InputAction_GetState(action$int));
+    }
+    JNIEXPORT void JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1NovelKey_1ReadAsInfoRaw(JNIEnv* env, jclass, jlong key, jlong NrtNovelKeyInfoReturnValue)
+    {
+        auto&& key$int = FumoCement::toNativePointer<NrtNovelKey>(key);
+        
+        auto&& returnValue$int = Nrt_NovelKey_ReadAsInfo(key$int);
+        if (NrtNovelKeyInfoReturnValue != 0)
+        {
+            *FumoCement::toNativePointer<NrtNovelKeyInfo>(NrtNovelKeyInfoReturnValue) = returnValue$int;
+        }
+    }
+    JNIEXPORT jbyteArray JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1NovelKey_1GetKeyNameRaw(JNIEnv* env, jclass, jlong key, jboolean returnValueDeletionBehaviour)
+    {
+        auto&& key$int = FumoCement::toNativePointer<NrtNovelKey>(key);
+        
+        auto&& returnValue$int = Nrt_NovelKey_GetKeyName(key$int);
+        return FumoCement::toJavaStringBytes(env, returnValue$int, returnValueDeletionBehaviour);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1NovelKey_1GetExternalKeyCodeRaw(JNIEnv* env, jclass, jlong key)
+    {
+        auto&& key$int = FumoCement::toNativePointer<NrtNovelKey>(key);
+        
+        return FumoCement::toJavaPrimitive(Nrt_NovelKey_GetExternalKeyCode(key$int));
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1NovelKey_1GetExternalModifierCodeRaw(JNIEnv* env, jclass, jlong key)
+    {
+        auto&& key$int = FumoCement::toNativePointer<NrtNovelKey>(key);
+        
+        return FumoCement::toJavaPrimitive(Nrt_NovelKey_GetExternalModifierCode(key$int));
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1NovelKey_1PairKeyRaw(JNIEnv* env, jclass, jlong key, jint externalKeyCode)
+    {
+        auto&& key$int = FumoCement::toNativePointer<NrtNovelKey>(key);
+        auto&& externalKeyCode$int = FumoCement::toNativePrimitive(externalKeyCode);
+        
+        auto&& returnValue$int = Nrt_NovelKey_PairKey(key$int, externalKeyCode$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(returnValue$int);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1NovelKey_1UnpairKeyRaw(JNIEnv* env, jclass, jlong key)
+    {
+        auto&& key$int = FumoCement::toNativePointer<NrtNovelKey>(key);
+        
+        auto&& returnValue$int = Nrt_NovelKey_UnpairKey(key$int);
+        if (returnValue$int < 0)
+        {
+            NovelRT::JavaSupport::ThrowJavaException(env, returnValue$int);
+            if (env->ExceptionCheck())
+            {
+                return {};
+            }
+        }
+        return FumoCement::toJavaPrimitive(returnValue$int);
+    }
+    JNIEXPORT jint JNICALL Java_com_github_novelrt_interop_NovelRT_Nrt_1NovelKey_1equalRaw(JNIEnv* env, jclass, jlong lhs, jlong rhs)
+    {
+        auto&& lhs$int = FumoCement::toNativePointer<NrtNovelKey>(lhs);
+        auto&& rhs$int = FumoCement::toNativePointer<NrtNovelKey>(rhs);
+        
+        return FumoCement::toJavaPrimitive(Nrt_NovelKey_equal(lhs$int, rhs$int));
     }
 }
 #pragma warning(push, 0)

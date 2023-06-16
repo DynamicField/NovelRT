@@ -128,19 +128,82 @@ extern "C"
         size_t* sizePtr = NovelRT::JavaSupport::getSizePtr(size);
         return Nrt_ComponentCache_RegisterComponentTypeUnsafe(
             reinterpret_cast<NrtComponentCacheHandle>(cacheHandle), size, reinterpret_cast<void*>(deleteState),
-            NovelRT::JavaSupport::pickUpdateComponentFunc(size),
-            NovelRT::JavaSupport::pickComparatorFunc(size),
-            "TODO", sizePtr, reinterpret_cast<NrtComponentTypeId*>(resultOut));
+            NovelRT::JavaSupport::pickUpdateComponentFunc(size), NovelRT::JavaSupport::pickComparatorFunc(size), "TODO",
+            sizePtr, reinterpret_cast<NrtComponentTypeId*>(resultOut));
     }
 
-    JNIEXPORT jlong JNICALL Java_com_github_novelrt_ecs_ComponentBuffer_getComponentHandleUnsafe(JNIEnv*,
-                                                                                                 jclass,
-                                                                                                 jlong bufferHandle,
-                                                                                                 jlong entityId)
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_ecs_ComponentBuffer_getComponentHandle(JNIEnv*,
+                                                                                           jclass,
+                                                                                           jlong bufferHandle,
+                                                                                           jlong entityId)
     {
         auto container = reinterpret_cast<NovelRT::Ecs::ComponentBufferMemoryContainer*>(bufferHandle);
-        return FumoCement::toJavaPointer(
-            container->GetComponentUnsafe(static_cast<NrtEntityId>(entityId)).GetDataHandle());
+        if (container->HasComponent(entityId))
+        {
+            return FumoCement::toJavaPointer(
+                container->GetComponentUnsafe(static_cast<NrtEntityId>(entityId)).GetDataHandle());
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    JNIEXPORT jlong JNICALL Java_com_github_novelrt_ecs_ComponentView_getComponentHandle(JNIEnv*,
+                                                                                         jclass,
+                                                                                         jlong viewHandle,
+                                                                                         jlong entityId)
+    {
+        auto view = reinterpret_cast<NovelRT::Ecs::UnsafeComponentView*>(viewHandle);
+        // There's no "HasComponent" in UnsafeComponentView??
+        try
+        {
+            return FumoCement::toJavaPointer(view->GetComponent(static_cast<NrtEntityId>(entityId)).GetDataHandle());
+        }
+        catch (const NovelRT::Exceptions::KeyNotFoundException&)
+        {
+            return 0;
+        }
+    }
+
+    JNIEXPORT void JNICALL Java_com_github_novelrt_ecs_ComponentBuffer_getComponentIterators(JNIEnv*,
+                                                                                             jclass,
+                                                                                             jlong bufferHandle,
+                                                                                             jlong outBeginIds,
+                                                                                             jlong outBeginComps,
+                                                                                             jlong outEndIds)
+    {
+        auto container = reinterpret_cast<NovelRT::Ecs::ComponentBufferMemoryContainer*>(bufferHandle);
+        auto outBId = reinterpret_cast<const size_t**>(outBeginIds);
+        auto outBComp = reinterpret_cast<const void**>(outBeginComps);
+        auto outEId = reinterpret_cast<const size_t**>(outEndIds);
+
+        auto [beginIdRef, beginItComp] = *container->begin();
+        auto [endIdRef, _] = *container->end();
+
+        *outBId = &beginIdRef;
+        *outBComp = beginItComp.GetDataHandle();
+        *outEId = &endIdRef;
+    }
+
+    JNIEXPORT void JNICALL Java_com_github_novelrt_ecs_ComponentView_getComponentIterators(JNIEnv*,
+                                                                                           jclass,
+                                                                                           jlong bufferHandle,
+                                                                                           jlong outBeginIds,
+                                                                                           jlong outBeginComps,
+                                                                                           jlong outEndIds)
+    {
+        auto container = reinterpret_cast<NovelRT::Ecs::UnsafeComponentView*>(bufferHandle);
+        auto outBId = reinterpret_cast<const size_t**>(outBeginIds);
+        auto outBComp = reinterpret_cast<const void**>(outBeginComps);
+        auto outEId = reinterpret_cast<const size_t**>(outEndIds);
+
+        auto [beginIdRef, beginItComp] = *container->begin();
+        auto [endIdRef, _] = *container->end();
+
+        *outBId = &beginIdRef;
+        *outBComp = beginItComp.GetDataHandle();
+        *outEId = &endIdRef;
     }
 #ifdef __cplusplus
 }

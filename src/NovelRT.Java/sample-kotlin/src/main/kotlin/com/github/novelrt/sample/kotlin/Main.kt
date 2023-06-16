@@ -1,160 +1,112 @@
-@file:Suppress("JAVA_MODULE_DOES_NOT_READ_UNNAMED_MODULE")
-
 package com.github.novelrt.sample.kotlin
 
 import com.github.novelrt.NovelRTLoader
-import com.github.novelrt.ecs.ComponentDefinition
-import com.github.novelrt.ecs.SystemScheduler
-import com.github.novelrt.ecs.Catalogue
-import com.github.novelrt.fumocement.DisposalMethod
-import com.github.novelrt.fumocement.FunctionPointer
-import com.github.novelrt.interop.NovelRT
+import com.github.novelrt.ecs.*
+import com.github.novelrt.ecs.graphics.DefaultRenderingSystem
+import com.github.novelrt.ecs.input.InputEventComponentStruct
+import com.github.novelrt.ecs.input.InputSystem
+import com.github.novelrt.ecs.input.state
+import com.github.novelrt.event.TimerTickEvent
+import com.github.novelrt.input.KeyState
 import com.github.novelrt.logging.logInfo
-import com.github.novelrt.nativedata.AllocatedStruct
-import com.github.novelrt.nativedata.StructArray
-import com.github.novelrt.sample.kotlin.Vector3.forEach
+import com.github.novelrt.nativedata.StructAllocScope
+import com.github.novelrt.nativedata.StructPointer
+import com.github.novelrt.pluginmanagement.*
+import com.github.novelrt.timing.StepTimer
 import com.github.novelrt.timing.Timestamp
-import java.text.MessageFormat
-import com.github.novelrt.interop.NovelRT.*
+import java.lang.System.Logger
 
 object Vector3 : ComponentDefinition<Vector3>() {
     val x = floatField()
     val y = floatField()
     val z = floatField()
     override val size: Long = finalSize
-    override val deleteState: AllocatedStruct<Vector3> = allocate()
+
+    override fun zero(st: StructPointer<Vector3>) {
+        st.set(x, 0f)
+        st.set(y, 0f)
+        st.set(z, 0f)
+    }
 }
 
-fun waitDebugAttach() {
-    println("Hello, my pid is ${ProcessHandle.current().pid()}, debug me!! (pls, you have 18 secs)")
-    Thread.sleep(18000)
+class MyCoolSystem(val sprite: EntityId, val spinId: EntityId) : EcsSystem {
+    val logger: Logger = System.getLogger("MyGame")
+
+    override fun StructAllocScope.run(timestamp: Timestamp, catalogue: Catalogue) {
+        val transforms = catalogue.getDefaultComponentView(TransformComponentStruct)
+        val inputs = catalogue.getDefaultComponentView(InputEventComponentStruct)
+
+        val event = InputEventComponentStruct {}
+        if (inputs.tryGetComponent(spinId, event) &&
+            (event.state == KeyState.KeyDown || event.state == KeyState.KeyHeld)) {
+            // Spin!!!!
+            val struct = TransformComponentStruct {
+                rotationInRadians = timestamp.getSecondsFloat() * 3.14f
+            }
+            transforms.pushComponentUpdateInstruction(sprite, struct)
+        }
+        logger.logInfo("State: ${event.state}")
+    }
 }
 
 fun main() {
     NovelRTLoader.load()
+    println("Hello, my pid is ${ProcessHandle.current().pid()}.")
+    //waitDebugAttach()
 // hello
-    val logger = System.getLogger("MyApp")
+    val logger = System.getLogger("MyGame")
     logger.logInfo("Hello, World! {0}", 42)
 
-    val selector = Nrt_DefaultPluginSelector_Create()
-    val graphics = Nrt_DefaultPluginSelector_GetDefaultGraphicsPluginForCurrentPlatform(selector)
-    val input = Nrt_DefaultPluginSelector_GetDefaultInputPluginForCurrentPlatform(selector)
-    val windowing = Nrt_DefaultPluginSelector_GetDefaultWindowingPluginForCurrentPlatform(selector)
-    val resources = Nrt_DefaultPluginSelector_GetDefaultResourceManagementPluginForCurrentPlatform(selector)
-    val prop = System.getProperty("novelrt.resources.path")
-    println("property: $prop")
-    Nrt_ResourceLoader_SetResourcesLoaderRootDirectory(resources, prop)
+    val selector = DefaultPluginSelector()
+    val graphics = selector.getDefaultPluginTypeOnCurrentPlatformFor<GraphicsPluginProvider>()
+    val input = selector.getDefaultPluginTypeOnCurrentPlatformFor<InputPluginProvider>()
+    val windowing = selector.getDefaultPluginTypeOnCurrentPlatformFor<WindowingPluginProvider>()
+    val resourcesManagement = selector.getDefaultPluginTypeOnCurrentPlatformFor<ResourceManagementPluginProvider>()
 
-    val configurator = Nrt_Configurator_Create()
-    Nrt_Configurator_AddDefaultSystemsAndComponents(configurator)
-    Nrt_Configurator_AddGraphicsPluginProvider(configurator, graphics)
-    Nrt_Configurator_AddInputPluginProvider(configurator, input)
-    Nrt_Configurator_AddWindowingPluginProvider(configurator, windowing)
-    Nrt_Configurator_AddResourceManagementPluginProvider(configurator, resources)
-    val scheduler = Nrt_Configurator_InitialiseAndRegisterComponents(configurator)
+    val resourceLoader = resourcesManagement.getResourceLoader(loadAssets = false)
+    resourceLoader.resourcesRootDirectory = System.getProperty("novelrt.resources.path")
+    resourceLoader.initAssetDatabase()
 
-    val timer = Nrt_StepTimer_create(60, 0.01)
+    val scheduler = Configurator()
+        .withDefaultSystemsAndComponents()
+        .withPluginProviders(graphics, input, windowing, resourcesManagement)
+        .initialiseAndRegisterComponents()
 
-    val tickEvent = Nrt_EventWithTimestamp_Create()
-    Nrt_EventWithTimestamp_AddEventHandler(
-        tickEvent, FunctionPointer(
-            Callback_Nrt_EventWithTimestamp_AddEventHandler_handler {
-                println("hello!")
-            }, DisposalMethod.GARBAGE_COLLECTED
-        )
-    )
+    val renderingSystem = scheduler.getBuiltInSystem<DefaultRenderingSystem>()
+    val textureFuture = renderingSystem.getOrLoadTexture("novel-chan")
 
-    val winDevice = Nrt_IWindowingPluginProvider_GetWindowingDevice(windowing)
-    Nrt_IWindowingDevice_SetWindowTitle(winDevice, "My empty game")
-    while (Nrt_IWindowingDevice_GetShouldClose(winDevice) == 0) {
-        Nrt_IWindowingDevice_ProcessAllMessages(winDevice)
-        Nrt_StepTimer_tick(timer, tickEvent)
+    renderingSystem.forceVertexTextureFutureResolution()
+    val texture = textureFuture.getValueOrThrow()
+
+    val transformBuf = scheduler.componentCache.getDefaultComponentBuffer(TransformComponentStruct)
+
+    val sprite = renderingSystem.createSpriteEntityOutsideOfSystem(texture, scheduler)
+
+    val inputSys = scheduler.getBuiltInSystem<InputSystem>()
+    inputSys.addMapping("Spin", "S")
+    val mappingId = inputSys.getMappingId("Spin")
+
+    val sys = MyCoolSystem(sprite, mappingId)
+    scheduler.registerSystem(sys)
+
+    scheduler.componentCache.prepAllBuffersForNextFrame()
+
+    val timer = StepTimer(0, 0.1)
+
+    val windowDevice = windowing.getWindowingDevice()
+    windowDevice.windowTitle = "Hello from Kotlin!"
+
+    val updateEvent = TimerTickEvent()
+    updateEvent += {
+        scheduler.executeIteration(it)
     }
 
-//    sumExperiments()
-
-//    NovelRTLoader.load()
-//    val scheduler = SystemScheduler(4u)
-//    val componentCache = scheduler.componentCache
-//    val catalogue = Catalogue(0u, componentCache, scheduler.entityCache)
-//
-//    val niceComponentTypeId = componentCache.registerComponentType(Vector3)
-//    val niceComponentBuffer = componentCache.getComponentBufferById(niceComponentTypeId)
-//
-//    val niceEntity = catalogue.createEntity()
-//    val tempVector = Vector3.allocateTemp().mutate {
-//        set(Vector3.x, 7.2f)
-//        set(Vector3.y, 4.2f)
-//        set(Vector3.z, 8.2f)
-//    }
-//    niceComponentBuffer.pushComponentUpdateInstruction(0u, niceEntity, tempVector.move())
-//
-//    scheduler.executeIteration(Timestamp.ZERO)
-//    print("let's a go?")
-//    for (i in 1..10) {
-//        benchmark("get it 20000 times safe") {
-//            var sum = 0.0f
-//            for (j in 1..20000) {
-//                niceComponentBuffer.getComponent(niceEntity)
-//            }
-//        }
-//    }
-//    print("----")
-//    for (i in 1..10) {
-//        benchmark("get it 20000 times unsafe") {
-//            var sum = 0.0f
-//            for (j in 1..20000) {
-//                niceComponentBuffer.getComponentUnsafe(niceEntity)
-//            }
-//        }
-//    }
-
-}
-
-fun sumExperiments() {
-    val array = Vector3.allocateArray(20000)
-    for (struct in array) {
-        struct.set(Vector3.x, 4f)
-        struct.set(Vector3.y, 4f)
-        struct.set(Vector3.z, 4f)
-    }
-    for (i in 1..100) {
-        benchmark("sum it 20000 times (iterator)") {
-            sumIterator(array)
-        }
-    }
-    for (i in 1..100) {
-        benchmark("sum it 20000 times (forEach)") {
-            sumForEach(array)
-        }
+    while (!windowDevice.shouldClose) {
+        windowDevice.processAllMessages()
+        timer.tick(updateEvent)
     }
 }
 
-// [BENCHMARK: sum it 20000 times (iterator)] Time elapsed: 23,1000µs -> 0,0ms
-fun sumIterator(array: StructArray<Vector3>) {
-    var sum = 0.0f
-    for (struct in array) {
-        sum += struct.get(Vector3.x) + struct.get(Vector3.y) + struct.get(Vector3.z)
-    }
-}
-
-// [BENCHMARK: sum it 20000 times (forEach)] Time elapsed: 19,3000µs -> 0,0ms
-fun sumForEach(array: StructArray<Vector3>) {
-    var sum = 0.0f
-    array.forEach {
-        sum += it.get(Vector3.x) + it.get(Vector3.y) + it.get(Vector3.z)
-    }
-}
-
-inline fun benchmark(name: String, action: () -> Unit) {
-    val time = System.nanoTime()
-    action()
-    val elapsed = System.nanoTime() - time;
-    println(
-        "[BENCHMARK: %s] Time elapsed: %.4fµs -> %.1fms"
-            .format(name, elapsed.toFloat() / 1000f, elapsed.toFloat() / 1000f / 1000f)
-    )
-}
 /*
 fun oldBenchmark() {
     val buffer = ByteBuffer.allocateDirect(720_000)

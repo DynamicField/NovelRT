@@ -1,6 +1,5 @@
-import dev.novelrt.gradle.FixModulesMethod
+
 import org.gradle.jvm.tasks.Jar
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 description = "NovelRT for Java - Core"
 

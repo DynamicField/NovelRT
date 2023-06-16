@@ -2,32 +2,21 @@ package com.github.novelrt.nativedata
 
 import com.github.novelrt.fumocement.memory.NativeStack
 
-inline fun NativeStack.allocate(size: Long, action: (address: Long) -> Unit) {
+internal inline fun <T> NativeStack.scope(action: NativeStack.Scope.() -> T): T {
+    return this.scope().use(action)
+}
+
+@Suppress("ConvertTryFinallyToUseCall")
+internal inline fun <T> stackScope(action: NativeStack.Scope.() -> T): T {
+    // The reason we're not using "use()" is because it has some exception handling (see this.closeFinally)
+    // for suppressing exceptions that happen inside the close() function.
+    // HOWEVER, scope.close() never ever throws anything (and if it does, it would likely be an assertion error).
+    // For some reason, this prevents the scope from being optimized correctly with escape analysis.
+    // ...Which would induce a ton of GC junk.
+    val scope = NativeStack.current().scope()
     try {
-        action(this.allocateManual(size))
+        return action(scope)
     } finally {
-        this.freeManual(size)
+        scope.close()
     }
-}
-
-inline fun <S : StructDefinition<S>> NativeStack.allocate(
-    definition: StructDefinition<S>,
-    action: (address: StructPointer<S>) -> Unit
-) {
-    allocate(definition.size) {
-        action(StructPointer(it))
-    }
-}
-
-
-inline fun NativeStack.scope(action: NativeStack.Scope.() -> Unit) {
-    this.scope().use(action)
-}
-
-fun <S : StructDefinition<S>> NativeStack.Scope.allocate(definition: StructDefinition<S>): StructPointer<S> {
-    return StructPointer(this.allocate(definition.size))
-}
-
-inline fun stackScope(action: NativeStack.Scope.() -> Unit) {
-    NativeStack.current().scope(action)
 }

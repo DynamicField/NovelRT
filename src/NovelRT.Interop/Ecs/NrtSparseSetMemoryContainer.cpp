@@ -523,3 +523,51 @@ NrtResult Nrt_SparseSetMemoryContainer_ConstIterator_Destroy(NrtSparseSetMemoryC
 
     return NRT_SUCCESS;
 }
+
+NrtResult Nrt_SparseSetMemoryContainer_Iterator_MoveNextUntil(NrtSparseSetMemoryContainer_IteratorHandle iterator,
+                                                              NrtSparseSetMemoryContainer_IteratorHandle end,
+                                                              size_t* outputId,
+                                                              void** outputComponent,
+                                                              NrtBool* outputHasMoved)
+{
+    if (iterator == nullptr)
+    {
+        Nrt_setErrMsgIsNullInstanceProvidedInternal();
+        return NRT_FAILURE_NULL_INSTANCE_PROVIDED;
+    }
+
+    if (outputId == nullptr || outputComponent == nullptr || outputHasMoved == nullptr)
+    {
+        Nrt_setErrMsgIsNullArgumentProvidedInternal();
+        return NRT_FAILURE_NULL_ARGUMENT_PROVIDED;
+    }
+
+    try
+    {
+        auto itPtr = reinterpret_cast<SparseSetMemoryContainer::ConstIterator*>(iterator);
+        auto outPtr = reinterpret_cast<SparseSetMemoryContainer::ConstIterator*>(end);
+        if (*itPtr != *outPtr)
+        {
+            *outputHasMoved = true;
+            *outputId = std::get<0>(itPtr->operator*());
+            *outputComponent = const_cast<void*>(std::get<1>(itPtr->operator*()).GetDataHandle());
+            (*itPtr)++;
+        }
+        else
+        {
+            *outputHasMoved = false;
+        }
+    }
+    catch (const std::out_of_range&)
+    {
+        Nrt_setErrMsgIsArgumentOutOfRangeInternal();
+        return NRT_FAILURE_ARGUMENT_OUT_OF_RANGE;
+    }
+    catch (const std::exception&) // I'm not sure if this will throw anything else. Docs weren't clear. :(
+    {
+        Nrt_setErrMsgErrorUnknownInternal();
+        return NRT_FAILURE_UNKNOWN;
+    }
+
+    return NRT_SUCCESS;
+}

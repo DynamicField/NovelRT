@@ -30,6 +30,19 @@ class Catalogue internal constructor(
     fun createEntity(): EntityId = NovelRT.Nrt_Catalogue_CreateEntity(handle).toULong()
     fun deleteEntity(entity: EntityId) = NovelRT.Nrt_Catalogue_DeleteEntity(handle, entity.toLong()).handleNrtResult()
 
+    @Suppress("UNCHECKED_CAST")
+    private fun <C : ComponentDefinition<C>> getComponentView(def: C, id: ComponentTypeId): ComponentView<C> {
+        if (!viewMap.containsKey(id)) {
+            viewMap[id] = ComponentView(def, NovelRT.Nrt_Catalogue_GetComponentViewById(handle, id.toLong()))
+        }
+        return viewMap[id] as ComponentView<C>
+    }
+
+    fun <C : DefaultComponentDefinition<C>> getDefaultComponentView(def: C): ComponentView<C> =
+        getComponentView(def, def.componentId)
+
+    private var viewMap: MutableMap<ComponentTypeId, ComponentView<*>> = mutableMapOf()
+
     companion object : TrackingContainer<Catalogue>(NativeObjectTracker.Target.UNOWNED_OBJECTS) {
         override fun makeObject(handle: ObjectHandle<Catalogue>): Catalogue = Catalogue(handle.value, false)
     }

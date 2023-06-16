@@ -1,5 +1,6 @@
 package com.github.novelrt.event
 
-fun interface InteractionListener {
+
+@Deprecated("old novelrt") fun interface InteractionListener {
     fun listen()
 }

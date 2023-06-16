@@ -1,5 +1,6 @@
 package com.github.novelrt.nativedata
 
+import com.github.novelrt.ecs.Atom
 import com.github.novelrt.fumocement.layout.StructLayoutArranger
 import com.github.novelrt.fumocement.layout.TypeLayout
 import com.github.novelrt.fumocement.memory.NativeMemory
@@ -17,6 +18,11 @@ abstract class StructDefinition<S : StructDefinition<S>> {
             return layout.size
         }
 
+
+    abstract fun zero(st: StructPointer<S>)
+    @JvmName("zeroRecv")
+    fun StructPointer<S>.zero() = zero(this)
+
     protected fun intField(): StructField<S, Int> {
         return registerField(TypeLayout.JAVA_INT)
     }
@@ -33,39 +39,36 @@ abstract class StructDefinition<S : StructDefinition<S>> {
         return registerField(TypeLayout.JAVA_DOUBLE)
     }
 
+    protected fun atomField(): StructField<S, Atom> {
+        return registerField(TypeLayout.JAVA_LONG)
+    }
+
     protected fun <S2 : StructDefinition<S2>> structField(definition: S2): StructField<S, S2> {
         return registerField(definition.layout)
     }
 
-    private fun <T> registerField(layout: TypeLayout): StructField<S, T> {
+    protected fun <T> registerField(layout: TypeLayout): StructField<S, T> {
         return StructField(arranger.addField(layout))
     }
 
-    fun allocate(): AllocatedStruct<S> {
-        return AllocatedStruct(StructPointer(NativeMemory.access().allocateMemory(size)))
+    fun allocateHeap(): HeapStruct<S> {
+        val struct = StructPointer<S>(NativeMemory.access().allocateMemory(size))
+        zero(struct)
+        return HeapStruct(struct)
     }
 
-    inline fun allocate(initializer: StructPointer<S>.() -> Unit): AllocatedStruct<S> {
-        val struct = allocate()
-        struct.mutate(initializer)
-        return struct
+    inline fun allocateTemp(initializer: (struct: StructPointer<S>) -> Unit) {
+        allocateTempNoZero { zero(it); initializer(it) }
     }
+    inline fun allocateTempNoZero(initializer: (struct: StructPointer<S>) -> Unit) {
+        val stack = NativeStack.current()
+        val struct = StructPointer<S>(stack.allocateManual(size))
 
-    inline fun allocateOnStack(action: (StructPointer<S>) -> Unit) {
-        NativeStack.current().allocate(this, action)
-    }
-
-    fun allocateTemp(): TemporaryAllocatedStruct<S> {
-        return TemporaryAllocatedStruct(NativeMemory.access().allocateMemory(size))
-    }
-
-    inline fun allocateTemp(initializer: StructPointer<S>.() -> Unit): TemporaryAllocatedStruct<S> {
-        val struct = TemporaryAllocatedStruct<S>(NativeMemory.access().allocateMemory(size))
-        return struct.mutate(initializer)
-    }
-
-    fun allocateRaw(): StructPointer<S> {
-        return StructPointer(NativeMemory.access().allocateMemory(size))
+        try {
+            initializer(struct)
+        } finally {
+            stack.freeManual(size)
+        }
     }
 
     @Suppress("UNCHECKED_CAST")
@@ -96,4 +99,3 @@ abstract class StructDefinition<S : StructDefinition<S>> {
         }
     }
 }
-

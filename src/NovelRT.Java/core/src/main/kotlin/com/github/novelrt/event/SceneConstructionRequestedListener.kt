@@ -1,5 +1,5 @@
 package com.github.novelrt.event
 
-fun interface SceneConstructionRequestedListener {
+@Deprecated("Old novelrt") fun interface SceneConstructionRequestedListener {
     fun listen()
 }

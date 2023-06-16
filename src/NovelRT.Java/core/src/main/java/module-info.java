@@ -6,12 +6,19 @@ module novelrt {
 
   exports com.github.novelrt;
   exports com.github.novelrt.ecs;
+  exports com.github.novelrt.ecs.graphics;
+  exports com.github.novelrt.ecs.input;
   exports com.github.novelrt.maths;
   exports com.github.novelrt.event;
   exports com.github.novelrt.timing;
+  exports com.github.novelrt.input;
   exports com.github.novelrt.nativedata;
+  exports com.github.novelrt.pluginmanagement;
+  exports com.github.novelrt.resourcemanagement;
   exports com.github.novelrt.logging;
   exports com.github.novelrt.interop; // temp!
+  exports com.github.novelrt.threading;
+  exports com.github.novelrt.windowing;
 
   provides System.LoggerFinder with com.github.novelrt.logging.NovelLoggerFinder;
 }

@@ -1,7 +1,8 @@
 package com.github.novelrt.ecs
 
-typealias EntityId = ULong
-typealias ComponentTypeId = ULong
-typealias PoolId = ULong
-typealias SparseSetKey = ULong
-// TODO: Fix FumoCement so these can be ULong
+typealias Atom = ULong
+typealias EntityId = Atom
+typealias ComponentTypeId = Atom
+typealias PoolId = Atom
+typealias SparseSetKey = Atom
+// TODO: Fix FumoCement so we don't need to do annoying conversions like this.

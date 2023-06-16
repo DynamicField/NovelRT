@@ -24,14 +24,18 @@ if (repositoriesFile.exists()) {
 include("novelrt")
 include("sample-kotlin")
 
-val fumoCementPath = repositoriesProps["novelrt.fumocement.path"]
-if (fumoCementPath != null) {
-  includeBuild(file(fumoCementPath))
-}
-
 val pluginPath = repositoriesProps["novelrt.plugin.path"]
 if (pluginPath != null) {
   includeBuild(file(pluginPath))
+}
+
+val fumoCementPath = repositoriesProps["novelrt.fumocement.path"]
+if (fumoCementPath != null) {
+  includeBuild(file(fumoCementPath)) {
+    dependencySubstitution {
+      substitute(module("com.github.novelrt:fumo-cement")).using(project(":"))
+    }
+  }
 }
 
 project(":novelrt").projectDir = file("core")
