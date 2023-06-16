@@ -11,6 +11,8 @@ extern "C"
 {
 #endif
 
+    typedef struct NrtInputSystem* NrtInputSystemHandle;
+
     // Components
     // Note that int32_t is used instead of NrtKeyState, as, in C,
     // enums are *not* guaranteed to be exactly the size of an int.

@@ -6,5 +6,6 @@
 
 #include "NrtEcsInputComponents.h"
 #include "NrtEcsInputTypedefs.h"
+#include "NrtInputSystem.h"
 
 #endif // NOVELRT_INTEROP_ECS_INPUT_ECSINPUT_H

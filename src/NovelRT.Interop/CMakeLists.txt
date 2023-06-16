@@ -75,7 +75,7 @@ set(INTEROP_SOURCES
   Utilities/NrtMisc.cpp
   Utilities/NrtEvent.cpp
 
-  Windowing/NrtIWindowingDevice.cpp)
+  Windowing/NrtIWindowingDevice.cpp Ecs/Input/NrtInputSystem.cpp)
 
 add_library(Interop SHARED ${INTEROP_SOURCES})
 add_dependencies(Interop Engine)
