@@ -114,6 +114,6 @@ NrtGeoVector2F Nrt_IInputDevice_GetMousePosition(NrtIInputDeviceHandle device)
 NrtInputActionList Nrt_IInputDevice_GetAllMappings(NrtIInputDeviceHandle device)
 {
     auto mappings = reinterpret_cast<IInputDevice*>(device)->GetAllMappings();
-    return NrtInputActionList{reinterpret_cast<NrtInputActionHandle>(&mappings.back()),
-                              reinterpret_cast<NrtInputActionHandle>(&mappings.front()), sizeof(InputAction)};
+    return NrtInputActionList{reinterpret_cast<NrtInputActionHandle>(&mappings.front()),
+                              reinterpret_cast<NrtInputActionHandle>(&mappings.back()), sizeof(InputAction)};
 }
